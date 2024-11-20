@@ -327,76 +327,73 @@ button {
 
 
 
-  .maman2{
-    position: relative;
-    display: flex;
-    flex-wrap: wrap;
-    border: 2px solid hotpink;
+  .about {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Two equal columns */
+    align-items: center;
+    gap: 2rem; /* Adjust gap as needed */
+    border: none; /* Remove debug border if no longer needed */
   }
-
-
-.about{
-  display: grid;
-  grid-template-columns: repeat(2 ,2fr);
-  grid-gap: 5rem;
-  align-items: center;
-  border: 2px solid red;
   
-}
-.about-img img {
-  max-width: 100%;
-  width: 580px;
-  height: auto;
-  border: 2px solid pink;
-
-}
-
-.about-text {
+  .about-img img {
+    max-width: 100%;
+    width: 600px; /* Adjust width as needed */
+    height: 600px; /* Adjust height to make it less long */
+    object-fit: cover; /* Ensures the image fits nicely */
+    border-radius: 10px; /* Optional for rounded edges */
+    
+  }
   
-  border: 2px solid rgb(29, 10, 126);
-}
-
-.about-text h3{
-  color: var(--text-color);
-  font-size: 30px;
-  font-weight: 300;
-  letter-spacing: 6px;
-  margin: 0 0 30px;
   
-}
-.about-text h2{
-  margin-bottom: 0.5rem;
-  font-weight: 500;
-  font-size: 1.9rem;
-  line-height: 1.2;
-  max-width: 600px;
-  margin-bottom: 2rem;
-  line-height: 50px;
-}
-.about-text p{
-  max-width: 570px;
-  font-size: 1rem;
-  font-weight: 300;
-  margin-bottom: 1.5rem;
-  line-height: 1.8rem;
-  color: var(--text-color);
-  line-height: 30px;
-}
-.count {
-  margin-bottom: 2rem;
- 
-}
-.about-text .count a{
-  color: var(--text-color);
-  margin-right: 20px;
-  word-spacing: 5px;
-}
-.count span{
-  color: var(--third-main-color);
-  font-size: 2.7rem;
-  font-weight: 600;
-}
-
+  .about-text {
+    padding: 1rem; /* Add some padding for text readability */
+    color: var(--text-color);
+  }
+  
+  .about-text h3 {
+    color: var(--text-color);
+    font-size: 30px;
+    font-weight: 300;
+    letter-spacing: 6px;
+    margin: 0 0 30px;
+  }
+  
+  .about-text h2 {
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    font-size: 1.9rem;
+    line-height: 1.2;
+    max-width: 600px;
+    margin-bottom: 2rem;
+    line-height: 50px;
+  }
+  
+  .about-text p {
+    max-width: 570px;
+    font-size: 1rem;
+    font-weight: 300;
+    margin-bottom: 1.5rem;
+    line-height: 1.8rem;
+    color: var(--text-color);
+    line-height: 30px;
+  }
+  
+  .count {
+    margin-bottom: 2rem;
+  }
+  
+  .about-text .count a {
+    color: var(--text-color);
+    margin-right: 20px;
+    word-spacing: 5px;
+  }
+  
+  .count span {
+    color: var(--third-main-color);
+    font-size: 2.7rem;
+    font-weight: 600;
+  }
+  
 .main-btn .btn {
   margin-right: 20px;
 
@@ -471,7 +468,7 @@ button {
     height: auto; 
   }
   
-
+/* 
 
 
 .contact-form{
@@ -486,7 +483,7 @@ button {
   position: relative;
   width: 550px;
 
-}
+} */
 
 form input,
 form textarea{
@@ -660,7 +657,9 @@ form .send-btn {
 
 
 
-
+/* .maman3{
+  border: 2px solid pink;
+}
 
 .container {
   display: flex;
@@ -721,14 +720,107 @@ h3.title {
 .card-content a:hover {
   text-decoration: underline; 
 }
+ */
 
 
+
+
+
+/* Contact Me Section */
+section.contact {
+  padding: 60px 0;
+  background: var(--bg-color); /* Matches the portfolio theme */
+}
+
+.contact .center {
+  margin-bottom: 30px;
+}
+
+.contact .center h3 {
+  text-align: center;
+  font-size: 28px;
+  color: var(--text-color);
+}
+
+.contact-form {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.contact-form form {
+  width: 100%;
+  max-width: 600px; /* Ensures the form does not stretch too wide */
+  background: #000; /* Background color for the form */
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Adds subtle shadow */
+}
+
+form input,
+form textarea {
+  width: 100%; /* Ensures inputs take full width */
+  margin-bottom: 15px;
+  padding: 15px;
+  border: 1px solid #444;
+  background: #111; /* Matches dark theme */
+  color: #fff;
+  border-radius: 5px;
+}
+
+form input::placeholder,
+form textarea::placeholder {
+  color: #777; /* Lighter text for placeholders */
+}
+
+form .send-btn {
+  display: block;
+  width: 100%;
+  padding: 15px;
+  background: var(--button-bg-color); /* Button color */
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  text-transform: uppercase;
+  font-size: 16px;
+}
+
+form .send-btn:hover {
+  background: var(--button-hover-bg-color); /* Hover effect */
+  transform: translateY(-2px); /* Slight lift on hover */
+}
 
 #clearData {
-  
-  padding: 0px 25px; 
-  width: 550px;
+  margin-top: 10px;
+  width: 100%; /* Same width as the send button */
+  padding: 15px;
+  background: #444; /* Neutral color for clear button */
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
 
+#clearData:hover {
+  background: #555; /* Darker hover effect */
+}
+
+form input::placeholder,
+form textarea::placeholder {
+  color: #aaa; /* Make placeholder text lighter and subtle */
+  font-size: 14px; /* Slightly smaller font size for placeholders */
+}
+@media (max-width: 768px) {
+  .contact-form form {
+    padding: 20px;
+  }
+
+  form .send-btn,
+  #clearData {
+    padding: 12px;
+    font-size: 14px;
+  }
 }
 
 
