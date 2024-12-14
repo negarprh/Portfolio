@@ -9,7 +9,6 @@ Welcome to my personal portfolio repository! 🚀 This project showcases my skil
 - **Projects Showcase:** Explore my completed projects with links to live demos and GitHub repositories.
 - **Blog Section:** Stay updated with my latest blogs and tech insights.
 - **Contact Me:** A functional contact form for visitors to send inquiries directly.
-- **Dark/Light Mode:** A sleek toggle for switching between dark and light themes.
 
 ---
 
