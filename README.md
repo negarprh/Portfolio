@@ -86,7 +86,3 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ### **✨ Special Thanks**
 - To all the amazing developers and designers who inspired me.
 - To the open-source community for providing resources and support.
-
----
-
-This README is designed to provide a professional overview of your repository. Make sure to customize the "Live Demo" section with your actual hosted portfolio link. Let me know if you'd like further adjustments! 😊
