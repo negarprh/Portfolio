@@ -77,9 +77,7 @@ body {
   font-family: 'Poppins', 'Montserrat', sans-serif;
   color: var(--text-color);
   font-size: 2.5em; /* Prominent look */
-  font-weight: 500; /* Bold for emphasis */
-  letter-spacing: 0.05em; /* Slight spacing */
-  text-transform: uppercase; /* Makes name bold and impactful */
+
 }
 
 
@@ -98,6 +96,7 @@ body {
   display: flex;
   flex-wrap: wrap;
   /* border: 2px solid red; */
+  
 }
 
 .hero {
@@ -112,6 +111,7 @@ body {
   width: 90px;
   height: auto;
   cursor: pointer;
+  /* position: relative; */
 
 }
 
@@ -129,7 +129,7 @@ header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  /* padding-top: 35px; */
+  padding: 15px 10%;
   padding-left: 12%;
   padding-right: 12%;
   z-index: 1000;
@@ -256,6 +256,7 @@ button {
   }
 }
 
+
 .cube>div {
   width: 100%;
   height: 100%;
@@ -368,21 +369,14 @@ button {
 
 .about-text h3 {
   color: var(--text-color);
-  font-size: 30px;
+  font-size: 40px;
   font-weight: 300;
   letter-spacing: 6px;
   margin: 0 0 30px;
+ 
 }
 
-.about-text h2 {
-  margin-bottom: 0.5rem;
-  font-weight: 500;
-  font-size: 1.9rem;
-  line-height: 1.2;
-  max-width: 600px;
-  margin-bottom: 2rem;
-  line-height: 50px;
-}
+
 
 .about-text p {
   max-width: 570px;
@@ -430,13 +424,16 @@ button {
 }
 
 .resume-content {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(360px, auto));
-  grid-gap: 2rem;
+  display: flex;
+  flex-wrap: wrap;
+  /* grid-template-columns: repeat(auto-fill, minmax(360px, auto)); */
+  /* grid-gap: 2rem; */
   align-items: center;
   margin-top: 4.4rem;
   padding-left: 47px;
   padding-right: 47px;
+  justify-content: space-evenly;
+  /* border: 1px solid purple; */
 }
 
 .skills-icons {
@@ -450,6 +447,7 @@ button {
   gap: 1.5rem;
   /* Space between skill items */
   margin-top: 15px;
+  /* border: 1px solid red; */
 
 }
 
@@ -462,6 +460,7 @@ button {
   gap: 0.5rem;
   /* Space between icon and text */
   width: 25%;
+  /* border: 1px solid pink; */
 }
 
 .skill-item img {
@@ -498,6 +497,10 @@ button {
   transition: all 0.4s ease;
   text-align: center;
   /* Ensure alignment for all child elements */
+  display: flex;
+  justify-content: space-evenly;
+  /* border: 1px solid orange; */
+  width: 30.3%;
 }
 
 .row:hover {
@@ -719,73 +722,6 @@ form .send-btn:hover {
 
 
 
-/* .maman3{
-  border: 2px solid pink;
-}
-
-.container {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 20px;
-  margin-top: 20px;
-}
-
-.card {
-  width: 300px;
-  border-radius: 10px;
-  overflow: hidden;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  background: #000; 
-  transition: transform 0.5s, flex 0.5s ease-in-out; 
-}
-
-.card:hover {
-  transform: translateY(-10px); 
-}
-
-.card img {
-  width: 100%;
-  height: 200px;
-  object-fit: cover;
-  border-radius: 10px 10px 0 0;
-}
-
-.card-content {
-  padding: 20px;
-  background: #000; 
-}
-
-h3.title {
-  color: #ffffff;
-  text-align: center;
-  padding-bottom: 2rem;
-  
-}
-
-.card-content h1 {
-  margin-top: 0;
-  font-size: 24px;
-  color: #ffffff; 
-}
-
-.card-content p {
-  font-size: 16px;
-  color: #aaaaaa; 
-}
-
-.card-content a {
-  color: #ffffff; 
-  text-decoration: none; 
-}
-
-.card-content a:hover {
-  text-decoration: underline; 
-}
- */
-
-
-
 
 
 /* Contact Me Section */
@@ -814,24 +750,19 @@ section.contact {
 .contact-form form {
   width: 100%;
   max-width: 600px;
-  /* Ensures the form does not stretch too wide */
   background: #000;
-  /* Background color for the form */
   padding: 30px;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  /* Adds subtle shadow */
 }
 
 form input,
 form textarea {
   width: 100%;
-  /* Ensures inputs take full width */
   margin-bottom: 15px;
   padding: 15px;
   border: 1px solid #444;
   background: #111;
-  /* Matches dark theme */
   color: #fff;
   border-radius: 5px;
 }
@@ -839,7 +770,6 @@ form textarea {
 form input::placeholder,
 form textarea::placeholder {
   color: #777;
-  /* Lighter text for placeholders */
 }
 
 form .send-btn {
@@ -886,20 +816,9 @@ form textarea::placeholder {
   color: #aaa;
   /* Make placeholder text lighter and subtle */
   font-size: 14px;
-  /* Slightly smaller font size for placeholders */
+
 }
 
-@media (max-width: 768px) {
-  .contact-form form {
-    padding: 20px;
-  }
-
-  form .send-btn,
-  #clearData {
-    padding: 12px;
-    font-size: 14px;
-  }
-}
 
 
 #back-to-top {
@@ -986,37 +905,119 @@ form textarea::placeholder {
   }
 
   header {
-    padding: 18px 3%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 5%;
+    background-color: var(--bg-color);
   }
 
   #menu-icon {
     display: block;
-    color: white;
+    font-size: 28px;
+    color: var(--text-color);
+    cursor: pointer;
+    z-index: 1100;
+  }
+  .container{
+    width: 0px;
+    height: 100px;
+    position: relative;
+    margin: 10px auto;
+    /* border: 2px solid pink; */
+    transform-style: preserve-3d;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+  }
+  .cube{
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50px;
+    height: 50px;
+    transform-style: preserve-3d;
+    transform-origin: center;
+    animation: rotateCube 20s infinite linear;
+  }
+  .cube img{
+    width: 30px;
+    height: 30px;
+  }
+
+  .cube>div:nth-of-type(1) {
+    transform: translateZ(-150px);
+  }
+  
+  .projects-container {
+    padding: 1rem;
+    grid-template-columns: 1fr;
+  }
+
+  .row {
+    /* padding: 1rem; */
+    /* grid-template-columns: 1fr; */
+    display: flex;
+    flex-direction: column;
+    justify-items: center;
+    /* border: 1px solid white; */
+    width: 100%;
+    margin: 20px 0px;
+    
+  }
+  
+  .resume{
+    display: flex;
+    justify-content: center;
+    flex-direction: column  ;
   }
 
   .navbar {
-    position: absolute;
-    top: -500px;
+    position: fixed;
+    top: 80px; /* Adjust based on header height */
     left: 0;
-    right: 0;
-    display: flex;
+    width: 100%;
+    background-color: var(--bg-color);
     flex-direction: column;
-    background: #0b0b13;
-    box-shadow: 0px 15px 30px 0px rgb(0 0 0 / 70%);
-    text-align: left;
-    transition: ease all 0.35s;
-  }
-
-  .navbar a {
-    display: block;
-    padding: 1rem;
-    border-left: 2px solid var(--text-color);
-    margin: 1rem;
-    display: block;
+    align-items: flex-start;
+    padding: 15px 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+    transform: translateY(-200%);
+    transition: transform 0.3s ease-in-out;
+    z-index: 1000;
+    /* border: 1px solid pink; */
+    
   }
 
   .navbar.active {
-    top: 100%;
+    transform: translateY(-70px); /* Show the menu when active */
+  }
+
+  .navbar a {
+    display: flex;
+    width: 400px;
+    padding: 10px 15px;
+    text-align: left;
+    color: var(--text-color);
+    font-size: 16px;
+    justify-content: center;
+    transition: 0.8s;
+    /* border: 1px solid pink; */
+    
+  }
+
+  .navbar a:hover {
+    /* background-color: var(--second-main-color); */
+    color: var(--second-main-color);
+    font-size: 20px;
+  }
+
+  body.active-menu {
+    overflow: hidden;
   }
 
   .main-text h1 {
@@ -1037,36 +1038,6 @@ form textarea::placeholder {
     text-align: right;
   }
 
-}
-
-@media (max-width: 795px) {
-  .hero {
-    grid-template-columns: 1fr;
-    grid-gap: 2rem;
-    text-align: center;
-    margin-top: 80px;
-    height: 100vh;
-
-  }
-
-  .about {
-    grid-template-columns: 1fr;
-    text-align: center;
-  }
-
-  .about-tex h2 {
-    max-width: 100%;
-  }
-
-  .about-tex p {
-    max-width: 100%;
-  }
-}
-
-
-
-
-@media (max-width: 830px) {
   .specialties {
     padding: 2rem;
   }
@@ -1082,75 +1053,80 @@ form textarea::placeholder {
   .skill-row h3 {
     font-size: 1rem;
   }
-}
 
-
-
-
-
-
-@media (max-width: 1430px) {
-
-  .team .center h2 {
-    font-size: 1.5rem;
-  }
-}
-
-@media (max-width: 1020px) {
-
-  .team-carousel .team-member img {
-    width: 80px;
-    height: 80px;
-  }
-
-  .team-carousel .team-member h3 {
-    font-size: 1rem;
-  }
-}
-
-@media (max-width: 830px) {
-  .team {
-    padding: 2rem 1rem;
-  }
-
-  .team .center {
-    padding: 0 1rem;
-  }
-
-  .team .center h2 {
-    font-size: 1.2rem;
-  }
-
-  .team-carousel .team-member {
-    padding: 0 10px;
-  }
-
-  .team-carousel .team-member img {
-    width: 60px;
-    height: 60px;
-  }
-
-  .team-carousel .team-member h3 {
-    font-size: 0.9rem;
-  }
 }
 
 @media (max-width: 795px) {
+  .hero {
+    position: relative;
+    width: 100%;
+    /* grid-template-columns: 1fr; */
+    /* grid-gap: 2rem; */
+    text-align: center;
+    /* margin-top: 20px; */
+    height: 100vh;
+    /* border: 3px solid red; */
+    display: flex;
+    justify-content: center;
 
-  .team-carousel .team-member img {
-    width: 50px;
-    height: 50px;
   }
-
-  .team-carousel .team-member h3 {
-    font-size: 0.8rem;
+  .main-text{
+    width: 75%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    padding: 0;
+    
+    
   }
+  .main-text h1 {
+    font-size: 40px;
+    /* border: 2px solid hotpink; */
+    width: 100%;
+   
+    
+  }
+  
 
-  .owl-carousel .owl-item {
+  .main-text h1 span{
+    font-size: 30px;
+    /* border: 2px solid greenyellow; */
+  }
+  .social-icons{
     display: flex;
     justify-content: center;
   }
+  .main-text p{
+    font-size: 15px;
+  }
+
+
+  .about {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+
+  .about-tex h2 {
+    max-width: 100%;
+  }
+
+  .about-tex p {
+    max-width: 100%;
+  }
+
+  .contact-form form {
+    padding: 20px;
+  }
+
+  form .send-btn,
+  #clearData {
+    padding: 12px;
+    font-size: 14px;
+  }
+
 }
+
+
 
 /*--------------------------------------------------------------
 # Global Settings
