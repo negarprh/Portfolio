@@ -869,6 +869,56 @@ form textarea::placeholder {
 
 
 
+.social-icons-contact {
+  margin-top: 30px;
+  padding: 20px;
+  text-align: center;
+  background: linear-gradient(135deg, #1e1e1e, #121212);
+  border-radius: 15px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+  color: #d3d3d3;
+}
+
+.social-icons-contact h3 {
+  font-size: 2rem;
+  color: #b026ff;
+  margin-bottom: 10px;
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+.social-icons-contact p {
+  font-size: 1.1rem;
+  margin-bottom: 20px;
+  color: #d3d3d3;
+}
+
+.icon-container {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.social-icons-contact img {
+  width: 60px;
+  height: 60px;
+  transition: transform 0.4s ease, filter 0.4s ease;
+  /* filter: grayscale(100%); */
+}
+
+.social-icons-contact a:hover img {
+  transform: scale(1.4);
+  filter: grayscale(0%);
+}
+
+.social-icons-contact a {
+  display: inline-block;
+  transition: transform 0.3s ease;
+}
+
+.social-icons-contact a:hover {
+  transform: translateY(-5px);
+}
+
 
 
 
