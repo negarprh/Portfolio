@@ -14,7 +14,7 @@ Welcome to my personal portfolio repository! 🚀 This project showcases my skil
 
 ## **🖼️ Screenshots**
 ### Homepage
-![Homepage](assets/images/screenshots/homepage.png)
+![Homepage](assets/images/screenshots/Homepage.png)
 
 ### Projects Section
 ![Projects Section](assets/images/screenshots/projects.png)
