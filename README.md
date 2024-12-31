@@ -2,6 +2,8 @@
 
 Welcome to my personal portfolio repository! 🚀 This project showcases my skills, projects, and passion for web development. The portfolio is designed to be clean, modern, and responsive, highlighting my journey as a developer and allowing visitors to connect with me directly.
 
+🔗 **Live Demo**: [Portfolio](https://negarprh.github.io/Portfolio/)
+
 ---
 
 ## **🌟 Features**
@@ -48,7 +50,7 @@ Welcome to my personal portfolio repository! 🚀 This project showcases my skil
 ---
 
 ## **🌐 Live Demo**
-Check out the live version of the portfolio: [Live Portfolio](#) *(Add your hosted link here, e.g., Netlify, GitHub Pages, Vercel)*
+Check out the live version of the portfolio: [Portfolio](https://negarprh.github.io/Portfolio/)
 
 ---
 
