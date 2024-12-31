@@ -18,7 +18,6 @@ const sr = ScrollReveal({
 });
 
 sr.reveal(".main-text", { delay: 200, origin: "top" });
-
 $(document).ready(function () {
   $("#contactForm").submit(function (event) {
     event.preventDefault();
@@ -28,9 +27,22 @@ $(document).ready(function () {
       isDescriptionValid = validateDescription();
 
     if (isNameValid && isEmailValid && isDescriptionValid) {
-      alert("Thanks for your message, I will get back to you soon!");
+      // Show the thank-you modal
+      $("#thankYouModal").fadeIn();
 
+      // Clear the form
       this.reset();
+    }
+  });
+
+  // Close modal on clicking the close button or outside the modal
+  $(".close-modal").click(function () {
+    $("#thankYouModal").fadeOut();
+  });
+
+  $(window).click(function (event) {
+    if ($(event.target).is("#thankYouModal")) {
+      $("#thankYouModal").fadeOut();
     }
   });
 
@@ -70,25 +82,6 @@ $(document).ready(function () {
     return true;
   }
 });
-
-// const cards = document.querySelectorAll('.card');
-// let activeCardIndex = 0;
-
-// function slideCards() {
-
-//     cards.forEach(card => {
-//         card.classList.remove('card-active');
-//         card.style.order = 1;
-//     });
-
-//     activeCardIndex = (activeCardIndex + 1) % cards.length;
-//     const activeCard = cards[activeCardIndex];
-
-//     activeCard.classList.add('card-active');
-//     activeCard.style.order = 0;
-// }
-
-// slideInterval = setInterval(slideCards, 3500);
 
 document.addEventListener("DOMContentLoaded", (event) => {
   const form = document.getElementById("contactForm");
@@ -145,26 +138,6 @@ function getCookie(name) {
 function deleteCookie(name) {
   document.cookie = name + "=; Max-Age=-99999999;";
 }
-
-function toggleTheme() {
-  const bodyElement = document.body;
-
-  bodyElement.classList.toggle("light-mode");
-  const themeToggleButton = document.getElementById("theme-toggle");
-
-  if (bodyElement.classList.contains("light-mode")) {
-    themeToggleButton.classList.remove("bi-moon-stars-fill");
-    themeToggleButton.classList.add("bi-sun-fill");
-  } else {
-    themeToggleButton.classList.remove("bi-sun-fill");
-    themeToggleButton.classList.add("bi-moon-stars-fill");
-  }
-}
-
-document.addEventListener("DOMContentLoaded", (event) => {
-  const themeToggleButton = document.getElementById("theme-toggle");
-  themeToggleButton.addEventListener("click", toggleTheme);
-});
 
 const mybutton = document.getElementById("back-to-top");
 

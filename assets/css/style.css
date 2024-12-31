@@ -819,6 +819,58 @@ form textarea::placeholder {
 
 }
 
+/* Modal Styling */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+.modal-content {
+  background-color: #121212;
+  margin: 15% auto;
+  padding: 20px;
+  border-radius: 10px;
+  width: 80%;
+  max-width: 400px;
+  text-align: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.modal-content h3 {
+  color: #b026ff;
+  margin-bottom: 10px;
+}
+
+.modal-content p {
+  color: #d3d3d3;
+  margin-bottom: 20px;
+}
+
+.close-modal {
+  color: #fff;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.close-modal:hover,
+.close-modal:focus {
+  color: #b026ff;
+  text-decoration: none;
+}
+
+
+
+
+
 
 
 #back-to-top {
