@@ -31,8 +31,7 @@ Welcome to my personal portfolio repository! 🚀 This project showcases my skil
   - HTML5
   - CSS3 (Flexbox, Grid)
   - JavaScript (Interactive Features)
-- **Backend:** Flask (for functional components like contact form)
-- **Styling Frameworks & Tools:** Bootstrap, Owl Carousel
+- **Styling Frameworks & Tools:** Bootstrap
 - **Animations:** ScrollReveal.js
 
 ---
