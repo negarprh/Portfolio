@@ -18,33 +18,34 @@ const sr = ScrollReveal({
 });
 
 sr.reveal(".main-text", { delay: 200, origin: "top" });
+
 $(document).ready(function () {
-  $("#contactForm").submit(function (event) {
-    event.preventDefault();
+  // $("#contactForm").submit(function (event) {
+  //   event.preventDefault();
 
-    var isNameValid = validateName(),
-      isEmailValid = validateEmail(),
-      isDescriptionValid = validateDescription();
+  //   var isNameValid = validateName(),
+  //     isEmailValid = validateEmail(),
+  //     isDescriptionValid = validateDescription();
 
-    if (isNameValid && isEmailValid && isDescriptionValid) {
-      // Show the thank-you modal
-      $("#thankYouModal").fadeIn();
+  //   if (isNameValid && isEmailValid && isDescriptionValid) {
+  //     // Show the thank-you modal
+  //     $("#thankYouModal").fadeIn();
 
-      // Clear the form
-      this.reset();
-    }
-  });
+  //     // Clear the form
+  //     this.reset();
+  //   }
+  // });
 
-  // Close modal on clicking the close button or outside the modal
-  $(".close-modal").click(function () {
-    $("#thankYouModal").fadeOut();
-  });
+  // // Close modal on clicking the close button or outside the modal
+  // $(".close-modal").click(function () {
+  //   $("#thankYouModal").fadeOut();
+  // });
 
-  $(window).click(function (event) {
-    if ($(event.target).is("#thankYouModal")) {
-      $("#thankYouModal").fadeOut();
-    }
-  });
+  // $(window).click(function (event) {
+  //   if ($(event.target).is("#thankYouModal")) {
+  //     $("#thankYouModal").fadeOut();
+  //   }
+  // });
 
   function validateName() {
     var nameValue = $("#usernames").val();
