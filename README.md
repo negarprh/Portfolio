@@ -48,7 +48,7 @@ Welcome to my personal portfolio repository! 🚀 This project showcases my skil
 ---
 
 ## **🌐 Live Demo**
-Check out the live version of the portfolio: [Live Portfolio](#) * https://negarprh.github.io/Portfolio/*
+Check out the live version of the portfolio: [ https://negarprh.github.io/Portfolio/](#)
 
 ---
 
