@@ -787,7 +787,7 @@ form .send-btn {
 }
 
 form .send-btn:hover {
-  background: var(--button-hover-bg-color);
+  background: var(--button-hover-bg-color-light);
   /* Hover effect */
   transform: translateY(-2px);
   /* Slight lift on hover */
