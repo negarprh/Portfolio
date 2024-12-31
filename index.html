@@ -420,6 +420,7 @@
           id="contactForm"
           action="https://formspree.io/f/xgvvldgb"
           method="POST"
+          novalidate
         >
           <div>
             <input type="text" id="usernames" placeholder="Your name" />
@@ -441,9 +442,11 @@
           <div>
             <input type="submit" value="Send" class="send-btn" id="submitbtn" />
           </div>
-          <button type="button" id="clearData" class="">Clear Data</button>
+          <button type="button" id="clearData" class="send-btn">
+            Clear Data
+          </button>
         </form>
-        <!-- <div id="thankYouModal" class="modal">
+        <div id="thankYouModal" class="modal">
           <div class="modal-content">
             <span class="close-modal">&times;</span>
             <h3>Thank You!</h3>
@@ -452,7 +455,7 @@
               soon!
             </p>
           </div>
-        </div> -->
+        </div>
       </div>
     </section>
 

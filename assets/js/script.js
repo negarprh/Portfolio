@@ -20,32 +20,57 @@ const sr = ScrollReveal({
 sr.reveal(".main-text", { delay: 200, origin: "top" });
 
 $(document).ready(function () {
-  // $("#contactForm").submit(function (event) {
-  //   event.preventDefault();
+  $("#contactForm").submit(function (event) {
+    event.preventDefault(); // Prevent default form submission
 
-  //   var isNameValid = validateName(),
-  //     isEmailValid = validateEmail(),
-  //     isDescriptionValid = validateDescription();
+    var isNameValid = validateName(),
+      isEmailValid = validateEmail(),
+      isDescriptionValid = validateDescription();
 
-  //   if (isNameValid && isEmailValid && isDescriptionValid) {
-  //     // Show the thank-you modal
-  //     $("#thankYouModal").fadeIn();
+    if (isNameValid && isEmailValid && isDescriptionValid) {
+      // Collect form data
+      var formData = {
+        email: $("#email").val(),
+        message: $("#projectdesc").val(),
+        name: $("#usernames").val(),
+      };
 
-  //     // Clear the form
-  //     this.reset();
-  //   }
-  // });
+      // Send data to Formspree
+      fetch("https://formspree.io/f/xgvvldgb", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      })
+        .then((response) => {
+          if (response.ok) {
+            // Show the thank-you modal
+            $("#thankYouModal").fadeIn();
 
-  // // Close modal on clicking the close button or outside the modal
-  // $(".close-modal").click(function () {
-  //   $("#thankYouModal").fadeOut();
-  // });
+            // Clear the form
+            $("#contactForm")[0].reset();
+          } else {
+            alert("Failed to send the message. Please try again later.");
+          }
+        })
+        .catch((error) => {
+          console.error("Error:", error);
+          alert("Failed to send the message. Please try again later.");
+        });
+    }
+  });
 
-  // $(window).click(function (event) {
-  //   if ($(event.target).is("#thankYouModal")) {
-  //     $("#thankYouModal").fadeOut();
-  //   }
-  // });
+  // Close modal on clicking the close button or outside the modal
+  $(".close-modal").click(function () {
+    $("#thankYouModal").fadeOut();
+  });
+
+  $(window).click(function (event) {
+    if ($(event.target).is("#thankYouModal")) {
+      $("#thankYouModal").fadeOut();
+    }
+  });
 
   function validateName() {
     var nameValue = $("#usernames").val();
