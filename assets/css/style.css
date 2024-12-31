@@ -1051,7 +1051,7 @@ form textarea::placeholder {
 
   .navbar a {
     display: flex;
-    width: 400px;
+    width: 350px;
     padding: 10px 15px;
     text-align: left;
     color: var(--text-color);

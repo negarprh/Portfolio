@@ -116,19 +116,21 @@ document.addEventListener("DOMContentLoaded", (event) => {
   const projectDescInput = document.getElementById("projectdesc");
   const clearDataBtn = document.getElementById("clearData");
 
+  // Populate fields from cookies on load
   usernameInput.value = getCookie("username") || "";
   emailInput.value = getCookie("email") || "";
   projectDescInput.value = getCookie("projectdesc") || "";
 
+  // Save cookies on form submission
   form.addEventListener("submit", function (event) {
-    event.preventDefault();
     setCookie("username", usernameInput.value, 7);
     setCookie("email", emailInput.value, 7);
     setCookie("projectdesc", projectDescInput.value, 7);
   });
 
+  // Clear the form and cookies on button click
   clearDataBtn.addEventListener("click", function () {
-    // Clear the form
+    // Clear the form fields
     usernameInput.value = "";
     emailInput.value = "";
     projectDescInput.value = "";
@@ -137,33 +139,51 @@ document.addEventListener("DOMContentLoaded", (event) => {
     deleteCookie("username");
     deleteCookie("email");
     deleteCookie("projectdesc");
+
+    // Show the clear data modal
+    document.getElementById("clearDataModal").style.display = "block";
   });
+
+  // Close modal on clicking the close button or outside the modal
+  document.querySelectorAll(".close-modal").forEach((closeBtn) => {
+    closeBtn.addEventListener("click", function () {
+      document.getElementById("clearDataModal").style.display = "none";
+    });
+  });
+
+  window.addEventListener("click", function (event) {
+    const clearModal = document.getElementById("clearDataModal");
+    if (event.target === clearModal) {
+      clearModal.style.display = "none";
+    }
+  });
+
+  // Cookie management functions
+  function setCookie(name, value, days) {
+    var expires = "";
+    if (days) {
+      var date = new Date();
+      date.setTime(date.getTime() + days * 24 * 60 * 60 * 1000);
+      expires = "; expires=" + date.toUTCString();
+    }
+    document.cookie = name + "=" + (value || "") + expires + "; path=/";
+  }
+
+  function getCookie(name) {
+    var nameEQ = name + "=";
+    var ca = document.cookie.split(";");
+    for (var i = 0; i < ca.length; i++) {
+      var c = ca[i];
+      while (c.charAt(0) == " ") c = c.substring(1, c.length);
+      if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
+    }
+    return null;
+  }
+
+  function deleteCookie(name) {
+    document.cookie = name + "=; Max-Age=-99999999; path=/";
+  }
 });
-
-function setCookie(name, value, days) {
-  var expires = "";
-  if (days) {
-    var date = new Date();
-    date.setTime(date.getTime() + days * 24 * 60 * 60 * 1000);
-    expires = "; expires=" + date.toUTCString();
-  }
-  document.cookie = name + "=" + (value || "") + expires + "; path=/";
-}
-
-function getCookie(name) {
-  var nameEQ = name + "=";
-  var ca = document.cookie.split(";");
-  for (var i = 0; i < ca.length; i++) {
-    var c = ca[i];
-    while (c.charAt(0) == " ") c = c.substring(1, c.length);
-    if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
-  }
-  return null;
-}
-
-function deleteCookie(name) {
-  document.cookie = name + "=; Max-Age=-99999999;";
-}
 
 const mybutton = document.getElementById("back-to-top");
 
