@@ -1080,7 +1080,7 @@ form textarea::placeholder {
 
   .navbar {
     position: fixed;
-    top: 80px; /* Adjust based on header height */
+    top: 70px; /* Adjust based on header height */
     left: 0;
     width: 100%;
     background-color: var(--bg-color);
@@ -1101,7 +1101,7 @@ form textarea::placeholder {
 
   .navbar a {
     display: flex;
-    width: 350px;
+    /* width: 350px; */
     padding: 10px 15px;
     text-align: left;
     color: var(--text-color);
