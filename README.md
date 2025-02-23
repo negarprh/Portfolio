@@ -71,4 +71,3 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ### **✨ Special Thanks**
 - To all the amazing developers and designers who inspired me.
-- To the open-source community for providing resources and support.
