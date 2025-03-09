@@ -18,6 +18,9 @@ Welcome to my personal portfolio repository! 🚀 This project showcases my skil
 ### Homepage
 ![Homepage](assets/images/screenshots/Homepage.png)
 
+### Skills
+![Skills](assets/images/screenshots/skills.png)
+
 ### Projects Section
 ![Projects Section](assets/images/screenshots/projects.png)
 
@@ -53,23 +56,6 @@ Check out the live version of the portfolio: [Portfolio](https://negarprh.github
 
 ---
 
-## **🤝 How to Contribute**
-Contributions are welcome! Here's how you can get started:
-1. Fork this repository.
-2. Clone the forked repo to your local machine.
-3. Create a new branch for your feature/bug fix:
-   ```
-   git checkout -b feature-name
-   ```
-4. Commit your changes and push:
-   ```
-   git commit -m "Add a meaningful commit message"
-   git push origin feature-name
-   ```
-5. Open a Pull Request.
-
----
-
 ## **💌 Connect With Me**
 Feel free to reach out or connect:
 - **LinkedIn:** [Negar Pirasteh](https://www.linkedin.com/in/negar-pirasteh/)
@@ -85,4 +71,3 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ### **✨ Special Thanks**
 - To all the amazing developers and designers who inspired me.
-- To the open-source community for providing resources and support.
