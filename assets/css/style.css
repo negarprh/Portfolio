@@ -527,7 +527,7 @@ button {
   align-items: center;
   justify-content: center;
   text-align: center;
-  margin-top: 4.4rem;
+  margin-top: 6rem;
   padding-left: 47px;
   padding-right: 47px;
 }
@@ -536,11 +536,11 @@ button {
   display: flex;
   align-items: center;
   gap: 1.5rem;
-  width: 60%;
-  max-width: 700px;
+  width: 70%;  /* Increased width for better balance */
+  max-width: 800px; /* Adjusted max width */
   text-align: left;
   background: rgba(255, 255, 255, 0.05);
-  padding: 20px;
+  padding: 25px;  /* Increased padding */
   border-radius: 10px;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
@@ -551,28 +551,45 @@ button {
 }
 
 .experience-logo {
-  width: 60px;
-  height: 60px;
+  width: 120px; /* Reduced size for better alignment */
+  height: 120px;
   object-fit: contain;
 }
 
 .experience-details h3 {
-  margin: 0;
-  font-size: 1.2rem;
-  color: #D3D3D3;
+  font-size: 1.4rem;
+  color: #ffffff;
+  margin-bottom: 5px;
 }
 
 .experience-details h4 {
-  margin: 5px 0;
-  font-size: 1rem;
+  font-size: 1.2rem;
   color: #A9A9A9;
+  margin-bottom: 10px;
 }
 
 .experience-details p {
-  margin: 0;
+  font-size: 0.95rem;
+  color: #D3D3D3;
+  margin-bottom: 10px;
+}
+
+.experience-details ul {
+  list-style-type: disc;
+  padding-left: 20px;
+  text-align: left;
+  margin-top: 10px;
+}
+
+.experience-details li {
   font-size: 0.9rem;
   color: #D3D3D3;
+  margin-bottom: 8px; /* Added space between bullet points */
+  line-height: 1.5; /* Better readability */
+  list-style-type: disc;
 }
+
+
 
 
 
@@ -648,7 +665,7 @@ form .send-btn:hover {
   text-align: center;
   padding: 10px;
   color: #D3D3D3;
-  background: #0b0b1336;
+  background: #0b0b1300;
   margin-top: 3rem;
   line-height: 1.8rem;
 }
@@ -1284,6 +1301,55 @@ form textarea::placeholder {
   #clearData {
     padding: 12px;
     font-size: 14px;
+  }
+
+
+  .experience-content {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  .experience-item {
+    width: 90%; /* Increases width for better fit */
+    padding: 20px; /* Slightly reduces padding */
+    flex-direction: column; /* Stacks content vertically */
+    align-items: center; /* Centers everything */
+    text-align: center; /* Centers text */
+  }
+
+  .experience-header {
+    flex-direction: column; /* Stacks logo and text */
+    align-items: center;
+    text-align: center;
+  }
+
+  .experience-logo {
+    width: 60px; /* Smaller logo for mobile */
+    height: 60px;
+    margin-bottom: 10px; /* Adds space between logo and title */
+  }
+
+  .experience-title h3 {
+    font-size: 1.2rem; /* Slightly smaller title */
+  }
+
+  .experience-title h4 {
+    font-size: 0.95rem; /* Adjusts subtitle */
+  }
+
+  .experience-item p {
+    font-size: 0.9rem;
+    margin-bottom: 10px;
+  }
+
+  .experience-tasks {
+    padding-left: 15px; /* Adjusts bullet point spacing */
+    text-align: left; /* Ensures bullets align properly */
+  }
+
+  .experience-tasks li {
+    font-size: 0.85rem;
+    line-height: 1.4;
   }
 
 }
