@@ -15,16 +15,19 @@ Welcome to my personal portfolio repository! 🚀 This project showcases my skil
 ---
 
 ## **🖼️ Screenshots**
-### Homepage
+### Homepage 🏡
 ![Homepage](assets/images/screenshots/Homepage.png)
 
-### Skills
+### Skills 🛠️
 ![Skills](assets/images/screenshots/skills.png)
 
-### Projects Section
+### Experience 👩‍💻
+![Experience](assets/images/screenshots/experience.png)
+
+### Projects Section 📝
 ![Projects Section](assets/images/screenshots/projects.png)
 
-### Contact Me
+### Contact Me 📞
 ![Contact Me](assets/images/screenshots/contact.png)
 
 ---
