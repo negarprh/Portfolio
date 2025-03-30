@@ -516,6 +516,66 @@ button {
   color: var(--text-color);
 }
 
+/* Experience */
+#experience {
+  margin-top: 6rem; /* Adds space above the section */
+}
+
+.experience-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  margin-top: 4.4rem;
+  padding-left: 47px;
+  padding-right: 47px;
+}
+
+.experience-item {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  width: 60%;
+  max-width: 700px;
+  text-align: left;
+  background: rgba(255, 255, 255, 0.05);
+  padding: 20px;
+  border-radius: 10px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.experience-item:hover {
+  transform: scale(1.05);
+  box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.experience-logo {
+  width: 60px;
+  height: 60px;
+  object-fit: contain;
+}
+
+.experience-details h3 {
+  margin: 0;
+  font-size: 1.2rem;
+  color: #D3D3D3;
+}
+
+.experience-details h4 {
+  margin: 5px 0;
+  font-size: 1rem;
+  color: #A9A9A9;
+}
+
+.experience-details p {
+  margin: 0;
+  font-size: 0.9rem;
+  color: #D3D3D3;
+}
+
+
+
 
 
 
@@ -588,7 +648,7 @@ form .send-btn:hover {
   text-align: center;
   padding: 10px;
   color: #D3D3D3;
-  background: #0b0b13;
+  background: #0b0b1336;
   margin-top: 3rem;
   line-height: 1.8rem;
 }
@@ -625,7 +685,7 @@ form .send-btn:hover {
 
 .projects-container {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(600px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
   gap: 2rem;
   padding: 2rem;
   width: 100%;
