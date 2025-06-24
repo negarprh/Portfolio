@@ -347,6 +347,19 @@ button {
   /* Remove debug border if no longer needed */
 }
 
+.about-img {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* Center the image */
+  width: 100%;
+  height: 600px;
+  /* Adjust height as needed */
+  overflow: hidden;
+  /* Hide overflow for better appearance */
+  
+}
+
 .about-img img {
   max-width: 100%;
   width: 600px;
@@ -355,8 +368,10 @@ button {
   /* Adjust height to make it less long */
   object-fit: cover;
   /* Ensures the image fits nicely */
-  border-radius: 10px;
+  border-radius: 50%;
   /* Optional for rounded edges */
+  
+ 
 
 }
 
@@ -380,7 +395,7 @@ button {
 
 .about-text p {
   max-width: 570px;
-  font-size: 1rem;
+  font-size: 1.1rem;
   font-weight: 300;
   margin-bottom: 1.5rem;
   line-height: 1.8rem;
@@ -388,27 +403,47 @@ button {
   line-height: 30px;
 }
 
-.count {
+.main-btn-with-github {
+  display: flex;
+  align-items: center;
+  gap: 15px;
   margin-bottom: 2rem;
 }
 
-.about-text .count a {
-  color: var(--text-color);
-  margin-right: 20px;
-  word-spacing: 5px;
+.btn {
+  background-color: #a000ff; /* Match your purple style */
+  color: #ffffff;
+  text-decoration: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-weight: bold;
+  font-size: 1rem;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: 250px;
+  height: 45px;
+  transition: background-color 0.3s ease;
 }
 
-.count span {
-  color: var(--third-main-color);
-  font-size: 2.7rem;
-  font-weight: 600;
+.btn:hover {
+  background-color: #050007;
 }
 
-.main-btn .btn {
-  margin-right: 20px;
-
+.github-icon img {
+  width: 45px;
+  height: 45px;
+  transition: transform 0.2s ease;
 }
 
+.github-icon img:hover {
+  transform: scale(1.1);
+}
+
+
+
+/*--------------------------------------------------------------
+/* Skills  */
 .center {
   text-align: center;
 
