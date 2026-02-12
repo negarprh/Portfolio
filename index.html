@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
   <head>
@@ -85,11 +85,11 @@
   </head>
   <body>
     <header>
-      <!-- <span> &lt;</span> -->
-      <div class="logo-signature">Negar Pirasteh</div>
-      <!-- <span> &gt;</span> -->
+      <a href="#home" class="logo-signature" aria-label="Negar Pirasteh home">
+        <span class="logo-highlight">Negar</span> Pirasteh
+      </a>
 
-      <div class="bx bx-menu" id="menu-icon"></div>
+      <div class="bx bx-menu" id="menu-icon" aria-label="Toggle navigation"></div>
       <ul class="navbar">
         <li><a href="#home">Home</a></li>
         <li><a href="#about">About</a></li>
@@ -97,22 +97,50 @@
         <li><a href="#experience">Experience</a></li>
         <li><a href="#specialties">Projects</a></li>
         <li><a href="#contact">Contact</a></li>
+        <li class="nav-cta">
+          <a
+            href="assets/NegarPirasteh - Resume (1).pdf"
+            target="_blank"
+            rel="noopener"
+            class="resume-button"
+            >Resume</a
+          >
+        </li>
       </ul>
+      <div class="nav-progress" aria-hidden="true">
+        <span class="nav-progress__bar" id="scroll-progress"></span>
+      </div>
     </header>
+    <div class="nav-backdrop" id="nav-backdrop" aria-hidden="true"></div>
 
     <!-- top section animation -->
-    <div class="maman" id="home">
-      <section class="hero">
+    <section class="hero" id="home">
+      <div class="hero-inner">
         <div class="main-text">
-          <h1>I'm a <br /><span class="input"></span></h1>
-          <p>Also a cat lover, tech savvy and gamer</p>
+          <p class="hero-eyebrow">Full Stack Developer &middot; Cloud Enthusiast</p>
+          <h1>
+            Hi, I'm <span class="hero-name">Negar Pirasteh</span>
+          </h1>
+          <div class="hero-roles">
+            <span class="typed-prefix">I build</span>
+            <span class="input"></span>
+          </div>
+          <p class="hero-lead">
+            Also a tech savvy who loves turning complex problems into
+            elegant, scalable solutions people enjoy using.
+          </p>
 
-          <div class="social-icons">
-            <a href="https://github.com/negarprh" target="_blank"
-              ><img src="assets/images/icons/githubColor.svg" alt="Github"
+          <div class="hero-actions">
+            <a href="#specialties" class="btn primary">View Projects</a>
+            <a href="#contact" class="btn ghost">Let's collaborate</a>
+          </div>
+
+          <div class="social-icons hero-social">
+            <a href="https://github.com/negarprh" target="_blank" aria-label="GitHub"
+              ><img src="assets/images/icons/githubColor.svg" alt="GitHub"
             /></a>
 
-            <a href="https://www.instagram.com/negar_tech/" target="_blank"
+            <a href="https://www.instagram.com/negar_tech/" target="_blank" aria-label="Instagram"
               ><img
                 src="assets/images/icons/instagramColor.svg"
                 alt="Instagram"
@@ -121,69 +149,50 @@
             <a
               href="https://www.linkedin.com/in/negar-pirasteh/"
               target="_blank"
+              aria-label="LinkedIn"
               ><img src="assets/images/icons/linkedinColor.svg" alt="LinkedIn"
             /></a>
           </div>
-
-          <!-- <a href="assets/NegarPirasteh - Resume (1).pdf" download="Resume_Name">
-            <button type="button">Download CV</button>
-          </a> -->
-          
         </div>
-      </section>
-
-      <div class="container">
-        <div class="cube">
-          <div><img src="assets/images/skills/Python.svg" alt="" /></div>
-          <div><img src="assets/images/skills/django.svg" alt="" /></div>
-          <div><img src="assets/images/skills/java.svg" alt="" /></div>
-          <div><img src="assets/images/skills/typescript.svg" alt="" /></div>
-          <div><img src="assets/images/skills/spring.svg" alt="" /></div>
-          <div><img src="assets/images/skills/postgresql.svg" alt="" /></div>
+        <div class="hero-visual" aria-hidden="true">
+          <div class="cube">
+            <div><img src="assets/images/skills/Python.svg" alt="Python" /></div>
+            <!-- <div><img src="assets/images/skills/django.svg" alt="Django" /></div> -->
+            <div><img src="assets/images/skills/aws.svg" alt="AWS" /></div>
+            <div><img src="assets/images/skills/java.svg" alt="Java" /></div>
+            <div><img src="assets/images/skills/typescript.svg" alt="TypeScript" /></div>
+            <div><img src="assets/images/skills/spring.svg" alt="Spring" /></div>
+            <div><img src="assets/images/skills/postgresql.svg" alt="PostgreSQL" /></div>
+          </div>
+          <div class="hero-cube-shadow"></div>
         </div>
       </div>
-    </div>
+    </section>
 
     <!-- top section animation -->
 
-    <!--about me section-->
+    <!-- about section -->
     <div class="maman2">
       <section class="about" id="about">
         <div class="about-img">
-          <img src="assets/images/negarabout.jpg" />
+          <img src="assets/images/negarabout.jpg" alt="Negar Pirasteh headshot" loading="lazy" />
         </div>
 
         <div class="about-text">
           <h3>About me</h3>
-          <!-- <h2>
-            I'm a computer sience student with over 2 years of experience in
-            programming
-          </h2> -->
-          <p>
-            Hi, I’m Negar, a Full Stack developer passionate about building real-world applications.</p>
+          <p>I’m Negar, a Montréal-based full-stack developer passionate about turning ideas into scalable, production ready software. I focus on writing clean, efficient code that solves real problems and delivers measurable impact.</p>
 
-            <p>Right now, I’m leveling up my skills with AWS and preparing for the Solutions Architect – Associate certification. My core stack includes Python, Java, Django, Flask, Spring Boot, Jakarta EE and SQL; with a growing focus on clean architecture, REST APIs, and scalable backend systems.
+          <p>My experience spans backend systems, cloud deployment, and API design. I’ve built full-stack web applications using Java, Python, and TypeScript, and I enjoy working with frameworks like Spring Boot, Django, Flask, and Express.js. I also deploy and manage services with AWS and Docker.</p>
 
-            Previously, I worked as a backend intern at Ozex, building RESTful APIs with TypeScript, Express.js, and PostgreSQL in an Agile environment.</p>
+          <p>At Ozex, I helped improve system reliability and security by optimizing APIs, containerizing environments, and implementing authentication systems. Beyond internships, I’ve led projects showcased at the NASA Space Apps Hackathon and maintained open-source repositories used by developers across Canada.</p>
 
-            <p>I'm all about solving problems, writing clean code, and turning ideas into reliable software.
-            Curious about my work? Check out the projects below and for more, you can check out my github ↓</p>
-          <!-- <div class="count">
-            <a href="#specialties"
-              >
-              <span> +10</span> Project Completed.</a
-            >
-          </div> -->
-          <div class="main-btn-with-github">
-            <a href="#specialties" class="btn">+10 Project Completed</a>
-            <a href="https://github.com/negarprh" target="_blank" class="github-icon">
-              <img src="assets/images/icons/githubColor.svg" alt="GitHub" />
-            </a>
-          </div>
+          <p>I’m constantly learning, experimenting, and refining my craft. Below are some of my featured projects, each one reflects what I value most: clarity, scalability, and thoughtful engineering.</p>
 
         </div>
       </section>
     </div>
+
+
 
     <!--about resume-->
     <section class="resume" id="resume">
@@ -260,6 +269,12 @@
               <img src="assets/images/skills/flask.svg" alt="Flask" />
               <p>Flask</p>
             </div>
+
+            <div class="skill-item">
+              <img src="assets/images/skills/net.svg" alt=".Net" />
+              <p>.Net</p>
+            </div>
+
             <div class="skill-item">
               <img src="assets/images/skills/supabase.svg" alt="Supabase" />
               <p>Supabase</p>
@@ -269,8 +284,6 @@
               <p>Prisma</p>
             </div>
 
-            
-            
             <div class="skill-item">
               <img src="assets/images/skills/pandasSmall.svg" alt="Pandas" />
               <p>Pandas</p>
@@ -279,19 +292,21 @@
               <img src="assets/images/skills/Matplotlib.svg" alt="Matplotlib" />
               <p>Matplotlib</p>
             </div>
-            <div class="skill-item">
-              <img src="assets/images/skills/net.svg" alt=".Net" />
-              <p>.Net</p>
-            </div>
+            
           </div>
           
           
         </div>
 
         <div class="row">
-          <!-- <i class="bx bxl-visual-studio"></i> -->
+          
           <h3>Developer Tools</h3>
+
           <div class="skills-icons">
+            <div class="skill-item">
+              <img src="assets/images/skills/aws.svg" alt="AWS" />
+              <p>AWS</p>
+            </div>
             <div class="skill-item">
               <img src="assets/images/skills/git.svg" alt="Git" />
               <p>Git</p>
@@ -327,26 +342,28 @@
       </div>
     </section>
 
-    <section id="experience">
-      <div class="center"> <h3>Experience</h3></div>
+    <section class="experience" id="experience">
+      <div class="center">
+        <h3>Experience</h3>
+      </div>
       <div class="experience-content">
         <div class="experience-item">
-            <img src="assets/images/experience/ozex.png" alt="Ozex Logo" class="experience-logo">
-            <div class="experience-details">
-                <h3>Software Developer Intern</h3>
-                <h4>Ozex | Feb 2025 - May 2025</h4>
-                <p>Worked with TypeScript, React, Express.JS, PostgreSQL, Docker, Prisma, Swagger and Supabase</p>
-                  <ul>
-                    <li>Developed and optimize REST APIs for improved performance and scalability.</li>
-                    <li>Built reusable React components to improve UI consistency and speed up development.</li>
-                    <li>Enhanced database interactions using PostgreSQL and Prisma.</li>
-                    <li>Implemented authentication and authorization with Supabase.</li>
-                    <li>Collaborated in an Agile environment, created github issues, participated in PR reviews and sprint planning.</li>
-                  </ul>
-            </div>
+          <img src="assets/images/experience/ozex.png" alt="Ozex Logo" class="experience-logo" />
+          <div class="experience-details">
+            <h3>Software Developer Intern</h3>
+            <h4>Ozex | Feb 2025 - May 2025</h4>
+            <p>Worked with TypeScript, React, Express.JS, PostgreSQL, Docker, Prisma, Swagger and Supabase</p>
+            <ul>
+              <li>Developed and optimize REST APIs for improved performance and scalability.</li>
+              <li>Built reusable React components to improve UI consistency and speed up development.</li>
+              <li>Enhanced database interactions using PostgreSQL and Prisma.</li>
+              <li>Implemented authentication and authorization with Supabase.</li>
+              <li>Collaborated in an Agile environment, created github issues, participated in PR reviews and sprint planning.</li>
+            </ul>
+          </div>
         </div>
-    </div>
-  </section>
+      </div>
+    </section>
   
   
   
@@ -655,11 +672,11 @@
         >
           <div>
             <input type="text" id="usernames" placeholder="Your name" />
-            <small id="namecheck" style="color: yellow"></small>
+            <small id="namecheck"></small>
           </div>
           <div>
             <input type="email" id="email" placeholder="Email address" />
-            <small id="emailcheck" style="color: yellow"></small>
+            <small id="emailcheck"></small>
           </div>
           <div>
             <textarea
@@ -668,7 +685,7 @@
               rows="10"
               placeholder="Project/career description"
             ></textarea>
-            <small id="descriptioncheck" style="color: yellow"></small>
+            <small id="descriptioncheck"></small>
           </div>
           <div>
             <input type="submit" value="Send" class="send-btn" id="submitbtn" />
@@ -738,15 +755,18 @@
 
     <script>
       var typed = new Typed(".input", {
-        strings: ["developer", "programmer"],
-        typeSpeed: 310,
-        backSpeed: 210,
+        strings: ["cloud-native platforms", "scalable backend systems", "delightful user journeys"],
+        typeSpeed: 90,
+        backSpeed: 40,
+        backDelay: 1800,
+        smartBackspace: true,
         loop: true,
       });
     </script>
 
-    <button id="back-to-top" title="Back to Top" style="display: none">
-      ↑ Top
+    <button id="back-to-top" title="Back to Top">
+      &#8593; Top
     </button>
   </body>
 </html>
+
