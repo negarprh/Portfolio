@@ -516,6 +516,7 @@ button {
 
 .experience-item {
   display: flex;
+  margin-bottom: 50px;
   align-items: center;
   gap: 1.5rem;
   width: 70%; /* Increased width for better balance */
