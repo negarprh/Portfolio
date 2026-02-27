@@ -321,9 +321,9 @@ button {
 
 .about-img img {
   max-width: 100%;
-  width: 600px;
+  width: 400px;
   /* Adjust width as needed */
-  height: 600px;
+  height: 400px;
   /* Adjust height to make it less long */
   object-fit: cover;
   /* Ensures the image fits nicely */
