@@ -673,10 +673,12 @@ form .send-btn:hover {
 
 .projects-container {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-  gap: 2rem;
-  padding: 2rem;
+  grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+  gap: 1.8rem;
+  padding: 2rem clamp(1rem, 4vw, 3rem);
   width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
 }
 
 .project-tile {
@@ -708,7 +710,7 @@ form .send-btn:hover {
 
 .project-image {
   width: 95%;
-  height: 250px;
+  height: 220px;
   object-fit: cover;
   border-radius: 10px;
   transition:
@@ -767,6 +769,17 @@ form .send-btn:hover {
 
 .project-link.live-demo:hover {
   background-color: #ffab40;
+}
+
+.projects-more {
+  display: flex;
+  justify-content: center;
+  margin-top: 0.5rem;
+}
+
+.projects-more-link {
+  font-size: 1rem;
+  padding: 12px 24px;
 }
 
 /* Contact Me Section */
