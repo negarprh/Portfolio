@@ -707,8 +707,8 @@ form .send-btn:hover {
 }
 
 .project-image {
-  width: 85%; /* Adjusted for better centering */
-  height: 290px;
+  width: 95%;
+  height: 250px;
   object-fit: cover;
   border-radius: 10px;
   transition:
