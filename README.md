@@ -66,11 +66,3 @@ Feel free to reach out or connect:
 - **Instagram:** [@negar_tech](https://www.instagram.com/negar_tech/)
 
 ---
-
-## **📜 License**
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
----
-
-### **✨ Special Thanks**
-- To all the amazing developers and designers who inspired me.
