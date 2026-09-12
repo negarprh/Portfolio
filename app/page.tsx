@@ -1,3 +1,4 @@
+import { CoverSeal } from "@/components/cover-seal";
 import { Closing } from "@/components/closing";
 import { About } from "@/components/about";
 import { Skills } from "@/components/skills";
@@ -21,6 +22,7 @@ export default async function Home() {
       <BookMotion />
       <main id="top">
         <section className="cover" aria-labelledby="cover-title">
+          <CoverSeal />
           <div className="cover-spine mono" aria-hidden="true">
             NEGAR PIRASTEH — SELECTED WORK & EXPERIENCE — 2025–2026
           </div>
@@ -38,7 +40,7 @@ export default async function Home() {
                 Negar
                 <br />
                 <em>
-                  Pirasteh<span className="accent">.</span>
+                  Pirasteh<span className="accent cover-dot">.</span>
                 </em>
               </h1>
               <div className="cover-role">

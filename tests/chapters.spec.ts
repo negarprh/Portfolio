@@ -5,6 +5,16 @@ test("three adjacent chapters are identifiable with every animation stopped", as
 }) => {
   await page.setViewportSize({ width: 1440, height: 1000 });
   await page.goto("/");
+  if (
+    !(await page.evaluate(
+      () => matchMedia("(prefers-reduced-motion: reduce)").matches,
+    ))
+  )
+    await expect(page.locator("html")).toHaveAttribute(
+      "data-book-enhanced",
+      "true",
+    );
+  await page.evaluate(() => document.fonts.ready);
   const papers: string[] = [];
   for (const [id, selector, label] of [
     ["experience", ".experience-row:last-child", "Experience"],
@@ -16,7 +26,7 @@ test("three adjacent chapters are identifiable with every animation stopped", as
       .evaluate((el) => el.scrollIntoView({ behavior: "instant" }));
     await page.evaluate(() =>
       document.getAnimations().forEach((a) => {
-        a.finish();
+        if (a.effect?.getTiming().iterations !== Infinity) a.finish();
         a.pause();
       }),
     );
@@ -42,6 +52,11 @@ test("a fast wheel scroll holds the full chapter title without blocking scrollin
 }) => {
   await page.setViewportSize({ width: 1440, height: 1000 });
   await page.goto("/");
+  await expect(page.locator("html")).toHaveAttribute(
+    "data-book-enhanced",
+    "true",
+  );
+  await page.evaluate(() => document.fonts.ready);
   await page
     .locator("#work .chapter-opening")
     .evaluate((el) => el.scrollIntoView({ behavior: "instant" }));

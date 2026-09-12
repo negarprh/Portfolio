@@ -21,11 +21,16 @@ export const experience = [
     title: "Software Developer Intern",
     dates: "Summer 2026",
     lines: [
-      "Brought Workday processing from about 6 hours down to roughly 1 hour 45 minutes by improving concurrency and the pipeline.",
+      "Improved concurrency and the Workday processing pipeline.",
       "Wrote Python automation to collect internship and new-grad listings from Workday, Lever, and Greenhouse.",
       "Cleaned up duplicates, locations, filters, and archived listings for the jobs pipeline connected to the React website.",
     ],
-    stack: "Python / GitHub Actions / React / Firebase",
+    technologies: [
+      ["Python", "python"],
+      ["GitHub Actions", "githubactions"],
+      ["React", "react"],
+      ["Firebase", "firebase"],
+    ],
   },
   {
     company: "Lienzo",
@@ -35,7 +40,14 @@ export const experience = [
       "Built end-to-end backend features in TypeScript and NestJS for a healthcare coordination platform.",
       "Worked on application logic, database interactions, and tests in a CQRS codebase using Prisma, PostgreSQL, and Vitest.",
     ],
-    stack: "TypeScript / Node.js / NestJS / Prisma / PostgreSQL / Vitest",
+    technologies: [
+      ["TypeScript", "typescript"],
+      ["Node.js", "nodejs"],
+      ["NestJS", "nestjs"],
+      ["Prisma", "prisma"],
+      ["PostgreSQL", "postgresql"],
+      ["Vitest", "vitest"],
+    ],
   },
   {
     company: "Ozex",
@@ -45,7 +57,14 @@ export const experience = [
       "Built TypeScript REST APIs and React components for a mental health platform.",
       "Added authentication with Supabase and worked on database queries with PostgreSQL and Prisma.",
     ],
-    stack: "TypeScript / React / Express / PostgreSQL / Docker / Supabase",
+    technologies: [
+      ["TypeScript", "typescript"],
+      ["React", "react"],
+      ["Express", "express"],
+      ["PostgreSQL", "postgresql"],
+      ["Docker", "docker"],
+      ["Supabase", "supabase"],
+    ],
   },
 ];
 export const projects = [

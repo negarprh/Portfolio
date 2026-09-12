@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import "./book-material.css";
 import "./chapters.css";
+import "./makeover.css";
 export const metadata: Metadata = {
   title: "Negar Pirasteh — Software Developer",
   description:

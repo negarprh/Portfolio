@@ -14,19 +14,17 @@ const { chromium } = require("playwright");
       .evaluate((el) => el.scrollIntoView({ behavior: "instant" }));
     await p.evaluate(() => {
       for (const a of document.getAnimations()) {
-        a.finish();
+        if (a.effect?.getTiming().iterations !== Infinity) a.finish();
         a.pause();
       }
     });
     await p.screenshot({ path: `test-results/chapter-still-${name}.png` });
     console.log(
       name,
-      await p
-        .locator(selector)
-        .evaluate((el) => ({
-          top: el.getBoundingClientRect().top,
-          background: getComputedStyle(el).backgroundImage,
-        })),
+      await p.locator(selector).evaluate((el) => ({
+        top: el.getBoundingClientRect().top,
+        background: getComputedStyle(el).backgroundImage,
+      })),
     );
   }
   await p.goto("http://localhost:3002");
