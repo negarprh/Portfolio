@@ -28,9 +28,7 @@ export default async function Home() {
           </div>
           <div className="cover-content">
             <div className="cover-top mono">
-              <a href="#top">
-                NP<span className="accent">.</span>
-              </a>
+              <span className="cover-mark-space" aria-hidden="true" />
               <span>MONTRÉAL, QC</span>
               <span>VOL. 01 / 2026</span>
             </div>
