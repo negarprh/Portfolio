@@ -285,7 +285,7 @@ em {
 body {
   background: #33342e;
 }
-main > section:not(.cover),
+:is(main, .book-opening) > section:not(.cover),
 .back-cover {
   width: min(1240px, calc(100% - 112px));
   margin-inline: auto;
@@ -770,7 +770,7 @@ figcaption {
   }
 }
 @media (max-width: 1000px) {
-  main > section:not(.cover),
+  :is(main, .book-opening) > section:not(.cover),
   .back-cover {
     width: calc(100% - 72px);
   }
@@ -806,7 +806,7 @@ figcaption {
   body {
     background: var(--paper);
   }
-  main > section:not(.cover),
+  :is(main, .book-opening) > section:not(.cover),
   .back-cover {
     width: 100%;
     border-inline: 0;
@@ -1066,7 +1066,7 @@ figcaption {
   .spread-content::before {
     display: none;
   }
-  main > section:not(.cover),
+  :is(main, .book-opening) > section:not(.cover),
   .back-cover {
     box-shadow: none;
   }

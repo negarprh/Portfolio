@@ -1,4 +1,4 @@
-import { Divider, Folio, RunningHead } from "./editorial";
+import { Divider, Folio, RunningHead, TurnSheet } from "./editorial";
 export function CurrentlyBuilding() {
   return (
     <section id="building" aria-label="Currently Building">
@@ -9,7 +9,7 @@ export function CurrentlyBuilding() {
         title="Currently building"
         note="04 / In development"
       />
-      <div className="section building-spread">
+      <div className="section building-spread" data-boundary="spread">
         <div className="reading-page">
           <p className="eyebrow">Currently in development</p>
           <p>
@@ -18,6 +18,7 @@ export function CurrentlyBuilding() {
           </p>
           <p>It’s launching soon. I’ll share more here when it’s ready.</p>
         </div>
+        <TurnSheet label="Currently building" />
         <Folio label="Currently building" page="09" />
       </div>
     </section>

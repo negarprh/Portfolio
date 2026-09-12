@@ -1,6 +1,7 @@
 /* Hardcover finish: static cloth, inset edging, and pressed type. */
-.cover {
-  background-color: var(--ink);
+.cover,
+.back-cover {
+  background-color: var(--ink) !important;
   background-image:
     radial-gradient(ellipse at 48% 40%, #b7aa7620, transparent 72%),
     repeating-linear-gradient(
@@ -18,9 +19,10 @@
       #00000035 1px,
       transparent 2px,
       transparent 3px
-    );
+    ) !important;
 }
-.cover::after {
+.cover::after,
+.back-cover::after {
   content: "";
   position: absolute;
   inset: 15px;
@@ -35,7 +37,9 @@
     0 1px 0 #e0cca64a,
     0 -1px 2px #000c;
 }
-.cover h1 {
+.cover h1,
+.back-cover h2,
+.colophon-name {
   text-shadow:
     0 -2px 1px #080b06,
     -1px -1px 1px #080b06,
@@ -362,4 +366,232 @@
 }
 .cover-seal.seal-pending {
   opacity: 0;
+}
+
+/* Jacket typography follows one axis; the cloth and tooling are shared by both boards. */
+.cover-content {
+  padding-inline: 7.2%;
+}
+.cover-heading {
+  text-align: center;
+  align-items: center;
+}
+.cover h1 em {
+  padding-left: 0;
+}
+.cover-role {
+  margin-left: 0;
+  justify-content: center;
+}
+.cover-role .small-rule {
+  display: none;
+}
+.cover-top {
+  position: absolute;
+  top: 135px;
+  left: 0;
+  right: 0;
+  justify-content: center;
+  gap: 24px;
+  padding: 0;
+  font-size: 9px;
+}
+.cover-mark-space {
+  display: none;
+}
+.cover .cover-seal,
+.back-cover .cover-seal {
+  left: calc(50% - 32px);
+  top: 48px;
+  width: 64px;
+  height: 64px;
+}
+.cover-seal .seal-monogram {
+  font-size: 25px;
+}
+.cover-bottom {
+  border-top: 0;
+}
+.back-cover {
+  width: 100%;
+  min-height: 100svh;
+  padding: 175px 80px 115px;
+  border: 0;
+  box-shadow: none;
+  gap: 0;
+  text-align: center;
+}
+.colophon {
+  max-width: 650px;
+}
+.colophon .eyebrow {
+  color: var(--accent);
+  margin-bottom: 38px;
+}
+.back-cover h2 {
+  font-size: clamp(46px, 5.5vw, 80px);
+  line-height: 1.1;
+  letter-spacing: -0.035em;
+}
+.colophon-note {
+  max-width: 35ch;
+  margin: 28px auto 0;
+  color: #c5c2b2;
+  font-size: 17px;
+  line-height: 1.85;
+  text-wrap: balance;
+}
+.colophon-name {
+  font:
+    italic 32px Editorial,
+    Georgia,
+    serif;
+  margin-top: 45px;
+}
+.back-cover .closing-links {
+  justify-content: center;
+  margin-top: 30px;
+  font-size: 12px;
+  color: #d1c6ad;
+  gap: 26px;
+}
+.back-cover .colophon-device {
+  position: absolute;
+  bottom: 44px;
+  color: #b5b5a7;
+  font-size: 10px;
+}
+.cover-opening-shadow {
+  display: none;
+}
+html[data-book-enhanced] .cover {
+  position: sticky;
+  top: 0;
+  z-index: 30;
+  transform-origin: left center;
+  backface-visibility: hidden;
+}
+html[data-book-enhanced] .cover-opening-shadow {
+  display: block;
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 25;
+  background: linear-gradient(90deg, #17160ee0, #26241965 30%, transparent 80%);
+  opacity: 0;
+  transform-origin: left center;
+}
+html[data-book-enhanced] [data-boundary="spread"] > .turn-sheet,
+html[data-book-enhanced] .back-cover > .turn-sheet,
+html[data-book-enhanced] [data-boundary="spread"] > .turn-shadow,
+html[data-book-enhanced] .back-cover > .turn-shadow {
+  bottom: auto;
+  height: min(100%, 100svh);
+}
+.sheet-outgoing .outgoing-content {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+@media (max-width: 700px) {
+  .cover-content {
+    padding-inline: 30px;
+  }
+  .cover .cover-seal,
+  .back-cover .cover-seal {
+    top: 32px;
+    width: 54px;
+    height: 54px;
+    left: calc(50% - 27px);
+  }
+  .cover-seal .seal-monogram {
+    font-size: 22px;
+  }
+  .cover-top {
+    top: 106px;
+    gap: 16px;
+    font-size: 8px;
+  }
+  .cover-top > span:nth-child(2) {
+    display: block;
+  }
+  .cover-heading {
+    padding-top: 120px;
+    padding-bottom: 65px;
+  }
+  .back-cover {
+    padding: 145px 30px 95px;
+  }
+  .back-cover::after {
+    inset: 10px;
+  }
+  .colophon .eyebrow {
+    margin-bottom: 25px;
+    font-size: 9px;
+  }
+  .colophon-note {
+    font-size: 15px;
+  }
+  .colophon-name {
+    margin-top: 30px;
+  }
+  .back-cover .closing-links {
+    gap: 18px;
+    flex-wrap: wrap;
+  }
+}
+
+/* The two overlapping leaves share a normal-flow runway; static readers see DOM order. */
+.book-opening {
+  display: contents;
+}
+.opening-runway {
+  display: none;
+}
+html[data-book-enhanced] .book-opening {
+  display: block;
+  position: relative;
+}
+html[data-book-enhanced] .book-opening > section.introduction {
+  position: sticky;
+  top: 0;
+  min-height: 100svh;
+  margin-top: -100svh;
+}
+html[data-book-enhanced] .opening-runway {
+  display: block;
+  height: 100svh;
+}
+.back-cover {
+  z-index: 26;
+}
+.back-cover .pending-link {
+  color: #b5b1a1;
+}
+/* Clip projected leaves without creating a scroll container around sticky pages. */
+main {
+  overflow-x: clip;
+}
+@media (max-width: 700px) {
+  html[data-book-enhanced] .book-opening > section.introduction {
+    margin-top: -100svh;
+  }
+  html[data-book-enhanced] .opening-runway {
+    height: 100svh;
+  }
+}
+html[data-book-enhanced] .book-opening > section.introduction {
+  scroll-margin-top: calc(-100svh - 24px);
+}
+@media (max-width: 700px) {
+  html[data-book-enhanced] .book-opening > section.introduction {
+    scroll-margin-top: calc(-100svh - 24px);
+  }
+}
+
+@media (max-width: 700px) {
+  .cover,
+  .cover-content {
+    min-height: 100svh;
+  }
 }

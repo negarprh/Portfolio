@@ -63,7 +63,7 @@ html[data-book-enhanced] #contact {
   --chapter-ink: #75613c;
   --chapter-mark: "VII";
 }
-html[data-book-enhanced] main > section:not(.cover) {
+html[data-book-enhanced] :is(main, .book-opening) > section:not(.cover) {
   position: relative;
   --paper-wash: linear-gradient(
     105deg,
@@ -306,7 +306,7 @@ html[data-book-enhanced] .sheet-back > span:first-child {
   visibility: hidden;
 }
 @media (max-width: 700px) {
-  html[data-book-enhanced] main > section:not(.cover) {
+  html[data-book-enhanced] :is(main, .book-opening) > section:not(.cover) {
     --paper-wash: linear-gradient(
       90deg,
       var(--chapter-edge),

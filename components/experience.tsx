@@ -1,4 +1,4 @@
-import { Divider, Folio, RunningHead } from "./editorial";
+import { Divider, Folio, RunningHead, TurnSheet } from "./editorial";
 import { experience } from "@/lib/content";
 
 function RoleAnchor({ index }: { index: number }) {
@@ -95,6 +95,7 @@ export function Experience() {
         {experience.map((job, i) => (
           <article
             className={`experience-row section role-${i}`}
+            data-boundary="spread"
             key={job.company}
           >
             <div className="spread-content">
@@ -127,6 +128,7 @@ export function Experience() {
                 ))}
               </div>
             </div>
+            <TurnSheet label="Experience" />
             <Folio label="Experience" page={`0${i + 2}`} />
           </article>
         ))}

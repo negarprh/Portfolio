@@ -1,11 +1,11 @@
-import { Divider, Folio, RunningHead } from "./editorial";
+import { Divider, Folio, RunningHead, TurnSheet } from "./editorial";
 import { skills } from "@/lib/content";
 export function Skills() {
   return (
     <section id="skills" aria-label="Skills">
       <RunningHead number="V" name="Skills" />
       <Divider id="skills" number="V" title="Skills" note="06 / Skills" />
-      <div className="section skills-spread">
+      <div className="section skills-spread" data-boundary="spread">
         <p className="skills-intro">
           TypeScript and Python are my main backend languages. Here are the
           tools I’ve worked with.
@@ -32,6 +32,7 @@ export function Skills() {
             </ul>
           </div>
         ))}
+        <TurnSheet label="Skills" />
         <Folio label="Skills" page="11" />
       </div>
     </section>

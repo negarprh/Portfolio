@@ -1,4 +1,4 @@
-import { Divider, Folio, RunningHead } from "./editorial";
+import { Divider, Folio, RunningHead, TurnSheet } from "./editorial";
 export function Education() {
   return (
     <section id="education" aria-label="Education">
@@ -9,7 +9,7 @@ export function Education() {
         title="Education"
         note="05 / Studies"
       />
-      <div className="section education-spread">
+      <div className="section education-spread" data-boundary="spread">
         <div className="reading-page">
           <p className="eyebrow">Montréal, Québec</p>
           <h3>LaSalle College</h3>
@@ -19,6 +19,7 @@ export function Education() {
             Computer Science
           </p>
         </div>
+        <TurnSheet label="Education" />
         <Folio label="Education" page="10" />
       </div>
     </section>

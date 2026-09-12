@@ -1,4 +1,4 @@
-import { Divider, Folio, RunningHead } from "./editorial";
+import { Divider, Folio, RunningHead, TurnSheet } from "./editorial";
 import { projects, profile } from "@/lib/content";
 export function SelectedWork({ stars }: { stars: number | null }) {
   return (
@@ -11,7 +11,7 @@ export function SelectedWork({ stars }: { stars: number | null }) {
         note="03 / Projects"
       />
       <div className="work-spreads">
-        <article className="flagship section">
+        <article className="flagship section" data-boundary="spread">
           <div className="spread-content">
             <div className="project-copy">
               <p className="eyebrow">Open source · 2027</p>
@@ -60,10 +60,15 @@ export function SelectedWork({ stars }: { stars: number | null }) {
               </figcaption>
             </figure>
           </div>
+          <TurnSheet label="Selected work" />
           <Folio label="Selected work" page="05" />
         </article>
         {projects.map((project, i) => (
-          <article className="project-spread section" key={project.name}>
+          <article
+            className="project-spread section"
+            data-boundary="spread"
+            key={project.name}
+          >
             <div className="spread-content">
               <div className="project-copy">
                 <p className="eyebrow">{project.category}</p>
@@ -96,6 +101,7 @@ export function SelectedWork({ stars }: { stars: number | null }) {
                 </figcaption>
               </figure>
             </div>
+            <TurnSheet label="Selected work" />
             <Folio label="Selected work" page={`0${i + 6}`} />
           </article>
         ))}

@@ -127,38 +127,44 @@ test("JavaScript disabled: complete content and native chapter links", async ({
   await page.screenshot({ path: "test-results/no-js-skills.png" });
   await context.close();
 });
-test("page turns run once per boundary and respect live reduced-motion changes", async ({
+test("page-turn timelines are reused on reversal and cleared for reduced motion", async ({
   page,
 }) => {
   await page.goto("/");
-  await page.evaluate(() => {
-    const original = Element.prototype.animate;
-    (window as unknown as { turns: number }).turns = 0;
-    Element.prototype.animate = function (...args) {
-      if (this.classList.contains("turn-sheet"))
-        (window as unknown as { turns: number }).turns++;
-      return original.apply(this, args);
-    };
-  });
-  await page.locator('[data-boundary="experience"]').scrollIntoViewIfNeeded();
-  await page.waitForTimeout(950);
-  const first = await page.evaluate(
-    () => (window as unknown as { turns: number }).turns,
-  );
-  expect(first).toBe(1);
   await page
-    .locator("#top")
+    .locator('[data-boundary="experience"]')
     .evaluate((el) => el.scrollIntoView({ behavior: "instant" }));
-  await page.locator('[data-boundary="experience"]').scrollIntoViewIfNeeded();
-  await page.waitForTimeout(950);
+  await expect
+    .poll(() =>
+      page
+        .locator('[data-boundary="experience"] .turn-sheet')
+        .evaluate((el) => el.getAnimations().length),
+    )
+    .toBe(1);
+  await page.evaluate(() => {
+    (window as unknown as { leaf: Animation }).leaf = document
+      .querySelector('[data-boundary="experience"] .turn-sheet')!
+      .getAnimations()[0];
+  });
+  await page.evaluate(() => scrollTo({ top: 0, behavior: "instant" }));
+  await page
+    .locator('[data-boundary="experience"]')
+    .evaluate((el) => el.scrollIntoView({ behavior: "instant" }));
   expect(
-    await page.evaluate(() => (window as unknown as { turns: number }).turns),
-  ).toBe(first);
+    await page.evaluate(
+      () =>
+        document
+          .querySelector('[data-boundary="experience"] .turn-sheet')!
+          .getAnimations()[0] ===
+        (window as unknown as { leaf: Animation }).leaf,
+    ),
+  ).toBe(true);
   await page.emulateMedia({ reducedMotion: "reduce" });
-  await page.locator('[data-boundary="work"]').scrollIntoViewIfNeeded();
-  await page.waitForTimeout(150);
+  await expect(page.locator("html")).not.toHaveAttribute("data-book-enhanced");
   expect(
-    await page.evaluate(() => (window as unknown as { turns: number }).turns),
-  ).toBe(first);
-  await expect(page.locator(".cover-content")).toHaveCSS("transform", "none");
+    await page
+      .locator(".turn-sheet")
+      .evaluateAll((nodes) => nodes.flatMap((el) => el.getAnimations()).length),
+  ).toBe(0);
+  await expect(page.locator(".cover")).toHaveCSS("transform", "none");
 });

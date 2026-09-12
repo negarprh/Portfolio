@@ -1,6 +1,6 @@
 "use client";
 import { useEffect } from "react";
-import { turnPage } from "@/lib/book-effects";
+import { turnPage, TURN_DURATION } from "@/lib/book-effects";
 
 /** Enhancement only: native links and the full document remain usable without JS. */
 export function BookMotion() {
@@ -46,21 +46,29 @@ export function BookMotion() {
       { rootMargin: "-10% 0px -60% 0px", threshold: 0 },
     );
     document
-      .querySelectorAll("main > section[id]")
+      .querySelectorAll(
+        "main > section[id], .book-opening > section[id], main > footer[id]",
+      )
       .forEach((section) => activeObserver.observe(section));
 
     const preference = window.matchMedia("(prefers-reduced-motion: reduce)");
-    const seen = new Set<Element>();
-    const animations = new Set<Animation>();
-    const cover = document.querySelector<HTMLElement>(".cover-content");
+    const timelines = new Map<Element, Animation[]>();
+    const cover = document.querySelector<HTMLElement>(".cover");
+    const coverShadow = document.querySelector<HTMLElement>(
+      ".cover-opening-shadow",
+    );
+    const backCover = document.querySelector<HTMLElement>(".back-cover");
     const stacks = document.querySelector<HTMLElement>(".page-stacks");
     const leftStack = document.querySelector<HTMLElement>(".page-stack-left");
     const rightStack = document.querySelector<HTMLElement>(".page-stack-right");
-    let turns: IntersectionObserver | undefined;
+    let boundaries: { element: HTMLElement; top: number }[] = [];
     let frame = 0;
     let coverHeight = window.innerHeight;
     let bookLength = 1;
+    let backTop = 0;
+    const clamp = (value: number) => Math.max(0, Math.min(1, value));
     const measure = () => {
+      if (preference.matches) return;
       coverHeight = cover?.offsetHeight || window.innerHeight;
       bookLength = Math.max(
         1,
@@ -68,23 +76,52 @@ export function BookMotion() {
           coverHeight -
           window.innerHeight,
       );
+      backTop = (backCover?.getBoundingClientRect().top || 0) + window.scrollY;
+      boundaries = Array.from(
+        document.querySelectorAll<HTMLElement>("[data-boundary]"),
+      ).map((element) => ({
+        element,
+        // Measure the unpinned wrapper, not the sticky divider's moving rectangle.
+        top:
+          (
+            element.closest(".chapter-opening") || element
+          ).getBoundingClientRect().top + window.scrollY,
+      }));
       scroll();
     };
     const update = () => {
       frame = 0;
       if (preference.matches) return;
-      const coverProgress = Math.min(window.scrollY / window.innerHeight, 1);
-      if (cover) {
-        cover.style.transform = `translateY(${coverProgress * 45}px) scale(${1 - coverProgress * 0.035})`;
-        cover.style.opacity = String(1 - coverProgress * 0.4);
+      const y = window.scrollY;
+      const coverProgress = clamp(y / coverHeight);
+      if (cover)
+        cover.style.transform = `perspective(2200px) rotateY(${-180 * coverProgress}deg)`;
+      if (coverShadow) {
+        coverShadow.style.transform = `translateX(${-100 * coverProgress}%) scaleX(${1 - 0.6 * Math.sin(Math.PI * coverProgress)})`;
+        coverShadow.style.opacity = String(
+          0.7 * Math.sin(Math.PI * coverProgress),
+        );
       }
-      const progress = Math.max(
-        0,
-        Math.min(1, (window.scrollY - coverHeight) / bookLength),
-      );
+      // One paused timeline per leaf. Position is the only clock: no queues,
+      // direction flags, accumulated deltas, or time-based completion callbacks.
+      const travel = window.innerHeight * 0.85;
+      for (const { element, top } of boundaries) {
+        const progress = clamp((y - top + travel) / travel);
+        let animations = timelines.get(element);
+        if (!animations && progress > 0) {
+          animations = turnPage(element);
+          timelines.set(element, animations);
+        }
+        animations?.forEach((animation) => {
+          animation.currentTime = progress * TURN_DURATION;
+        });
+      }
+      const progress = clamp((y - coverHeight) / bookLength);
       if (stacks)
         stacks.style.opacity = String(
-          Math.max(0, Math.min(1, (window.scrollY - coverHeight + 180) / 180)),
+          clamp((y - coverHeight + 180) / 180) *
+            (1 -
+              clamp((y - backTop + window.innerHeight) / window.innerHeight)),
         );
       if (leftStack)
         leftStack.style.transform = `scaleX(${0.16 + progress * 0.84})`;
@@ -95,20 +132,20 @@ export function BookMotion() {
       if (!frame) frame = requestAnimationFrame(update);
     };
     const clear = () => {
-      turns?.disconnect();
-      animations.forEach((animation) => animation.cancel());
-      animations.clear();
+      timelines.forEach((animations) =>
+        animations.forEach((animation) => animation.cancel()),
+      );
+      timelines.clear();
       window.removeEventListener("scroll", scroll);
       cancelAnimationFrame(frame);
       frame = 0;
       delete document.documentElement.dataset.bookEnhanced;
-      if (cover) {
-        cover.style.transform = "";
-        cover.style.opacity = "";
-      }
-      if (stacks) stacks.style.opacity = "";
-      if (leftStack) leftStack.style.transform = "";
-      if (rightStack) rightStack.style.transform = "";
+      [cover, coverShadow, stacks, leftStack, rightStack].forEach((element) => {
+        if (element) {
+          element.style.transform = "";
+          element.style.opacity = "";
+        }
+      });
       document
         .querySelectorAll("[data-outgoing]")
         .forEach((container) => container.replaceChildren());
@@ -117,22 +154,6 @@ export function BookMotion() {
       clear();
       if (preference.matches) return;
       document.documentElement.dataset.bookEnhanced = "true";
-      turns = new IntersectionObserver(
-        (entries) => {
-          for (const entry of entries) {
-            if (!entry.isIntersecting || seen.has(entry.target)) continue;
-            seen.add(entry.target);
-            turns?.unobserve(entry.target);
-            turnPage(entry.target).forEach((animation) =>
-              animations.add(animation),
-            );
-          }
-        },
-        { threshold: 0.35 },
-      );
-      document
-        .querySelectorAll("[data-boundary]")
-        .forEach((el) => turns?.observe(el));
       window.addEventListener("scroll", scroll, { passive: true });
       measure();
     };

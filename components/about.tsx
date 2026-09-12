@@ -1,4 +1,4 @@
-import { Divider, Folio, RunningHead } from "./editorial";
+import { Divider, Folio, RunningHead, TurnSheet } from "./editorial";
 export function About() {
   return (
     <section id="about" aria-label="About">
@@ -9,7 +9,7 @@ export function About() {
         title="About me"
         note="07 / A little background"
       />
-      <div className="section about-spread">
+      <div className="section about-spread" data-boundary="spread">
         <div className="reading-page">
           <p>
             I’m Negar, a Computer Science graduate from LaSalle College in
@@ -28,6 +28,7 @@ export function About() {
           <p>I’m also a cat person.</p>
           <p className="signature">Negar</p>
         </div>
+        <TurnSheet label="About" />
         <Folio label="About" page="12" />
       </div>
     </section>

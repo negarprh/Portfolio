@@ -39,7 +39,9 @@ test("seal waits for fonts, enters once, and only the dot loops", async ({
     .toBe(1);
   await expect
     .poll(() =>
-      page.locator(".cover-seal").evaluate((el) => el.getAnimations().length),
+      page
+        .locator(".cover .cover-seal")
+        .evaluate((el) => el.getAnimations().length),
     )
     .toBe(0);
   await page
@@ -62,7 +64,7 @@ test("seal waits for fonts, enters once, and only the dot loops", async ({
   expect(loops).toEqual(["accent cover-dot"]);
   await page.emulateMedia({ reducedMotion: "reduce" });
   await expect(page.locator(".cover-dot")).toHaveCSS("animation-name", "none");
-  await expect(page.locator(".cover-seal")).toHaveCSS("opacity", "1");
+  await expect(page.locator(".cover .cover-seal")).toHaveCSS("opacity", "1");
 });
 
 test("no-JS and reduced-motion keep seal and all three role anchors readable", async ({
@@ -76,7 +78,7 @@ test("no-JS and reduced-motion keep seal and all three role anchors readable", a
     });
     const page = await context.newPage();
     await page.goto("/");
-    await expect(page.locator(".cover-seal")).toBeVisible();
+    await expect(page.locator(".cover .cover-seal")).toBeVisible();
     await expect(page.locator(".cover-dot")).toHaveCSS(
       "animation-name",
       "none",

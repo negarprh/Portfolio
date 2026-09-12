@@ -68,7 +68,7 @@ html[data-book-enhanced] {
     transparent 0.9px
   );
 }
-html[data-book-enhanced] main > section:not(.cover) {
+html[data-book-enhanced] :is(main, .book-opening) > section:not(.cover) {
   background-color: #f3eee2;
   background-image: var(--paper-grain), var(--paper-wash);
   background-size:
@@ -336,7 +336,7 @@ html[data-book-enhanced] .page-stacks {
       #ede5d5
     );
   }
-  html[data-book-enhanced] main > section:not(.cover) {
+  html[data-book-enhanced] :is(main, .book-opening) > section:not(.cover) {
     box-shadow: none;
   }
   html[data-book-enhanced] :is(.spread-content, .intro-grid, .skill-group) {

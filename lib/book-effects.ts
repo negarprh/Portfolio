@@ -1,15 +1,24 @@
+export const TURN_DURATION = 1800;
+
 /** Decorative copy only. The original content remains readable in DOM order. */
 export function prepareOutgoingPage(boundary: Element) {
   const section = boundary.closest("main > section, main > footer");
-  const previous = section?.previousElementSibling;
-  const candidates = previous?.querySelectorAll<HTMLElement>(
-    ".spread-content > :last-child, .intro-facts, .reading-page, .skill-group:last-of-type ul, .closing-content",
+  const surfaces = Array.from(
+    document.querySelectorAll(".introduction, [data-boundary]"),
   );
-  const source = candidates?.[candidates.length - 1];
+  const previous =
+    surfaces[surfaces.indexOf(boundary) - 1] || section?.previousElementSibling;
+  const candidates = previous?.querySelectorAll<HTMLElement>(
+    ".spread-content > :last-child, .intro-facts, .reading-page, .skill-group:last-of-type ul, .closing-content, .divider-title",
+  );
+  const originals = Array.from(candidates || []).filter(
+    (element) => !element.closest(".turn-sheet"),
+  );
+  const source = originals[originals.length - 1];
   const destination = boundary.querySelector<HTMLElement>("[data-outgoing]");
   if (!source || !destination) return;
   const copy = source.cloneNode(true) as HTMLElement;
-  copy.className = "outgoing-content";
+  copy.classList.add("outgoing-content");
   copy.inert = true;
   copy.setAttribute("aria-hidden", "true");
   for (const element of [copy, ...copy.querySelectorAll("*")]) {
@@ -32,7 +41,7 @@ export function turnPage(boundary: Element): Animation[] {
   if (!sheet) return [];
   prepareOutgoingPage(boundary);
   const timing: KeyframeAnimationOptions = {
-    duration: 1800,
+    duration: TURN_DURATION,
     easing: "cubic-bezier(.32,.08,.24,1)",
     fill: "forwards",
   };
@@ -48,7 +57,12 @@ export function turnPage(boundary: Element): Animation[] {
   );
   // A leaf remains opaque throughout the turn and rests on the left page.
   const faces = Array.from(sheet.children).map((face) =>
-    face.animate([{ opacity: 1 }, { opacity: 1 }], timing),
+    face.animate(
+      boundary.classList.contains("divider")
+        ? [{ opacity: 1 }, { opacity: 1 }]
+        : [{ opacity: 1 }, { opacity: 1, offset: 0.88 }, { opacity: 0 }],
+      timing,
+    ),
   );
   const shadow = boundary.querySelector(".turn-shadow")?.animate(
     [
@@ -72,12 +86,10 @@ export function turnPage(boundary: Element): Animation[] {
     ],
     { ...timing, fill: "none" },
   );
-  // The back cover closes the book; it must not retain a paper overlay.
-  if (boundary.classList.contains("back-cover")) {
-    rotation.onfinish = () => {
-      rotation.cancel();
-      faces.forEach((face) => face.cancel());
-    };
-  }
-  return [rotation, ...faces, ...(shadow ? [shadow] : [])];
+  const animations = [rotation, ...faces, ...(shadow ? [shadow] : [])];
+  animations.forEach((animation) => {
+    animation.pause();
+    animation.currentTime = 0;
+  });
+  return animations;
 }
