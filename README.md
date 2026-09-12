@@ -1,68 +1,63 @@
-# **Personal Portfolio Website**
+# The Book — Negar Pirasteh
 
-Welcome to my personal portfolio repository! 🚀 This project showcases my skills, projects, and passion for web development. The portfolio is designed to be clean, modern, and responsive, highlighting my journey as a developer and allowing visitors to connect with me directly.
+A single-page, editorial developer portfolio built with Next.js App Router, TypeScript, and Tailwind CSS. Complete content is prerendered in document order. JavaScript only enhances the native chapter index and adds restrained page turns.
 
-🔗 **Live Demo**: [Portfolio](https://negarprh.github.io/Portfolio/)
+## Run locally
 
----
-
-## **🌟 Features**
-- **About Me Section:** Learn about my background, experience, and skills.
-- **Projects Showcase:** Explore my completed projects with links to live demos and GitHub repositories.
-- **Blog Section:** Stay updated with my latest blogs and tech insights.
-- **Contact Me:** A functional contact form for visitors to send inquiries directly.
-
----
-
-## **🖼️ Screenshots**
-### Homepage 🏡
-![Homepage](assets/images/screenshots/Homepage.png)
-
-### Skills 🛠️
-![Skills](assets/images/screenshots/skills.png)
-
-### Experience 👩‍💻
-![Experience](assets/images/screenshots/experience.png)
-
-### Projects Section 📝
-![Projects Section](assets/images/screenshots/projects.png)
-
-### Contact Me 📞
-![Contact Me](assets/images/screenshots/contact.png)
-
----
-
-## **💻 Tech Stack**
-- **Frontend:** 
-  - HTML5
-  - CSS3 (Flexbox, Grid)
-  - JavaScript (Interactive Features)
-- **Styling Frameworks & Tools:** Bootstrap
-- **Animations:** ScrollReveal.js
-
----
-
-## **📂 Project Structure**
-```
-├── assets/
-│   ├── css/                # Stylesheets
-│   ├── images/             # Images used in the project
-│   ├── js/                 # JavaScript files
-├── index.html              # Main HTML file
-├── README.md               # Project description
+```sh
+npm ci
+npm run dev
 ```
 
----
+Open http://localhost:3000. For a production preview:
 
-## **🌐 Live Demo**
-Check out the live version of the portfolio: [Portfolio](https://negarprh.github.io/Portfolio/)
+```sh
+npm run build
+npm start
+```
 
----
+## Deploy on Vercel
 
-## **💌 Connect With Me**
-Feel free to reach out or connect:
-- **LinkedIn:** [Negar Pirasteh](https://www.linkedin.com/in/negar-pirasteh/)
-- **GitHub:** [negarprh](https://github.com/negarprh)
-- **Instagram:** [@negar_tech](https://www.instagram.com/negar_tech/)
+Import this repository, choose the **Next.js** framework preset, and use the repository root. The normal `next build` output supports ISR; do not use `output: 'export'` or the legacy GitHub Pages workflow. No credentials are required for the public GitHub star count.
 
----
+Optional environment variables (copy `.env.example` to `.env.local` locally):
+
+- `NEXT_PUBLIC_CONTACT_EMAIL`: the verified public email address. Omitted until confirmed.
+- `NEXT_PUBLIC_RESUME_URL`: a verified resume URL or `/resume.pdf` after adding that file under `public/`. Until configured, a non-clickable “Resume coming soon” placeholder is shown.
+
+## Content and structure
+
+- `app/page.tsx`: cover, introduction, and ordered chapter composition.
+- `lib/content.ts`: verified work history, project copy, grouped skills, and links.
+- `lib/github.ts`: public GitHub API fetch, hourly revalidation, five-second timeout, and a non-numeric fallback when unavailable.
+- `components/`: editorial chapter components and the native HTML index.
+- `components/book-motion.tsx`: optional browser enhancement; one turn per boundary per visit, reduced-motion changes, index focus management, Escape, and outside-click dismissal.
+- `app/globals.css`: ink/paper/amber design system and separate mobile composition.
+- `app/chapters.css`: chapter-specific paper/ink palettes, contained running heads, margin numerals, and sticky full-height title spreads. Openings stay pinned for 75vh of additional scroll on desktop and 50vh on mobile; scrolling is never blocked.
+- `app/book-material.css`: progressive paper grain, gutter/edge lighting, mirrored margins and folios, and fixed fore-edge stacks.
+- `lib/book-effects.ts`: inert outgoing-page copies, spine-axis rotation, and a separately composited cast shadow.
+- `public/`: locally hosted fonts, recognizable SVG icons, and real project screenshots.
+
+The original `index.html`, `head.html`, and `assets/` remain as source material for the previous portfolio. Next.js does not serve those pages.
+
+## Verification
+
+```sh
+npm run typecheck
+npm run build
+npm test
+```
+
+The browser suite expects a running local server on port 3000 and a Playwright Chromium installation (`npx playwright install chromium` if needed). It checks chapter content and assets, keyboard/index navigation, 320/390/768px layouts, JavaScript-disabled navigation, live reduced-motion changes, and one-shot chapter turns. Axe checks cover desktop and mobile. Screenshots are saved in `test-results/`.
+
+## Assets and attribution
+
+Display: DM Serif Display. Body: Manrope. Both are locally hosted Google Fonts under the SIL Open Font License. Technical labels use the system monospace font.
+
+Skill marks: Devicon (MIT) and Simple Icons (CC0; Stripe), with AWS artwork retained from the supplied portfolio. Brand marks belong to their respective owners. See `public/licenses/`.
+
+Existing project images came from the supplied portfolio. The 2027 repository screenshot is captured from the actual public GitHub page by `scripts/capture-repo.cjs`. Refresh intentionally when the README changes; the star label is independently refreshed by ISR.
+
+Motion only uses transform, opacity, and clip-path. Static gradients and fine CSS grain give the pages a paper surface. Shaded centre bindings and outer edges frame desktop spreads. Fixed fore-edge stacks accumulate on the left and diminish on the right with scroll progress (transform only). Chapter leaves carry inert copies of the preceding right-page content and rotate 180 degrees around the spine with a separate moving shadow. The leaf stays opaque and lands on the left. No animation libraries, canvas, or scroll interception are used. All material refinements are gated behind the client-set `data-book-enhanced` attribute. Without JavaScript or in reduced-motion mode, the previous flat sections, margins, folios, and native navigation remain in place. Switching to reduced motion cancels every animation and removes decorative content copies. With JavaScript disabled, the index is a native `<details>` element: choose a chapter, then toggle the bookmark to close it.
+
+Chapter review: `node scripts/review-chapters.cjs` captures three adjacent chapter content pages with every animation stopped, plus desktop/mobile divider views. `tests/chapters.spec.ts` verifies distinct static identity, running-head containment, a 600px wheel-scroll hold, and the unpinned reduced-motion fallback.

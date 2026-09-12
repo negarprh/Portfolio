@@ -1,0 +1,389 @@
+/* Optical materials only. Without enhancement, the existing flat layout is untouched.
+   Gradients and shadows are static; their layers move via transform/opacity only. */
+.page-stacks,
+.folio-verso,
+.folio-recto {
+  display: none;
+}
+.turn-shadow {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 50%;
+  opacity: 0;
+  pointer-events: none;
+  z-index: 4;
+  transform-origin: left center;
+  background: linear-gradient(
+    90deg,
+    #30261570,
+    #30261535 18%,
+    #30261510 58%,
+    transparent
+  );
+}
+.sheet-outgoing {
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  padding-block: 34px;
+}
+.outgoing-content {
+  width: 100%;
+  color: #45463e;
+  font-family: Body, Arial, sans-serif;
+  font-size: 16px;
+  line-height: 1.95;
+}
+.outgoing-content p + p {
+  margin-top: 22px;
+}
+.outgoing-content h3 {
+  font-size: 35px;
+  margin-bottom: 24px;
+}
+.outgoing-content img {
+  max-width: 100%;
+  height: auto;
+}
+.outgoing-content .links {
+  font-size: 12px;
+}
+html[data-book-enhanced] {
+  --book-inset: max(56px, calc((100vw - 1240px) / 2));
+  --paper-wash: linear-gradient(
+    105deg,
+    #f6f2e8 0%,
+    #f3eee1 43%,
+    #ece5d5 50%,
+    #f6f1e6 59%,
+    #f1ebdd 100%
+  );
+  --paper-grain: radial-gradient(
+    ellipse at center,
+    #76623b05 0.45px,
+    transparent 0.9px
+  );
+}
+html[data-book-enhanced] main > section:not(.cover) {
+  background-color: #f3eee2;
+  background-image: var(--paper-grain), var(--paper-wash);
+  background-size:
+    5px 7px,
+    100% 100%;
+  box-shadow:
+    -3px 0 #e4ded0,
+    -5px 0 #81796a,
+    3px 0 #e4ded0,
+    5px 0 #81796a,
+    0 12px 35px #17191024;
+}
+/* A whole spread is lit together, including the full height of its binding. */
+html[data-book-enhanced]
+  :is(
+    .introduction,
+    .experience-row,
+    .project-spread,
+    .flagship,
+    .divider,
+    .building-spread,
+    .education-spread,
+    .about-spread,
+    .skills-spread,
+    .closing
+  ) {
+  background-color: #f3eee2;
+  background-image: var(--paper-grain), var(--paper-wash);
+  background-size:
+    5px 7px,
+    100% 100%;
+  box-shadow:
+    inset 9px 0 14px -11px #57482ea6,
+    inset -9px 0 14px -11px #57482e85,
+    inset 0 1px #fff9,
+    inset 0 -2px 5px -4px #65553b;
+}
+html[data-book-enhanced]
+  :is(
+    .introduction,
+    .experience-row,
+    .project-spread,
+    .flagship,
+    .divider,
+    .building-spread,
+    .education-spread,
+    .about-spread,
+    .skills-spread,
+    .closing
+  )::before {
+  content: "";
+  display: block;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 84px;
+  transform: translateX(-50%);
+  pointer-events: none;
+  z-index: 1;
+  box-shadow: none;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    #57482903 12%,
+    #5748290c 32%,
+    #57482924 43%,
+    #41372347 49%,
+    #352c1b70 50%,
+    #41372332 52%,
+    #5748290f 67%,
+    #fff4 84%,
+    transparent 100%
+  );
+}
+html[data-book-enhanced] .spread-content::before {
+  display: none;
+}
+/* More inner margin at the binding; less at the fore-edge. */
+html[data-book-enhanced] :is(.spread-content, .intro-grid) {
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+}
+html[data-book-enhanced] :is(.spread-content, .intro-grid) > :first-child {
+  padding-right: 68px;
+}
+html[data-book-enhanced] :is(.spread-content, .intro-grid) > :last-child {
+  padding-left: 78px;
+}
+html[data-book-enhanced] .intro-grid {
+  align-items: start;
+}
+html[data-book-enhanced] .reading-page,
+html[data-book-enhanced] .closing-content {
+  width: calc(50% - 70px);
+  margin-left: calc(50% + 70px);
+  margin-right: 0;
+}
+html[data-book-enhanced] .skill-group {
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+}
+html[data-book-enhanced] .skill-group > ul {
+  padding-left: 78px;
+}
+html[data-book-enhanced] .skills-intro {
+  width: calc(50% - 68px);
+  margin-left: 0;
+}
+html[data-book-enhanced] .folio {
+  align-items: baseline;
+  position: relative;
+  z-index: 2;
+}
+html[data-book-enhanced] .folio-verso,
+html[data-book-enhanced] .folio-recto {
+  display: inline;
+  font:
+    14px Georgia,
+    serif;
+}
+html[data-book-enhanced] .folio-flat {
+  display: none;
+}
+html[data-book-enhanced] .folio-label {
+  flex: 1;
+  padding-left: 20px;
+}
+html[data-book-enhanced] .folio-number {
+  margin-left: auto;
+  padding-right: 8px;
+}
+html[data-book-enhanced] .divider-top > span:last-child,
+html[data-book-enhanced] .divider-note {
+  padding-right: 8px;
+}
+html[data-book-enhanced] .sheet-front,
+html[data-book-enhanced] .sheet-back {
+  background-image:
+    var(--paper-grain),
+    linear-gradient(
+      90deg,
+      #dbd1bc 0%,
+      #eee7d7 5%,
+      #f5f0e5 16%,
+      #f3edde 94%,
+      #ded4c0 100%
+    );
+  background-size:
+    5px 7px,
+    100% 100%;
+  padding: 35px 62px 32px 78px;
+  box-shadow: 6px 4px 14px #29231326;
+}
+html[data-book-enhanced] .sheet-back {
+  padding-left: 62px;
+  padding-right: 78px;
+  background-image:
+    var(--paper-grain),
+    linear-gradient(90deg, #ded4c0, #f3edde 6%, #f5f0e5 84%, #dbd1bc);
+  box-shadow: -5px 3px 14px #29231322;
+}
+/* Fixed fore-edges stay at the book's sides as the reader moves through it. */
+html[data-book-enhanced] .page-stacks {
+  display: block;
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0;
+  z-index: 20;
+}
+.page-stack {
+  position: absolute;
+  top: 18px;
+  bottom: 18px;
+  width: 27px;
+  border-block: 1px solid #bdb49f;
+  background: repeating-linear-gradient(
+    90deg,
+    #f2eddf 0px,
+    #f2eddf 1px,
+    #b6ac95 1px,
+    #c6bba6 2px,
+    #ece5d5 2px,
+    #ece5d5 3px
+  );
+  box-shadow: 0 3px 8px #15161160;
+}
+.page-stack::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    #342c2045,
+    transparent 40%,
+    #ffffff18 75%,
+    #342c2030
+  );
+}
+.page-stack-left {
+  right: calc(100% - var(--book-inset));
+  transform-origin: right center;
+  transform: scaleX(0.16);
+}
+.page-stack-right {
+  left: calc(100% - var(--book-inset));
+  transform-origin: left center;
+}
+@media (max-width: 1000px) {
+  html[data-book-enhanced] {
+    --book-inset: 36px;
+  }
+  html[data-book-enhanced] :is(.spread-content, .intro-grid) > :first-child {
+    padding-right: 36px;
+  }
+  html[data-book-enhanced] :is(.spread-content, .intro-grid) > :last-child {
+    padding-left: 44px;
+  }
+  html[data-book-enhanced] .skill-group > ul {
+    padding-left: 44px;
+    grid-template-columns: 1fr;
+  }
+  html[data-book-enhanced] .reading-page,
+  html[data-book-enhanced] .closing-content {
+    width: calc(50% - 44px);
+    margin-left: calc(50% + 44px);
+  }
+  html[data-book-enhanced] .sheet-front {
+    padding-inline: 44px 40px;
+  }
+  html[data-book-enhanced] .sheet-back {
+    padding-inline: 40px 44px;
+  }
+  .page-stack {
+    width: 21px;
+  }
+}
+/* Phones keep a single readable page; binding and accumulated fore-edges belong to spreads. */
+@media (max-width: 700px) {
+  html[data-book-enhanced] .page-stacks {
+    display: none;
+  }
+  html[data-book-enhanced]
+    :is(
+      .introduction,
+      .experience-row,
+      .project-spread,
+      .flagship,
+      .divider,
+      .building-spread,
+      .education-spread,
+      .about-spread,
+      .skills-spread,
+      .closing
+    )::before {
+    display: none;
+  }
+  html[data-book-enhanced] {
+    --paper-wash: linear-gradient(
+      100deg,
+      #eee7d8,
+      #f6f1e6 8%,
+      #f4eee2 92%,
+      #ede5d5
+    );
+  }
+  html[data-book-enhanced] main > section:not(.cover) {
+    box-shadow: none;
+  }
+  html[data-book-enhanced] :is(.spread-content, .intro-grid, .skill-group) {
+    grid-template-columns: 1fr;
+  }
+  html[data-book-enhanced] .spread-content {
+    gap: 40px;
+  }
+  html[data-book-enhanced] .intro-grid {
+    gap: 50px;
+  }
+  html[data-book-enhanced] :is(.spread-content, .intro-grid) > :first-child {
+    padding-right: 0;
+  }
+  html[data-book-enhanced] :is(.spread-content, .intro-grid) > :last-child {
+    padding-left: 0;
+  }
+  html[data-book-enhanced] .reading-page,
+  html[data-book-enhanced] .closing-content {
+    width: 100%;
+    margin-inline: auto;
+  }
+  html[data-book-enhanced] .skill-group > ul {
+    padding-left: 0;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  html[data-book-enhanced] .skills-intro {
+    width: 100%;
+  }
+  html[data-book-enhanced] .folio-verso {
+    display: none;
+  }
+  html[data-book-enhanced] .folio-label {
+    padding-left: 0;
+  }
+  html[data-book-enhanced] .sheet-front,
+  html[data-book-enhanced] .sheet-back {
+    padding: 30px 34px;
+  }
+  .turn-shadow {
+    left: 0;
+    width: 100%;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .page-stacks,
+  .turn-shadow {
+    display: none !important;
+  }
+}

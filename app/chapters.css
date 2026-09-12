@@ -1,0 +1,318 @@
+/* Chapter identity is an optical enhancement; flat fallbacks retain their layout. */
+.chapter-running,
+.chapter-display-numeral,
+.chapter-back-numeral {
+  display: none;
+}
+.chapter-opening {
+  display: contents;
+}
+html[data-book-enhanced] #introduction {
+  --chapter-paper: #f4efe3;
+  --chapter-fold: #dfd5c0;
+  --chapter-edge: #eee6d6;
+  --chapter-ink: #7d6844;
+  --chapter-mark: "01";
+}
+html[data-book-enhanced] #experience {
+  --chapter-paper: #f1ebdc;
+  --chapter-fold: #d5c8ad;
+  --chapter-edge: #e8dfcb;
+  --chapter-ink: #7d6339;
+  --chapter-mark: "I";
+}
+html[data-book-enhanced] #work {
+  --chapter-paper: #e5edf0;
+  --chapter-fold: #becdd1;
+  --chapter-edge: #d9e3e7;
+  --chapter-ink: #456675;
+  --chapter-mark: "II";
+}
+html[data-book-enhanced] #building {
+  --chapter-paper: #f0e2d5;
+  --chapter-fold: #d5bca5;
+  --chapter-edge: #e6d4c2;
+  --chapter-ink: #74502f;
+  --chapter-mark: "III";
+}
+html[data-book-enhanced] #education {
+  --chapter-paper: #eeeddf;
+  --chapter-fold: #d1ceb8;
+  --chapter-edge: #e4e1cf;
+  --chapter-ink: #615e3b;
+  --chapter-mark: "IV";
+}
+html[data-book-enhanced] #skills {
+  --chapter-paper: #e3eade;
+  --chapter-fold: #bdcbb4;
+  --chapter-edge: #d7e0d1;
+  --chapter-ink: #53674a;
+  --chapter-mark: "V";
+}
+html[data-book-enhanced] #about {
+  --chapter-paper: #f0e7e0;
+  --chapter-fold: #d4c4b8;
+  --chapter-edge: #e8dcd2;
+  --chapter-ink: #7b6251;
+  --chapter-mark: "VI";
+}
+html[data-book-enhanced] #contact {
+  --chapter-paper: #ede7d9;
+  --chapter-fold: #cfc2a7;
+  --chapter-edge: #e3d9c5;
+  --chapter-ink: #75613c;
+  --chapter-mark: "VII";
+}
+html[data-book-enhanced] main > section:not(.cover) {
+  position: relative;
+  --paper-wash: linear-gradient(
+    105deg,
+    var(--chapter-paper),
+    var(--chapter-paper) 43%,
+    var(--chapter-fold) 50%,
+    var(--chapter-paper) 59%,
+    var(--chapter-edge)
+  );
+}
+html[data-book-enhanced] .chapter-running {
+  display: block;
+  position: sticky;
+  top: 0;
+  height: 0;
+  min-height: 0;
+  z-index: 24;
+  flex: none;
+  pointer-events: none;
+}
+html[data-book-enhanced] .chapter-running-label {
+  position: absolute;
+  top: 12px;
+  left: 64px;
+  display: flex;
+  gap: 15px;
+  align-items: baseline;
+  padding: 9px 15px 10px 0;
+  background: var(--chapter-paper);
+  border-bottom: 1px solid var(--chapter-ink);
+  color: var(--chapter-ink);
+  font:
+    12px Body,
+    Arial,
+    sans-serif;
+  letter-spacing: 0.035em;
+  max-width: calc(100vw - 100px);
+}
+html[data-book-enhanced] .chapter-running-label > span:first-child {
+  font:
+    16px Editorial,
+    Georgia,
+    serif;
+  min-width: 20px;
+}
+html[data-book-enhanced] :is(.introduction, .closing) > .chapter-running {
+  margin-left: -64px;
+  margin-top: -36px;
+}
+html[data-book-enhanced] .divider-top > span:first-child,
+html[data-book-enhanced] .introduction > .running-head {
+  visibility: hidden;
+}
+html[data-book-enhanced] .chapter-opening {
+  display: block;
+  position: relative;
+  height: 175svh;
+}
+html[data-book-enhanced] .chapter-opening > .divider {
+  position: sticky;
+  top: 0;
+  height: 100svh;
+  min-height: 100svh;
+  padding-top: 74px;
+  padding-bottom: 42px;
+}
+html[data-book-enhanced] .divider-title {
+  padding-block: 100px;
+  align-items: flex-start;
+  text-align: left;
+  padding-left: 70px;
+}
+html[data-book-enhanced] .divider-title .eyebrow {
+  color: var(--chapter-ink);
+  font-size: 12px;
+  letter-spacing: 0.2em;
+}
+html[data-book-enhanced] .divider h2 {
+  font-size: clamp(44px, 4.6vw, 68px);
+  line-height: 1.15;
+  max-width: 8em;
+  margin-top: 30px;
+}
+html[data-book-enhanced] .chapter-rule {
+  width: 70px;
+  background: var(--chapter-ink);
+  margin-top: 36px;
+}
+html[data-book-enhanced] .chapter-display-numeral {
+  display: flex;
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 50%;
+  align-items: center;
+  justify-content: center;
+  font:
+    clamp(140px, 18vw, 260px) Editorial,
+    Georgia,
+    serif;
+  letter-spacing: -0.07em;
+  color: var(--chapter-ink);
+  opacity: 0.65;
+  padding-right: 24px;
+}
+html[data-book-enhanced] .chapter-back-numeral {
+  display: flex;
+  position: absolute;
+  inset: 0;
+  align-items: center;
+  justify-content: center;
+  font:
+    clamp(140px, 18vw, 260px) Editorial,
+    Georgia,
+    serif;
+  letter-spacing: -0.07em;
+  color: var(--chapter-ink);
+  opacity: 0.65;
+  padding-right: 24px;
+}
+html[data-book-enhanced] :is(.closing, .back-cover) .chapter-back-numeral {
+  display: none;
+}
+html[data-book-enhanced] .sheet-front,
+html[data-book-enhanced] .sheet-back {
+  background-image:
+    var(--paper-grain),
+    linear-gradient(
+      90deg,
+      var(--chapter-fold),
+      var(--chapter-paper) 8%,
+      var(--chapter-paper) 92%,
+      var(--chapter-edge)
+    );
+}
+html[data-book-enhanced] .divider-note {
+  color: var(--chapter-ink);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+}
+html[data-book-enhanced] .section::after {
+  content: var(--chapter-mark);
+  position: absolute;
+  left: 22px;
+  bottom: 76px;
+  font:
+    italic 24px Editorial,
+    Georgia,
+    serif;
+  color: var(--chapter-ink);
+  border-top: 1px solid var(--chapter-ink);
+  padding-top: 12px;
+  width: 20px;
+  text-align: center;
+  pointer-events: none;
+}
+html[data-book-enhanced] .folio {
+  color: var(--chapter-ink);
+}
+html[data-book-enhanced] #work .chapter-display-numeral,
+html[data-book-enhanced] #work .chapter-back-numeral {
+  font-style: italic;
+}
+html[data-book-enhanced] #building .chapter-display-numeral,
+html[data-book-enhanced] #building .chapter-back-numeral {
+  letter-spacing: -0.11em;
+}
+@media (max-width: 1000px) {
+  html[data-book-enhanced] .chapter-running-label {
+    left: 40px;
+  }
+  html[data-book-enhanced] :is(.introduction, .closing) > .chapter-running {
+    margin-left: -40px;
+  }
+  html[data-book-enhanced] .divider-title {
+    padding-left: 44px;
+  }
+  html[data-book-enhanced] .section::after {
+    left: 12px;
+    font-size: 18px;
+    width: 15px;
+  }
+}
+@media (max-width: 700px) {
+  html[data-book-enhanced] .chapter-running-label {
+    left: 34px;
+    top: 8px;
+    font-size: 11px;
+    padding-top: 8px;
+    gap: 10px;
+  }
+  html[data-book-enhanced] :is(.introduction, .closing) > .chapter-running {
+    margin-left: -34px;
+    margin-top: -30px;
+  }
+  html[data-book-enhanced] .chapter-opening {
+    height: 150svh;
+  }
+  html[data-book-enhanced] .chapter-opening > .divider {
+    height: 100svh;
+    min-height: 100svh;
+    padding-top: 70px;
+    padding-bottom: 34px;
+  }
+  html[data-book-enhanced] .divider-title {
+    margin: 0;
+    padding: 0;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+  }
+  html[data-book-enhanced] .divider h2 {
+    font-size: 45px;
+  }
+  html[data-book-enhanced] .chapter-display-numeral {
+    top: 80px;
+    bottom: auto;
+    width: 100%;
+    font-size: 88px;
+    padding: 0;
+    opacity: 0.42;
+  }
+  html[data-book-enhanced] .chapter-back-numeral {
+    display: none;
+  }
+  html[data-book-enhanced] .divider-top {
+    visibility: hidden;
+  }
+  html[data-book-enhanced] .section::after {
+    display: none;
+  }
+}
+/* Reserve the running head's ink height so it leaves with its own chapter. */
+html[data-book-enhanced] .chapter-running {
+  height: 62px;
+  margin-bottom: -62px;
+}
+html[data-book-enhanced] .sheet-back > span:first-child {
+  visibility: hidden;
+}
+@media (max-width: 700px) {
+  html[data-book-enhanced] main > section:not(.cover) {
+    --paper-wash: linear-gradient(
+      90deg,
+      var(--chapter-edge),
+      var(--chapter-paper) 8%,
+      var(--chapter-paper) 94%,
+      var(--chapter-edge)
+    );
+  }
+}
