@@ -2,6 +2,8 @@
 
 A single-page, editorial developer portfolio built with Next.js App Router, TypeScript, and Tailwind CSS. Complete content is prerendered in document order. JavaScript only enhances the native chapter index and adds restrained page turns.
 
+Project instructions and verified design/content constraints: [AGENTS.md](AGENTS.md). Accepted and rejected directions: [DECISIONS.md](DECISIONS.md). Active development is on `makeover`; merge to `main` only when explicitly requested.
+
 ## Run locally
 
 ```sh
@@ -31,7 +33,7 @@ Optional environment variables (copy `.env.example` to `.env.local` locally):
 - `lib/content.ts`: verified work history, project copy, grouped skills, and links.
 - `lib/github.ts`: public GitHub API fetch, hourly revalidation, five-second timeout, and a non-numeric fallback when unavailable.
 - `components/`: editorial chapter components and the native HTML index.
-- `components/book-motion.tsx`: optional browser enhancement; one turn per boundary per visit, reduced-motion changes, index focus management, Escape, and outside-click dismissal.
+- `components/book-motion.tsx`: optional browser enhancement; scroll-position-driven bidirectional turns, reduced-motion changes, index focus management, Escape, and outside-click dismissal.
 - `app/globals.css`: ink/paper/amber design system and separate mobile composition.
 - `app/chapters.css`: chapter-specific paper/ink palettes, contained running heads, margin numerals, and sticky full-height title spreads. Openings stay pinned for 75vh of additional scroll on desktop and 50vh on mobile; scrolling is never blocked.
 - `app/book-material.css`: progressive paper grain, gutter/edge lighting, mirrored margins and folios, and fixed fore-edge stacks.
@@ -48,7 +50,7 @@ npm run build
 npm test
 ```
 
-The browser suite expects a running local server on port 3000 and a Playwright Chromium installation (`npx playwright install chromium` if needed). It checks chapter content and assets, keyboard/index navigation, 320/390/768px layouts, JavaScript-disabled navigation, live reduced-motion changes, and one-shot chapter turns. Axe checks cover desktop and mobile. Screenshots are saved in `test-results/`.
+The browser suite expects a running local server on port 3000 and a Playwright Chromium installation (`npx playwright install chromium` if needed). It checks chapter content and assets, keyboard/index navigation, 320/390/768px layouts, JavaScript-disabled navigation, live reduced-motion changes, and reversible chapter/spread turns, including simulated wheel/trackpad journeys and rapid reversals. Axe checks cover desktop and mobile. Screenshots are saved in `test-results/`.
 
 ## Assets and attribution
 
@@ -58,7 +60,7 @@ Skill marks: Devicon (MIT) and Simple Icons (CC0; Stripe), with AWS artwork reta
 
 Existing project images came from the supplied portfolio. The 2027 repository screenshot is captured from the actual public GitHub page by `scripts/capture-repo.cjs`. Refresh intentionally when the README changes; the star label is independently refreshed by ISR.
 
-Motion only uses transform, opacity, and clip-path. Static gradients and fine CSS grain give the pages a paper surface. Shaded centre bindings and outer edges frame desktop spreads. Fixed fore-edge stacks accumulate on the left and diminish on the right with scroll progress (transform only). Chapter leaves carry inert copies of the preceding right-page content and rotate 180 degrees around the spine with a separate moving shadow. The leaf stays opaque and lands on the left. No animation libraries, canvas, or scroll interception are used. All material refinements are gated behind the client-set `data-book-enhanced` attribute. Without JavaScript or in reduced-motion mode, the previous flat sections, margins, folios, and native navigation remain in place. Switching to reduced motion cancels every animation and removes decorative content copies. With JavaScript disabled, the index is a native `<details>` element: choose a chapter, then toggle the bookmark to close it.
+Motion only uses transform, opacity, and clip-path. Static gradients and fine CSS grain give the pages a paper surface. Shaded centre bindings and outer edges frame desktop spreads. Fixed fore-edge stacks accumulate on the left and diminish on the right with scroll progress (transform only). Chapter leaves carry inert copies of the preceding right-page content and rotate 180 degrees around the spine with a separate moving shadow. Chapter-divider leaves stay opaque and land on the left; reading-spread and back-cover faces clear at the end of their reversible turn. No animation libraries, canvas, or scroll interception are used. Interior material refinements are gated behind the client-set `data-book-enhanced` attribute. Both cloth covers retain their material and typography without JavaScript or with reduced motion. Without JavaScript or in reduced-motion mode, the previous flat sections, margins, folios, and native navigation remain in place. Switching to reduced motion cancels page/entrance animations, disables the dot pulse, and removes decorative content copies. With JavaScript disabled, the index is a native `<details>` element: choose a chapter, then toggle the bookmark to close it.
 
 Chapter review: `node scripts/review-chapters.cjs` captures three adjacent chapter content pages with every animation stopped, plus desktop/mobile divider views. `tests/chapters.spec.ts` verifies distinct static identity, running-head containment, a 600px wheel-scroll hold, and the unpinned reduced-motion fallback.
 ## Makeover branch refinements
