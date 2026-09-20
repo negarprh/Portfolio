@@ -1,4 +1,5 @@
 import { CoverSeal } from "@/components/cover-seal";
+import { CoverName } from "@/components/cover-name";
 import { Closing } from "@/components/closing";
 import { Skills } from "@/components/skills";
 import { Education } from "@/components/education";
@@ -40,13 +41,7 @@ export default async function Home() {
                 </div>
                 <div className="cover-heading">
                   <p className="eyebrow">Selected work & experience</p>
-                  <h1 id="cover-title">
-                    Negar
-                    <br />
-                    <em>
-                      Pirasteh<span className="accent cover-dot">.</span>
-                    </em>
-                  </h1>
+                  <CoverName />
                   <div className="cover-role">
                     <span className="small-rule" />
                     SOFTWARE DEVELOPER

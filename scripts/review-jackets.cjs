@@ -5,6 +5,9 @@ const sharp = require("sharp");
   const p = await b.newPage({ viewport: { width: 1440, height: 1000 } });
   await p.goto("http://localhost:3000");
   await p.waitForTimeout(1600);
+  await p.waitForSelector(
+    '.cover > .cover-art .cover-name[data-signature="complete"]',
+  );
   await p.screenshot({ path: "test-results/jacket-front.png" });
   await p.evaluate(() =>
     scrollTo({

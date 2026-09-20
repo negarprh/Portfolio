@@ -69,5 +69,5 @@ The `makeover` branch begins with commit `21e63f0`, preserving the complete book
 
 - `components/cover-seal.tsx` waits for `document.fonts.ready` and the page load event before a single seal entrance. It removes its temporary motion-preference listener when the entrance finishes. Without JavaScript or with reduced motion, the seal is static and visible.
 - `app/makeover.css` adds a static woven cover, embossed edge and title shading. The title's gold dot has the only continuous animation: a restrained ten-second CSS opacity cycle, disabled for reduced motion.
-- Experience uses skill-style icon chips and three different static anchors: Tail’ed’s documented Workday runtime comparison, Lienzo’s backend feature diagram, and Ozex’s Supabase authentication mark. No additional numerical outcomes are claimed.
+- Experience uses skill-style icon chips and three different static anchors: Tail’ed’s median GitHub Actions runtime comparison, Lienzo’s backend feature diagram, and Ozex’s authentication/authorization mark. Role descriptions use the scope and outcome metrics supplied by Negar from her resume and LinkedIn.
 - `tests/makeover.spec.ts` covers delayed fonts, one-time entrance, the single permitted loop, and readable no-JS/reduced-motion views. `scripts/review-makeover.cjs` captures desktop and mobile review images.

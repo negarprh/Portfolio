@@ -213,7 +213,7 @@
   opacity: 0.25;
 }
 .runtime-bars span:last-child {
-  width: 29.1667%;
+  width: 38.2979%;
   opacity: 0.8;
 }
 .backend-anchor {
@@ -724,5 +724,51 @@ html[data-book-enhanced] .readable-turn > .turn-shadow-left {
     .readable-turn
     > :is(.turn-sheet-left, .turn-shadow-left) {
     display: none;
+  }
+}
+
+/* The signature is an entrance overlay; the real heading always owns layout. */
+.cover-name {
+  position: relative;
+}
+.cover-signature {
+  display: none;
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  color: var(--paper);
+  pointer-events: none;
+}
+.cover-name[data-signature="writing"] > h1 {
+  opacity: var(--name-opacity, 1);
+}
+.cover-name[data-signature="writing"] > .cover-signature {
+  display: block;
+  opacity: var(--signature-opacity, 0);
+}
+.signature-pen {
+  opacity: 0;
+}
+/* The stationary jacket holds the entrance. Scrolling settles it before turning. */
+.cover[data-signing] > .turn-sheet {
+  visibility: hidden;
+}
+/* Decorative jacket copies always show the resting typography. */
+.sheet-front .cover-name > h1 {
+  opacity: 1;
+}
+.sheet-front .cover-name > .cover-signature {
+  display: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  .cover-name[data-signature] > h1 {
+    opacity: 1;
+  }
+  .cover-name[data-signature] > .cover-signature {
+    display: none;
+  }
+  .cover[data-signing] > .turn-sheet {
+    visibility: visible;
   }
 }

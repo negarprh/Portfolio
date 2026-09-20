@@ -20,9 +20,9 @@ export const experience = [
     title: "Software Developer Intern",
     dates: "Summer 2026",
     lines: [
-      "Improved concurrency and the Workday processing pipeline.",
-      "Wrote Python automation to collect internship and new-grad listings from Workday, Lever, and Greenhouse.",
-      "Cleaned up duplicates, locations, filters, and archived listings for the jobs pipeline connected to the React website.",
+      "I built the Python job aggregation pipeline behind Tail’ed’s internship and new-grad listings, creating automated ingestion across 3,680 company sources and nine applicant tracking systems, including Workday, Greenhouse, and Lever.",
+      "I developed workflows for job discovery, classification, normalization, deduplication, and archival, supporting 11,700+ active listings across 1,300+ companies and expanding active job coverage to 4.4× its previous level.",
+      "I introduced multithreaded concurrency to the pipeline, reducing median GitHub Actions runtime by 62%, from 4.7 hours to 1.8 hours. I also integrated the aggregated data into Tail’ed’s website, making the jobs available through its search and filtering experience.",
     ],
     technologies: [
       ["Python", "python"],
@@ -36,8 +36,9 @@ export const experience = [
     title: "Backend Developer",
     dates: "Dec 8, 2025 — Mar 31, 2026",
     lines: [
-      "Built end-to-end backend features in TypeScript and NestJS for a healthcare coordination platform.",
-      "Worked on application logic, database interactions, and tests in a CQRS codebase using Prisma, PostgreSQL, and Vitest.",
+      "I built backend features for a healthcare coordination platform using TypeScript, NestJS, PostgreSQL, and Prisma, working across data models, APIs, business logic, and automated testing.",
+      "I implemented recurring task functionality with daily, weekly, biweekly, and monthly schedules, including logic for updating individual occurrences or an entire recurring series.",
+      "I expanded automated testing across CQRS commands and queries, increasing backend test coverage from 24% to 72%. I also maintained and improved 20+ NestJS services and APIs involving authentication, role-based access control, soft deletes, and other core backend functionality.",
     ],
     technologies: [
       ["TypeScript", "typescript"],
@@ -53,16 +54,17 @@ export const experience = [
     title: "Software Developer Intern",
     dates: "Feb — May 2025",
     lines: [
-      "Built TypeScript REST APIs and React components for a mental health platform.",
-      "Added authentication with Supabase and worked on database queries with PostgreSQL and Prisma.",
+      "I developed backend functionality for a mental health platform using TypeScript, Express, PostgreSQL, and Prisma, building REST APIs and the application logic behind them.",
+      "I optimized database queries and high-traffic endpoints, reducing API response times by 35%. I also implemented authentication and authorization with Supabase and JWT to protect endpoints and enforce access to backend resources.",
+      "I worked across database operations, validation, error handling, and API integration, while maintaining Swagger documentation to keep the backend clear and easy to integrate with.",
     ],
     technologies: [
       ["TypeScript", "typescript"],
-      ["React", "react"],
       ["Express", "express"],
       ["PostgreSQL", "postgresql"],
-      ["Docker", "docker"],
+      ["Prisma", "prisma"],
       ["Supabase", "supabase"],
+      ["Swagger", "swagger"],
     ],
   },
 ];

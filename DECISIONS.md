@@ -58,3 +58,12 @@ Five actual-cover typeface screenshots were requested before selecting a replace
 ## 2026-09-17: paper motion beneath sharp reading text
 
 The user chose readability-first interior spread transitions. Both paper halves turn on a synchronized timeline beneath original text; reading ink is never cloned onto the rotating interior leaf, transformed, blurred, or faded. Native document flow keeps adjacent spreads spatially separate and makes incoming text immediately readable, with no completion-triggered handoff. Mirror the left leaf at the spine, keep the finalized cover easing/scroll response, and clip decorative projection within its own spread. Mobile uses one leaf; reduced motion removes the enhancement and no-JS retains static content. The front/back jacket mechanism remains unchanged. This supersedes the earlier outgoing paragraph copies on interior leaves.
+
+## 2026-09-20: signature entrance, unchanged resting cover
+
+Added original name-specific centreline paths for a brief connected handwriting entrance with a small nib following the stroke. This is an explicitly requested exception permitting stroke-dashoffset animation, restricted to the front name. After 2.48 seconds the existing Manrope name and pressed shadows remain. Font/asset readiness gates the entrance; no-JS and reduced motion bypass it, and scrolling or backgrounding settles it immediately. Signature paths do not appear on the inert turn copy or back cover. The separate Currently Building illustration experiment remains reverted.
+
+
+## 2026-09-20: experience copy from updated resume facts
+
+Recast the user’s Tail’ed, Lienzo, and Ozex resume/LinkedIn bullets as three short portfolio paragraphs per role. Keep the existing spreads and distinct visual anchors. Tail’ed now uses median GitHub Actions runtime (4.7h → 1.8h, 62% reduction), replacing the old Workday-only figure; its scope and coverage metrics are user-provided snapshots. Lienzo includes recurring tasks, Angular integration, 20+ services/APIs, and 24% → 72% backend test coverage. Ozex emphasizes backend work, 35% lower API response times, Supabase/JWT access control, and Swagger documentation. No role titles or dates changed.

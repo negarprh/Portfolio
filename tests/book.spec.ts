@@ -23,7 +23,9 @@ test("all chapters, real assets, and accessible desktop document", async ({
     "Lienzo",
     "Ozex",
   ]);
-  await expect(page.locator("#experience")).toContainText("1 hour 45 minutes");
+  await expect(page.locator("#experience")).toContainText(
+    "4.7 hours to 1.8 hours",
+  );
   const badImages = await page.locator("img").evaluateAll(async (elements) => {
     const images = elements as HTMLImageElement[];
     await Promise.all(

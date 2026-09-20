@@ -5,26 +5,26 @@ function RoleAnchor({ index }: { index: number }) {
   if (index === 0)
     return (
       <figure className="role-anchor runtime-anchor">
-        <figcaption>Workday processing time</figcaption>
+        <figcaption>Median GitHub Actions runtime</figcaption>
         <div className="runtime-values">
           <span>
-            <small>Before · about</small>
+            <small>Before</small>
             <strong>
-              6<em>h</em>
+              4.7<em>h</em>
             </strong>
           </span>
           <span className="runtime-arrow" aria-hidden="true">
             →
           </span>
           <span>
-            <small>After · roughly</small>
+            <small>After</small>
             <strong>
-              1<em>h</em>45<em>m</em>
+              1.8<em>h</em>
             </strong>
           </span>
         </div>
         <span className="sr-only">
-          Reduced from about 6 hours to roughly 1 hour 45 minutes.
+          Median runtime reduced by 62%, from 4.7 hours to 1.8 hours.
         </span>
         <div className="runtime-bars" aria-hidden="true">
           <span />
@@ -69,13 +69,12 @@ function RoleAnchor({ index }: { index: number }) {
       <div>
         <figcaption>
           Authentication
-          <br />
-          with Supabase
+          <br />& authorization
         </figcaption>
         <p>
-          Alongside REST APIs
+          Supabase & JWT
           <br />
-          and React components.
+          for protected APIs.
         </p>
       </div>
     </figure>
