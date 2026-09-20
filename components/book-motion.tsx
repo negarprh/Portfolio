@@ -1,6 +1,11 @@
 "use client";
 import { useEffect } from "react";
-import { turnPage, TURN_DURATION } from "@/lib/book-effects";
+import {
+  turnPage,
+  TURN_DURATION,
+  TURN_TRAVEL,
+  TURN_RESPONSE_MS,
+} from "@/lib/book-effects";
 
 /** Enhancement only: native links and the full document remain usable without JS. */
 export function BookMotion() {
@@ -55,7 +60,7 @@ export function BookMotion() {
     const timelines = new Map<Element, Animation[]>();
     const cover = document.querySelector<HTMLElement>(".cover");
     const coverShadow = document.querySelector<HTMLElement>(
-      ".cover-opening-shadow",
+      ".cover > .turn-shadow",
     );
     const backCover = document.querySelector<HTMLElement>(".back-cover");
     const stacks = document.querySelector<HTMLElement>(".page-stacks");
@@ -63,6 +68,9 @@ export function BookMotion() {
     const rightStack = document.querySelector<HTMLElement>(".page-stack-right");
     let boundaries: { element: HTMLElement; top: number }[] = [];
     let frame = 0;
+    let renderedY = window.scrollY;
+    let lastFrame = 0;
+    const positions = new Map<Element, number>();
     let coverHeight = window.innerHeight;
     let bookLength = 1;
     let backTop = 0;
@@ -87,34 +95,42 @@ export function BookMotion() {
             element.closest(".chapter-opening") || element
           ).getBoundingClientRect().top + window.scrollY,
       }));
+      renderedY = window.scrollY;
       scroll();
     };
-    const update = () => {
+    const seek = (element: Element, progress: number) => {
+      if (positions.get(element) === progress) return;
+      positions.set(element, progress);
+      timelines.get(element)?.forEach((animation) => {
+        animation.currentTime = progress * TURN_DURATION;
+      });
+    };
+    const update = (now: number) => {
       frame = 0;
       if (preference.matches) return;
-      const y = window.scrollY;
-      const coverProgress = clamp(y / coverHeight);
-      if (cover)
-        cover.style.transform = `perspective(2200px) rotateY(${-180 * coverProgress}deg)`;
-      if (coverShadow) {
-        coverShadow.style.transform = `translateX(${-100 * coverProgress}%) scaleX(${1 - 0.6 * Math.sin(Math.PI * coverProgress)})`;
-        coverShadow.style.opacity = String(
-          0.7 * Math.sin(Math.PI * coverProgress),
-        );
+      const targetY = window.scrollY;
+      const elapsed = lastFrame ? Math.min(now - lastFrame, 64) : 1000 / 60;
+      lastFrame = now;
+      const distance = targetY - renderedY;
+      // Follow the latest native position, never intercept wheel input. Large
+      // navigation jumps snap; small notches settle without queued animations.
+      renderedY =
+        Math.abs(distance) > window.innerHeight
+          ? targetY
+          : renderedY + distance * (1 - Math.exp(-elapsed / TURN_RESPONSE_MS));
+      if (Math.abs(targetY - renderedY) < 0.1) renderedY = targetY;
+      const y = renderedY;
+      const travel = window.innerHeight * TURN_TRAVEL;
+      const coverProgress = clamp(y / travel);
+      if (cover) {
+        const turning = String(coverProgress > 0);
+        if (cover.dataset.turning !== turning) cover.dataset.turning = turning;
+        seek(cover, coverProgress);
       }
-      // One paused timeline per leaf. Position is the only clock: no queues,
-      // direction flags, accumulated deltas, or time-based completion callbacks.
-      const travel = window.innerHeight * 0.85;
+      // Every leaf uses the same position filter and reversible paused timeline.
       for (const { element, top } of boundaries) {
         const progress = clamp((y - top + travel) / travel);
-        let animations = timelines.get(element);
-        if (!animations && progress > 0) {
-          animations = turnPage(element);
-          timelines.set(element, animations);
-        }
-        animations?.forEach((animation) => {
-          animation.currentTime = progress * TURN_DURATION;
-        });
+        seek(element, progress);
       }
       const progress = clamp((y - coverHeight) / bookLength);
       if (stacks)
@@ -127,6 +143,8 @@ export function BookMotion() {
         leftStack.style.transform = `scaleX(${0.16 + progress * 0.84})`;
       if (rightStack)
         rightStack.style.transform = `scaleX(${1 - progress * 0.84})`;
+      if (renderedY !== targetY) frame = requestAnimationFrame(update);
+      else lastFrame = 0;
     };
     const scroll = () => {
       if (!frame) frame = requestAnimationFrame(update);
@@ -136,10 +154,21 @@ export function BookMotion() {
         animations.forEach((animation) => animation.cancel()),
       );
       timelines.clear();
+      positions.clear();
+      document
+        .querySelectorAll(".turn-sheet-left, .turn-shadow-left")
+        .forEach((layer) => layer.remove());
+      document
+        .querySelectorAll(".readable-turn")
+        .forEach((boundary) => boundary.classList.remove("readable-turn"));
       window.removeEventListener("scroll", scroll);
       cancelAnimationFrame(frame);
       frame = 0;
+      lastFrame = 0;
       delete document.documentElement.dataset.bookEnhanced;
+      if (cover) delete cover.dataset.turning;
+      cover?.querySelector(".sheet-front")?.replaceChildren();
+      backCover?.querySelector(".sheet-back .closing-art")?.remove();
       [cover, coverShadow, stacks, leftStack, rightStack].forEach((element) => {
         if (element) {
           element.style.transform = "";
@@ -154,6 +183,13 @@ export function BookMotion() {
       clear();
       if (preference.matches) return;
       document.documentElement.dataset.bookEnhanced = "true";
+      if (cover) timelines.set(cover, turnPage(cover));
+      // Build inert copies and animation objects before any scrolling occurs.
+      document
+        .querySelectorAll<HTMLElement>("[data-boundary]")
+        .forEach((element) => {
+          timelines.set(element, turnPage(element));
+        });
       window.addEventListener("scroll", scroll, { passive: true });
       measure();
     };

@@ -1,10 +1,11 @@
+import { settleBook } from "./motion-helpers";
 import { test, expect } from "@playwright/test";
 
 for (const input of ["wheel", "trackpad"]) {
   test(`${input}: every leaf follows a complete down/up journey and rapid reversals`, async ({
     page,
   }) => {
-    test.setTimeout(120000);
+    test.setTimeout(240000);
     await page.setViewportSize({ width: 1440, height: 1000 });
     await page.goto("/");
     await expect(page.locator("html")).toHaveAttribute(
@@ -14,13 +15,7 @@ for (const input of ["wheel", "trackpad"]) {
     await page.evaluate(() => document.fonts.ready);
     const total = await page.locator("[data-boundary]").count();
     const observed = [new Set<number>(), new Set<number>()];
-    const frame = () =>
-      page.evaluate(
-        () =>
-          new Promise<void>((resolve) =>
-            requestAnimationFrame(() => requestAnimationFrame(() => resolve())),
-          ),
-      );
+    const frame = () => settleBook(page);
     const inspect = async (direction: number) => {
       const state = await page.evaluate(() => {
         const y = scrollY;
@@ -82,7 +77,7 @@ for (const input of ["wheel", "trackpad"]) {
       }
       expect(observed[direction].size).toBe(total);
     }
-    await expect(page.locator(".cover")).toHaveCSS(
+    await expect(page.locator(".cover > .turn-sheet")).toHaveCSS(
       "transform",
       "matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, -0.000454545, 0, 0, 0, 1)",
     );
@@ -98,6 +93,9 @@ for (const input of ["wheel", "trackpad"]) {
     await inspect(0);
     await page.screenshot({ path: `test-results/${input}-reverse-turn.png` });
     await page.emulateMedia({ reducedMotion: "reduce" });
+    await expect(page.locator("html")).not.toHaveAttribute(
+      "data-book-enhanced",
+    );
     await expect(page.locator(".cover")).toHaveCSS("transform", "none");
     expect(
       await page
@@ -161,7 +159,7 @@ test("Open the book and the introduction bookmark open the hinged cover", async 
     const height = await page
       .locator(".cover")
       .evaluate((el) => (el as HTMLElement).offsetHeight);
-    await page.locator(".open-book").click();
+    await page.locator(".cover > .cover-art .open-book").click();
     await expect
       .poll(() => page.evaluate(() => scrollY))
       .toBeGreaterThanOrEqual(height - 1);

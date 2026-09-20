@@ -1,5 +1,13 @@
 /* Hardcover finish: static cloth, inset edging, and pressed type. */
+.cover h1,
+.cover h1 em {
+  font-family: Body, Arial, sans-serif;
+  font-style: normal;
+}
+
 .cover,
+.cover-art,
+.closing-art,
 .back-cover {
   background-color: var(--ink) !important;
   background-image:
@@ -22,6 +30,8 @@
     ) !important;
 }
 .cover::after,
+.cover-art::after,
+.closing-art::after,
 .back-cover::after {
   content: "";
   position: absolute;
@@ -461,25 +471,10 @@
   color: #b5b5a7;
   font-size: 10px;
 }
-.cover-opening-shadow {
-  display: none;
-}
 html[data-book-enhanced] .cover {
   position: sticky;
   top: 0;
   z-index: 30;
-  transform-origin: left center;
-  backface-visibility: hidden;
-}
-html[data-book-enhanced] .cover-opening-shadow {
-  display: block;
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  z-index: 25;
-  background: linear-gradient(90deg, #17160ee0, #26241965 30%, transparent 80%);
-  opacity: 0;
-  transform-origin: left center;
 }
 html[data-book-enhanced] [data-boundary="spread"] > .turn-sheet,
 html[data-book-enhanced] .back-cover > .turn-sheet,
@@ -593,5 +588,141 @@ html[data-book-enhanced] .book-opening > section.introduction {
   .cover,
   .cover-content {
     min-height: 100svh;
+  }
+}
+
+/* The jacket uses the same gutter-hinged, two-sided leaf as the interior. */
+.cover-art {
+  position: relative;
+  min-height: 100svh;
+}
+.cover > .cover-art::after {
+  display: none;
+}
+html[data-book-enhanced] .cover {
+  background: transparent !important;
+  overflow: visible;
+  backface-visibility: visible;
+  pointer-events: none;
+}
+html[data-book-enhanced] .cover::after {
+  display: none;
+}
+html[data-book-enhanced] .cover-art::after {
+  display: block;
+}
+html[data-book-enhanced] .cover > .cover-art {
+  pointer-events: auto;
+}
+html[data-book-enhanced] .cover[data-turning="true"] > .cover-art {
+  clip-path: inset(0 50% 0 0);
+  pointer-events: none;
+}
+html[data-book-enhanced] .cover > .turn-sheet {
+  --chapter-paper: #f4efe3;
+  --chapter-fold: #dfd5c0;
+  --chapter-edge: #eee6d6;
+}
+html[data-book-enhanced] .cover .sheet-front {
+  padding: 0;
+  border: 0;
+  overflow: hidden;
+}
+html[data-book-enhanced] .cover .sheet-front .cover-art {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 200%;
+  height: 100%;
+  color: var(--paper);
+  font-family: Body, Arial, sans-serif;
+  font-size: 16px;
+}
+html[data-book-enhanced] .cover .sheet-back > span {
+  display: none;
+}
+html[data-book-enhanced] .cover .sheet-front .cover-dot {
+  animation: none;
+}
+html[data-book-enhanced] .cover[data-turning="false"] > .turn-sheet {
+  visibility: hidden;
+}
+@media (max-width: 700px) {
+  html[data-book-enhanced] .cover[data-turning="true"] > .cover-art {
+    clip-path: inset(0 100% 0 0);
+  }
+  html[data-book-enhanced] .cover .sheet-front .cover-art {
+    width: 100%;
+  }
+  .cover-art::after {
+    inset: 10px;
+  }
+}
+
+/* The last leaf carries the cloth jacket on its reverse. */
+html[data-book-enhanced] .back-cover .sheet-back {
+  padding: 0;
+  border: 0;
+  overflow: hidden;
+}
+.closing-art {
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 200%;
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 175px 80px 115px;
+  color: var(--paper);
+  text-align: center;
+  font:
+    16px Body,
+    Arial,
+    sans-serif;
+}
+@media (max-width: 700px) {
+  .closing-art {
+    width: 100%;
+    padding: 145px 30px 95px;
+  }
+  .closing-art::after {
+    inset: 10px;
+  }
+}
+
+/* Turn the two paper halves together beneath the original reading layer.
+   Isolation contains negative layers above this spread's own paper background.
+   The native flow separates outgoing/incoming ink; no duplicate text is drawn. */
+html[data-book-enhanced] .readable-turn {
+  isolation: isolate;
+  overflow: clip;
+}
+html[data-book-enhanced] .readable-turn > .turn-sheet {
+  z-index: -2;
+}
+html[data-book-enhanced] .readable-turn > .turn-shadow {
+  z-index: -1;
+}
+html[data-book-enhanced] .readable-turn .sheet-front > *,
+html[data-book-enhanced] .readable-turn .sheet-back > * {
+  display: none;
+}
+html[data-book-enhanced] .readable-turn > .turn-sheet-left {
+  left: 0;
+  right: auto;
+  transform-origin: right center;
+}
+html[data-book-enhanced] .readable-turn > .turn-shadow-left {
+  left: 0;
+  transform-origin: right center;
+}
+/* A phone has one reading page, so retain one spine-hinged leaf. */
+@media (max-width: 700px) {
+  html[data-book-enhanced]
+    .readable-turn
+    > :is(.turn-sheet-left, .turn-shadow-left) {
+    display: none;
   }
 }

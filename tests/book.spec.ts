@@ -7,7 +7,6 @@ const chapterIds = [
   "building",
   "education",
   "skills",
-  "about",
   "contact",
 ];
 test("all chapters, real assets, and accessible desktop document", async ({
@@ -138,6 +137,7 @@ test("page-turn timelines are reused on reversal and cleared for reduced motion"
     .poll(() =>
       page
         .locator('[data-boundary="experience"] .turn-sheet')
+        .first()
         .evaluate((el) => el.getAnimations().length),
     )
     .toBe(1);

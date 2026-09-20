@@ -5,7 +5,6 @@ export const chapters = [
   ["building", "Currently Building"],
   ["education", "Education"],
   ["skills", "Skills"],
-  ["about", "About"],
   ["contact", "Contact"],
 ] as const;
 export const profile = {

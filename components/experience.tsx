@@ -114,7 +114,7 @@ export function Experience() {
                         alt=""
                         width="24"
                         height="24"
-                        loading="lazy"
+                        loading="eager"
                       />
                       <span>{name}</span>
                     </li>

@@ -93,7 +93,6 @@ export function TurnSheet({ label }: { label: string }) {
         </div>
         <div className="sheet-back">
           <span>Selected work & experience</span>
-          <span className="chapter-back-numeral">{label}</span>
         </div>
       </div>
     </>

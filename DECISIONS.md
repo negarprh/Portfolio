@@ -36,3 +36,25 @@ The front crest is now a quiet publisher-style mark above the dominant name; the
 ## 2026-09-13: persistent context
 
 Expanded the root `AGENTS.md` while preserving Next.js's generated instruction block; documented actual font assets, CSS tokens, file ownership, content facts, branch workflow, and resolved decisions. Added this decision record and corrected stale README descriptions of forward-only turns. No application code, content, or visual behavior was changed in this documentation task.
+
+## 2026-09-13: scoped transition and cover type refinements
+
+The front cover now uses the same `animateLeaf` rotation and shadow keyframes, 1800ms paused timeline, easing, and 85vh scroll travel as chapter leaves. The cover now uses the actual two-sided TurnSheet: a half-width leaf hinged at the center gutter on desktop and a full-width leaf on mobile. The stationary jacket clears behind the opaque reverse before the paper face reveals the introduction. The name alone uses upright locally hosted Manrope (`Body`), preserving scale, composition, and pressed shadows. Moving leaves no longer clone divider titles or carry oversized chapter numerals; the dedicated divider beat and persistent running heads retain chapter identity.
+
+## 2026-09-14: final leaf and introduction typography
+
+The final turn uses the existing two-sided leaf with a sanitized, inert cloth back-cover copy on its reverse. It retains the shared scroll timeline and restores the static contact page under reduced motion. The introduction now uses locally hosted Source Sans 3 (Adobe's upright variable WOFF2): weight 600 for the greeting and 400 for reading text. The cover name and other chapters retain their existing typography.
+
+## 2026-09-14: corrected typography scope and merged introduction
+
+Source Sans 3 in the introduction was rejected: the requested distinct typeface applies to the cover name. Removed that font and restored the shared Editorial heading / Body copy. Merged the unique About facts (LaSalle background, repository maintenance, and cat-person detail) into the introduction without repeating the backend/React summary. Removed the separate About component and bookmark entry; Skills now leads to the back cover.
+
+## 2026-09-14: wheel response and cover handoff
+
+The user requested a crisper opening and one shared transition standard. Keep native scrolling and the 85vh travel, with a 32ms exponential visual response to soften discrete wheel notches (95% settled in about 96ms). Use `cubic-bezier(.24,.12,.22,1)` and one continuous 0 to -180 degree rotation for every leaf. The 1800ms paused timeline is not an imposed playback duration. Prebuild decorative copies, skip unchanged animation times, preload the first page's fonts, and overlap the stationary jacket's opacity fade behind the opaque reverse to remove the discrete handoff. Reduced motion cancels the response immediately. Exact constants and test expectations are recorded in AGENTS.md.
+
+Five actual-cover typeface screenshots were requested before selecting a replacement: Bodoni Moda 600, Roboto Slab 700, Fraunces 850 with SOFT/WONK disabled, Archivo 800, and Syne 800. These are previews only, with identical scale/layout/shadows; the selected cover font remains Manrope.
+
+## 2026-09-17: paper motion beneath sharp reading text
+
+The user chose readability-first interior spread transitions. Both paper halves turn on a synchronized timeline beneath original text; reading ink is never cloned onto the rotating interior leaf, transformed, blurred, or faded. Native document flow keeps adjacent spreads spatially separate and makes incoming text immediately readable, with no completion-triggered handoff. Mirror the left leaf at the spine, keep the finalized cover easing/scroll response, and clip decorative projection within its own spread. Mobile uses one leaf; reduced motion removes the enhancement and no-JS retains static content. The front/back jacket mechanism remains unchanged. This supersedes the earlier outgoing paragraph copies on interior leaves.

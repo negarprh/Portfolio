@@ -9,8 +9,11 @@ test("the outgoing leaf hinges at the gutter, stays opaque, and casts a moving s
     .locator('[data-boundary="experience"]')
     .evaluate((el) => el.scrollIntoView({ behavior: "instant" }));
   await expect(
+    page.locator('[data-boundary="experience"] .turn-sheet'),
+  ).toHaveCount(2);
+  await expect(
     page.locator('[data-boundary="experience"] .outgoing-content'),
-  ).toContainText("Software Developer");
+  ).toHaveCount(0);
   const state = await page
     .locator('[data-boundary="experience"]')
     .evaluate((boundary) => {
@@ -66,7 +69,7 @@ test("the outgoing leaf hinges at the gutter, stays opaque, and casts a moving s
   await expect(page.locator("html")).not.toHaveAttribute("data-book-enhanced");
   await expect(page.locator(".page-stacks")).toBeHidden();
   await expect(
-    page.locator('[data-boundary="experience"] .turn-sheet'),
+    page.locator('[data-boundary="experience"] .turn-sheet').first(),
   ).toBeHidden();
   await expect(
     page.locator('[data-boundary="experience"] .outgoing-content'),
@@ -100,7 +103,7 @@ test("page stacks transfer thickness from right to left and folios mirror", asyn
     .toBeGreaterThan(0.8);
   const early = await thickness();
   await page
-    .locator(".about-spread")
+    .locator(".skills-spread")
     .evaluate((el) => el.scrollIntoView({ behavior: "instant" }));
   await expect
     .poll(async () => (await thickness())[0])

@@ -1,6 +1,5 @@
 import { CoverSeal } from "@/components/cover-seal";
 import { Closing } from "@/components/closing";
-import { About } from "@/components/about";
 import { Skills } from "@/components/skills";
 import { Education } from "@/components/education";
 import { CurrentlyBuilding } from "@/components/currently-building";
@@ -9,7 +8,12 @@ import { getGitHubStars } from "@/lib/github";
 import { BookMotion } from "@/components/book-motion";
 import { Experience } from "@/components/experience";
 import { BookIndex } from "@/components/book-index";
-import { ContactLinks, Folio, RunningHead } from "@/components/editorial";
+import {
+  ContactLinks,
+  Folio,
+  RunningHead,
+  TurnSheet,
+} from "@/components/editorial";
 export const revalidate = 3600;
 export default async function Home() {
   const stars = await getGitHubStars();
@@ -23,53 +27,55 @@ export default async function Home() {
       <main id="top">
         <div className="book-opening">
           <section className="cover" aria-labelledby="cover-title">
-            <CoverSeal />
-            <div className="cover-spine mono" aria-hidden="true">
-              NEGAR PIRASTEH — SELECTED WORK & EXPERIENCE — 2025–2026
-            </div>
-            <div className="cover-content">
-              <div className="cover-top mono">
-                <span className="cover-mark-space" aria-hidden="true" />
-                <span>MONTRÉAL, QC</span>
-                <span>VOL. 01 / 2026</span>
+            <div className="cover-art">
+              <CoverSeal />
+              <div className="cover-spine mono" aria-hidden="true">
+                NEGAR PIRASTEH — SELECTED WORK & EXPERIENCE — 2025–2026
               </div>
-              <div className="cover-heading">
-                <p className="eyebrow">Selected work & experience</p>
-                <h1 id="cover-title">
-                  Negar
-                  <br />
-                  <em>
-                    Pirasteh<span className="accent cover-dot">.</span>
-                  </em>
-                </h1>
-                <div className="cover-role">
-                  <span className="small-rule" />
-                  SOFTWARE DEVELOPER
+              <div className="cover-content">
+                <div className="cover-top mono">
+                  <span className="cover-mark-space" aria-hidden="true" />
+                  <span>MONTRÉAL, QC</span>
+                  <span>VOL. 01 / 2026</span>
+                </div>
+                <div className="cover-heading">
+                  <p className="eyebrow">Selected work & experience</p>
+                  <h1 id="cover-title">
+                    Negar
+                    <br />
+                    <em>
+                      Pirasteh<span className="accent cover-dot">.</span>
+                    </em>
+                  </h1>
+                  <div className="cover-role">
+                    <span className="small-rule" />
+                    SOFTWARE DEVELOPER
+                  </div>
+                </div>
+                <div className="cover-bottom">
+                  <p>
+                    Selected work & experience
+                    <br />
+                    <span className="muted">2025–2026</span>
+                  </p>
+                  <a className="open-book" href="#introduction">
+                    Open the book <span aria-hidden="true">↓</span>
+                  </a>
+                  <span className="edition mono">
+                    TYPESCRIPT & PYTHON
+                    <br />
+                    MONTRÉAL, CANADA
+                  </span>
                 </div>
               </div>
-              <div className="cover-bottom">
-                <p>
-                  Selected work & experience
-                  <br />
-                  <span className="muted">2025–2026</span>
-                </p>
-                <a className="open-book" href="#introduction">
-                  Open the book <span aria-hidden="true">↓</span>
-                </a>
-                <span className="edition mono">
-                  TYPESCRIPT & PYTHON
-                  <br />
-                  MONTRÉAL, CANADA
-                </span>
-              </div>
             </div>
+            <TurnSheet label="" />
           </section>
           <section
             id="introduction"
             className="paper section introduction"
             aria-labelledby="intro-title"
           >
-            <div className="cover-opening-shadow" aria-hidden="true" />
             <RunningHead number="01" name="Introduction" />
             <div className="running-head mono">
               <span>01 / INTRODUCTION</span>
@@ -79,14 +85,18 @@ export default async function Home() {
               <div>
                 <h2 id="intro-title">Hi, I’m Negar.</h2>
                 <p className="body-copy">
-                  I’m a software developer in Montréal. Most of my work is on
-                  the backend, using TypeScript with NestJS and Python with
-                  FastAPI.
+                  I’m a software developer in Montréal and a Computer Science
+                  graduate from LaSalle College. I build backend features with
+                  TypeScript and NestJS, and Python and FastAPI.
                 </p>
                 <p className="body-copy">
-                  I’ve built backend features for healthcare platforms, worked
-                  on job-collection pipelines, and contributed to frontend work
-                  in React.
+                  My work includes healthcare platforms, job-collection
+                  pipelines, and frontend contributions in React.
+                </p>
+                <p className="body-copy">
+                  I also maintain Canadian Tech Internships, an open-source
+                  repository that helps students find opportunities across
+                  Canada. Outside of coding, I’m a cat person.
                 </p>
               </div>
               <aside className="intro-facts">
@@ -117,7 +127,6 @@ export default async function Home() {
         <CurrentlyBuilding />
         <Education />
         <Skills />
-        <About />
         <Closing />
       </main>
     </>

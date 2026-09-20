@@ -14,7 +14,7 @@ Verified against the working code on 2026-09-13, application commit `518b93f`. R
 
 ## Concept
 
-The Book is a single-page developer portfolio for Negar Pirasteh, composed as a continuous physical book: front cover -> introduction -> experience -> selected work -> currently building -> education -> skills -> about -> back cover. Scrolling opens the cover and turns leaves at chapter boundaries and reading spreads, with a visible spine, paper edges, running heads, and deliberate chapter dividers. The native bookmark/index provides direct navigation; its final "Contact" entry opens the back cover, not a separate contact slide.
+The Book is a single-page developer portfolio for Negar Pirasteh, composed as a continuous physical book: front cover -> introduction -> experience -> selected work -> currently building -> education -> skills -> back cover. Scrolling opens the cover and turns leaves at chapter boundaries and reading spreads, with a visible spine, paper edges, running heads, and deliberate chapter dividers. The native bookmark/index provides direct navigation; its final "Contact" entry opens the back cover, not a separate contact slide.
 
 ## Branch workflow
 
@@ -57,7 +57,6 @@ Enhanced chapter palettes in `app/chapters.css` use `--chapter-paper`, `--chapte
 | Currently building | `#f0e2d5` | `#74502f` |
 | Education | `#eeeddf` | `#615e3b` |
 | Skills | `#e3eade` | `#53674a` |
-| About | `#f0e7e0` | `#7b6251` |
 
 The file also retains `#contact` paper/ink tokens (`#ede7d9` / `#75613c`), but the visible back cover uses the shared dark cloth override in `app/makeover.css`, not that paper surface.
 
@@ -87,7 +86,7 @@ Interior folios also use `Georgia, serif`. Keep the huge name treatment: desktop
 | Currently building | `components/currently-building.tsx` |
 | Education | `components/education.tsx` |
 | Skills | `components/skills.tsx`; category/icon mapping in `lib/content.ts` |
-| About | `components/about.tsx` |
+| Personal background (merged into introduction) | `app/page.tsx` |
 | Back cover / `#contact` | `components/closing.tsx` |
 | Shared dividers, running heads, folios, inert turn markup, contact links | `components/editorial.tsx` |
 | Bookmark/index | `components/book-index.tsx`; entries in `lib/content.ts` |
@@ -102,7 +101,7 @@ Legacy `index.html`, `head.html`, and `assets/` are reference material from the 
 
 ## Content facts
 
-Use plain, specific first-person copy. Keep the About section affirmative and factual; do not invent weaknesses, inflated outcomes, or generic AI-sounding claims.
+Use plain, specific first-person copy. Keep the introduction affirmative and factual; do not invent weaknesses, inflated outcomes, or generic AI-sounding claims.
 
 - Negar Pirasteh is a backend-focused software developer in Montreal. **TypeScript with NestJS and Python with FastAPI are both core backend skills**, with React/frontend contributions as needed. Do not summarize her work as only Python or imply TypeScript was only frontend. Java/Spring Boot, Prisma/PostgreSQL, SQLAlchemy, Redis, Docker, and cloud/tool experience are also represented; the full verified skill list is in `lib/content.ts`.
 - **Tail'ed** (rendered `Tail’ed` in `lib/content.ts`): Software Developer Intern, **Summer 2026**. Python automation aggregates internship/new-grad jobs from Workday, Lever, and Greenhouse; concurrency/pipeline changes reduced Workday runtime from **about 6 hours to roughly 1 hour 45 minutes**. Work includes normalization/deduplication, location handling, filtering, archiving, and integration with the React website. Stack: Python, GitHub Actions, React, Firebase. The runtime anchor lives in `components/experience.tsx`, not the content array.
@@ -118,3 +117,27 @@ Use plain, specific first-person copy. Keep the About section affirmative and fa
 The cover is minimal and centered: enormous name, one quiet crest, small role/location/edition details, generous empty space, no secondary illustration/object. The back cover uses the same material with closing line, opportunity note, name, contact links, and "Montreal · 2026" closing device. Skills use recognizable icons grouped as Backend & Data, Frontend, Infra & Cloud, and Tools; experience uses the same icon treatment. The three role anchors intentionally differ: runtime comparison, backend logic/data/tests diagram, and authentication mark. These are accepted decisions, not prompts to redesign.
 
 For code changes, use the applicable checks: `npm run typecheck`, `npm run build`, and `npm test`. Playwright expects a running server at `http://localhost:3000`, overridable with `BOOK_TEST_BASE_URL`, and installed Chromium. See `tests/book.spec.ts`, `tests/book-material.spec.ts`, `tests/chapters.spec.ts`, `tests/makeover.spec.ts`, and `tests/bidirectional.spec.ts`. Preserve no-JS, reduced-motion, native/keyboard navigation, static chapter differentiation, and rapid reversal coverage. `node scripts/review-jackets.cjs` produces desktop front/back comparisons and mobile cover screenshots in ignored `test-results/`; inspect them after visual changes. The wheel/trackpad tests simulate coarse and fine/inertial input traces; do not claim physical-device testing from those tests alone.
+
+## Scoped refinements after the verification baseline
+
+The cover name now uses upright Manrope (`Body`) at the existing scale; interior Editorial typography is unchanged. Cover and chapter turns use the same two-sided `TurnSheet` geometry and share `animateLeaf` in `lib/book-effects.ts`, including keyframes, shadow sweep, easing, timeline duration, and 85vh scroll travel. Decorative outgoing copies exclude divider titles, and leaf backs no longer carry oversized chapter numerals. Dedicated divider pages and running heads remain.
+
+## 2026-09-14 refinements
+
+Introduction typography uses the shared Editorial heading and Body text. Its copy includes the unique former About details; there is no separate About chapter or index entry. Only the cover name uses the distinct upright Manrope treatment. The final leaf's reverse carries an inert cloth jacket copy (`.closing-art`), built by the shared `turnPage`; it is removed when motion enhancement is disabled.
+
+## 2026-09-14: scroll response standard
+
+All cover/chapter turns share `TURN_EASING = cubic-bezier(.24,.12,.22,1)`, a continuous 0 to -180 degree rotation, and `TURN_TRAVEL = 0.85` viewport height. `TURN_DURATION = 1800` remains a paused timeline coordinate, not wall-clock playback duration. Native scrolling is never intercepted. The visual position follows the latest actual scroll position with `1 - exp(-elapsed / 32)` response (`TURN_RESPONSE_MS = 32`): about 95% settled after 96ms. Snap within 0.1px; jumps larger than one viewport and layout remeasurement synchronize immediately. This short settling response replaces direct per-notch seeking; do not add velocity, overshoot, event queues, or completion-triggered content changes. Stop requesting frames once settled and clear immediately on reduced-motion changes.
+
+Experience SVG chips load eagerly: browser lazy-load proximity otherwise starts their requests during the opening. The rest of the site's deferred assets retain their existing loading policy. Final production traces used Chromium/SwiftShader software rendering and simulated wheel/trackpad input: roughly 16.7ms median frame intervals, no long tasks/layout shifts/transition-time requests; the wheel run included one 33.3ms interval. Do not describe this as guaranteed zero dropped frames or physical mouse testing.
+
+Prepare all inert leaf copies and paused timelines during enhancement setup, not while crossing boundaries; skip unchanged timeline writes. The stationary front jacket fades over normalized keyframe offsets 0.72–0.88 behind the opaque reverse, before the leaf faces clear over 0.88–1. The introduction remains server-rendered in place and its Editorial/Body fonts are preloaded in `app/layout.tsx`. Cover typeface alternatives are review-only screenshots; Manrope remains selected pending the user's choice. `tests/premium-motion.spec.ts` covers discrete wheel interpolation, rapid reversal, the unchanged introduction DOM/position, clickable handoff, and live reduced-motion changes. Tests inspecting exact scroll positions must allow the bounded settling response (`tests/motion-helpers.ts`). Simulated input and Chromium traces do not establish physical-device performance.
+
+A follow-up D3D11 hardware-accelerated Chromium check also measured ~16.7ms median intervals, with one 33.4ms interval in each wheel/trackpad run. Both had zero long tasks, layout shifts, and transition-time requests. The review video uses hardware acceleration; input remains simulated.
+
+## 2026-09-17: readable paired interior turns
+
+Interior chapter and reading-spread boundaries now use two blank paper leaves beneath the single server-rendered reading layer. The user selected readability first: paper supplies the physical motion, while text stays sharp and fully opaque in native document flow. Do not put outgoing paragraph copies back on interior leaves or animate reading text. Both halves share the finalized easing, 1800ms paused coordinate, 85vh travel, and 32ms response; the left leaf mirrors rotation/shadow direction around the gutter. Paper and shadow are clipped to their own spread to prevent projection over neighboring content. Phones retain one leaf for their single-page layout. Covers retain their existing jacket mechanism.
+
+`tests/spread-readability.spec.ts` checks all interior boundaries at four intermediate positions plus completion, then reverses through the same positions, on desktop and mobile. It checks synchronized timelines, untransformed/opaque text and absence of duplicate paragraphs, and captures forward/reverse review frames. Live reduced-motion toggles remove paired enhancement layers and restore them without duplicates. No-JS DOM order is unchanged. Four sampled images cannot establish every possible device/frame; structural ink separation prevents perspective distortion throughout the timeline.

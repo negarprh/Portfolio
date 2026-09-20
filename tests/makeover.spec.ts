@@ -40,7 +40,7 @@ test("seal waits for fonts, enters once, and only the dot loops", async ({
   await expect
     .poll(() =>
       page
-        .locator(".cover .cover-seal")
+        .locator(".cover > .cover-art .cover-seal")
         .evaluate((el) => el.getAnimations().length),
     )
     .toBe(0);
@@ -63,6 +63,8 @@ test("seal waits for fonts, enters once, and only the dot loops", async ({
   );
   expect(loops).toEqual(["accent cover-dot"]);
   await page.emulateMedia({ reducedMotion: "reduce" });
+  await expect(page.locator("html")).not.toHaveAttribute("data-book-enhanced");
+  await expect(page.locator(".cover .sheet-front .cover-art")).toHaveCount(0);
   await expect(page.locator(".cover-dot")).toHaveCSS("animation-name", "none");
   await expect(page.locator(".cover .cover-seal")).toHaveCSS("opacity", "1");
 });
