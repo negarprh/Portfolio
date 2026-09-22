@@ -1,6 +1,7 @@
 const fs = require("fs");
 (async () => {
   const families = {
+    orbitron: "Orbitron:wght@400",
     editorial: "DM+Serif+Display",
     "editorial-italic": "DM+Serif+Display:ital@1",
     body: "Manrope:wght@400",

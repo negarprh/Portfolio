@@ -95,7 +95,7 @@ for (const mode of ["no-js", "reduced"] as const) {
     );
     await expect(page.locator("#cover-title")).toHaveCSS(
       "font-family",
-      "Body, Arial, sans-serif",
+      "Orbitron, Arial, sans-serif",
     );
     await expect(page.locator("#cover-title em")).toHaveCSS(
       "font-style",

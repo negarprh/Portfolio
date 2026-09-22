@@ -67,3 +67,7 @@ Added original name-specific centreline paths for a brief connected handwriting 
 ## 2026-09-20: experience copy from updated resume facts
 
 Recast the user’s Tail’ed, Lienzo, and Ozex resume/LinkedIn bullets as three short portfolio paragraphs per role. Keep the existing spreads and distinct visual anchors. Tail’ed now uses median GitHub Actions runtime (4.7h → 1.8h, 62% reduction), replacing the old Workday-only figure; its scope and coverage metrics are user-provided snapshots. Lienzo includes recurring tasks, Angular integration, 20+ services/APIs, and 24% → 72% backend test coverage. Ozex emphasizes backend work, 35% lower API response times, Supabase/JWT access control, and Swagger documentation. No role titles or dates changed.
+
+## 2026-09-20: selected Orbitron cover typography
+
+The user selected Orbitron for Negar Pirasteh on the hero. Orbitron 400 is locally hosted and preloaded, replacing Manrope only on the front-cover heading and its inert turn copy. Existing scale, composition, letterpress shadows, and the handwriting entrance remain; interior typography is unchanged.

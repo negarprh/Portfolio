@@ -54,7 +54,7 @@ The browser suite expects a running local server on port 3000 and a Playwright C
 
 ## Assets and attribution
 
-Display: DM Serif Display. Body: Manrope. Both are locally hosted Google Fonts under the SIL Open Font License. Technical labels use the system monospace font.
+Display: DM Serif Display. Body: Manrope. Hero name: Orbitron 400. All are locally hosted Google Fonts under the SIL Open Font License. Technical labels use the system monospace font.
 
 Skill marks: Devicon (MIT) and Simple Icons (CC0; Stripe), with AWS artwork retained from the supplied portfolio. Brand marks belong to their respective owners. See `public/licenses/`.
 
