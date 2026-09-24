@@ -31,7 +31,7 @@ export default async function Home() {
             <div className="cover-art">
               <CoverSeal />
               <div className="cover-spine mono" aria-hidden="true">
-                NEGAR PIRASTEH — SELECTED WORK & EXPERIENCE — 2025–2026
+                NEGAR PIRASTEH — SELECTED WORK & EXPERIENCE
               </div>
               <div className="cover-content">
                 <div className="cover-top mono">
@@ -48,19 +48,11 @@ export default async function Home() {
                   </div>
                 </div>
                 <div className="cover-bottom">
-                  <p>
-                    Selected work & experience
-                    <br />
-                    <span className="muted">2025–2026</span>
-                  </p>
+                  <p>Selected work & experience</p>
                   <a className="open-book" href="#introduction">
                     Open the book <span aria-hidden="true">↓</span>
                   </a>
-                  <span className="edition mono">
-                    TYPESCRIPT & PYTHON
-                    <br />
-                    MONTRÉAL, CANADA
-                  </span>
+                  <span className="edition mono">MONTRÉAL, CANADA</span>
                 </div>
               </div>
             </div>
@@ -80,18 +72,22 @@ export default async function Home() {
               <div>
                 <h2 id="intro-title">Hi, I’m Negar.</h2>
                 <p className="body-copy">
-                  I’m a software developer in Montréal and a Computer Science
-                  graduate from LaSalle College. I build backend features with
-                  TypeScript and NestJS, and Python and FastAPI.
+                  I’m a software developer based in Montréal. I love building
+                  from the ground up and turning ideas into things people
+                  actually use.
                 </p>
+
                 <p className="body-copy">
-                  My work includes healthcare platforms, job-collection
-                  pipelines, and frontend contributions in React.
+                  I’ve helped build and launch the first versions of two
+                  products, built a large-scale data system from scratch, and
+                  created an open-source project that grew into a resource used
+                  by thousands across Canada.
                 </p>
+
                 <p className="body-copy">
-                  I also maintain Canadian Tech Internships, an open-source
-                  repository that helps students find opportunities across
-                  Canada. Outside of coding, I’m a cat person.
+                  I like understanding the whole system, taking ownership, and
+                  finding ways to make things faster, cleaner, and more
+                  reliable.
                 </p>
               </div>
               <aside className="intro-facts">
@@ -100,14 +96,14 @@ export default async function Home() {
                 </p>
                 <dl>
                   <dt>ROLE</dt>
-                  <dd>Software Developer</dd>
+                  <dd>Backend / Full-Stack Developer</dd>
                   <dt>BASED IN</dt>
                   <dd>Montréal, Canada</dd>
                   <dt>CORE STACK</dt>
                   <dd className="mono">
-                    TypeScript · NestJS · Python · FastAPI
+                    TypeScript · Node.js · NestJS · Python · FastAPI
                     <br />
-                    React / Next.js · PostgreSQL · Docker
+                    PostgreSQL · React / Next.js · Docker
                   </dd>
                 </dl>
                 <ContactLinks compact />

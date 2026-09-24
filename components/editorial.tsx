@@ -12,11 +12,9 @@ export function ContactLinks({ compact = false }: { compact?: boolean }) {
           Email <small>coming soon</small>
         </span>
       )}
-      {!compact && (
-        <a href={profile.linkedin}>
-          LinkedIn <span aria-hidden="true">↗</span>
-        </a>
-      )}
+      <a href={profile.linkedin}>
+        LinkedIn <span aria-hidden="true">↗</span>
+      </a>
       <a href={profile.github}>
         GitHub <span aria-hidden="true">↗</span>
       </a>
@@ -25,7 +23,7 @@ export function ContactLinks({ compact = false }: { compact?: boolean }) {
           Resume <span aria-hidden="true">↗</span>
         </a>
       )}
-      {!profile.resume && (
+      {!compact && !profile.resume && (
         <span
           className="pending-link"
           title="A current public resume will be added soon"

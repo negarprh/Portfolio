@@ -46,6 +46,9 @@ pnpm-debug.log*
 Thumbs.db
 Desktop.ini
 
-# Private Markdown notes; keep README, AGENTS, CLAUDE, and DECISIONS tracked
+# Private/local context; authoritative docs/context files stay tracked
 *.local.md
+*.context.local.md
 notes/private/
+.context-local/
+docs/context/generated/

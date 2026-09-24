@@ -40,7 +40,14 @@ for (const width of [1440, 390]) {
           time: el.getAnimations()[0].currentTime,
           inert: (el as HTMLElement).inert,
         }));
-      expect(Number(state.time)).toBeCloseTo(progress * 1800, 0);
+      // Native scrolling rounds the requested position to a CSS pixel, while
+      // font layout can leave a fractional boundary top. Match the actual seek.
+      const actualProgress = await page.evaluate(
+        (boundaryTop) =>
+          Math.max(0, Math.min(1, (scrollY - boundaryTop + 850) / 850)),
+        top,
+      );
+      expect(Number(state.time)).toBeCloseTo(actualProgress * 1800, 0);
       expect(state.inert).toBe(true);
       if (samples[progress]) expect(state.transform).toBe(samples[progress]);
       samples[progress] = state.transform;

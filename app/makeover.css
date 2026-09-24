@@ -772,3 +772,15 @@ html[data-book-enhanced] .readable-turn > .turn-shadow-left {
     visibility: visible;
   }
 }
+
+@media (prefers-reduced-motion: no-preference) {
+  /* Spread-space clipping follows the projected leaf edge without fading ink.
+   Material containers retain their existing opacity and transform tracks. */
+  html[data-book-enhanced]
+    :is(.introduction, [data-boundary])
+    > :not(.turn-sheet):not(.turn-shadow),
+  html[data-book-enhanced] .cover .cover-art > *,
+  html[data-book-enhanced] .closing-art > * {
+    clip-path: var(--reading-clip, none);
+  }
+}

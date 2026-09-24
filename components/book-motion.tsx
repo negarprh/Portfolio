@@ -71,6 +71,78 @@ export function BookMotion() {
     let renderedY = window.scrollY;
     let lastFrame = 0;
     const positions = new Map<Element, number>();
+    let readingSurfaces: HTMLElement[] = [];
+    const inkGeometry = new Map<
+      HTMLElement,
+      {
+        width: number;
+        nodes: {
+          node: HTMLElement;
+          left: number;
+          width: number;
+          clip?: string;
+        }[];
+      }
+    >();
+    let singlePage = false;
+    // Read the browser's eased rotation coordinate, not a second easing/timer.
+    const exposed = (boundary: HTMLElement | undefined, fallback: number) => {
+      const rotation = boundary && timelines.get(boundary)?.[0];
+      const progress =
+        rotation?.effect?.getComputedTiming().progress ?? fallback;
+      const width =
+        (boundary && inkGeometry.get(boundary)?.width) || window.innerWidth;
+      const leafWidth = singlePage ? width : width / 2;
+      const angle = Math.PI * progress;
+      // Project the outer edge of perspective(2200px) rotateY(). Once the
+      // front has passed the spine, the underlying ink is entirely exposed.
+      return clamp(
+        1 -
+          Math.max(0, Math.cos(angle)) /
+            (1 - (leafWidth * Math.sin(angle)) / 2200),
+      );
+    };
+    const updateInk = () => {
+      readingSurfaces.forEach((surface, index) => {
+        const entry =
+          index === 0
+            ? 1
+            : exposed(index === 1 ? readingSurfaces[0] : surface, 0);
+        const exitBoundary = index === 0 ? surface : readingSurfaces[index + 1];
+        const exit = exposed(exitBoundary, 0);
+        const geometry = inkGeometry.get(surface);
+        if (!geometry) return;
+        const half = geometry.width / 2;
+        // Intersect incoming outer strips with the outgoing central strip.
+        // All blocks share spread coordinates, including small folios/labels.
+        for (const item of geometry.nodes) {
+          const local = (x: number) =>
+            Math.max(0, Math.min(item.width, x - item.left));
+          const a = local(singlePage ? 0 : half * exit);
+          const b = Math.max(a, local(singlePage ? 0 : half * entry));
+          const d = local(
+            singlePage
+              ? geometry.width * (1 - exit)
+              : geometry.width - half * exit,
+          );
+          const c = Math.min(
+            d,
+            local(
+              singlePage
+                ? geometry.width * (1 - entry)
+                : geometry.width - half * entry,
+            ),
+          );
+          const clip =
+            entry === 1 && exit === 0
+              ? "none"
+              : `polygon(${a}px 0, ${b}px 0, ${b}px 100%, ${a}px 100%, ${a}px 0, ${c}px 0, ${d}px 0, ${d}px 100%, ${c}px 100%, ${c}px 0)`;
+          if (item.clip === clip) continue;
+          item.clip = clip;
+          item.node.style.setProperty("--reading-clip", clip);
+        }
+      });
+    };
     let coverHeight = window.innerHeight;
     let bookLength = 1;
     let backTop = 0;
@@ -95,6 +167,24 @@ export function BookMotion() {
             element.closest(".chapter-opening") || element
           ).getBoundingClientRect().top + window.scrollY,
       }));
+      singlePage = window.matchMedia("(max-width: 700px)").matches;
+      readingSurfaces.forEach((surface) => {
+        const rect = surface.getBoundingClientRect();
+        const nodes = Array.from(
+          surface.querySelectorAll<HTMLElement>(
+            surface === cover
+              ? ":scope > .cover-art > *"
+              : ":scope > :not(.turn-sheet):not(.turn-shadow)",
+          ),
+        );
+        inkGeometry.set(surface, {
+          width: rect.width,
+          nodes: nodes.map((node) => {
+            const bounds = node.getBoundingClientRect();
+            return { node, left: bounds.left - rect.left, width: bounds.width };
+          }),
+        });
+      });
       renderedY = window.scrollY;
       scroll();
     };
@@ -107,7 +197,10 @@ export function BookMotion() {
     };
     const update = (now: number) => {
       frame = 0;
-      if (preference.matches) return;
+      if (preference.matches) {
+        clear();
+        return;
+      }
       const targetY = window.scrollY;
       const elapsed = lastFrame ? Math.min(now - lastFrame, 64) : 1000 / 60;
       lastFrame = now;
@@ -132,6 +225,7 @@ export function BookMotion() {
         const progress = clamp((y - top + travel) / travel);
         seek(element, progress);
       }
+      updateInk();
       const progress = clamp((y - coverHeight) / bookLength);
       if (stacks)
         stacks.style.opacity = String(
@@ -155,6 +249,13 @@ export function BookMotion() {
       );
       timelines.clear();
       positions.clear();
+      inkGeometry.forEach(({ nodes }) =>
+        nodes.forEach(({ node }) =>
+          node.style.removeProperty("--reading-clip"),
+        ),
+      );
+      readingSurfaces = [];
+      inkGeometry.clear();
       document
         .querySelectorAll(".turn-sheet-left, .turn-shadow-left")
         .forEach((layer) => layer.remove());
@@ -183,6 +284,11 @@ export function BookMotion() {
       clear();
       if (preference.matches) return;
       document.documentElement.dataset.bookEnhanced = "true";
+      readingSurfaces = Array.from(
+        document.querySelectorAll<HTMLElement>(
+          ".cover, .introduction, [data-boundary]",
+        ),
+      );
       if (cover) timelines.set(cover, turnPage(cover));
       // Build inert copies and animation objects before any scrolling occurs.
       document

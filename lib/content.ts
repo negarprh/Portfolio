@@ -26,6 +26,7 @@ export const experience = [
     ],
     technologies: [
       ["Python", "python"],
+      ["Express", "express"],
       ["GitHub Actions", "githubactions"],
       ["React", "react"],
       ["Firebase", "firebase"],
@@ -46,6 +47,7 @@ export const experience = [
       ["NestJS", "nestjs"],
       ["Prisma", "prisma"],
       ["PostgreSQL", "postgresql"],
+      ["Angular", "angular"],
       ["Vitest", "vitest"],
     ],
   },

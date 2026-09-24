@@ -21,8 +21,17 @@ for (const width of [1440, 390]) {
       (window as any).turnSamples = [];
       (window as any).sampling = true;
       const sample = () => {
+        if (!(window as any).sampling) return;
         (window as any).turnSamples.push({
           y: scrollY,
+          coverInk: Number(
+            getComputedStyle(
+              document.querySelector(".cover > .cover-art > .cover-content")!,
+            ).opacity,
+          ),
+          introInk: Number(
+            getComputedStyle(document.querySelector(".intro-grid")!).opacity,
+          ),
           time: Number(
             document.querySelector(".cover > .turn-sheet")!.getAnimations()[0]
               .currentTime,
@@ -36,8 +45,12 @@ for (const width of [1440, 390]) {
     await expect.poll(() => page.evaluate(() => scrollY)).toBe(120);
     await settleBook(page);
     const samples = await page.evaluate(() => {
-      (window as any).sampling = false;
-      return (window as any).turnSamples as { y: number; time: number }[];
+      return (window as any).turnSamples as {
+        y: number;
+        time: number;
+        coverInk: number;
+        introInk: number;
+      }[];
     });
     const target = (120 / 850) * 1800;
     const intermediate = new Set(
@@ -78,7 +91,26 @@ for (const width of [1440, 390]) {
     await expect(link).toBeVisible();
     await link.click({ trial: true });
     await page.mouse.wheel(0, -240);
+    const allSamples = await page.evaluate(() => {
+      (window as any).sampling = false;
+      return (window as any).turnSamples as {
+        time: number;
+        coverInk: number;
+        introInk: number;
+      }[];
+    });
+    for (const sample of allSamples) {
+      expect(sample.coverInk).toBe(1);
+      expect(sample.introInk).toBe(1);
+    }
     await page.emulateMedia({ reducedMotion: "reduce" });
+    await expect
+      .poll(() =>
+        page.evaluate(
+          () => matchMedia("(prefers-reduced-motion: reduce)").matches,
+        ),
+      )
+      .toBe(true);
     await expect(page.locator("html")).not.toHaveAttribute(
       "data-book-enhanced",
     );

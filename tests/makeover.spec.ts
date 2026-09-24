@@ -86,6 +86,24 @@ test("no-JS and reduced-motion keep seal and all three role anchors readable", a
       "none",
     );
     await expect(page.locator(".role-anchor")).toHaveCount(3);
+    const roleStacks = [
+      ["Python", "Express", "GitHub Actions", "React", "Firebase"],
+      [
+        "TypeScript",
+        "Node.js",
+        "NestJS",
+        "Prisma",
+        "PostgreSQL",
+        "Angular",
+        "Vitest",
+      ],
+      ["TypeScript", "Express", "PostgreSQL", "Prisma", "Supabase", "Swagger"],
+    ];
+    for (const [index, stack] of roleStacks.entries()) {
+      await expect(
+        page.locator(`.role-${index} .stack-chips li span`),
+      ).toHaveText(stack);
+    }
     for (const role of [".role-0", ".role-1", ".role-2"]) {
       await page.locator(role).scrollIntoViewIfNeeded();
       await expect(page.locator(`${role} .role-anchor`)).toBeVisible();

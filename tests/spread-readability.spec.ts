@@ -2,7 +2,7 @@ import { test, expect } from "@playwright/test";
 import { settleBook } from "./motion-helpers";
 
 for (const width of [1440, 390]) {
-  test(`paired paper preserves sharp reading ink at ${width}px`, async ({
+  test(`paired paper scrubs sharp reading ink at ${width}px`, async ({
     page,
   }) => {
     test.setTimeout(120000);
@@ -46,17 +46,16 @@ for (const width of [1440, 390]) {
               const style = getComputedStyle(node);
               let ancestor: Element | null = node;
               let clean = true;
+              let opacity = 1;
               while (ancestor && ancestor !== el.parentElement) {
                 const s = getComputedStyle(ancestor);
-                clean &&=
-                  s.transform === "none" &&
-                  s.opacity === "1" &&
-                  s.filter === "none" &&
-                  s.clipPath === "none";
+                clean &&= s.transform === "none" && s.filter === "none";
+                opacity *= Number(s.opacity);
                 ancestor = ancestor.parentElement;
               }
-              return { clean, visibility: style.visibility };
+              return { clean, opacity, visibility: style.visibility };
             }),
+            opacity: 1,
             copies: el.querySelectorAll(".outgoing-content").length,
             layers: sheets.map((sheet) => getComputedStyle(sheet).zIndex),
           };
@@ -68,7 +67,12 @@ for (const width of [1440, 390]) {
         ]);
         expect(state.copies).toBe(0);
         expect(
-          state.ink.every((ink) => ink.clean && ink.visibility === "visible"),
+          state.ink.every(
+            (ink) =>
+              ink.clean &&
+              ink.visibility === "visible" &&
+              Math.abs(ink.opacity - state.opacity) < 0.00001,
+          ),
         ).toBe(true);
         expect(state.layers).toEqual(["-2", "-2"]);
         if (index === 2 && [0.15, 0.3, 0.5, 0.75].includes(progress)) {

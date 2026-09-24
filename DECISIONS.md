@@ -1,6 +1,15 @@
 # The Book: decisions and implementation record
 
-Recorded 2026-09-13 from current source, Git history, and the user's design instructions. Active work is on `makeover`; the operating constraints and source map are in [AGENTS.md](AGENTS.md).
+This is a historical ledger, not the default source of current behavior. Load it only when a task revisits rationale, an accepted direction, or a rejected experiment. Current facts live in [`docs/context/CAREER.md`](docs/context/CAREER.md), the active design contract in [`docs/context/BOOK.md`](docs/context/BOOK.md), and implementation ownership in [`docs/context/ENGINEERING.md`](docs/context/ENGINEERING.md).
+
+Recorded from current source, Git history, and the user’s design instructions beginning 2026-09-13. Active work is on `makeover`.
+
+## Ledger rules
+
+- Append an entry only for a durable choice with meaningful alternatives, a rejected direction likely to recur, or a current contract being superseded.
+- Ordinary copy/fact updates belong in `docs/context/CAREER.md`, not here.
+- State whether a new entry is **accepted**, **rejected**, or **superseded**, and link the decision it replaces when applicable.
+- Never copy the whole chronology into `AGENTS.md`; keep that file as a lightweight router.
 
 ## Built and retained
 
@@ -71,3 +80,13 @@ Recast the user’s Tail’ed, Lienzo, and Ozex resume/LinkedIn bullets as three
 ## 2026-09-20: selected Orbitron cover typography
 
 The user selected Orbitron for Negar Pirasteh on the hero. Orbitron 400 is locally hosted and preloaded, replacing Manrope only on the front-cover heading and its inert turn copy. Existing scale, composition, letterpress shadows, and the handwriting entrance remain; interior typography is unchanged.
+
+## 2026-09-21: scroll-scrubbed reading opacity
+
+The user replaced the rejected endpoint-gating/timer proposals with direct opacity ramps from the existing filtered rotation progress. Outgoing ink fades over 0–15%; incoming ink fades over 85–100%. Reverse input retraces these same values. A surface's entry/exit tracks compose using their minimum to avoid competing writes when neighboring turns overlap. There are no timers, completion events, equality gates, new layout runways, or navigation offsets. Rotation keyframes, duration, easing, 85vh travel and 32ms response are unchanged. Original reading DOM stays untransformed; only its opacity changes. Covers retain their existing material tracks while text follows the same ramps. Clearing enhancement removes all ink properties, so no-JS and reduced motion remain fully visible. This supersedes September 17's always-opaque reading text.
+
+The new ink CSS is restricted to prefers-reduced-motion: no-preference. If an in-flight scroll update observes reduced motion before the preference-change handler runs, it clears enhancement immediately instead of merely returning; no timer or additional animation loop is used. The mobile closing test now compares the timeline with the browser’s actual integer scroll position rather than its fractional requested destination.
+
+## 2026-09-24: geometric reading reveal
+
+Replace September 21's uniform ink fades with clip-path regions following the existing leaf animation's eased, perspective-projected edge. Desktop retains its paired mirrored leaves and mobile its single leaf. Regions share spread coordinates across individual content blocks; incoming/outgoing regions intersect and reverse deterministically. Once the front passes the spine, incoming ink is fully readable, without a settling fade. Cache bounds during measurement, skip unchanged clips, and remove clipping on reduced motion or cleanup. Navigation, native scroll, layout, typography, and leaf physics remain unchanged.
