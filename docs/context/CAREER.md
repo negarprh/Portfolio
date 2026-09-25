@@ -132,22 +132,24 @@ Do not infer dates, seniority, degree equivalence, business impact, ownership, t
 
 ## Public skills taxonomy
 
-- Backend & Data: TypeScript, Python, FastAPI, SQLAlchemy, PostgreSQL, Redis, Java, Spring Boot, Node.js, NestJS, Prisma, Flask.
-- Frontend: React, Next.js, Tailwind CSS, JavaScript, HTML, CSS.
+- Backend: TypeScript, Node.js, NestJS, Express.js, Python, FastAPI, Flask, Java, Spring Boot.
+- Data: PostgreSQL, MongoDB, Prisma, SQLAlchemy.
+- Frontend: React, Next.js, Angular, JavaScript, Tailwind CSS, HTML, CSS.
 - Infra & Cloud: Docker, AWS, GitHub Actions, Supabase, Firebase, Azure DevOps.
-- Tools: Git, GitHub, Postman, Swagger, Stripe, Vitest.
+- Tools & Testing: Git, GitHub, Postman, Swagger, Vitest, Pytest, Zod.
+- Negar explicitly approved this inventory on 2026-09-24, including MongoDB, Pytest, and Zod. Redis, Stripe, and OpenAPI are excluded from this chapter; this does not retract verified use elsewhere. Intro: “I work primarily across backend and full-stack development.”
 
 This is a display taxonomy, not a proficiency ranking. Adding a skill requires an explicit user-provided fact or evidence from current work; do not scrape dependency files and present every package as a career skill.
 
 ## Private or incomplete information
 
-- “Currently Building” may only say that it is a platform for the audience around the Canadian tech internships repository and that it is launching soon. Do not reveal product, architecture, implementation, or unreleased features without explicit approval.
+- “Currently Building” was removed from the public book at Negar’s request on 2026-09-25. Do not relocate SearchStop or reveal product, architecture, implementation, or unreleased features without explicit approval.
 - GitHub: `https://github.com/negarprh`.
 - LinkedIn: `https://www.linkedin.com/in/negar-pirasteh/`.
 - Show LinkedIn in the introduction contact links; omit the introduction’s unset-resume placeholder.
-- Email comes from `NEXT_PUBLIC_CONTACT_EMAIL`.
-- Resume comes from `NEXT_PUBLIC_RESUME_URL`.
-- When email or resume is unset, keep the non-clickable “coming soon” behavior. Do not invent a value or claim a confirmed public resume exists.
+- Approved contact copy (2026-09-25): “Have a role in mind? Let’s talk.” and “I’m currently open to software development opportunities.”
+- Public email approved by Negar on 2026-09-25: `negarpr@hotmail.com` (the backslash in the supplied Markdown escaped the @ sign).
+- Résumé links and placeholders are removed at Negar’s request. Contact links are Email, LinkedIn, and GitHub.
 
 ## Fact-update checklist
 

@@ -102,3 +102,19 @@ At Negar’s request, supersede the text-only community/expense compositions wit
 ## 2026-09-24: Education as a field-and-credential spread
 
 Replace the empty left page with large COMPUTER / SCIENCE typography and a small SOFTWARE DEVELOPMENT line. Keep the credential on the right and the user-supplied 2023–2026 dates as quiet metadata. Retain a single reading spread with the existing grid, responsive stacking, paper, and turn mechanics. No employer repetition, internship counts, coursework, or graduation-year focal point.
+
+## 2026-09-25: five Skills categories across two spreads
+
+Keep the existing numbered editorial inventory and monochrome logo/name treatment while adopting Negar’s exact 33 technologies and flexible backend/full-stack intro. Split Backend from Data, and place Frontend, Infra & Cloud, and Tools & Testing on the second spread. Each heading stays on the same page as its list, replacing the disconnected heading-left/list-right layout. Use optical logo sizing and Skills-only responsive columns, without proficiency ratings, extra concepts, or changes to other chapters or motion.
+
+## 2026-09-25: unify Skills layout and logo ink
+
+Following visual review, retain all approved Skills copy and replace the mixed one-/two-column category variants with one shared two-column system and a width-based narrow fallback. Pair Backend and Frontend on the first spread; place Data and Infra & Cloud opposite Tools & Testing on the second. This gives 16 and 17 entries per spread, retaining each category’s original number. Use a short intro above the first aligned heading row, align number/icon and title/name columns, and use shared vertical spacing tokens. Compress logo luminance through a local ink filter while preserving internal detail, rather than relying on grayscale and reduced opacity, which left several logos faint.
+
+## 2026-09-25: final chapter order and Skills page composition
+
+Remove Currently Building without relocating SearchStop. The final order is Introduction, Experience, Projects, Skills, Education, Contact, numbered 01–06 with matching Roman marks. Experience and Projects demonstrate the work before Skills supplies the inventory. Supersede the previous Skills page placement: intro and Backend opposite Frontend; Data and Tools & Testing opposite Infra & Cloud. Keep all content, category numbers, typography, logos, and SkillItem styling; bring the intro closer to Backend within its left page.
+
+## 2026-09-25: Skills before Projects, precise index landing, and paper edges
+
+Negar’s later instruction supersedes the preceding chapter order: Introduction, Experience, Skills, Projects, Education, Contact. Keep the approved Skills composition. Index clicks seek stable document positions instead of relying on native scrolling to sticky rectangles; retain native fallback anchors and hash history. Replace uniform exposed-page stripes with a shared static, non-tiled sheet texture with restrained variation, shallow contours, and soft shadows, preserving dimensions and all turn/thickness-transfer behavior. Contact now uses the approved email and three brighter 16px links, with no Résumé.

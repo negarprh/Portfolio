@@ -3,10 +3,9 @@ import AxeBuilder from "@axe-core/playwright";
 const chapterIds = [
   "introduction",
   "experience",
-  "work",
-  "building",
-  "education",
   "skills",
+  "work",
+  "education",
   "contact",
 ];
 test("all chapters, real assets, and accessible desktop document", async ({
@@ -18,6 +17,49 @@ test("all chapters, real assets, and accessible desktop document", async ({
   await page.evaluate(() => document.fonts.ready);
   for (const id of chapterIds)
     await expect(page.locator(`#${id}`)).toBeAttached();
+  expect(
+    await page
+      .locator("main section[id], main footer[id]")
+      .evaluateAll((nodes) => nodes.map((node) => node.id)),
+  ).toEqual(chapterIds);
+  await expect(page.locator('#building, [href="#building"]')).toHaveCount(0);
+  await expect(page.locator("main")).not.toContainText(
+    /Currently Building|SearchStop/i,
+  );
+  await expect(page.locator(".book-index li a > .mono")).toHaveText([
+    "01",
+    "02",
+    "03",
+    "04",
+    "05",
+    "06",
+  ]);
+  expect(
+    await page
+      .locator(".book-index li a")
+      .evaluateAll((nodes) => nodes.map((node) => node.getAttribute("href"))),
+  ).toEqual(chapterIds.map((id) => `#${id}`));
+  await expect(
+    page.locator(".chapter-running-label > span:first-child"),
+  ).toHaveText(["I", "II", "III", "IV", "V"]);
+  await expect(page.locator(".divider-title .eyebrow")).toHaveText([
+    "Chapter II",
+    "Chapter III",
+    "Chapter IV",
+    "Chapter V",
+  ]);
+  await expect(page.locator(".folio-flat")).toHaveText([
+    "01",
+    "02",
+    "03",
+    "04",
+    "05",
+    "06",
+    "07",
+    "08",
+    "09",
+    "10",
+  ]);
   await expect(page.locator(".experience-row h3")).toHaveText([
     "Tail’ed",
     "Lienzo",
@@ -27,17 +69,19 @@ test("all chapters, real assets, and accessible desktop document", async ({
     "4.7 hours to 1.8 hours",
   );
   await expect(page.locator("#education .education-spread")).toHaveCount(1);
-  await expect(page.locator(".education-degree")).toHaveText(
+  await expect(page.locator("#education .education-degree")).toHaveText(
     "DEC / Diploma of College Studies",
   );
-  await expect(page.locator(".education-program")).toHaveText(
+  await expect(page.locator("#education .education-program")).toHaveText(
     "Computer Science: Programming",
   );
-  await expect(page.locator(".education-dates")).toHaveText("2023 - 2026");
-  await expect(page.locator(".education-context")).toHaveText(
+  await expect(page.locator("#education .education-dates")).toHaveText(
+    "2023 - 2026",
+  );
+  await expect(page.locator("#education .education-context")).toHaveText(
     "A three-year technical program centered on software development, combining computer science fundamentals with hands-on application.",
   );
-  await expect(page.locator(".education-field")).not.toContainText(
+  await expect(page.locator("#education .education-field")).not.toContainText(
     /2023|2026|internship/i,
   );
   const badImages = await page.locator("img").evaluateAll(async (elements) => {

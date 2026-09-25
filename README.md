@@ -48,12 +48,7 @@ Playwright expects a running server at `http://localhost:3000`, overridable with
 
 Import the repository, select the Next.js framework preset, and use the repository root. Keep the normal server build so hourly ISR can refresh the public GitHub star count; do not use `output: "export"` or the legacy GitHub Pages workflow.
 
-Copy `.env.example` to `.env.local` for optional local values:
-
-- `NEXT_PUBLIC_CONTACT_EMAIL`: verified public email.
-- `NEXT_PUBLIC_RESUME_URL`: verified public resume URL, or `/resume.pdf` after intentionally adding that file under `public/`.
-
-When either variable is absent, the UI keeps an honest non-clickable placeholder. Never commit secrets or invent a contact value.
+The approved public email is stored in `lib/content.ts`; contact links need no environment configuration. Résumé links are intentionally omitted. Never commit secrets or invent a contact value.
 
 ## Content maintenance
 
@@ -77,6 +72,6 @@ See [`docs/context/ENGINEERING.md`](docs/context/ENGINEERING.md) for exact owner
 
 DM Serif Display, Manrope, and Orbitron 400 are locally hosted under the SIL Open Font License. Technical labels use the system monospace font.
 
-Skill marks come from Devicon (MIT) and Simple Icons (CC0; Stripe), with supplied AWS artwork retained. Brand marks belong to their respective owners. License texts are in `public/licenses/`.
+Skill marks come from Devicon (MIT, including MongoDB and Pytest) and Simple Icons (CC0; Zod and the retained Stripe asset), with supplied AWS artwork retained. New marks are sourced from `devicons/devicon` (`icons/mongodb/mongodb-original.svg`, `icons/pytest/pytest-original.svg`) and `simple-icons/simple-icons` (`icons/zod.svg`). Brand marks belong to their respective owners. License texts are in `public/licenses/`.
 
 Project images originated in the supplied portfolio. `scripts/capture-repo.cjs` intentionally refreshes the Canadian Tech Internships repository screenshot; the displayed star count is fetched separately through ISR.

@@ -19,7 +19,6 @@ Last reconciled: 2026-09-24. Use this file to locate implementation ownership an
 | Career arrays, links, index entries                          | `lib/content.ts`                                                                     |
 | Experience                                                   | `components/experience.tsx`                                                          |
 | Projects / stars                                            | `components/selected-work.tsx`, `lib/content.ts`, `lib/github.ts`                    |
-| Currently building                                           | `components/currently-building.tsx`                                                  |
 | Education                                                    | `components/education.tsx`                                                           |
 | Skills                                                       | `components/skills.tsx`                                                              |
 | Back cover/contact                                           | `components/closing.tsx`                                                             |
@@ -37,12 +36,14 @@ Legacy `index.html`, `head.html`, and `assets/` are reference material from the 
 ## Data and fallback contracts
 
 - `lib/content.ts` is the rendered source for structured roles, projects, skills, and links. Career meaning and provenance are recorded in `CAREER.md`; keep them synchronized.
-- Email and resume are environment-backed. Keep `.env.example` safe and never commit real secrets.
+- The approved public email is stored in `lib/content.ts`. Résumé links are removed; neither contact field needs environment configuration. Never commit secrets.
 - GitHub stars are server-fetched public data; no client polling and no invented fallback number.
 - Enhanced interior materials are gated by `html[data-book-enhanced]`. Static fallbacks remain readable without it.
 - Decorative outgoing copies are inert and sanitized. They exclude divider titles; interior turns do not duplicate paragraphs.
 - Experience SVG chips load eagerly so requests begin during the opening; other deferred assets keep their existing loading policy.
 - `.book-opening`, `.opening-runway`, and introduction scroll margins coordinate the enhanced cover overlap with native anchor landing. Do not remove one in isolation.
+- Index clicks use stable document positions (the opening wrapper plus cover height for enhanced Introduction), preserve hash history and focus, and bypass sticky-target native anchor drift. Native fallback links remain available without JavaScript.
+- Both exposed fore-edges share `public/images/page-block.svg`, a static, non-tiled sheet texture. Their dimensions and scroll-driven transforms remain owned by the existing CSS and motion code.
 
 ## Verification matrix
 
@@ -66,6 +67,8 @@ Useful review scripts:
 Generated output belongs in ignored `test-results/`; do not treat it as source.
 
 `tests/projects.spec.ts` verifies the three-project selection, public link destinations and attributes, desktop/mobile spread reversals, reduced motion, and no-JS rendering. Project data owns explicit GitHub/live URLs and optional existing artwork; do not infer a deployment URL from a repository name.
+
+`tests/skills.spec.ts` verifies the approved 33-item inventory across two Skills spreads, four viewport sizes, decorative monochrome logos, overflow, reversed turns, reduced motion, and no-JS content. Skills layout and optical logo sizing are scoped to `#skills` in `app/makeover.css`.
 
 ## Documentation maintenance
 

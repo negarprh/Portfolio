@@ -648,7 +648,6 @@ figcaption {
   line-height: 1.7;
 }
 .about-spread,
-.building-spread,
 .education-spread {
   display: flex;
   flex-direction: column;
@@ -1000,7 +999,6 @@ figcaption {
     font-size: 38px;
   }
   .about-spread,
-  .building-spread,
   .education-spread {
     min-height: 65svh;
   }

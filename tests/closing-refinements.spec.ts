@@ -12,6 +12,36 @@ for (const width of [1440, 390]) {
       "true",
     );
     await page.evaluate(() => document.fonts.ready);
+    await expect(page.locator("#contact > .colophon > .eyebrow")).toHaveText(
+      "Contact",
+    );
+    await expect(page.locator("#contact-title")).toHaveText(
+      "Have a role in mind?Let’s talk.",
+    );
+    await expect(
+      page.locator("#contact > .colophon > .colophon-note"),
+    ).toHaveText("I’m currently open to softwaredevelopment opportunities.");
+    await expect(page.locator("#contact .colophon-name")).toHaveCount(0);
+    const contactLinks = page.locator(
+      "#contact > .colophon > .closing-links > *",
+    );
+    await expect(contactLinks).toHaveCount(3);
+    await expect(contactLinks.first()).toHaveAttribute(
+      "href",
+      "mailto:negarpr@hotmail.com",
+    );
+    await expect(contactLinks.first()).toHaveCSS("font-size", "16px");
+    await expect(page.locator("#contact > .colophon")).not.toContainText(
+      /résumé|resume|coming soon/i,
+    );
+    const linkBounds = await contactLinks.evaluateAll((nodes) =>
+      nodes.map((node) => {
+        const { top, left, width } = node.getBoundingClientRect();
+        return { top, left, width };
+      }),
+    );
+    expect(linkBounds[0].top).toBe(linkBounds[1].top);
+    expect(linkBounds[1].top).toBe(linkBounds[2].top);
     await expect(page.locator("#intro-title")).toHaveCSS(
       "font-family",
       "Editorial, Georgia, serif",

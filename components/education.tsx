@@ -2,10 +2,10 @@ import { Divider, Folio, RunningHead, TurnSheet } from "./editorial";
 export function Education() {
   return (
     <section id="education" aria-label="Education">
-      <RunningHead number="IV" name="Education" />
+      <RunningHead number="V" name="Education" />
       <Divider
         id="education"
-        number="IV"
+        number="V"
         title="Education"
         note="05 / Studies"
       />
@@ -32,7 +32,7 @@ export function Education() {
           </div>
         </div>
         <TurnSheet label="Education" />
-        <Folio label="Education" page="09" />
+        <Folio label="Education" page="10" />
       </div>
     </section>
   );

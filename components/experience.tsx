@@ -83,10 +83,10 @@ function RoleAnchor({ index }: { index: number }) {
 export function Experience() {
   return (
     <section id="experience" aria-label="Experience">
-      <RunningHead number="I" name="Experience" />
+      <RunningHead number="II" name="Experience" />
       <Divider
         id="experience"
-        number="I"
+        number="II"
         title="Experience"
         note="02 / Work history"
       />

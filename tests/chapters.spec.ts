@@ -19,10 +19,11 @@ test("three adjacent chapters are identifiable with every animation stopped", as
   for (const [id, selector, label] of [
     ["experience", ".experience-row:last-child", "Experience"],
     ["work", ".flagship", "Projects"],
-    ["building", ".building-spread", "Currently building"],
+    ["skills", "#skills .skills-spread", "Skills"],
   ]) {
     await page
       .locator(selector)
+      .first()
       .evaluate((el) => el.scrollIntoView({ behavior: "instant" }));
     await page.evaluate(() =>
       document.getAnimations().forEach((a) => {
@@ -38,6 +39,7 @@ test("three adjacent chapters are identifiable with every animation stopped", as
     papers.push(
       await page
         .locator(selector)
+        .first()
         .evaluate((el) =>
           getComputedStyle(el).getPropertyValue("--chapter-paper"),
         ),

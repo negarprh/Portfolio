@@ -4,12 +4,12 @@ import { projects } from "@/lib/content";
 export function SelectedWork({ stars }: { stars: number | null }) {
   return (
     <section id="work" aria-label="Projects">
-      <RunningHead number="II" name="Projects" />
+      <RunningHead number="IV" name="Projects" />
       <Divider
         id="work"
-        number="II"
+        number="IV"
         title="Projects"
-        note="03 / Three selected projects"
+        note="04 / Three selected projects"
       />
       <div className="work-spreads">
         {projects.map((project, i) => (
@@ -114,7 +114,7 @@ export function SelectedWork({ stars }: { stars: number | null }) {
               </div>
             </div>
             <TurnSheet label="Projects" />
-            <Folio label="Projects" page={`0${i + 5}`} />
+            <Folio label="Projects" page={`0${i + 7}`} />
           </article>
         ))}
       </div>

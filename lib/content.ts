@@ -1,18 +1,15 @@
 export const chapters = [
   ["introduction", "Introduction"],
   ["experience", "Experience"],
-  ["work", "Projects"],
-  ["building", "Currently Building"],
-  ["education", "Education"],
   ["skills", "Skills"],
+  ["work", "Projects"],
+  ["education", "Education"],
   ["contact", "Contact"],
 ] as const;
 export const profile = {
   github: "https://github.com/negarprh",
   linkedin: "https://www.linkedin.com/in/negar-pirasteh/",
-  // Set these to verified, public contact information before publishing.
-  email: process.env.NEXT_PUBLIC_CONTACT_EMAIL || "",
-  resume: process.env.NEXT_PUBLIC_RESUME_URL || "",
+  email: "negarpr@hotmail.com",
 };
 export const experience = [
   {
@@ -35,7 +32,7 @@ export const experience = [
   {
     company: "Lienzo",
     title: "Backend Developer",
-    dates: "Dec 8, 2025 — Mar 31, 2026",
+    dates: "Dec 8, 2025 - Mar 31, 2026",
     lines: [
       "I built backend features for a healthcare coordination platform using TypeScript, NestJS, PostgreSQL, and Prisma, working across data models, APIs, business logic, and automated testing.",
       "I implemented recurring task functionality with daily, weekly, biweekly, and monthly schedules, including logic for updating individual occurrences or an entire recurring series.",
@@ -54,7 +51,7 @@ export const experience = [
   {
     company: "Ozex",
     title: "Software Developer Intern",
-    dates: "Feb — May 2025",
+    dates: "Feb - May 2025",
     lines: [
       "I developed backend functionality for a mental health platform using TypeScript, Express, PostgreSQL, and Prisma, building REST APIs and the application logic behind them.",
       "I optimized database queries and high-traffic endpoints, reducing API response times by 35%. I also implemented authentication and authorization with Supabase and JWT to protect endpoints and enforce access to backend resources.",
@@ -134,20 +131,26 @@ export const projects = [
 ];
 export const skills = [
   {
-    label: "Backend & Data",
+    label: "Backend",
     items: [
       ["TypeScript", "typescript"],
-      ["Python", "python"],
-      ["FastAPI", "fastapi"],
-      ["SQLAlchemy", "sqlalchemy"],
-      ["PostgreSQL", "postgresql"],
-      ["Redis", "redis"],
-      ["Java", "java"],
-      ["Spring Boot", "spring"],
       ["Node.js", "nodejs"],
       ["NestJS", "nestjs"],
-      ["Prisma", "prisma"],
+      ["Express.js", "express"],
+      ["Python", "python"],
+      ["FastAPI", "fastapi"],
       ["Flask", "flask"],
+      ["Java", "java"],
+      ["Spring Boot", "spring"],
+    ],
+  },
+  {
+    label: "Data",
+    items: [
+      ["PostgreSQL", "postgresql"],
+      ["MongoDB", "mongodb"],
+      ["Prisma", "prisma"],
+      ["SQLAlchemy", "sqlalchemy"],
     ],
   },
   {
@@ -155,8 +158,9 @@ export const skills = [
     items: [
       ["React", "react"],
       ["Next.js", "nextjs"],
-      ["Tailwind CSS", "tailwindcss"],
+      ["Angular", "angular"],
       ["JavaScript", "javascript"],
+      ["Tailwind CSS", "tailwindcss"],
       ["HTML", "html5"],
       ["CSS", "css3"],
     ],
@@ -173,14 +177,15 @@ export const skills = [
     ],
   },
   {
-    label: "Tools",
+    label: "Tools & Testing",
     items: [
       ["Git", "git"],
       ["GitHub", "github"],
       ["Postman", "postman"],
       ["Swagger", "swagger"],
-      ["Stripe", "stripe"],
       ["Vitest", "vitest"],
+      ["Pytest", "pytest"],
+      ["Zod", "zod"],
     ],
   },
 ];

@@ -5,12 +5,13 @@ const { chromium } = require("playwright");
   await p.goto("http://localhost:3002");
   await p.evaluate(() => document.fonts.ready);
   for (const [name, selector] of [
-    ["01-experience", ".experience-row:last-child"],
-    ["02-work", ".flagship"],
-    ["03-building", ".building-spread"],
+    ["02-experience", ".experience-row:last-child"],
+    ["03-skills", "#skills .skills-spread"],
+    ["04-work", ".flagship"],
   ]) {
     await p
       .locator(selector)
+      .first()
       .evaluate((el) => el.scrollIntoView({ behavior: "instant" }));
     await p.evaluate(() => {
       for (const a of document.getAnimations()) {
@@ -21,10 +22,13 @@ const { chromium } = require("playwright");
     await p.screenshot({ path: `test-results/chapter-still-${name}.png` });
     console.log(
       name,
-      await p.locator(selector).evaluate((el) => ({
-        top: el.getBoundingClientRect().top,
-        background: getComputedStyle(el).backgroundImage,
-      })),
+      await p
+        .locator(selector)
+        .first()
+        .evaluate((el) => ({
+          top: el.getBoundingClientRect().top,
+          background: getComputedStyle(el).backgroundImage,
+        })),
     );
   }
   await p.goto("http://localhost:3002");

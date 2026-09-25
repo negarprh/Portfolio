@@ -4,9 +4,9 @@ Last reconciled: 2026-09-24. This is the current-state design contract. Historic
 
 ## Product concept
 
-The portfolio is one continuous physical book: front cover → introduction → experience → projects → currently building → education → skills → back cover. Scrolling opens covers and turns leaves at chapter or reading-spread boundaries. A visible spine, paper edges, running heads, mirrored margins/folios, and deliberate divider pages support the book metaphor. A native bookmark/index provides direct navigation; “Contact” opens the back cover rather than a separate slide.
+The portfolio is one continuous physical book: front cover → 01 Introduction → 02 Experience → 03 Skills → 04 Projects → 05 Education → 06 Contact (back cover). Roman chapter marks match these numbers (I–VI); reading-spread folios run from 01 through 10. Currently Building is removed, and SearchStop is not relocated. Scrolling opens covers and turns leaves at chapter or reading-spread boundaries. A visible spine, paper edges, running heads, mirrored margins/folios, and deliberate divider pages support the book metaphor. The bookmark/index lands at the exact chapter start using stable document positions, including when returning to Introduction from later chapters; “Contact” opens the back cover rather than a separate slide.
 
-The cover is minimal and centered: an enormous name, one restrained NP crest, small role/location/edition details, and generous empty space. The back cover uses matching cloth and contains the closing line, opportunity note, contact links, name, and “Montréal · 2026.” Do not add a secondary cover illustration, object, graph, or competing mark.
+The cover is minimal and centered: an enormous name, one restrained NP crest, small role/location/edition details, and generous empty space. The back cover uses matching cloth: NP crest, CONTACT, “Have a role in mind?” / “Let’s talk.”, and “I’m currently open to software” / “development opportunities.” Center Email, LinkedIn, and GitHub in one row at a legible 16px with brighter paper-colored ink, followed by “Montréal · 2026.” Omit Résumé and the separate name line. Do not add a secondary cover illustration, object, graph, or competing mark.
 
 The front cover omits the 2025–2026 range and TYPESCRIPT & PYTHON label; retain its location and volume/edition labels.
 
@@ -28,6 +28,8 @@ The Projects chapter at `#work` presents exactly three editorial spreads: Canadi
 
 Existing static CSS gradients are intentionally retained for cloth, paper grain, binding, page edges, and cast-shadow layers. This predates the “no gradients” direction. Do not add new gradients, remove the retained material treatment without approval, or inaccurately describe the site as gradient-free. Physical cover/page shading is not a drop-shadow card style.
 
+The exposed page blocks use one non-tiled SVG paper texture on both sides, mirrored at the binding. Negar approved irregular sheet spacing, varied fine seams, restrained warm sheet tones, sparse darker gaps, subtle fibers/grain, 1–2px edge offsets, and a shallow natural bow with soft contact/outer shading. Preserve their existing 27px/21px dimensions, opacity, and thickness-transfer transforms. Keep the paper clean and modern, without yellowing, damage, or obvious repeating stripes.
+
 Base tokens in `app/globals.css`:
 
 | Token      | Value     | Use                               |
@@ -45,7 +47,6 @@ Chapter paper/ink pairs:
 | Introduction       | `#f4efe3` | `#7d6844` |
 | Experience         | `#f1ebdc` | `#7d6339` |
 | Projects           | `#e5edf0` | `#456675` |
-| Currently building | `#f0e2d5` | `#74502f` |
 | Education          | `#eeeddf` | `#615e3b` |
 | Skills             | `#e3eade` | `#53674a` |
 
@@ -63,6 +64,7 @@ The visible contact surface is the shared dark cloth back cover. Retained `#cont
 - Education remains one reading spread: large two-line COMPUTER / SCIENCE type and a small SOFTWARE DEVELOPMENT line on the left; location, LaSalle College, credential, program, subtle 12px dates, and one contextual sentence on the right. Use the existing spread grid and responsive stacking, typography, paper, folios, and turn boundary. No year-focused artwork, logos, skills, course lists, or experience repetition.
 - The cover-name size remains `clamp(88px, 11.7vw, 190px)` desktop and `clamp(72px, 19vw, 132px)` mobile.
 - Use recognizable local SVG brand marks with text labels for experience and skills. Attributions and licenses remain in `README.md` and `public/licenses/`.
+- Skills uses two reading spreads: short intro immediately above Backend on the first left page, with Frontend opposite; Data and Tools & Testing on the second left page, with Infra & Cloud opposite. Original category numbers remain attached to their categories; the spreads retain all 16/17 entries. All five categories share one heading/rule anatomy and two-column inventory, falling back to one column only when page width requires it. One SkillItem uses a fixed 32px icon column, 12px text gap, 40px minimum row height, and 16px names. Spacing tokens control rules, headings, rows, and category separation. A Skills-local SVG filter compresses logo luminance into a muted gray range while retaining internal details; optical sizes compensate for dense marks and internal SVG whitespace. Reuse the existing spread grid, paper, and turn boundaries; no proficiency ratings.
 
 ## Motion contract
 

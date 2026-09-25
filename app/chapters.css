@@ -12,42 +12,35 @@ html[data-book-enhanced] #introduction {
   --chapter-fold: #dfd5c0;
   --chapter-edge: #eee6d6;
   --chapter-ink: #7d6844;
-  --chapter-mark: "01";
+  --chapter-mark: "I";
 }
 html[data-book-enhanced] #experience {
   --chapter-paper: #f1ebdc;
   --chapter-fold: #d5c8ad;
   --chapter-edge: #e8dfcb;
   --chapter-ink: #7d6339;
-  --chapter-mark: "I";
+  --chapter-mark: "II";
 }
 html[data-book-enhanced] #work {
   --chapter-paper: #e5edf0;
   --chapter-fold: #becdd1;
   --chapter-edge: #d9e3e7;
   --chapter-ink: #456675;
-  --chapter-mark: "II";
-}
-html[data-book-enhanced] #building {
-  --chapter-paper: #f0e2d5;
-  --chapter-fold: #d5bca5;
-  --chapter-edge: #e6d4c2;
-  --chapter-ink: #74502f;
-  --chapter-mark: "III";
+  --chapter-mark: "IV";
 }
 html[data-book-enhanced] #education {
   --chapter-paper: #eeeddf;
   --chapter-fold: #d1ceb8;
   --chapter-edge: #e4e1cf;
   --chapter-ink: #615e3b;
-  --chapter-mark: "IV";
+  --chapter-mark: "V";
 }
 html[data-book-enhanced] #skills {
   --chapter-paper: #e3eade;
   --chapter-fold: #bdcbb4;
   --chapter-edge: #d7e0d1;
   --chapter-ink: #53674a;
-  --chapter-mark: "V";
+  --chapter-mark: "III";
 }
 html[data-book-enhanced] #about {
   --chapter-paper: #f0e7e0;
@@ -61,7 +54,7 @@ html[data-book-enhanced] #contact {
   --chapter-fold: #cfc2a7;
   --chapter-edge: #e3d9c5;
   --chapter-ink: #75613c;
-  --chapter-mark: "VII";
+  --chapter-mark: "VI";
 }
 html[data-book-enhanced] :is(main, .book-opening) > section:not(.cover) {
   position: relative;
@@ -227,10 +220,6 @@ html[data-book-enhanced] .folio {
 html[data-book-enhanced] #work .chapter-display-numeral,
 html[data-book-enhanced] #work .chapter-back-numeral {
   font-style: italic;
-}
-html[data-book-enhanced] #building .chapter-display-numeral,
-html[data-book-enhanced] #building .chapter-back-numeral {
-  letter-spacing: -0.11em;
 }
 @media (max-width: 1000px) {
   html[data-book-enhanced] .chapter-running-label {

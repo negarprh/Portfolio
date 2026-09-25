@@ -17,11 +17,31 @@ export function BookMotion() {
         'a[href^="#"]',
       );
       if (!link || !index) return;
+      if (
+        event instanceof MouseEvent &&
+        (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey)
+      )
+        return;
       index.open = false;
       const target = document.querySelector<HTMLElement>(link.hash);
       if (target) {
+        event.preventDefault();
+        // Sticky rectangles depend on the current scroll position. The opening
+        // wrapper and chapter sections provide stable document destinations.
+        const opening = document.querySelector<HTMLElement>(".book-opening");
+        const top =
+          target.id === "introduction" &&
+          opening &&
+          document.documentElement.dataset.bookEnhanced
+            ? opening.getBoundingClientRect().top +
+              window.scrollY +
+              (opening.querySelector<HTMLElement>(".cover")?.offsetHeight || 0)
+            : target.getBoundingClientRect().top + window.scrollY;
+        if (window.location.hash !== link.hash)
+          history.pushState(null, "", link.hash);
         target.tabIndex = -1;
         target.focus({ preventScroll: true });
+        window.scrollTo({ top, behavior: "instant" });
       }
     };
     const dismiss = (event: KeyboardEvent) => {

@@ -89,7 +89,6 @@ html[data-book-enhanced]
     .project-spread,
     .flagship,
     .divider,
-    .building-spread,
     .education-spread,
     .about-spread,
     .skills-spread,
@@ -113,7 +112,6 @@ html[data-book-enhanced]
     .project-spread,
     .flagship,
     .divider,
-    .building-spread,
     .education-spread,
     .about-spread,
     .skills-spread,
@@ -173,10 +171,6 @@ html[data-book-enhanced] .skill-group {
 }
 html[data-book-enhanced] .skill-group > ul {
   padding-left: 78px;
-}
-html[data-book-enhanced] .skills-intro {
-  width: calc(50% - 68px);
-  margin-left: 0;
 }
 html[data-book-enhanced] .folio {
   align-items: baseline;
@@ -245,17 +239,17 @@ html[data-book-enhanced] .page-stacks {
   top: 18px;
   bottom: 18px;
   width: 27px;
-  border-block: 1px solid #bdb49f;
-  background: repeating-linear-gradient(
-    90deg,
-    #f2eddf 0px,
-    #f2eddf 1px,
-    #b6ac95 1px,
-    #c6bba6 2px,
-    #ece5d5 2px,
-    #ece5d5 3px
-  );
-  box-shadow: 0 3px 8px #15161160;
+  border-block: 1px solid #bdb49f80;
+  box-shadow: 0 3px 9px #15161135;
+}
+.page-stack::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: url("/images/page-block.svg") center / 100% 100% no-repeat;
+}
+.page-stack-left::before {
+  transform: scaleX(-1);
 }
 .page-stack::after {
   content: "";
@@ -263,10 +257,10 @@ html[data-book-enhanced] .page-stacks {
   inset: 0;
   background: linear-gradient(
     90deg,
-    #342c2045,
-    transparent 40%,
-    #ffffff18 75%,
-    #342c2030
+    #342c2029,
+    transparent 25%,
+    #ffffff0a 72%,
+    #342c2014
   );
 }
 .page-stack-left {
@@ -319,7 +313,6 @@ html[data-book-enhanced] .page-stacks {
       .project-spread,
       .flagship,
       .divider,
-      .building-spread,
       .education-spread,
       .about-spread,
       .skills-spread,

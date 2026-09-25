@@ -4,7 +4,7 @@ import "./book-material.css";
 import "./chapters.css";
 import "./makeover.css";
 export const metadata: Metadata = {
-  title: "Negar Pirasteh — Software Developer",
+  title: "Negar Pirasteh - Software Developer",
   description:
     "Backend-focused software developer in Montréal. Selected work and experience in Python, TypeScript, and the systems behind the interface.",
 };

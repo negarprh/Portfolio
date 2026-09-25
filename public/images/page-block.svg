@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="27" height="1000" viewBox="0 0 27 1000" preserveAspectRatio="none">
+  <defs>
+    <clipPath id="edge">
+      <path d="M0 1 L24.9 0 Q26 120 25.6 211 L26.2 212 Q26.5 350 26.4 423 L27 425 Q26.8 561 26.4 635 L25.8 637 Q26.5 760 25.3 843 L25.8 845 Q25.7 934 24.8 1000 L0 999Z"/>
+    </clipPath>
+    <filter id="grain" x="0" y="0" width="100%" height="100%">
+      <feTurbulence type="fractalNoise" baseFrequency=".72 .46" numOctaves="2" seed="23" stitchTiles="noStitch"/>
+      <feColorMatrix type="saturate" values="0"/>
+    </filter>
+    <linearGradient id="depth">
+      <stop stop-color="#423e33" stop-opacity=".24"/>
+      <stop offset=".16" stop-color="#423e33" stop-opacity="0"/>
+      <stop offset=".68" stop-color="#fff" stop-opacity=".17"/>
+      <stop offset="1" stop-color="#615d50" stop-opacity=".2"/>
+    </linearGradient>
+  </defs>
+  <g clip-path="url(#edge)">
+    <path fill="#eeeade" d="M0 0H27V1000H0Z"/>
+    <!-- Unequal sheet groups and gently bowed seams, authored without tiling. -->
+    <path fill="#f6f3ea" d="M1.1 0Q2.3 510 1.4 1000H3.2Q4 477 3 0Z"/>
+    <path fill="#e8e3d8" d="M5.3 0Q6.5 452 5.7 1000H7.1Q8.2 570 7 0Z"/>
+    <path fill="#f5f1e7" d="M9 0Q10.4 530 9.4 1000H12Q13.1 426 11.7 0Z"/>
+    <path fill="#ebe6dc" d="M14.4 0Q16 440 14.8 1000H16.8Q17.4 540 16.4 0Z"/>
+    <path fill="#f5f2e9" d="M19.1 0Q20.6 610 19.6 1000H21.1Q22.1 489 20.9 0Z"/>
+    <path fill="#e9e4d9" d="M23.2 0Q24.4 385 23.5 1000H25.3Q26.3 530 25 0Z"/>
+    <g fill="none" stroke="#746d5d">
+      <path stroke-width=".42" opacity=".32" d="M1 0Q2 410 1.4 1000"/>
+      <path stroke-width=".65" opacity=".25" d="M3.3 0C3.8 210 4.4 677 3.5 1000"/>
+      <path stroke-width=".38" opacity=".42" d="M5.2 0Q6.7 558 5.7 1000"/>
+      <path stroke-width=".75" opacity=".21" d="M7.1 0Q8.2 445 7.4 1000"/>
+      <path stroke-width=".45" opacity=".34" d="M8.9 0C9.8 299 10.2 700 9.5 1000"/>
+      <path stroke-width=".8" opacity=".38" d="M11.9 0Q13.3 495 12.2 1000"/>
+      <path stroke-width=".35" opacity=".25" d="M14.3 0Q15.4 659 14.9 1000"/>
+      <path stroke-width=".55" opacity=".32" d="M16.5 0C17.4 236 17.7 649 16.9 1000"/>
+      <path stroke-width=".4" opacity=".2" d="M17.8 0Q19.2 517 18.3 1000"/>
+      <path stroke-width=".7" opacity=".37" d="M20.9 0Q22.3 454 21.3 1000"/>
+      <path stroke-width=".35" opacity=".26" d="M23.1 0Q24.7 558 23.6 1000"/>
+      <path stroke-width=".6" opacity=".25" d="M25 0Q26.2 380 25.3 1000"/>
+      <!-- Sparse deeper separations and short fibers, not continuous stripes. -->
+      <path stroke-width=".6" opacity=".13" d="M12.4 173L12.8 272M21.5 618L21.7 723M5.8 786L5.7 840"/>
+      <path stroke-width=".25" opacity=".17" d="M3 43l.5 9M18 127l-.3 5M7 316l.4 12M24 473l-.5 7M11 589l.3 9M16 768l-.4 6M4 912l.4 11"/>
+    </g>
+    <path fill="url(#depth)" d="M0 0H27V1000H0Z"/>
+    <path filter="url(#grain)" opacity=".045" d="M0 0H27V1000H0Z"/>
+  </g>
+</svg>

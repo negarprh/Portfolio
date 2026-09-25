@@ -3,7 +3,6 @@ import { CoverName } from "@/components/cover-name";
 import { Closing } from "@/components/closing";
 import { Skills } from "@/components/skills";
 import { Education } from "@/components/education";
-import { CurrentlyBuilding } from "@/components/currently-building";
 import { SelectedWork } from "@/components/selected-work";
 import { getGitHubStars } from "@/lib/github";
 import { BookMotion } from "@/components/book-motion";
@@ -31,7 +30,7 @@ export default async function Home() {
             <div className="cover-art">
               <CoverSeal />
               <div className="cover-spine mono" aria-hidden="true">
-                NEGAR PIRASTEH — SELECTED WORK & EXPERIENCE
+                NEGAR PIRASTEH - SELECTED WORK & EXPERIENCE
               </div>
               <div className="cover-content">
                 <div className="cover-top mono">
@@ -63,7 +62,7 @@ export default async function Home() {
             className="paper section introduction"
             aria-labelledby="intro-title"
           >
-            <RunningHead number="01" name="Introduction" />
+            <RunningHead number="I" name="Introduction" />
             <div className="running-head mono">
               <span>01 / INTRODUCTION</span>
               <span>HELLO, I’M NEGAR</span>
@@ -114,10 +113,9 @@ export default async function Home() {
           <div className="opening-runway" aria-hidden="true" />
         </div>
         <Experience />
-        <SelectedWork stars={stars} />
-        <CurrentlyBuilding />
-        <Education />
         <Skills />
+        <SelectedWork stars={stars} />
+        <Education />
         <Closing />
       </main>
     </>

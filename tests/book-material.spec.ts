@@ -104,6 +104,7 @@ test("page stacks transfer thickness from right to left and folios mirror", asyn
   const early = await thickness();
   await page
     .locator(".skills-spread")
+    .last()
     .evaluate((el) => el.scrollIntoView({ behavior: "instant" }));
   await expect
     .poll(async () => (await thickness())[0])

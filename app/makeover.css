@@ -48,8 +48,7 @@
     0 -1px 2px #000c;
 }
 .cover h1,
-.back-cover h2,
-.colophon-name {
+.back-cover h2 {
   text-shadow:
     0 -2px 1px #080b06,
     -1px -1px 1px #080b06,
@@ -439,7 +438,7 @@
   margin-bottom: 38px;
 }
 .back-cover h2 {
-  font-size: clamp(46px, 5.5vw, 80px);
+  font-size: clamp(32px, 4.5vw, 64px);
   line-height: 1.1;
   letter-spacing: -0.035em;
 }
@@ -451,19 +450,15 @@
   line-height: 1.85;
   text-wrap: balance;
 }
-.colophon-name {
-  font:
-    italic 32px Editorial,
-    Georgia,
-    serif;
-  margin-top: 45px;
-}
 .back-cover .closing-links {
+  display: grid;
+  grid-template-columns: repeat(3, max-content);
   justify-content: center;
-  margin-top: 30px;
-  font-size: 12px;
-  color: #d1c6ad;
-  gap: 26px;
+  margin-top: 42px;
+  font-size: 16px;
+  font-weight: 500;
+  color: #f2efe6;
+  gap: 18px 26px;
 }
 .back-cover .colophon-device {
   position: absolute;
@@ -527,12 +522,8 @@ html[data-book-enhanced] .back-cover > .turn-shadow {
   .colophon-note {
     font-size: 15px;
   }
-  .colophon-name {
-    margin-top: 30px;
-  }
   .back-cover .closing-links {
     gap: 18px;
-    flex-wrap: wrap;
   }
 }
 
@@ -560,9 +551,6 @@ html[data-book-enhanced] .opening-runway {
 .back-cover {
   z-index: 26;
 }
-.back-cover .pending-link {
-  color: #b5b1a1;
-}
 /* Clip projected leaves without creating a scroll container around sticky pages. */
 main {
   overflow-x: clip;
@@ -588,6 +576,121 @@ html[data-book-enhanced] .book-opening > section.introduction {
   .cover,
   .cover-content {
     min-height: 100svh;
+  }
+}
+
+/* Skills keeps each category heading and inventory on the same reading page. */
+#skills {
+  --skill-icon-column: 32px;
+  --skill-text-gap: 12px;
+  --skill-rule-gap: 22px;
+  --skill-heading-gap: 24px;
+  --skill-row-height: 40px;
+  --skill-row-gap: 16px;
+  --skill-category-gap: 40px;
+}
+#skills .skills-icon-filter {
+  position: absolute;
+  pointer-events: none;
+}
+#skills .skills-spread {
+  display: flex;
+  flex-direction: column;
+  min-height: 82svh;
+  padding-top: 0;
+}
+#skills .skills-content {
+  align-items: start;
+}
+#skills .skills-page {
+  min-width: 0;
+  container-type: inline-size;
+}
+#skills .skills-intro {
+  width: 100%;
+  margin: 0 0 18px;
+  max-width: 38ch;
+  font-size: 16px;
+  line-height: 1.7;
+}
+#skills .skill-group {
+  display: block;
+  padding: var(--skill-rule-gap) 0 0;
+}
+#skills .skill-group + .skill-group {
+  margin-top: var(--skill-category-gap);
+}
+#skills .skill-group h3 {
+  display: grid;
+  grid-template-columns: var(--skill-icon-column) minmax(0, 1fr);
+  align-items: baseline;
+  gap: var(--skill-text-gap);
+  margin: 0 0 var(--skill-heading-gap);
+  font-size: 25px;
+}
+#skills .skill-group h3 .mono {
+  font-size: 12px;
+}
+#skills .skill-group ul {
+  padding: 0;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--skill-row-gap) 20px;
+}
+#skills .skill-group li {
+  display: grid;
+  grid-template-columns: var(--skill-icon-column) minmax(0, 1fr);
+  gap: var(--skill-text-gap);
+  min-width: 0;
+  min-height: var(--skill-row-height);
+  font-size: 16px;
+  line-height: 1.5;
+}
+#skills .skill-mark {
+  display: grid;
+  place-items: center;
+  width: var(--skill-icon-column);
+  height: var(--skill-row-height);
+}
+#skills .skill-mark img {
+  width: 30px;
+  height: 30px;
+  filter: url(#skills-icon-ink);
+  opacity: 1;
+}
+/* Dense circular/square marks need less area than open line artwork. */
+#skills
+  img:is(
+    [data-icon="github"],
+    [data-icon="nextjs"],
+    [data-icon="angular"],
+    [data-icon="typescript"],
+    [data-icon="javascript"],
+    [data-icon="zod"]
+  ) {
+  width: 24px;
+  height: 24px;
+}
+#skills img[data-icon="amazonwebservices"] {
+  width: 30px;
+  height: 24px;
+}
+#skills img[data-icon="pytest"] {
+  width: 40px;
+  height: 40px;
+}
+#skills
+  img:is([data-icon="react"], [data-icon="spring"], [data-icon="mongodb"]) {
+  width: 32px;
+  height: 32px;
+}
+@media (max-width: 700px) {
+  #skills .skill-group ul {
+    column-gap: 16px;
+  }
+}
+@container (max-width: 303px) {
+  #skills .skill-group ul {
+    grid-template-columns: 1fr;
   }
 }
 
