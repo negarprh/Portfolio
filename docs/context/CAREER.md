@@ -74,14 +74,29 @@ Do not infer dates, seniority, degree equivalence, business impact, ownership, t
 - Public technology emphasis: TypeScript, Express, PostgreSQL, Prisma, Supabase, Swagger.
 - React and Docker experience from this role is not retracted, but is not the current portfolio emphasis.
 
-## Selected work
+## Projects
+
+- Feature exactly Canadian Tech Internships, Evenly, and AirSense, in that order. WealthWise and InvestGuard remain historical facts below but are not displayed. No additional-project section or SearchStop entry.
 
 ### Canadian Tech Internships 2027
 
 - Repository: `negarprh/Canadian-Tech-Internships-2027`.
 - Negar started and maintains it to help students find Canadian technology internships.
 - GitHub Actions workflows check submissions and maintain listings.
+- Verified public automation (2026-09-24): Python closed-link checks, JavaScript issue-to-PR submission processing, table maintenance through GitHub Actions. Display stack: Python · JavaScript · GitHub Actions.
+- Negar reports automated discovery from company career pages, but the public repository inspected does not contain that discovery system. Until its source is identified, describe the verified listing processing/status checks; do not borrow Tail’ed pipeline claims.
+- Negar supplied the internships/new-grad scope and thousands-of-job-seekers usage claim. Public repository metadata showed 1,169 stars when checked; keep runtime stars dynamic. No separate public live site was identified.
 - Stars must come from the public GitHub API through server rendering/hourly ISR. Never hardcode a star count. On API failure, use the non-numeric fallback “Open source on GitHub.”
+- Negar supplied on 2026-09-24: approximately 197K+ views in the past 12 months, strong organic Google visibility as a top result for “Canadian tech internships,” and ongoing maintenance across the 2026 and 2027 recruiting cycles. These are user-reported snapshots, not independently measured analytics or a guaranteed search ranking. The spread pairs dynamic stars and views with smaller Google visibility and cycle notes, plus the existing `internships-2027.png` repository screenshot.
+
+### Evenly
+
+- Repository: https://github.com/negarprh/Evenly
+- Live: https://evenly-client.onrender.com/ (public sign-in page loaded successfully on 2026-09-24; no account created or authenticated production flows tested).
+- Full-stack group expense sharing with equal/custom splits, balances, and settlement records. Settlement marks an entire expense settled; do not imply money transfers or partial repayments.
+- React · Node.js · Express · MongoDB · Socket.IO, verified from README and package manifests. JWT authentication, protected APIs, group membership authorization, and authenticated Socket.IO group rooms confirmed in source.
+- Source: README.md; server/package.json; server/src/services/groupService.js; server/src/sockets/socket.js.
+- The portfolio reuses `docs/screenshots/dashboard.png` from the Evenly repository as `public/images/evenly-dashboard.png` (1440 × 1040). It shows the real frontend with mocked API sample data and is captioned accordingly; it is not a generated mockup or evidence of production usage.
 
 ### AirSense
 
@@ -89,6 +104,10 @@ Do not infer dates, seniority, degree equivalence, business impact, ownership, t
 - Combines external air-quality APIs with a Spring Boot backend and caching for four-day forecasts.
 - Public stack: Java, Spring Boot, React, Caffeine, AWS, Docker.
 - Repository slug: `AirSense`.
+- Repository: https://github.com/negarprh/AirSense; live: https://airsenseapp.org/ (city lookup and forecast successfully checked on 2026-09-24).
+- Source inspection: AqiService.java integrates OpenWeather and geocoding; current city readings use @Cacheable with Caffeine. Forecast retrieval is present, but do not claim forecasts are cached merely because a forecast cache is configured.
+- README confirms AWS Lambda/S3/CloudFront deployment and Docker local development. Do not specify a Java version: README says 21 while pom.xml says 17.
+- Existing public/images/airsense.png shows the city-search landing screen, not the forecast dashboard; alt text must reflect that.
 
 ### WealthWise
 
@@ -105,10 +124,11 @@ Do not infer dates, seniority, degree equivalence, business impact, ownership, t
 
 ## Education
 
-- LaSalle College, Montréal.
-- DEC (DCS) in Computer Science.
+- LaSalle College, Montréal, Québec.
+- DEC / Diploma of College Studies; Computer Science: Programming.
 - Do not recast this credential as a bachelor’s degree.
-- Study dates are not currently verified for public display.
+- Negar supplied and approved study dates 2023–2026 and the three-year technical program description on 2026-09-24, superseding the earlier unverified-date fallback.
+- Approved context: “A three-year technical program centered on software development, combining computer science fundamentals with hands-on application.” Do not include internship counts or repeat employers in Education.
 
 ## Public skills taxonomy
 

@@ -10,17 +10,29 @@ export function Education() {
         note="05 / Studies"
       />
       <div className="section education-spread" data-boundary="spread">
-        <div className="reading-page">
-          <p className="eyebrow">Montréal, Québec</p>
-          <h3>LaSalle College</h3>
-          <p>
-            DEC (DCS)
-            <br />
-            Computer Science
-          </p>
+        <div className="spread-content education-content">
+          <div className="education-field">
+            <h3>
+              COMPUTER
+              <br />
+              SCIENCE
+            </h3>
+            <p className="eyebrow">Software Development</p>
+          </div>
+          <div className="education-credential">
+            <p className="eyebrow">Montréal, Québec</p>
+            <h4>LaSalle College</h4>
+            <p className="education-degree">DEC / Diploma of College Studies</p>
+            <p className="education-program">Computer Science: Programming</p>
+            <p className="education-dates mono">2023 - 2026</p>
+            <p className="education-context">
+              A three-year technical program centered on software development,
+              combining computer science fundamentals with hands-on application.
+            </p>
+          </div>
         </div>
         <TurnSheet label="Education" />
-        <Folio label="Education" page="10" />
+        <Folio label="Education" page="09" />
       </div>
     </section>
   );

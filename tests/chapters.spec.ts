@@ -18,7 +18,7 @@ test("three adjacent chapters are identifiable with every animation stopped", as
   const papers: string[] = [];
   for (const [id, selector, label] of [
     ["experience", ".experience-row:last-child", "Experience"],
-    ["work", ".flagship", "Selected work"],
+    ["work", ".flagship", "Projects"],
     ["building", ".building-spread", "Currently building"],
   ]) {
     await page

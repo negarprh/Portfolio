@@ -19,7 +19,7 @@ export function CurrentlyBuilding() {
           <p>It’s launching soon. I’ll share more here when it’s ready.</p>
         </div>
         <TurnSheet label="Currently building" />
-        <Folio label="Currently building" page="09" />
+        <Folio label="Currently building" page="08" />
       </div>
     </section>
   );

@@ -4,13 +4,15 @@ Last reconciled: 2026-09-24. This is the current-state design contract. Historic
 
 ## Product concept
 
-The portfolio is one continuous physical book: front cover → introduction → experience → selected work → currently building → education → skills → back cover. Scrolling opens covers and turns leaves at chapter or reading-spread boundaries. A visible spine, paper edges, running heads, mirrored margins/folios, and deliberate divider pages support the book metaphor. A native bookmark/index provides direct navigation; “Contact” opens the back cover rather than a separate slide.
+The portfolio is one continuous physical book: front cover → introduction → experience → projects → currently building → education → skills → back cover. Scrolling opens covers and turns leaves at chapter or reading-spread boundaries. A visible spine, paper edges, running heads, mirrored margins/folios, and deliberate divider pages support the book metaphor. A native bookmark/index provides direct navigation; “Contact” opens the back cover rather than a separate slide.
 
 The cover is minimal and centered: an enormous name, one restrained NP crest, small role/location/edition details, and generous empty space. The back cover uses matching cloth and contains the closing line, opportunity note, contact links, name, and “Montréal · 2026.” Do not add a secondary cover illustration, object, graph, or competing mark.
 
 The front cover omits the 2025–2026 range and TYPESCRIPT & PYTHON label; retain its location and volume/edition labels.
 
 Experience uses the same labeled brand-icon language as Skills, but each role keeps a distinct static accomplishment anchor: Tail’ed’s runtime comparison, Lienzo’s backend logic/data/tests diagram, and Ozex’s authentication mark. Do not collapse the roles into an identical generic template.
+
+The Projects chapter at `#work` presents exactly three editorial spreads: Canadian Tech Internships, Evenly, and AirSense. Preserve the shared divider, paper palette, typography, mirrored margins, running head, and turn boundaries. Each spread shows an actual project screenshot at its natural aspect ratio: the existing internships repository capture, Evenly’s repository dashboard capture with a sample-data caption, and the existing AirSense city-search image. Internships pairs dynamic stars and 197K+ views above its image, with smaller Google visibility and recruiting-cycle notes. No generic cards, repository grid, or extra-project page. External project actions use existing underlined links with accessible names, new tabs, and `noopener noreferrer`.
 
 ## Non-negotiable behavior
 
@@ -42,7 +44,7 @@ Chapter paper/ink pairs:
 | ------------------ | --------- | --------- |
 | Introduction       | `#f4efe3` | `#7d6844` |
 | Experience         | `#f1ebdc` | `#7d6339` |
-| Selected work      | `#e5edf0` | `#456675` |
+| Projects           | `#e5edf0` | `#456675` |
 | Currently building | `#f0e2d5` | `#74502f` |
 | Education          | `#eeeddf` | `#615e3b` |
 | Skills             | `#e3eade` | `#53674a` |
@@ -57,6 +59,8 @@ The visible contact surface is the shared dark cloth back cover. Retained `#cont
 - Body: local Manrope under `Body, Arial, sans-serif`.
 - Front-cover name only: local Orbitron 400. Preserve its scale, centered composition, and letterpress shadows.
 - Technical labels: system `"Courier New", monospace`; interior folios use Georgia.
+- Introduction/project technology lists and experience dates use 16px, matching the introduction’s “Montréal, Canada” value at all widths. Preserve regular monospace, the original softer colors, and uppercase date styling; do not substitute heavier type or a different font.
+- Education remains one reading spread: large two-line COMPUTER / SCIENCE type and a small SOFTWARE DEVELOPMENT line on the left; location, LaSalle College, credential, program, subtle 12px dates, and one contextual sentence on the right. Use the existing spread grid and responsive stacking, typography, paper, folios, and turn boundary. No year-focused artwork, logos, skills, course lists, or experience repetition.
 - The cover-name size remains `clamp(88px, 11.7vw, 190px)` desktop and `clamp(72px, 19vw, 132px)` mobile.
 - Use recognizable local SVG brand marks with text labels for experience and skills. Attributions and licenses remain in `README.md` and `public/licenses/`.
 

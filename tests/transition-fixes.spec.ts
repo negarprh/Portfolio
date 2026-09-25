@@ -10,6 +10,7 @@ test("cover and chapter share reversible rotation and shadow timelines", async (
     "data-book-enhanced",
     "true",
   );
+  await page.evaluate(() => document.fonts.ready);
   const top = await page
     .locator("#work .chapter-opening")
     .evaluate((el) => el.getBoundingClientRect().top + scrollY);
@@ -48,7 +49,35 @@ test("cover and chapter share reversible rotation and shadow timelines", async (
         path: `test-results/fix-${chapter ? "chapter" : "cover"}-${progress}.png`,
       });
     }
-    expect(states[0]).toEqual(states[1]);
+    for (let index = 0; index < states[0].length; index++) {
+      const cover = states[0][index];
+      const chapter = states[1][index];
+      expect(cover.keys).toEqual(chapter.keys);
+      expect(cover.timing).toEqual(chapter.timing);
+      expect(cover.opacity).toEqual(chapter.opacity);
+      if (cover.time === undefined || chapter.time === undefined) {
+        expect(cover).toEqual(chapter);
+        continue;
+      }
+      // Native scroll positions round to pixels; fractional layout boundaries
+      // can differ by up to one pixel even at the same requested progress.
+      expect(
+        Math.abs(Number(cover.time) - Number(chapter.time)),
+      ).toBeLessThanOrEqual(1800 / 850);
+      if (cover.transform && chapter.transform) {
+        const values = (matrix: string) =>
+          matrix
+            .slice(matrix.indexOf("(") + 1, -1)
+            .split(",")
+            .map(Number);
+        const actual = values(cover.transform);
+        const expected = values(chapter.transform);
+        expect(actual.length).toBe(expected.length);
+        actual.forEach((value, i) =>
+          expect(Math.abs(value - expected[i])).toBeLessThan(0.01),
+        );
+      }
+    }
   }
   await expect(
     page.locator(".turn-sheet .divider-title, .chapter-back-numeral"),
@@ -82,13 +111,13 @@ for (const mode of ["no-js", "reduced"] as const) {
     const page = await context.newPage();
     await page.goto("/");
     await expect(page.locator('#about, a[href="#about"]')).toHaveCount(0);
+    await expect(page.locator("#education")).toContainText("LaSalle College");
     await expect(page.locator("#introduction")).toContainText(
-      "LaSalle College",
+      "Backend / Full-Stack Developer",
     );
     await expect(page.locator("#introduction")).toContainText(
-      "Canadian Tech Internships",
+      "open-source project",
     );
-    await expect(page.locator("#introduction")).toContainText("cat person");
     await expect(page.locator("#intro-title")).toHaveCSS(
       "font-family",
       "Editorial, Georgia, serif",

@@ -1,7 +1,7 @@
 export const chapters = [
   ["introduction", "Introduction"],
   ["experience", "Experience"],
-  ["work", "Selected Work"],
+  ["work", "Projects"],
   ["building", "Currently Building"],
   ["education", "Education"],
   ["skills", "Skills"],
@@ -72,40 +72,64 @@ export const experience = [
 ];
 export const projects = [
   {
+    id: "canadian-tech-internships",
+    name: "Canadian Tech Internships",
+    category: "Open source · Canadian careers",
+    paragraphs: [
+      "I created and maintain this open-source resource to help students and new grads find tech opportunities across Canada. What started as a small project grew into a resource used by thousands of job seekers.",
+      "I’ve maintained and expanded it across two recruiting cycles, with automated workflows helping process submissions, check application links, and keep listings current.",
+    ],
+    stack: "Python · JavaScript · GitHub Actions",
+    github: "https://github.com/negarprh/Canadian-Tech-Internships-2027",
+    live: null,
+    image: {
+      src: "/images/internships-2027.png",
+      width: 1440,
+      height: 1000,
+      alt: "Canadian Tech Internships GitHub repository with the 2027 README and link to 2026 listings",
+      caption: "Canadian Tech Internships · Repository",
+    },
+    visual: "community",
+  },
+  {
+    id: "evenly",
+    name: "Evenly",
+    category: "Full-stack · Shared expenses",
+    paragraphs: [
+      "I built a full-stack expense-sharing app for groups to track shared costs, balances, and settlements, with equal or custom splits.",
+      "Socket.IO keeps group expenses and balances synchronized in real time. Authentication, protected APIs, and group-level authorization keep access tied to membership.",
+    ],
+    stack: "React · Node.js · Express · MongoDB · Socket.IO",
+    github: "https://github.com/negarprh/Evenly",
+    live: "https://evenly-client.onrender.com/",
+    image: {
+      src: "/images/evenly-dashboard.png",
+      width: 1440,
+      height: 1040,
+      alt: "Evenly dashboard showing group expenses, balances, and recent activity with sample data",
+      caption: "Evenly · Dashboard with sample data",
+    },
+    visual: "application",
+  },
+  {
+    id: "airsense",
     name: "AirSense",
-    category: "02 / ENVIRONMENTAL DATA",
-    image: "airsense.png",
-    width: 1914,
-    height: 897,
-    alt: "AirSense air quality dashboard with city search and forecast data",
-    description:
-      "I built AirSense for the NASA Space Apps Challenge 2025. It combines external air-quality APIs with a Spring Boot backend and caching to show four-day forecasts.",
-    stack: "Java / Spring Boot / React / Caffeine / AWS / Docker",
-    repo: "AirSense",
-  },
-  {
-    name: "WealthWise",
-    category: "03 / PERSONAL FINANCE",
-    image: "wealthwise.png",
-    width: 1900,
-    height: 866,
-    alt: "WealthWise finance dashboard showing accounts and financial tracking",
-    description:
-      "A personal finance tracker I built with Flask. It brings income, expenses, and investments together, with market data and charts to track portfolio performance.",
-    stack: "Python / Flask / SQLite / Pandas / Matplotlib",
-    repo: "Financial-Tracker",
-  },
-  {
-    name: "InvestGuard",
-    category: "04 / RISK ANALYSIS",
-    image: "investguard.png",
-    width: 1895,
-    height: 905,
-    alt: "InvestGuard stock risk analysis application",
-    description:
-      "A Spring Boot application that calculates portfolio risk from stock inputs. I built the financial calculations and the interface for entering and reviewing them.",
-    stack: "Java 17 / Spring Boot / Maven / H2 / JavaScript",
-    repo: "InvestGuard",
+    category: "NASA Space Apps 2025 · Air quality",
+    paragraphs: [
+      "I built AirSense for the NASA Space Apps Challenge 2025 to make city air-quality conditions and four-day forecasts easier to explore.",
+      "A React interface brings together OpenWeather data through a Spring Boot API. Caffeine caches current city readings to reduce repeat API calls, with deployment on AWS and Docker for local development.",
+    ],
+    stack: "Java · Spring Boot · React · Caffeine · AWS · Docker",
+    github: "https://github.com/negarprh/AirSense",
+    live: "https://airsenseapp.org/",
+    image: {
+      src: "/images/airsense.png",
+      width: 1914,
+      height: 897,
+      alt: "AirSense city search screen with suggested cities",
+      caption: "AirSense · City search",
+    },
+    visual: "application",
   },
 ];
 export const skills = [

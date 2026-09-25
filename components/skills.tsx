@@ -33,7 +33,7 @@ export function Skills() {
           </div>
         ))}
         <TurnSheet label="Skills" />
-        <Folio label="Skills" page="11" />
+        <Folio label="Skills" page="10" />
       </div>
     </section>
   );

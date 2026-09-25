@@ -87,6 +87,18 @@ The user replaced the rejected endpoint-gating/timer proposals with direct opaci
 
 The new ink CSS is restricted to prefers-reduced-motion: no-preference. If an in-flight scroll update observes reduced motion before the preference-change handler runs, it clears enhancement immediately instead of merely returning; no timer or additional animation loop is used. The mobile closing test now compares the timeline with the browser’s actual integer scroll position rather than its fractional requested destination.
 
+## 2026-09-24: three selected Projects spreads
+
+Replace the four-entry Selected work chapter with exactly Canadian Tech Internships, Evenly, and AirSense, preserving `#work`, the shared book surfaces, native scrolling, and turn behavior. Use concise copy, verified explicit external URLs, dynamic GitHub-star proof, an expense workflow diagram, and the existing AirSense image. Remove WealthWise and InvestGuard from the public chapter without adding an archive/grid. SearchStop remains unpublished. Subsequent folios shift down one spread; unrelated section content stays unchanged.
+
 ## 2026-09-24: geometric reading reveal
 
 Replace September 21's uniform ink fades with clip-path regions following the existing leaf animation's eased, perspective-projected edge. Desktop retains its paired mirrored leaves and mobile its single leaf. Regions share spread coordinates across individual content blocks; incoming/outgoing regions intersect and reverse deterministically. Once the front passes the spine, incoming ink is fully readable, without a settling fade. Cache bounds during measurement, skip unchanged clips, and remove clipping on reduced motion or cleanup. Navigation, native scroll, layout, typography, and leaf physics remain unchanged.
+
+## 2026-09-24: restore visual evidence in Projects
+
+At Negar’s request, supersede the text-only community/expense compositions with real project screenshots while preserving the three existing spreads and turn behavior. Reuse the internships and AirSense assets and Evenly’s repository dashboard screenshot, explicitly captioned as sample data. Pair dynamic GitHub stars with user-supplied 197K+ annual views, supported by Google visibility and 2026 → 2027 maintenance. Keep the concise description’s cycle reference general so the exact years appear only in the supporting visual note. Do not duplicate Tail’ed pipeline metrics.
+
+## 2026-09-24: Education as a field-and-credential spread
+
+Replace the empty left page with large COMPUTER / SCIENCE typography and a small SOFTWARE DEVELOPMENT line. Keep the credential on the right and the user-supplied 2023–2026 dates as quiet metadata. Retain a single reading spread with the existing grid, responsive stacking, paper, and turn mechanics. No employer repetition, internship counts, coursework, or graduation-year focal point.

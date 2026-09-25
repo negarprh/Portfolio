@@ -26,6 +26,20 @@ test("all chapters, real assets, and accessible desktop document", async ({
   await expect(page.locator("#experience")).toContainText(
     "4.7 hours to 1.8 hours",
   );
+  await expect(page.locator("#education .education-spread")).toHaveCount(1);
+  await expect(page.locator(".education-degree")).toHaveText(
+    "DEC / Diploma of College Studies",
+  );
+  await expect(page.locator(".education-program")).toHaveText(
+    "Computer Science: Programming",
+  );
+  await expect(page.locator(".education-dates")).toHaveText("2023 - 2026");
+  await expect(page.locator(".education-context")).toHaveText(
+    "A three-year technical program centered on software development, combining computer science fundamentals with hands-on application.",
+  );
+  await expect(page.locator(".education-field")).not.toContainText(
+    /2023|2026|internship/i,
+  );
   const badImages = await page.locator("img").evaluateAll(async (elements) => {
     const images = elements as HTMLImageElement[];
     await Promise.all(

@@ -18,7 +18,7 @@ Last reconciled: 2026-09-24. Use this file to locate implementation ownership an
 | Global metadata/fonts/style loading                          | `app/layout.tsx`                                                                     |
 | Career arrays, links, index entries                          | `lib/content.ts`                                                                     |
 | Experience                                                   | `components/experience.tsx`                                                          |
-| Selected work / stars                                        | `components/selected-work.tsx`, `lib/github.ts`                                      |
+| Projects / stars                                            | `components/selected-work.tsx`, `lib/content.ts`, `lib/github.ts`                    |
 | Currently building                                           | `components/currently-building.tsx`                                                  |
 | Education                                                    | `components/education.tsx`                                                           |
 | Skills                                                       | `components/skills.tsx`                                                              |
@@ -64,6 +64,8 @@ Useful review scripts:
 - `node scripts/review-signature.cjs` for signature videos and timing traces.
 
 Generated output belongs in ignored `test-results/`; do not treat it as source.
+
+`tests/projects.spec.ts` verifies the three-project selection, public link destinations and attributes, desktop/mobile spread reversals, reduced motion, and no-JS rendering. Project data owns explicit GitHub/live URLs and optional existing artwork; do not infer a deployment URL from a repository name.
 
 ## Documentation maintenance
 
