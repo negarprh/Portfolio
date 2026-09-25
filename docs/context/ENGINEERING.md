@@ -9,6 +9,7 @@ Last reconciled: 2026-09-24. Use this file to locate implementation ownership an
 - The page is server-rendered. Do not convert it to a static export.
 - `app/page.tsx` and the GitHub request use hourly ISR (`revalidate = 3600`). `lib/github.ts` has a five-second timeout and returns `null` on failure.
 - Design tokens live in CSS rather than a Tailwind theme. Styles load in this order: `globals.css`, `book-material.css`, `chapters.css`, `makeover.css`; later overrides are intentional.
+- Next.js discovers `app/icon.svg`, `app/favicon.ico` (16/32/48px), and `app/apple-icon.png` (180px) automatically. After editing the SVG master, regenerate raster fallbacks with `node scripts/generate-favicon.cjs`.
 
 ## Ownership map
 

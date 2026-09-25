@@ -10,6 +10,8 @@ The cover is minimal and centered: an enormous name, one restrained NP crest, sm
 
 The front cover omits the 2025–2026 range and TYPESCRIPT & PYTHON label; retain its location and volume/edition labels.
 
+The favicon echoes the NP seal: a compact serif NP monogram in warm gold, on a dark ink square with a restrained inset rule. Its letterforms are vector paths so small browser-tab rendering does not depend on installed fonts.
+
 Experience uses the same labeled brand-icon language as Skills, but each role keeps a distinct static accomplishment anchor: Tail’ed’s runtime comparison, Lienzo’s backend logic/data/tests diagram, and Ozex’s authentication mark. Do not collapse the roles into an identical generic template.
 
 The Projects chapter at `#work` presents exactly three editorial spreads: Canadian Tech Internships, Evenly, and AirSense. Preserve the shared divider, paper palette, typography, mirrored margins, running head, and turn boundaries. Each spread shows an actual project screenshot at its natural aspect ratio: the existing internships repository capture, Evenly’s repository dashboard capture with a sample-data caption, and the existing AirSense city-search image. Internships pairs dynamic stars and 197K+ views above its image, with smaller Google visibility and recruiting-cycle notes. No generic cards, repository grid, or extra-project page. External project actions use existing underlined links with accessible names, new tabs, and `noopener noreferrer`.
