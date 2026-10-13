@@ -49,7 +49,25 @@ export default async function Home() {
                 <div className="cover-bottom">
                   <p>Selected work & experience</p>
                   <a className="open-book" href="#introduction">
-                    Open the book <span aria-hidden="true">↓</span>
+                    <span className="open-book-copy">
+                      <span className="open-book-title">Open the book</span>
+                      <span className="open-book-hint">
+                        Scroll down to begin
+                      </span>
+                    </span>
+                    <svg
+                      className="open-book-cue"
+                      viewBox="0 0 20 32"
+                      aria-hidden="true"
+                      focusable="false"
+                    >
+                      <path
+                        d="M10 2v26m-6-6 6 6 6-6"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="1.2"
+                      />
+                    </svg>
                   </a>
                   <span className="edition mono">MONTRÉAL, CANADA</span>
                 </div>

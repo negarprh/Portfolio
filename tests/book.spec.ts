@@ -65,6 +65,11 @@ test("all chapters, real assets, and accessible desktop document", async ({
     "Lienzo",
     "Ozex",
   ]);
+  await expect(page.locator(".experience-row .job-heading > .eyebrow")).toHaveText([
+    "Summer 2026",
+    "Dec 2025 - Mar 2026",
+    "Feb - May 2025",
+  ]);
   await expect(page.locator("#experience")).toContainText(
     "4.7 hours to 1.8 hours",
   );
@@ -186,45 +191,23 @@ test("JavaScript disabled: complete content and native chapter links", async ({
   await page.screenshot({ path: "test-results/no-js-skills.png" });
   await context.close();
 });
-test("page-turn timelines are reused on reversal and cleared for reduced motion", async ({
+test("physical stage is reused and removed cleanly for reduced motion", async ({
   page,
 }) => {
   await page.goto("/");
-  await page
-    .locator('[data-boundary="experience"]')
-    .evaluate((el) => el.scrollIntoView({ behavior: "instant" }));
-  await expect
-    .poll(() =>
-      page
-        .locator('[data-boundary="experience"] .turn-sheet')
-        .first()
-        .evaluate((el) => el.getAnimations().length),
-    )
-    .toBe(1);
-  await page.evaluate(() => {
-    (window as unknown as { leaf: Animation }).leaf = document
-      .querySelector('[data-boundary="experience"] .turn-sheet')!
-      .getAnimations()[0];
-  });
-  await page.evaluate(() => scrollTo({ top: 0, behavior: "instant" }));
-  await page
-    .locator('[data-boundary="experience"]')
-    .evaluate((el) => el.scrollIntoView({ behavior: "instant" }));
-  expect(
-    await page.evaluate(
-      () =>
-        document
-          .querySelector('[data-boundary="experience"] .turn-sheet')!
-          .getAnimations()[0] ===
-        (window as unknown as { leaf: Animation }).leaf,
-    ),
-  ).toBe(true);
+  await expect(page.locator(".physical-turn")).toHaveCount(1);
+  const stage = await page.locator(".physical-turn").elementHandle();
+  for (const y of [300, 800, 250, 2000, 0]) {
+    await page.evaluate((y) => scrollTo(0, y), y);
+    expect(
+      await stage!.evaluate(
+        (el) => el === document.querySelector(".physical-turn"),
+      ),
+    ).toBe(true);
+  }
   await page.emulateMedia({ reducedMotion: "reduce" });
-  await expect(page.locator("html")).not.toHaveAttribute("data-book-enhanced");
-  expect(
-    await page
-      .locator(".turn-sheet")
-      .evaluateAll((nodes) => nodes.flatMap((el) => el.getAnimations()).length),
-  ).toBe(0);
+  await expect(
+    page.locator(".physical-turn, .book-page-slot, .book-fixed-page"),
+  ).toHaveCount(0);
   await expect(page.locator(".cover")).toHaveCSS("transform", "none");
 });

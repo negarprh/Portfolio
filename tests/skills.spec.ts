@@ -77,7 +77,9 @@ for (const width of [1440, 1100, 820, 390]) {
         );
       });
       const top = await spread.evaluate(
-        (el) => el.getBoundingClientRect().top + scrollY,
+        (el) =>
+          Number((el as HTMLElement).dataset.bookTop) ||
+          el.getBoundingClientRect().top + scrollY,
       );
       for (const offset of [0, -350, 0]) {
         await page.evaluate(

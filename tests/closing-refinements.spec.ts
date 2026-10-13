@@ -15,9 +15,7 @@ for (const width of [1440, 390]) {
     await expect(page.locator("#contact > .colophon > .eyebrow")).toHaveText(
       "Contact",
     );
-    await expect(page.locator("#contact-title")).toHaveText(
-      "Have a role in mind?Let’s talk.",
-    );
+    await expect(page.locator("#contact-title")).toHaveText("Let’s talk.");
     await expect(
       page.locator("#contact > .colophon > .colophon-note"),
     ).toHaveText("I’m currently open to softwaredevelopment opportunities.");
@@ -49,13 +47,21 @@ for (const width of [1440, 390]) {
     await expect(page.locator("#intro-title")).toHaveCSS("font-weight", "400");
     await page
       .locator("#introduction")
-      .evaluate((el) => el.scrollIntoView({ behavior: "instant" }));
+      .evaluate((el) =>
+        (el as HTMLElement).dataset.bookTop
+          ? scrollTo(0, Number((el as HTMLElement).dataset.bookTop))
+          : el.scrollIntoView({ behavior: "instant" }),
+      );
     await page.screenshot({
       path: `test-results/intro-merged-${width}.png`,
     });
     const top = await page
       .locator("#contact")
-      .evaluate((el) => el.getBoundingClientRect().top + scrollY);
+      .evaluate(
+        (el) =>
+          Number((el as HTMLElement).dataset.bookTop) ||
+          el.getBoundingClientRect().top + scrollY,
+      );
     const samples: Record<string, string> = {};
     for (const progress of [0.1, 0.3, 0.5, 0.7, 1, 0.7, 0.5, 0.3, 0.1]) {
       await page.evaluate(
@@ -63,13 +69,12 @@ for (const width of [1440, 390]) {
         top - 850 + progress * 850,
       );
       await settleBook(page);
-      const state = await page
-        .locator("#contact > .turn-sheet")
-        .evaluate((el) => ({
-          transform: getComputedStyle(el).transform,
-          time: el.getAnimations()[0].currentTime,
-          inert: (el as HTMLElement).inert,
-        }));
+      const state = await page.locator(".physical-turn").evaluate((el) => ({
+        transform:
+          el.querySelector<HTMLElement>(".paper-joint")?.style.transform || "",
+        time: Number((el as HTMLElement).dataset.progress),
+        inert: (el as HTMLElement).inert,
+      }));
       // Native scrolling rounds the requested position to a CSS pixel, while
       // font layout can leave a fractional boundary top. Match the actual seek.
       const actualProgress = await page.evaluate(
@@ -77,7 +82,10 @@ for (const width of [1440, 390]) {
           Math.max(0, Math.min(1, (scrollY - boundaryTop + 850) / 850)),
         top,
       );
-      expect(Number(state.time)).toBeCloseTo(actualProgress * 1800, 0);
+      expect(Number(state.time)).toBeCloseTo(
+        actualProgress === 1 ? 0 : actualProgress,
+        2,
+      );
       expect(state.inert).toBe(true);
       if (samples[progress]) expect(state.transform).toBe(samples[progress]);
       samples[progress] = state.transform;
@@ -90,7 +98,11 @@ for (const width of [1440, 390]) {
     }
     await page
       .locator("#contact")
-      .evaluate((el) => el.scrollIntoView({ behavior: "instant" }));
+      .evaluate((el) =>
+        (el as HTMLElement).dataset.bookTop
+          ? scrollTo(0, Number((el as HTMLElement).dataset.bookTop))
+          : el.scrollIntoView({ behavior: "instant" }),
+      );
     await expect(page.locator("#contact-title")).toBeInViewport();
     await page.emulateMedia({ reducedMotion: "reduce" });
     await expect(page.locator("html")).not.toHaveAttribute(

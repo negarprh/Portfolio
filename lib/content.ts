@@ -32,7 +32,7 @@ export const experience = [
   {
     company: "Lienzo",
     title: "Backend Developer",
-    dates: "Dec 8, 2025 - Mar 31, 2026",
+    dates: "Dec 2025 - Mar 2026",
     lines: [
       "I built backend features for a healthcare coordination platform using TypeScript, NestJS, PostgreSQL, and Prisma, working across data models, APIs, business logic, and automated testing.",
       "I implemented recurring task functionality with daily, weekly, biweekly, and monthly schedules, including logic for updating individual occurrences or an entire recurring series.",

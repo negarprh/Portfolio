@@ -2,130 +2,45 @@ import { test, expect } from "@playwright/test";
 import { settleBook } from "./motion-helpers";
 
 for (const width of [1440, 390]) {
-  test(`wheel notches settle continuously and reverse without queues at ${width}px`, async ({
+  test(`cover and chapters share scroll response at ${width}px`, async ({
     page,
   }) => {
     await page.setViewportSize({ width, height: 1000 });
     await page.goto("/");
-    await expect(page.locator("html")).toHaveAttribute(
-      "data-book-enhanced",
-      "true",
-    );
-    await page.evaluate(() => document.fonts.ready);
-    await settleBook(page);
-    const original = await page.locator("#introduction").elementHandle();
-    const introTop = await page
-      .locator("#introduction")
-      .evaluate((el) => el.getBoundingClientRect().top);
-    await page.evaluate(() => {
-      (window as any).turnSamples = [];
-      (window as any).sampling = true;
-      const sample = () => {
-        if (!(window as any).sampling) return;
-        (window as any).turnSamples.push({
-          y: scrollY,
-          coverInk: Number(
-            getComputedStyle(
-              document.querySelector(".cover > .cover-art > .cover-content")!,
-            ).opacity,
+    await expect(page.locator(".physical-turn")).toHaveCount(1);
+    const transforms: string[][] = [];
+    for (const selector of ["#introduction", '[data-boundary="experience"]']) {
+      const top = await page
+        .locator(selector)
+        .evaluate((el) => Number((el as HTMLElement).dataset.bookTop));
+      await page.evaluate((y) => scrollTo(0, y), top - 850 + 425);
+      await settleBook(page);
+      transforms.push(
+        await page
+          .locator(".paper-joint")
+          .evaluateAll((es) =>
+            es.map((e) => (e as HTMLElement).style.transform),
           ),
-          introInk: Number(
-            getComputedStyle(document.querySelector(".intro-grid")!).opacity,
-          ),
-          time: Number(
-            document.querySelector(".cover > .turn-sheet")!.getAnimations()[0]
-              .currentTime,
-          ),
-        });
-        if ((window as any).sampling) requestAnimationFrame(sample);
-      };
-      requestAnimationFrame(sample);
-    });
-    await page.mouse.wheel(0, 120);
-    await expect.poll(() => page.evaluate(() => scrollY)).toBe(120);
-    await settleBook(page);
-    const samples = await page.evaluate(() => {
-      return (window as any).turnSamples as {
-        y: number;
-        time: number;
-        coverInk: number;
-        introInk: number;
-      }[];
-    });
-    const target = (120 / 850) * 1800;
-    const intermediate = new Set(
-      samples
-        .filter((s) => s.y === 120 && s.time > 0 && s.time < target - 0.1)
-        .map((s) => s.time),
-    );
-    expect(intermediate.size).toBeGreaterThanOrEqual(3);
-    expect(samples.every((s) => s.time >= 0 && s.time <= target + 0.01)).toBe(
-      true,
-    );
-    // Reverse before settling, then demand the exact latest native position.
-    for (const delta of [240, -120, 360, -480, 120]) {
-      await page.mouse.wheel(0, delta);
-      await page.waitForTimeout(20);
+      );
+      await expect(page.locator(".physical-turn")).toHaveAttribute(
+        "data-progress",
+        "0.5",
+      );
+      // Simulated input is sent outside nested reading content.
+      await page.mouse.move(width - 2, 2);
+      for (const delta of [80, -160, 60, -40]) {
+        await page.mouse.wheel(0, delta);
+        await page.waitForTimeout(20);
+      }
+      await settleBook(page);
     }
-    await settleBook(page);
-    await page.evaluate(() => scrollTo({ top: 0, behavior: "instant" }));
-    await settleBook(page);
-    for (let i = 0; i < 8; i++) {
-      await page.mouse.wheel(0, 120);
-      await page.waitForTimeout(50);
-    }
-    await settleBook(page);
-    expect(
-      await original!.evaluate(
-        (el) => el === document.querySelector("#introduction"),
-      ),
-    ).toBe(true);
-    expect(
-      await page
-        .locator("#introduction")
-        .evaluate((el) => el.getBoundingClientRect().top),
-    ).toBe(introTop);
-    await expect(page.locator(".cover > .cover-art")).toHaveCSS("opacity", "0");
-    await expect(page.locator("#intro-title")).toBeInViewport();
-    const link = page.locator("#introduction a").first();
-    await expect(link).toBeVisible();
-    await link.click({ trial: true });
-    await page.mouse.wheel(0, -240);
-    const allSamples = await page.evaluate(() => {
-      (window as any).sampling = false;
-      return (window as any).turnSamples as {
-        time: number;
-        coverInk: number;
-        introInk: number;
-      }[];
-    });
-    for (const sample of allSamples) {
-      expect(sample.coverInk).toBe(1);
-      expect(sample.introInk).toBe(1);
-    }
+    expect(transforms[0]).toEqual(transforms[1]);
     await page.emulateMedia({ reducedMotion: "reduce" });
-    await expect
-      .poll(() =>
-        page.evaluate(
-          () => matchMedia("(prefers-reduced-motion: reduce)").matches,
-        ),
-      )
-      .toBe(true);
-    await expect(page.locator("html")).not.toHaveAttribute(
-      "data-book-enhanced",
-    );
-    expect(
-      await page
-        .locator(".turn-sheet")
-        .evaluateAll(
-          (nodes) => nodes.flatMap((el) => el.getAnimations()).length,
-        ),
-    ).toBe(0);
+    await expect(
+      page.locator(".physical-turn, .book-fixed-page, .book-page-slot"),
+    ).toHaveCount(0);
     await page.emulateMedia({ reducedMotion: "no-preference" });
-    await expect(page.locator("html")).toHaveAttribute(
-      "data-book-enhanced",
-      "true",
-    );
+    await expect(page.locator(".physical-turn")).toHaveCount(1);
     await settleBook(page);
   });
 }

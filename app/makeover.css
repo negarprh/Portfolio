@@ -120,6 +120,7 @@
     animation: cover-dot-breathe 10s ease-in-out infinite;
   }
 }
+
 .stack-chips {
   list-style: none;
   padding: 0;
@@ -420,6 +421,51 @@
 }
 .cover-bottom {
   border-top: 0;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: end;
+  gap: 24px;
+}
+.cover-bottom > .edition {
+  justify-self: end;
+}
+.cover-bottom .open-book {
+  gap: 18px;
+  min-height: 52px;
+  padding: 4px 8px;
+  text-align: left;
+}
+.open-book .open-book-copy {
+  display: grid;
+  gap: 4px;
+}
+.open-book .open-book-title {
+  color: var(--paper);
+  font-size: 16px;
+  line-height: 1.4;
+}
+.open-book .open-book-hint {
+  color: #b5b5a7;
+  font-size: 11px;
+  line-height: 1.5;
+  letter-spacing: 0.04em;
+}
+.open-book-cue {
+  width: 20px;
+  height: 32px;
+  color: var(--accent);
+  flex: none;
+}
+.open-book:is(:hover, :focus-visible) .open-book-title {
+  text-decoration: underline;
+  text-underline-offset: 5px;
+}
+:is(.links a, .project-links a, .open-book):focus-visible {
+  outline: 1px solid currentColor;
+  outline-offset: 6px;
+}
+:is(.links a, .project-links a):is(:hover, :focus-visible) {
+  border-bottom-color: currentColor;
 }
 .back-cover {
   width: 100%;
@@ -484,6 +530,18 @@ html[data-book-enhanced] .back-cover > .turn-shadow {
   padding: 0;
 }
 @media (max-width: 700px) {
+  .cover-bottom {
+    grid-template-columns: 1fr;
+    justify-items: center;
+    gap: 12px;
+  }
+  .cover-bottom .open-book {
+    order: -1;
+  }
+  .cover-bottom > p {
+    font-size: 10px;
+    color: #b5b5a7;
+  }
   .cover-content {
     padding-inline: 30px;
   }
@@ -790,7 +848,7 @@ html[data-book-enhanced] .book-opening > section.introduction {
 .project-links .text-link {
   margin: 0;
   min-height: 44px;
-  gap: 18px;
+  gap: 8px;
 }
 .project-note {
   color: var(--chapter-ink, #456675);
@@ -940,44 +998,12 @@ html[data-book-enhanced] .back-cover .sheet-back {
   }
 }
 
-/* Turn the two paper halves together beneath the original reading layer.
-   Isolation contains negative layers above this spread's own paper background.
-   The native flow separates outgoing/incoming ink; no duplicate text is drawn. */
-html[data-book-enhanced] .readable-turn {
-  isolation: isolate;
-  overflow: clip;
-}
-html[data-book-enhanced] .readable-turn > .turn-sheet {
-  z-index: -2;
-}
-html[data-book-enhanced] .readable-turn > .turn-shadow {
-  z-index: -1;
-}
-html[data-book-enhanced] .readable-turn .sheet-front > *,
-html[data-book-enhanced] .readable-turn .sheet-back > * {
-  display: none;
-}
-html[data-book-enhanced] .readable-turn > .turn-sheet-left {
-  left: 0;
-  right: auto;
-  transform-origin: right center;
-}
-html[data-book-enhanced] .readable-turn > .turn-shadow-left {
-  left: 0;
-  transform-origin: right center;
-}
-/* A phone has one reading page, so retain one spine-hinged leaf. */
-@media (max-width: 700px) {
-  html[data-book-enhanced]
-    .readable-turn
-    > :is(.turn-sheet-left, .turn-shadow-left) {
-    display: none;
-  }
-}
-
 /* The signature is an entrance overlay; the real heading always owns layout. */
 .cover-name {
   position: relative;
+}
+.cover-name-line {
+  display: inline-block;
 }
 .cover-signature {
   display: none;
@@ -993,7 +1019,7 @@ html[data-book-enhanced] .readable-turn > .turn-shadow-left {
 }
 .cover-name[data-signature="writing"] > .cover-signature {
   display: block;
-  opacity: var(--signature-opacity, 0);
+  opacity: 1;
 }
 .signature-pen {
   opacity: 0;
@@ -1006,12 +1032,18 @@ html[data-book-enhanced] .readable-turn > .turn-shadow-left {
 .sheet-front .cover-name > h1 {
   opacity: 1;
 }
+.sheet-front .cover-name-line {
+  clip-path: none !important;
+}
 .sheet-front .cover-name > .cover-signature {
   display: none;
 }
 @media (prefers-reduced-motion: reduce) {
   .cover-name[data-signature] > h1 {
     opacity: 1;
+  }
+  .cover-name-line {
+    clip-path: none !important;
   }
   .cover-name[data-signature] > .cover-signature {
     display: none;
@@ -1021,14 +1053,368 @@ html[data-book-enhanced] .readable-turn > .turn-shadow-left {
   }
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  /* Spread-space clipping follows the projected leaf edge without fading ink.
-   Material containers retain their existing opacity and transform tracks. */
+/* Scroll runways retain document destinations; only the articulated leaf moves. */
+html[data-book-enhanced] .book-fixed-page.book-fixed-page {
+  position: fixed !important;
+  top: 0 !important;
+  left: var(--fixed-book-left);
+  width: var(--fixed-book-width);
+  height: 100svh !important;
+  min-height: 0 !important;
+  max-height: 100svh;
+  margin: 0 !important;
+  overflow: auto;
+  overscroll-behavior: auto;
+  scrollbar-width: none;
+  transform: none;
+}
+html[data-book-enhanced] .book-fixed-page > * {
+  flex-shrink: 0;
+}
+html[data-book-enhanced] .book-fixed-page > :is(.turn-sheet, .turn-shadow) {
+  display: none;
+}
+html[data-book-enhanced] main > section:not(.book-fixed-page) {
+  background: transparent;
+  box-shadow: none;
+  border-color: transparent;
+}
+html[data-book-enhanced] main > section > .book-fixed-head {
+  position: fixed;
+  top: 0;
+  z-index: 13;
+}
+.physical-turn {
+  position: fixed;
+  top: 0;
+  height: 100svh;
+  z-index: 18;
+  pointer-events: none;
+  overflow: clip;
+  perspective: 2200px;
+  perspective-origin: 50% 50%;
+}
+.paper-joint {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  transform-origin: left center;
+  transform-style: preserve-3d;
+}
+.paper-strip {
+  position: absolute;
+  inset: 0 -0.8px 0 0;
+  overflow: hidden;
+  contain: paint;
+  clip-path: inset(0);
+  backface-visibility: hidden;
+  background: var(--paper);
+}
+.paper-recto {
+  transform: translateZ(0.1px);
+}
+.paper-verso {
+  transform: rotateY(180deg) translateZ(0.1px);
+}
+.paper-light {
+  position: absolute;
+  inset: 0;
+  background: #352c1b;
+  pointer-events: none;
+}
+.paper-verso > .paper-light {
+  background: #fff;
+}
+.physical-turn > .physical-shadow {
+  z-index: 0;
+  height: 100%;
+}
+.physical-turn > .physical-contact {
+  z-index: 0;
+  height: 100%;
+  width: 4%;
+}
+.physical-page-copy::before,
+.physical-page-copy::after {
+  display: none !important;
+}
+.physical-page-copy,
+.physical-page-copy * {
+  visibility: inherit !important;
+}
+
+html[data-book-enhanced] #work .spread-content {
+  padding-block: clamp(24px, 5svh, 60px);
+}
+html[data-book-enhanced] #work .project-image img {
+  width: auto;
+  max-width: 100%;
+  margin-inline: auto;
+  max-height: 40svh;
+  object-fit: contain;
+}
+
+/* A phone leaf is a complete reading unit, never a nested scroll container. */
+@media (max-width: 700px) {
+  html[data-book-enhanced] .section {
+    padding: 52px 24px 18px;
+  }
+  html[data-book-enhanced] :is(.spread-content, .intro-grid) {
+    padding: 0;
+    gap: 18px;
+    flex: 0 0 auto;
+  }
   html[data-book-enhanced]
-    :is(.introduction, [data-boundary])
-    > :not(.turn-sheet):not(.turn-shadow),
-  html[data-book-enhanced] .cover .cover-art > *,
-  html[data-book-enhanced] .closing-art > * {
-    clip-path: var(--reading-clip, none);
+    :is(.body-copy, .job-detail p, .project-copy > p:not(.eyebrow)) {
+    font-size: 15px;
+    line-height: 1.5;
+    margin-top: 0;
+    max-width: none;
+  }
+  html[data-book-enhanced]
+    :is(.introduction h2, .job-heading h3, #work .project-copy h3) {
+    font-size: 32px;
+    margin: 0 0 10px;
+  }
+  html[data-book-enhanced] .intro-facts {
+    padding-top: 14px;
+  }
+  html[data-book-enhanced] .availability {
+    margin-bottom: 8px;
+  }
+  html[data-book-enhanced] .intro-facts dt {
+    margin-top: 10px;
+  }
+  html[data-book-enhanced] .intro-facts dd {
+    margin-top: 3px;
+    font-size: 14px;
+    line-height: 1.5;
+  }
+  html[data-book-enhanced] .intro-facts .links {
+    margin-top: 12px;
+    gap: 16px;
+  }
+  html[data-book-enhanced] .folio {
+    margin-top: auto;
+    padding-top: 12px;
+  }
+  html[data-book-enhanced] .job-heading > .eyebrow {
+    font-size: 13px;
+    margin-bottom: 6px;
+  }
+  html[data-book-enhanced] .job-role {
+    font-size: 14px;
+  }
+  html[data-book-enhanced] .stack-chips {
+    margin-top: 12px;
+    gap: 6px;
+  }
+  html[data-book-enhanced] .stack-chips li {
+    padding: 3px 6px;
+  }
+  html[data-book-enhanced] .stack-chips img {
+    width: 20px;
+    height: 20px;
+  }
+  html[data-book-enhanced] .role-anchor {
+    margin-top: 14px;
+  }
+  html[data-book-enhanced] .role-anchor figcaption {
+    margin-bottom: 8px;
+  }
+  html[data-book-enhanced] .runtime-values strong {
+    font-size: 30px;
+  }
+  html[data-book-enhanced] .runtime-values > span {
+    gap: 2px;
+  }
+  html[data-book-enhanced] .runtime-bars {
+    margin-top: 8px;
+  }
+  html[data-book-enhanced] .backend-anchor {
+    padding-top: 10px;
+  }
+  html[data-book-enhanced] .backend-anchor svg {
+    max-height: 62px;
+  }
+  html[data-book-enhanced] .backend-anchor > p {
+    margin-top: 4px;
+  }
+  html[data-book-enhanced] .auth-anchor {
+    padding-block: 0;
+  }
+  html[data-book-enhanced] .auth-anchor > svg {
+    width: 44px;
+    min-width: 44px;
+  }
+  html[data-book-enhanced] .auth-anchor figcaption {
+    font-size: 20px !important;
+  }
+  html[data-book-enhanced] #work .spread-content {
+    padding: 0;
+    gap: 14px;
+  }
+  html[data-book-enhanced] #work .project-copy > .eyebrow {
+    margin-bottom: 12px;
+  }
+  html[data-book-enhanced] .project-tech {
+    margin-top: 12px;
+  }
+  html[data-book-enhanced] .project-tech dt {
+    margin: 0 0 3px;
+  }
+  html[data-book-enhanced] .project-tech dd {
+    font-size: 14px;
+    line-height: 1.45;
+  }
+  html[data-book-enhanced] .project-links {
+    margin-top: 8px;
+    gap: 12px 24px;
+  }
+  html[data-book-enhanced] .project-links .text-link {
+    min-height: 32px;
+  }
+  html[data-book-enhanced] #work .project-image img {
+    max-height: 20svh;
+  }
+  html[data-book-enhanced] .project-proof {
+    font-size: 28px;
+  }
+  html[data-book-enhanced] .project-proof > span {
+    margin-top: 3px;
+  }
+  html[data-book-enhanced] .project-discovery {
+    margin: 6px 0 10px;
+    line-height: 1.4;
+  }
+  html[data-book-enhanced] .project-maintenance {
+    margin-top: 8px;
+    padding-top: 6px;
+    line-height: 1.4;
+  }
+  html[data-book-enhanced] #skills {
+    --skill-icon-column: 24px;
+    --skill-text-gap: 8px;
+    --skill-rule-gap: 10px;
+    --skill-heading-gap: 10px;
+    --skill-row-height: 30px;
+    --skill-row-gap: 8px;
+    --skill-category-gap: 18px;
+  }
+  html[data-book-enhanced] #skills .skills-spread {
+    padding-top: 52px;
+  }
+  html[data-book-enhanced] #skills .skills-intro {
+    font-size: 14px;
+    line-height: 1.5;
+    margin-bottom: 8px;
+  }
+  html[data-book-enhanced] #skills .skill-group h3 {
+    font-size: 22px;
+  }
+  html[data-book-enhanced] #skills .skill-group ul {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px 10px;
+  }
+  html[data-book-enhanced] #skills .skill-group li {
+    font-size: 14px;
+  }
+  html[data-book-enhanced] #skills .skill-mark img {
+    max-width: 24px;
+    max-height: 24px;
+    object-fit: contain;
+  }
+  html[data-book-enhanced] .education-field h3 {
+    font-size: 38px;
+  }
+  html[data-book-enhanced] .education-field > .eyebrow {
+    margin-top: 14px;
+    padding-top: 10px;
+  }
+  html[data-book-enhanced] .education-credential > .eyebrow {
+    margin-bottom: 8px;
+  }
+  html[data-book-enhanced] .education-credential h4 {
+    font-size: 30px;
+    margin-bottom: 12px;
+  }
+  html[data-book-enhanced] :is(.education-degree, .education-program) {
+    font-size: 15px;
+    line-height: 1.5;
+  }
+  html[data-book-enhanced] .education-context {
+    font-size: 14px;
+    line-height: 1.5;
+    margin-top: 14px;
+    padding-top: 12px;
+  }
+  html[data-book-enhanced]
+    #work
+    .project-copy
+    > p:not(.eyebrow):not(.stack):not(.star-count) {
+    font-size: 15px;
+    line-height: 1.5;
+  }
+  html[data-book-enhanced] #work figcaption {
+    margin-top: 6px;
+    font-size: 10px;
+    line-height: 1.4;
+  }
+  html[data-book-enhanced] .flagship .project-evidence {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px 12px;
+    align-items: start;
+  }
+  html[data-book-enhanced] .flagship .project-maintenance {
+    grid-column: 1 / -1;
+    margin-top: 0;
+  }
+  html[data-book-enhanced] .flagship .project-impact {
+    gap: 8px;
+  }
+  html[data-book-enhanced] .flagship .project-proof {
+    font-size: 24px;
+  }
+  html[data-book-enhanced] .flagship .project-proof > span {
+    font-size: 9px;
+  }
+  html[data-book-enhanced] .flagship .project-discovery {
+    font-size: 10px;
+    margin-bottom: 0;
+  }
+  html[data-book-enhanced] .book-fixed-page {
+    touch-action: pan-y;
+  }
+}
+
+/* Content is fitted once on measurement, never moved by scroll. */
+html[data-book-enhanced] .book-fixed-page > :is(.intro-grid, .spread-content) {
+  position: absolute;
+  padding-block: 0;
+  margin: 0;
+  flex: none;
+}
+html[data-book-enhanced] .book-fixed-page > .folio {
+  position: absolute;
+  bottom: 18px;
+  left: 24px;
+  right: 24px;
+  margin: 0;
+}
+html[data-book-enhanced] .introduction > .running-head {
+  display: none;
+}
+html[data-book-enhanced] .introduction > .chapter-running {
+  position: absolute;
+  inset: 0;
+  height: 0;
+  margin: 0;
+}
+@media (max-width: 700px) {
+  html[data-book-enhanced] .body-copy + .body-copy,
+  html[data-book-enhanced] .job-detail p + p,
+  html[data-book-enhanced] #work .project-copy > p + p:not(.eyebrow) {
+    margin-top: 12px;
   }
 }

@@ -118,3 +118,23 @@ Remove Currently Building without relocating SearchStop. The final order is Intr
 ## 2026-09-25: Skills before Projects, precise index landing, and paper edges
 
 Negar’s later instruction supersedes the preceding chapter order: Introduction, Experience, Skills, Projects, Education, Contact. Keep the approved Skills composition. Index clicks seek stable document positions instead of relying on native scrolling to sticky rectangles; retain native fallback anchors and hash history. Replace uniform exposed-page stripes with a shared static, non-tiled sheet texture with restrained variation, shallow contours, and soft shadows, preserving dimensions and all turn/thickness-transfer behavior. Contact now uses the approved email and three brighter 16px links, with no Résumé.
+
+## 2026-09-26: stationary book, one flexible sheet, shared opening geometry
+
+Negar explicitly requires a stationary book with a physical page crossing the spine, including the first transition and phones. Replace the competing normal-flow spreads and paired blank leaves with fixed original reading surfaces and one connected, two-sided articulated sheet. Scroll drives the same reversible geometry for the front cover, chapters, and closing. Inert content snapshots on the sheet supersede the earlier no-cloned-ink approach; stationary originals retain links and semantics. Keep existing content, typography, cover dimensions, paper, page edges, and index. Long phone content uses native scrolling within stationary paper at rest; during a turn only the sheet moves. Reduced motion and no JavaScript retain the original document flow.
+
+## 2026-09-27: preserve all copy, fit and center each reading page
+
+Negar rejected nested phone scrolling and shortened summaries. Restore the complete original introduction, experience, and project copy, including both Evenly paragraphs. Supersede the previous mobile overflow behavior: responsive sizing and a measured static layout scale fit the complete reading block within one page, centered vertically across viewport sizes. Scrolling exclusively advances the document's physical turns. Do not solve overflow by clipping text, removing paragraphs, or pinning content to the top. Static no-JS and reduced-motion layouts remain readable in normal flow.
+
+## 2026-10-09: consistent cover lettering and restrained link arrows
+
+Negar requested that the pen entrance match the finished name. Reveal the actual Orbitron heading line by line, with a decorative nib, instead of cross-fading from a separate cursive signature. Keep the one-time entrance and immediate static fallbacks. Replace text-glyph external arrows with a shared small, fine-line SVG that inherits the link ink.
+
+## 2026-10-09: plain editorial links supersede external arrows
+
+Negar still disliked arrows beside GitHub and other outbound links. Remove the icons, keep the underlined text treatment, and use “View repository” and “Visit website” for project actions. Contact links retain their recognizable service names. Existing destinations and new-tab behavior remain intact.
+
+## 2026-10-11: clearer reading cue and outbound destinations
+
+Display career dates without day numbers while preserving exact verified dates in career context. Refine project labels to “View on GitHub” and “Visit live site,” with stronger hover underlines and visible keyboard focus; retain plain contact labels and omit external arrows. Enlarge and center the cover opening link, pairing it with “Scroll down to begin” and a static downward cue. Keep native scrolling and the clickable introduction destination.

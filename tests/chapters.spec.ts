@@ -24,7 +24,11 @@ test("three adjacent chapters are identifiable with every animation stopped", as
     await page
       .locator(selector)
       .first()
-      .evaluate((el) => el.scrollIntoView({ behavior: "instant" }));
+      .evaluate((el) =>
+        (el as HTMLElement).dataset.bookTop
+          ? scrollTo(0, Number((el as HTMLElement).dataset.bookTop))
+          : el.scrollIntoView({ behavior: "instant" }),
+      );
     await page.evaluate(() =>
       document.getAnimations().forEach((a) => {
         if (a.effect?.getTiming().iterations !== Infinity) a.finish();
@@ -61,7 +65,11 @@ test("a fast wheel scroll holds the full chapter title without blocking scrollin
   await page.evaluate(() => document.fonts.ready);
   await page
     .locator("#work .chapter-opening")
-    .evaluate((el) => el.scrollIntoView({ behavior: "instant" }));
+    .evaluate((el) =>
+      (el as HTMLElement).dataset.bookTop
+        ? scrollTo(0, Number((el as HTMLElement).dataset.bookTop))
+        : el.scrollIntoView({ behavior: "instant" }),
+    );
   const before = await page.evaluate(() => scrollY);
   await page.mouse.wheel(0, 600);
   await expect
@@ -70,15 +78,8 @@ test("a fast wheel scroll holds the full chapter title without blocking scrollin
   await expect(page.locator("#work .divider h2")).toBeInViewport();
   const divider = await page.locator("#work .divider").boundingBox();
   expect(Math.abs(divider!.y)).toBeLessThan(3);
-  const content = await page.locator(".flagship").boundingBox();
-  expect(content!.y).toBeGreaterThan(1000);
-  const previous = await page
-    .locator("#experience .chapter-running-label")
-    .boundingBox();
-  const current = await page
-    .locator("#work .chapter-running-label")
-    .boundingBox();
-  expect(previous!.y + previous!.height).toBeLessThan(current!.y);
+  await expect(page.locator(".flagship")).toBeHidden();
+  await expect(page.locator("#experience .chapter-running-label")).toBeHidden();
 });
 
 test("reduced motion retains the flat unpinned layout", async ({ page }) => {

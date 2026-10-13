@@ -1,11 +1,7 @@
 "use client";
 import { useEffect } from "react";
-import {
-  turnPage,
-  TURN_DURATION,
-  TURN_TRAVEL,
-  TURN_RESPONSE_MS,
-} from "@/lib/book-effects";
+import { createBookStage } from "@/lib/book-stage";
+import { TURN_RESPONSE_MS } from "@/lib/book-effects";
 
 /** Enhancement only: native links and the full document remain usable without JS. */
 export function BookMotion() {
@@ -30,18 +26,21 @@ export function BookMotion() {
         // wrapper and chapter sections provide stable document destinations.
         const opening = document.querySelector<HTMLElement>(".book-opening");
         const top =
-          target.id === "introduction" &&
+          stage?.top(target) ??
+          (target.id === "introduction" &&
           opening &&
           document.documentElement.dataset.bookEnhanced
             ? opening.getBoundingClientRect().top +
               window.scrollY +
               (opening.querySelector<HTMLElement>(".cover")?.offsetHeight || 0)
-            : target.getBoundingClientRect().top + window.scrollY;
+            : target.getBoundingClientRect().top + window.scrollY);
         if (window.location.hash !== link.hash)
           history.pushState(null, "", link.hash);
         target.tabIndex = -1;
-        target.focus({ preventScroll: true });
         window.scrollTo({ top, behavior: "instant" });
+        renderedY = window.scrollY;
+        stage?.update(renderedY);
+        target.focus({ preventScroll: true });
       }
     };
     const dismiss = (event: KeyboardEvent) => {
@@ -54,11 +53,12 @@ export function BookMotion() {
       if (index?.open && !index.contains(event.target as Node))
         index.open = false;
     };
-    index?.addEventListener("click", closeIndex);
+    document.addEventListener("click", closeIndex);
     document.addEventListener("keydown", dismiss);
     document.addEventListener("pointerdown", outside);
     const activeObserver = new IntersectionObserver(
       (entries) => {
+        if (document.documentElement.dataset.bookEnhanced) return;
         for (const entry of entries)
           if (entry.isIntersecting) {
             index?.querySelectorAll("a").forEach((link) => {
@@ -77,7 +77,7 @@ export function BookMotion() {
       .forEach((section) => activeObserver.observe(section));
 
     const preference = window.matchMedia("(prefers-reduced-motion: reduce)");
-    const timelines = new Map<Element, Animation[]>();
+    let stage: ReturnType<typeof createBookStage> | undefined;
     const cover = document.querySelector<HTMLElement>(".cover");
     const coverShadow = document.querySelector<HTMLElement>(
       ".cover > .turn-shadow",
@@ -86,83 +86,9 @@ export function BookMotion() {
     const stacks = document.querySelector<HTMLElement>(".page-stacks");
     const leftStack = document.querySelector<HTMLElement>(".page-stack-left");
     const rightStack = document.querySelector<HTMLElement>(".page-stack-right");
-    let boundaries: { element: HTMLElement; top: number }[] = [];
     let frame = 0;
     let renderedY = window.scrollY;
     let lastFrame = 0;
-    const positions = new Map<Element, number>();
-    let readingSurfaces: HTMLElement[] = [];
-    const inkGeometry = new Map<
-      HTMLElement,
-      {
-        width: number;
-        nodes: {
-          node: HTMLElement;
-          left: number;
-          width: number;
-          clip?: string;
-        }[];
-      }
-    >();
-    let singlePage = false;
-    // Read the browser's eased rotation coordinate, not a second easing/timer.
-    const exposed = (boundary: HTMLElement | undefined, fallback: number) => {
-      const rotation = boundary && timelines.get(boundary)?.[0];
-      const progress =
-        rotation?.effect?.getComputedTiming().progress ?? fallback;
-      const width =
-        (boundary && inkGeometry.get(boundary)?.width) || window.innerWidth;
-      const leafWidth = singlePage ? width : width / 2;
-      const angle = Math.PI * progress;
-      // Project the outer edge of perspective(2200px) rotateY(). Once the
-      // front has passed the spine, the underlying ink is entirely exposed.
-      return clamp(
-        1 -
-          Math.max(0, Math.cos(angle)) /
-            (1 - (leafWidth * Math.sin(angle)) / 2200),
-      );
-    };
-    const updateInk = () => {
-      readingSurfaces.forEach((surface, index) => {
-        const entry =
-          index === 0
-            ? 1
-            : exposed(index === 1 ? readingSurfaces[0] : surface, 0);
-        const exitBoundary = index === 0 ? surface : readingSurfaces[index + 1];
-        const exit = exposed(exitBoundary, 0);
-        const geometry = inkGeometry.get(surface);
-        if (!geometry) return;
-        const half = geometry.width / 2;
-        // Intersect incoming outer strips with the outgoing central strip.
-        // All blocks share spread coordinates, including small folios/labels.
-        for (const item of geometry.nodes) {
-          const local = (x: number) =>
-            Math.max(0, Math.min(item.width, x - item.left));
-          const a = local(singlePage ? 0 : half * exit);
-          const b = Math.max(a, local(singlePage ? 0 : half * entry));
-          const d = local(
-            singlePage
-              ? geometry.width * (1 - exit)
-              : geometry.width - half * exit,
-          );
-          const c = Math.min(
-            d,
-            local(
-              singlePage
-                ? geometry.width * (1 - entry)
-                : geometry.width - half * entry,
-            ),
-          );
-          const clip =
-            entry === 1 && exit === 0
-              ? "none"
-              : `polygon(${a}px 0, ${b}px 0, ${b}px 100%, ${a}px 100%, ${a}px 0, ${c}px 0, ${d}px 0, ${d}px 100%, ${c}px 100%, ${c}px 0)`;
-          if (item.clip === clip) continue;
-          item.clip = clip;
-          item.node.style.setProperty("--reading-clip", clip);
-        }
-      });
-    };
     let coverHeight = window.innerHeight;
     let bookLength = 1;
     let backTop = 0;
@@ -176,44 +102,12 @@ export function BookMotion() {
           coverHeight -
           window.innerHeight,
       );
-      backTop = (backCover?.getBoundingClientRect().top || 0) + window.scrollY;
-      boundaries = Array.from(
-        document.querySelectorAll<HTMLElement>("[data-boundary]"),
-      ).map((element) => ({
-        element,
-        // Measure the unpinned wrapper, not the sticky divider's moving rectangle.
-        top:
-          (
-            element.closest(".chapter-opening") || element
-          ).getBoundingClientRect().top + window.scrollY,
-      }));
-      singlePage = window.matchMedia("(max-width: 700px)").matches;
-      readingSurfaces.forEach((surface) => {
-        const rect = surface.getBoundingClientRect();
-        const nodes = Array.from(
-          surface.querySelectorAll<HTMLElement>(
-            surface === cover
-              ? ":scope > .cover-art > *"
-              : ":scope > :not(.turn-sheet):not(.turn-shadow)",
-          ),
-        );
-        inkGeometry.set(surface, {
-          width: rect.width,
-          nodes: nodes.map((node) => {
-            const bounds = node.getBoundingClientRect();
-            return { node, left: bounds.left - rect.left, width: bounds.width };
-          }),
-        });
-      });
+      stage?.measure();
+      backTop =
+        (backCover && stage?.top(backCover)) ||
+        (backCover?.getBoundingClientRect().top || 0) + window.scrollY;
       renderedY = window.scrollY;
       scroll();
-    };
-    const seek = (element: Element, progress: number) => {
-      if (positions.get(element) === progress) return;
-      positions.set(element, progress);
-      timelines.get(element)?.forEach((animation) => {
-        animation.currentTime = progress * TURN_DURATION;
-      });
     };
     const update = (now: number) => {
       frame = 0;
@@ -233,19 +127,7 @@ export function BookMotion() {
           : renderedY + distance * (1 - Math.exp(-elapsed / TURN_RESPONSE_MS));
       if (Math.abs(targetY - renderedY) < 0.1) renderedY = targetY;
       const y = renderedY;
-      const travel = window.innerHeight * TURN_TRAVEL;
-      const coverProgress = clamp(y / travel);
-      if (cover) {
-        const turning = String(coverProgress > 0);
-        if (cover.dataset.turning !== turning) cover.dataset.turning = turning;
-        seek(cover, coverProgress);
-      }
-      // Every leaf uses the same position filter and reversible paused timeline.
-      for (const { element, top } of boundaries) {
-        const progress = clamp((y - top + travel) / travel);
-        seek(element, progress);
-      }
-      updateInk();
+      stage?.update(y);
       const progress = clamp((y - coverHeight) / bookLength);
       if (stacks)
         stacks.style.opacity = String(
@@ -264,24 +146,10 @@ export function BookMotion() {
       if (!frame) frame = requestAnimationFrame(update);
     };
     const clear = () => {
-      timelines.forEach((animations) =>
-        animations.forEach((animation) => animation.cancel()),
-      );
-      timelines.clear();
-      positions.clear();
-      inkGeometry.forEach(({ nodes }) =>
-        nodes.forEach(({ node }) =>
-          node.style.removeProperty("--reading-clip"),
-        ),
-      );
-      readingSurfaces = [];
-      inkGeometry.clear();
-      document
-        .querySelectorAll(".turn-sheet-left, .turn-shadow-left")
-        .forEach((layer) => layer.remove());
-      document
-        .querySelectorAll(".readable-turn")
-        .forEach((boundary) => boundary.classList.remove("readable-turn"));
+      stage?.destroy();
+      stage = undefined;
+      if (cover) cover.style.visibility = "";
+
       window.removeEventListener("scroll", scroll);
       cancelAnimationFrame(frame);
       frame = 0;
@@ -304,35 +172,48 @@ export function BookMotion() {
       clear();
       if (preference.matches) return;
       document.documentElement.dataset.bookEnhanced = "true";
-      readingSurfaces = Array.from(
-        document.querySelectorAll<HTMLElement>(
-          ".cover, .introduction, [data-boundary]",
-        ),
-      );
-      if (cover) timelines.set(cover, turnPage(cover));
-      // Build inert copies and animation objects before any scrolling occurs.
-      document
-        .querySelectorAll<HTMLElement>("[data-boundary]")
-        .forEach((element) => {
-          timelines.set(element, turnPage(element));
-        });
+      stage = createBookStage();
       window.addEventListener("scroll", scroll, { passive: true });
       measure();
+    };
+    const followHash = () => {
+      if (!window.location.hash || !stage) return;
+      const target = document.getElementById(
+        decodeURIComponent(window.location.hash.slice(1)),
+      );
+      if (!target) return;
+      const top =
+        stage.top(target) ??
+        target.getBoundingClientRect().top + window.scrollY;
+      window.scrollTo({ top, behavior: "instant" });
+      renderedY = window.scrollY;
+      stage.update(renderedY);
     };
     const resize = new ResizeObserver(measure);
     resize.observe(document.body);
     configureMotion();
+    let disposed = false;
+    document.fonts.ready.then(() => {
+      if (!disposed) measure();
+    });
+    const images = Array.from(document.querySelectorAll<HTMLImageElement>(".book-fixed-page img"));
+    images.forEach((image) => image.addEventListener("load", measure));
+    followHash();
+    window.addEventListener("hashchange", followHash);
     preference.addEventListener("change", configureMotion);
     window.addEventListener("resize", measure);
     return () => {
+      disposed = true;
+      images.forEach((image) => image.removeEventListener("load", measure));
       clear();
       resize.disconnect();
       activeObserver.disconnect();
-      index?.removeEventListener("click", closeIndex);
+      document.removeEventListener("click", closeIndex);
       document.removeEventListener("keydown", dismiss);
       document.removeEventListener("pointerdown", outside);
       preference.removeEventListener("change", configureMotion);
       window.removeEventListener("resize", measure);
+      window.removeEventListener("hashchange", followHash);
     };
   }, []);
   return (

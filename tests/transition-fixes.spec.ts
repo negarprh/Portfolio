@@ -1,102 +1,41 @@
 import { settleBook } from "./motion-helpers";
 import { test, expect } from "@playwright/test";
 
-test("cover and chapter share reversible rotation and shadow timelines", async ({
+test("cover and chapter share reversible curvature and shadow geometry", async ({
   page,
 }) => {
   await page.setViewportSize({ width: 1440, height: 1000 });
   await page.goto("/");
-  await expect(page.locator("html")).toHaveAttribute(
-    "data-book-enhanced",
-    "true",
-  );
-  await page.evaluate(() => document.fonts.ready);
-  const top = await page
-    .locator("#work .chapter-opening")
-    .evaluate((el) => el.getBoundingClientRect().top + scrollY);
-  const frame = () => settleBook(page);
-  for (const progress of [0.2, 0.5, 0.8, 1, 0.8, 0.5, 0.2, 0]) {
+  await expect(page.locator(".physical-turn")).toHaveCount(1);
+  for (const progress of [0.2, 0.5, 0.8, 0.8, 0.5, 0.2]) {
     const states = [];
-    for (const chapter of [false, true]) {
-      await page.evaluate(
-        (y) => scrollTo({ top: y, behavior: "instant" }),
-        chapter ? top - 850 + progress * 850 : progress * 850,
-      );
-      await frame();
+    for (const selector of ["#introduction", "#work .divider"]) {
+      const top = await page
+        .locator(selector)
+        .evaluate((el) => Number((el as HTMLElement).dataset.bookTop));
+      await page.evaluate((y) => scrollTo(0, y), top - 850 + progress * 850);
+      await settleBook(page);
       states.push(
-        await page.evaluate((chapter) => {
-          const leaf = document.querySelector(
-            chapter ? "#work .turn-sheet" : ".cover > .turn-sheet",
-          )!;
-          const shadow = document.querySelector(
-            chapter ? "#work .turn-shadow" : ".cover > .turn-shadow",
-          )!;
-          return [leaf, shadow].map((el) => {
-            const a = el.getAnimations()[0];
-            if (!a) return { opacity: getComputedStyle(el).opacity };
-            return {
-              time: a.currentTime,
-              keys: (a.effect as KeyframeEffect).getKeyframes(),
-              timing: a.effect!.getTiming(),
-              // Pixel shadow travel scales with the cover/half-leaf width.
-              transform:
-                el === leaf ? getComputedStyle(el).transform : undefined,
-            };
-          });
-        }, chapter),
+        await page.locator(".physical-turn").evaluate((stage) => ({
+          angles: Array.from(
+            stage.querySelectorAll<HTMLElement>(".paper-joint"),
+          ).map((el) => el.style.transform),
+          shadow: (stage.querySelector(".physical-shadow") as HTMLElement).style
+            .cssText,
+          origin: getComputedStyle(stage.querySelector(".paper-joint")!)
+            .transformOrigin,
+          faces: Array.from(stage.querySelectorAll(".paper-strip")).map(
+            (el) => getComputedStyle(el).backfaceVisibility,
+          ),
+        })),
       );
-      await page.screenshot({
-        path: `test-results/fix-${chapter ? "chapter" : "cover"}-${progress}.png`,
-      });
     }
-    for (let index = 0; index < states[0].length; index++) {
-      const cover = states[0][index];
-      const chapter = states[1][index];
-      expect(cover.keys).toEqual(chapter.keys);
-      expect(cover.timing).toEqual(chapter.timing);
-      expect(cover.opacity).toEqual(chapter.opacity);
-      if (cover.time === undefined || chapter.time === undefined) {
-        expect(cover).toEqual(chapter);
-        continue;
-      }
-      // Native scroll positions round to pixels; fractional layout boundaries
-      // can differ by up to one pixel even at the same requested progress.
-      expect(
-        Math.abs(Number(cover.time) - Number(chapter.time)),
-      ).toBeLessThanOrEqual(1800 / 850);
-      if (cover.transform && chapter.transform) {
-        const values = (matrix: string) =>
-          matrix
-            .slice(matrix.indexOf("(") + 1, -1)
-            .split(",")
-            .map(Number);
-        const actual = values(cover.transform);
-        const expected = values(chapter.transform);
-        expect(actual.length).toBe(expected.length);
-        actual.forEach((value, i) =>
-          expect(Math.abs(value - expected[i])).toBeLessThan(0.01),
-        );
-      }
-    }
+    expect(states[0].angles).toEqual(states[1].angles);
+    expect(states[0].shadow).toBe(states[1].shadow);
+    expect(states[0].origin.startsWith("0px ")).toBe(true);
+    expect(states[1].origin.startsWith("0px ")).toBe(true);
+    expect(states[0].faces.every((face) => face === "hidden")).toBe(true);
   }
-  await expect(
-    page.locator(".turn-sheet .divider-title, .chapter-back-numeral"),
-  ).toHaveCount(0);
-  const geometry = await page
-    .locator(".cover > .turn-sheet")
-    .evaluate((el) => ({
-      ratio:
-        (el as HTMLElement).offsetWidth /
-        (el.parentElement as HTMLElement).offsetWidth,
-      origin: getComputedStyle(el).transformOrigin,
-      style: getComputedStyle(el).transformStyle,
-      back: getComputedStyle(el.querySelector(".sheet-back")!)
-        .backfaceVisibility,
-    }));
-  expect(geometry.ratio).toBe(0.5);
-  expect(geometry.origin.startsWith("0px ")).toBe(true);
-  expect(geometry.style).toBe("preserve-3d");
-  expect(geometry.back).toBe("hidden");
 });
 
 for (const mode of ["no-js", "reduced"] as const) {

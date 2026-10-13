@@ -53,6 +53,7 @@ Do not infer dates, seniority, degree equivalence, business impact, ownership, t
 ### Lienzo — Backend Developer
 
 - Dates: Dec 8, 2025 — Mar 31, 2026.
+- Public display: Dec 2025 — Mar 2026; Negar requested month/year dates without days on 2026-10-11. Keep the verified exact dates above as source facts.
 - Built backend features for healthcare coordination with TypeScript, Node.js, NestJS, PostgreSQL, and Prisma.
 - Worked across data models, APIs, business logic, automated tests, and Angular integration.
 - Implemented recurring to-dos with daily, weekly, biweekly, and monthly schedules.

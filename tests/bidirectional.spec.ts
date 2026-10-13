@@ -24,9 +24,7 @@ for (const input of ["wheel", "trackpad"]) {
         document
           .querySelectorAll<HTMLElement>("[data-boundary]")
           .forEach((el, i) => {
-            const top =
-              (el.closest(".chapter-opening") || el).getBoundingClientRect()
-                .top + y;
+            const top = Number(el.dataset.bookTop);
             const progress = Math.max(
               0,
               Math.min(
@@ -34,17 +32,10 @@ for (const input of ["wheel", "trackpad"]) {
                 (y - top + innerHeight * 0.85) / (innerHeight * 0.85),
               ),
             );
-            const animations = el.querySelector(".turn-sheet")!.getAnimations();
             if (progress > 0.001 && progress < 0.999) active.push(i);
-            if (progress > 0 && animations.length !== 1)
-              errors.push(`leaf ${i}: ${animations.length} rotations`);
-            for (const animation of animations) {
-              if (
-                animation.playState !== "paused" ||
-                Math.abs(Number(animation.currentTime) - progress * 1800) > 2
-              )
-                errors.push(`leaf ${i}: out of sync`);
-            }
+            const rect = el.getBoundingClientRect();
+            if (rect.top !== 0 || getComputedStyle(el).transform !== "none")
+              errors.push(`leaf ${i}: moving spread`);
           });
         return {
           y,
@@ -77,10 +68,7 @@ for (const input of ["wheel", "trackpad"]) {
       }
       expect(observed[direction].size).toBe(total);
     }
-    await expect(page.locator(".cover > .turn-sheet")).toHaveCSS(
-      "transform",
-      "matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, -0.000454545, 0, 0, 0, 1)",
-    );
+    await expect(page.locator(".cover")).toHaveCSS("transform", "none");
     await page.locator("#work .chapter-opening").evaluate((el) =>
       scrollTo({
         top: el.getBoundingClientRect().top + scrollY - 500,

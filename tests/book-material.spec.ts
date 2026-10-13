@@ -1,79 +1,47 @@
 import { test, expect } from "@playwright/test";
 
-test("the outgoing leaf hinges at the gutter, stays opaque, and casts a moving shadow", async ({
+test("the articulated leaf hinges at the gutter with opaque faces and a moving shadow", async ({
   page,
 }) => {
   await page.setViewportSize({ width: 1440, height: 1000 });
   await page.goto("/");
-  await page
+  await expect(page.locator(".physical-turn")).toHaveCount(1);
+  const top = await page
     .locator('[data-boundary="experience"]')
-    .evaluate((el) => el.scrollIntoView({ behavior: "instant" }));
-  await expect(
-    page.locator('[data-boundary="experience"] .turn-sheet'),
-  ).toHaveCount(2);
-  await expect(
-    page.locator('[data-boundary="experience"] .outgoing-content'),
-  ).toHaveCount(0);
-  const state = await page
-    .locator('[data-boundary="experience"]')
-    .evaluate((boundary) => {
-      const animations = boundary.getAnimations({ subtree: true });
-      for (const animation of animations) {
-        animation.pause();
-        animation.currentTime = 550;
-      }
-      const sheet = boundary.querySelector<HTMLElement>(".turn-sheet")!;
-      const shadow = boundary.querySelector<HTMLElement>(".turn-shadow")!;
-      const front = boundary.querySelector<HTMLElement>(".sheet-front")!;
-      const rect = boundary.getBoundingClientRect();
-      const keys = animations.flatMap((animation) =>
-        (animation.effect as KeyframeEffect)
-          .getKeyframes()
-          .flatMap((frame) => Object.keys(frame)),
-      );
-      return {
-        keys,
-        opacity: getComputedStyle(front).opacity,
-        origin: getComputedStyle(sheet).transformOrigin,
-        shadowOpacity: getComputedStyle(shadow).opacity,
-        shadowTransform: getComputedStyle(shadow).transform,
-        boundWidth: rect.width,
-        sheetWidth: sheet.offsetWidth,
-        duplicates: boundary.querySelectorAll(".outgoing-content [id]").length,
-        inert: sheet.inert,
-      };
-    });
-  expect(state.opacity).toBe("1");
-  expect(state.origin.startsWith("0px ")).toBeTruthy();
-  expect(Math.abs(state.sheetWidth - state.boundWidth / 2)).toBeLessThan(2);
-  expect(Number(state.shadowOpacity)).toBeGreaterThan(0);
-  expect(state.shadowTransform).not.toBe("none");
-  expect(state.duplicates).toBe(0);
-  expect(state.inert).toBeTruthy();
+    .evaluate((el) => Number((el as HTMLElement).dataset.bookTop));
+  await page.evaluate((y) => scrollTo(0, y), top - 425);
+  await expect(page.locator(".physical-turn")).toHaveAttribute(
+    "data-progress",
+    "0.5",
+  );
+  const state = await page.locator(".physical-turn").evaluate((stage) => {
+    const root = stage.querySelector<HTMLElement>(".paper-joint")!;
+    return {
+      hinge: root.offsetLeft,
+      width: stage.clientWidth,
+      origin: getComputedStyle(root).transformOrigin,
+      faces: Array.from(stage.querySelectorAll(".paper-strip")).map((el) => ({
+        opacity: getComputedStyle(el).opacity,
+        backface: getComputedStyle(el).backfaceVisibility,
+      })),
+      shadow: Number(
+        getComputedStyle(stage.querySelector(".physical-shadow")!).opacity,
+      ),
+      ids: stage.querySelectorAll("[id]").length,
+      inert: (stage as HTMLElement).inert,
+    };
+  });
+  expect(state.hinge).toBeCloseTo(state.width / 2, 0);
+  expect(state.origin.startsWith("0px ")).toBe(true);
   expect(
-    state.keys.filter(
-      (key) =>
-        ![
-          "transform",
-          "opacity",
-          "clipPath",
-          "offset",
-          "computedOffset",
-          "easing",
-          "composite",
-        ].includes(key),
-    ),
-  ).toEqual([]);
-  await page.screenshot({ path: "test-results/material-turn.png" });
+    state.faces.every((f) => f.opacity === "1" && f.backface === "hidden"),
+  ).toBe(true);
+  expect(state.shadow).toBeGreaterThan(0);
+  expect(state.ids).toBe(0);
+  expect(state.inert).toBe(true);
   await page.emulateMedia({ reducedMotion: "reduce" });
-  await expect(page.locator("html")).not.toHaveAttribute("data-book-enhanced");
+  await expect(page.locator(".physical-turn")).toHaveCount(0);
   await expect(page.locator(".page-stacks")).toBeHidden();
-  await expect(
-    page.locator('[data-boundary="experience"] .turn-sheet').first(),
-  ).toBeHidden();
-  await expect(
-    page.locator('[data-boundary="experience"] .outgoing-content'),
-  ).toHaveCount(0);
 });
 
 test("page stacks transfer thickness from right to left and folios mirror", async ({
@@ -83,7 +51,11 @@ test("page stacks transfer thickness from right to left and folios mirror", asyn
   await page.goto("/");
   await page
     .locator("#introduction")
-    .evaluate((el) => el.scrollIntoView({ behavior: "instant" }));
+    .evaluate((el) =>
+      (el as HTMLElement).dataset.bookTop
+        ? scrollTo(0, Number((el as HTMLElement).dataset.bookTop))
+        : el.scrollIntoView({ behavior: "instant" }),
+    );
   const thickness = () =>
     page
       .locator(".page-stack")
@@ -105,12 +77,20 @@ test("page stacks transfer thickness from right to left and folios mirror", asyn
   await page
     .locator(".skills-spread")
     .last()
-    .evaluate((el) => el.scrollIntoView({ behavior: "instant" }));
+    .evaluate((el) =>
+      (el as HTMLElement).dataset.bookTop
+        ? scrollTo(0, Number((el as HTMLElement).dataset.bookTop))
+        : el.scrollIntoView({ behavior: "instant" }),
+    );
   await expect
     .poll(async () => (await thickness())[0])
     .toBeGreaterThan(early[0]);
   const late = await thickness();
   expect(late[1]).toBeLessThan(early[1]);
+  await page
+    .locator(".experience-row")
+    .first()
+    .evaluate((el) => scrollTo(0, Number((el as HTMLElement).dataset.bookTop)));
   const folio = page.locator(".experience-row .folio").first();
   await expect(folio.locator(".folio-verso")).toBeVisible();
   await expect(folio.locator(".folio-recto")).toBeVisible();

@@ -2,7 +2,7 @@
 
 Read this file only for performance claims, motion regressions, or interpreting earlier browser runs. It records evidence, not a permanent performance guarantee.
 
-## Existing browser evidence
+## Historical browser evidence (before the stationary stage)
 
 The finalized 32ms scroll response was traced in Chromium with simulated wheel and trackpad-style input:
 
@@ -18,10 +18,11 @@ These runs support the implementation under the tested conditions only. Input wa
 - Rapid reversal settles toward current scroll position rather than completing a queued turn.
 - No-JS content remains in native document order with working anchors and `<details>` navigation.
 - Live reduced-motion changes remove enhancement layers and restore them without duplicates.
-- Interior ink remains in original DOM, opaque and untransformed, with no cloned paragraphs; clipping follows the existing eased leaf rotation. Forward/reverse samples check reversible geometry and fully exposed endpoints.
+- Original reading pages remain opaque, untransformed, and stationary. Inert snapshots place ink on the curved sheet; forward/reverse samples check identical geometry and fully exposed endpoints.
 - Desktop and mobile checks sample multiple transition positions and endpoints.
+- Full original experience and project copy is checked against the content data. Reading blocks fit and remain vertically centered at 320×568, 360×640, 390×844, 430×932, 768×1024, 844×390, and 1440×900; enhanced pages have no internal vertical scrolling.
 
-Screenshots at sampled positions do not prove every intermediate frame. Structural separation of reading ink from turning paper is the stronger invariant.
+Screenshots at sampled positions do not prove every intermediate frame. The stronger invariants are identical fixed interior bounds, continuous underlying surfaces, and reversible sheet geometry. Historical frame measurements above do not establish performance of the new articulated stage.
 
 ## How to make a new performance claim
 

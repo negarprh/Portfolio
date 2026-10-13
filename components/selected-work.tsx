@@ -39,7 +39,7 @@ export function SelectedWork({ stars }: { stars: number | null }) {
                       rel="noopener noreferrer"
                       aria-label={`View ${project.name} live (opens in a new tab)`}
                     >
-                      View Live <span aria-hidden="true">↗</span>
+                      Visit live site
                     </a>
                   )}
                   <a
@@ -49,7 +49,7 @@ export function SelectedWork({ stars }: { stars: number | null }) {
                     rel="noopener noreferrer"
                     aria-label={`${project.name} on GitHub (opens in a new tab)`}
                   >
-                    GitHub <span aria-hidden="true">↗</span>
+                    View on GitHub
                   </a>
                 </div>
               </div>

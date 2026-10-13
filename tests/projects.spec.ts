@@ -68,7 +68,9 @@ for (const width of [1440, 390]) {
         await expect(link).toHaveAttribute("aria-label", /opens in a new tab/);
       }
       const top = await article.evaluate(
-        (el) => el.getBoundingClientRect().top + scrollY,
+        (el) =>
+          Number((el as HTMLElement).dataset.bookTop) ||
+          el.getBoundingClientRect().top + scrollY,
       );
       for (const progress of [1, 0.4, 0.8, 0.2, 1]) {
         await page.evaluate(

@@ -2,7 +2,7 @@ import { expect, test } from "@playwright/test";
 
 const name = ".cover > .cover-art .cover-name";
 
-test("signature waits for assets, writes connected paths with an aligned pen, then rests once", async ({
+test("signature waits for assets, reveals the final Orbitron lettering with the pen, then rests once", async ({
   page,
 }) => {
   let release!: () => void;
@@ -19,51 +19,36 @@ test("signature waits for assets, writes connected paths with an aligned pen, th
   release();
   await expect(page.locator(name)).toHaveAttribute("data-signature", "writing");
   const result = await page.locator(name).evaluate(async (el) => {
-    const samples: { active: number; tipError: number; offsets: number[] }[] =
-      [];
+    const samples: number[][] = [];
     const start = performance.now();
     while (el.getAttribute("data-signature") === "writing") {
-      const paths = Array.from(
-        el.querySelectorAll<SVGPathElement>("[data-signature-stroke]"),
+      samples.push(
+        Array.from(el.querySelectorAll<HTMLElement>("[data-name-line]")).map(
+          (line) => Number.parseFloat(line.style.clipPath.split(" ")[1]),
+        ),
       );
-      const offsets = paths.map((p) =>
-        Number.parseFloat(p.style.strokeDashoffset),
-      );
-      const active = paths.findIndex(
-        // CSS serializes dash lengths with less precision than SVG geometry.
-        (p, i) => offsets[i] > 0.01 && offsets[i] < p.getTotalLength() - 0.01,
-      );
-      const pen = el.querySelector<SVGGElement>(".signature-pen")!;
-      if (active >= 0 && pen.style.opacity === "1") {
-        const path = paths[active];
-        const tip = path.getPointAtLength(
-          path.getTotalLength() - offsets[active],
-        );
-        const matrix = new DOMMatrix(getComputedStyle(pen).transform);
-        samples.push({
-          active,
-          tipError: Math.hypot(tip.x - matrix.e, tip.y - matrix.f),
-          offsets,
-        });
-      }
       await new Promise(requestAnimationFrame);
       if (performance.now() - start > 4000)
         throw new Error("Signature did not settle");
     }
-    return { samples, duration: performance.now() - start };
+    return samples;
   });
-  expect(result.samples.length).toBeGreaterThan(20);
-  expect(result.samples.some((s) => s.active === 0)).toBe(true);
-  expect(result.samples.some((s) => s.active === 2)).toBe(true);
-  expect(Math.max(...result.samples.map((s) => s.tipError))).toBeLessThan(1);
-  expect(result.duration).toBeLessThan(2700);
-  for (let i = 1; i < result.samples.length; i++) {
-    result.samples[i].offsets.forEach((value, index) => {
-      expect(value).toBeLessThanOrEqual(
-        result.samples[i - 1].offsets[index] + 0.01,
-      );
-    });
+  expect(result.length).toBeGreaterThan(20);
+  expect(result.some((sample) => sample[0] === 0)).toBe(true);
+  expect(result.some((sample) => sample[1] > 0 && sample[1] < 100)).toBe(true);
+  for (let i = 1; i < result.length; i++) {
+    result[i].forEach((value, index) =>
+      expect(value).toBeLessThanOrEqual(result[i - 1][index] + 0.01),
+    );
   }
+  await expect(page.locator(`${name} [data-name-line]`).first()).toHaveCSS(
+    "font-family",
+    "Orbitron, Arial, sans-serif",
+  );
+  await expect(page.locator(`${name} [data-name-line]`).first()).toHaveCSS(
+    "clip-path",
+    "none",
+  );
   await expect(page.locator(`${name} > svg`)).toBeHidden();
   await expect(page.locator("#cover-title")).toHaveCSS("opacity", "1");
   await page.evaluate(() => scrollTo(0, 400));

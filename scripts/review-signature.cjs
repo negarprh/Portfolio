@@ -26,9 +26,9 @@ const fs = require("fs");
         if (name?.dataset.signature === "writing")
           window.signatureReview.frames.push({
             time: performance.now(),
-            offsets: Array.from(
-              name.querySelectorAll("[data-signature-stroke]"),
-            ).map((p) => p.style.strokeDashoffset),
+            clips: Array.from(name.querySelectorAll("[data-name-line]")).map(
+              (line) => line.style.clipPath,
+            ),
             pen: name.querySelector(".signature-pen").style.transform,
           });
         if (name?.dataset.signature !== "complete")

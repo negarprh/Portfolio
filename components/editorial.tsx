@@ -2,20 +2,10 @@ import { profile } from "@/lib/content";
 export function ContactLinks({ compact = false }: { compact?: boolean }) {
   return (
     <div className={compact ? "links" : "links closing-links"}>
-      <a href={`mailto:${profile.email}`}>
-        Email <span aria-hidden="true">↗</span>
-      </a>
-      <a href={profile.linkedin}>
-        LinkedIn <span aria-hidden="true">↗</span>
-      </a>
-      <a href={profile.github}>
-        GitHub <span aria-hidden="true">↗</span>
-      </a>
-      {compact && (
-        <a href="#contact">
-          Contact <span aria-hidden="true">↗</span>
-        </a>
-      )}
+      <a href={`mailto:${profile.email}`}>Email</a>
+      <a href={profile.linkedin}>LinkedIn</a>
+      <a href={profile.github}>GitHub</a>
+      {compact && <a href="#contact">Contact</a>}
     </div>
   );
 }

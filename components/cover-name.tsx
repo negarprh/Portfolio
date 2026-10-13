@@ -1,8 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { SIGNATURE_DURATION, signatureStrokes } from "@/lib/cover-signature";
-import geometry from "@/lib/cover-signature-geometry.json";
+const SIGNATURE_DURATION = 2480;
 
 export function CoverName() {
   const root = useRef<HTMLDivElement>(null);
@@ -21,9 +20,13 @@ export function CoverName() {
       element.dataset.signature = "complete";
       element.style.removeProperty("--signature-opacity");
       element.style.removeProperty("--name-opacity");
+      element
+        .querySelectorAll<HTMLElement>("[data-name-line]")
+        .forEach((line) => line.style.removeProperty("clip-path"));
       preference.removeEventListener("change", interrupt);
       window.removeEventListener("scroll", interrupt);
       document.removeEventListener("visibilitychange", interrupt);
+      window.removeEventListener("resize", settle);
     };
     const interrupt = () => {
       if (preference.matches || window.scrollY > 8 || document.hidden) {
@@ -34,6 +37,7 @@ export function CoverName() {
     preference.addEventListener("change", interrupt);
     window.addEventListener("scroll", interrupt, { passive: true });
     document.addEventListener("visibilitychange", interrupt);
+    window.addEventListener("resize", settle, { once: true });
     const loaded =
       document.readyState === "complete"
         ? Promise.resolve()
@@ -51,15 +55,21 @@ export function CoverName() {
           settle();
           return;
         }
-        const paths = Array.from(
-          element.querySelectorAll<SVGPathElement>("[data-signature-stroke]"),
+        const lines = Array.from(
+          element.querySelectorAll<HTMLElement>("[data-name-line]"),
         );
         const pen = element.querySelector<SVGGElement>(".signature-pen")!;
-        // Geometry is sampled offline; neither setup nor frames measure curves.
-        paths.forEach((path, index) => {
-          const { length } = geometry[index];
-          path.style.strokeDasharray = `${length} ${length}`;
-          path.style.strokeDashoffset = `${length}`;
+        const svg = element.querySelector<SVGSVGElement>(".cover-signature")!;
+        const bounds = element.getBoundingClientRect();
+        svg.setAttribute("viewBox", `0 0 ${bounds.width} ${bounds.height}`);
+        const metrics = lines.map((line) => {
+          const rect = line.getBoundingClientRect();
+          return {
+            x: rect.left - bounds.left,
+            y: rect.top - bounds.top,
+            width: rect.width,
+            height: rect.height,
+          };
         });
         let start: number | undefined;
         const draw = (now: number) => {
@@ -74,38 +84,18 @@ export function CoverName() {
             settle();
             return;
           }
-          const fade = Math.max(0, Math.min(1, (elapsed - 2250) / 230));
-          element.style.setProperty("--signature-opacity", `${1 - fade}`);
-          element.style.setProperty(
-            "--name-opacity",
-            `${elapsed < 100 ? 1 - elapsed / 100 : fade}`,
-          );
           pen.style.opacity = "0";
-          paths.forEach((path, index) => {
-            const stroke = signatureStrokes[index];
+          lines.forEach((line, index) => {
+            const begin = index === 0 ? 100 : 1050;
+            const duration = index === 0 ? 850 : 1200;
             const progress = Math.max(
               0,
-              Math.min(1, (elapsed - stroke.start) / stroke.duration),
+              Math.min(1, (elapsed - begin) / duration),
             );
-            const segment = Math.min(
-              stroke.pace.length - 2,
-              Math.floor(progress * (stroke.pace.length - 1)),
-            );
-            const local = progress * (stroke.pace.length - 1) - segment;
-            // Modest speed variation, never a stop/start at each letter.
-            const eased = local - Math.sin(local * Math.PI * 2) * 0.045;
-            const distance =
-              stroke.pace[segment] +
-              (stroke.pace[segment + 1] - stroke.pace[segment]) * eased;
-            path.style.strokeDashoffset = `${geometry[index].length * (1 - distance)}`;
-            if (elapsed >= stroke.start && progress < 1) {
-              const last = geometry[index].points.length - 1;
-              const sample = distance * last;
-              const lower = Math.min(last - 1, Math.floor(sample));
-              const a = geometry[index].points[lower];
-              const b = geometry[index].points[lower + 1];
-              const fraction = sample - lower;
-              pen.style.transform = `translate(${a.x + (b.x - a.x) * fraction}px, ${a.y + (b.y - a.y) * fraction}px)`;
+            line.style.clipPath = `inset(-20% ${(1 - progress) * 100}% -20% -2%)`;
+            if (elapsed >= begin && progress < 1) {
+              const metric = metrics[index];
+              pen.style.transform = `translate(${metric.x + metric.width * progress}px, ${metric.y + metric.height * (0.55 + Math.sin(progress * Math.PI * (index === 0 ? 10 : 16)) * 0.2)}px)`;
               pen.style.opacity = "1";
             }
           });
@@ -128,10 +118,14 @@ export function CoverName() {
   return (
     <div className="cover-name" ref={root}>
       <h1 id="cover-title">
-        Negar
+        <span className="cover-name-line" data-name-line="">
+          Negar
+        </span>
         <br />
         <em>
-          Pirasteh<span className="accent cover-dot">.</span>
+          <span className="cover-name-line" data-name-line="">
+            Pirasteh<span className="accent cover-dot">.</span>
+          </span>
         </em>
       </h1>
       <svg
@@ -140,17 +134,6 @@ export function CoverName() {
         aria-hidden="true"
         focusable="false"
       >
-        <g
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2.15"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        >
-          {signatureStrokes.map((stroke, index) => (
-            <path key={index} data-signature-stroke="" d={stroke.d} />
-          ))}
-        </g>
         <g className="signature-pen">
           <path d="M0 0 L4 -17 L11 -21 L15 -15 L12 -8 Z" fill="var(--accent)" />
           <path d="M0 0 L8 -12" stroke="var(--ink)" strokeWidth=".8" />
