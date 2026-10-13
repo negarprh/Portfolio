@@ -72,6 +72,6 @@ See [`docs/context/ENGINEERING.md`](docs/context/ENGINEERING.md) for exact owner
 
 DM Serif Display, Manrope, and Orbitron 400 are locally hosted under the SIL Open Font License. Technical labels use the system monospace font.
 
-Skill marks come from Devicon (MIT, including MongoDB and Pytest) and Simple Icons (CC0; Zod and the retained Stripe asset), with supplied AWS artwork retained. New marks are sourced from `devicons/devicon` (`icons/mongodb/mongodb-original.svg`, `icons/pytest/pytest-original.svg`) and `simple-icons/simple-icons` (`icons/zod.svg`). Brand marks belong to their respective owners. License texts are in `public/licenses/`.
+Skill marks come from Devicon (MIT, including MongoDB and Pytest) and Simple Icons (CC0; Zod, OpenAI, Claude, and the retained Stripe asset), with supplied AWS artwork retained. Marks are sourced from `devicons/devicon` (`icons/mongodb/mongodb-original.svg`, `icons/pytest/pytest-original.svg`) and `simple-icons/simple-icons` (`icons/zod.svg`, `icons/claude.svg`, and `icons/openai.svg` from release 15.0.0). OpenAI and Claude marks identify the Codex and Claude Code tools. Brand marks belong to their respective owners. License texts are in `public/licenses/`.
 
 Project images originated in the supplied portfolio. `scripts/capture-repo.cjs` intentionally refreshes the Canadian Tech Internships repository screenshot; the displayed star count is fetched separately through ISR.

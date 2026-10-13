@@ -37,7 +37,7 @@ Legacy `index.html`, `head.html`, and `assets/` are reference material from the 
 ## Data and fallback contracts
 
 - `lib/content.ts` is the rendered source for structured roles, projects, skills, and links. Career meaning and provenance are recorded in `CAREER.md`; keep them synchronized.
-- The approved public email is stored in `lib/content.ts`. Résumé links are removed; neither contact field needs environment configuration. Never commit secrets.
+- The approved public email is stored in `lib/content.ts`. Negar confirmed on 2026-10-12 that Resume links remain omitted; do not add a placeholder. Contact fields need no environment configuration. Never commit secrets.
 - GitHub stars are server-fetched public data; no client polling and no invented fallback number.
 - Enhanced interior materials are gated by `html[data-book-enhanced]`. Static fallbacks remain readable without it.
 - `lib/book-stage.ts` measures full reading blocks after fonts and images load and on resize, applies a static layout scale only when necessary, and centers them within symmetric bounds. Teardown restores their original inline styles. Do not reintroduce nested page scrolling or replace original copy with summaries.
@@ -72,7 +72,7 @@ Generated output belongs in ignored `test-results/`; do not treat it as source.
 
 `tests/projects.spec.ts` verifies the three-project selection, public link destinations and attributes, desktop/mobile spread reversals, reduced motion, and no-JS rendering. Project data owns explicit GitHub/live URLs and optional existing artwork; do not infer a deployment URL from a repository name.
 
-`tests/skills.spec.ts` verifies the approved 33-item inventory across two Skills spreads, four viewport sizes, decorative monochrome logos, overflow, reversed turns, reduced motion, and no-JS content. Skills layout and optical logo sizing are scoped to `#skills` in `app/makeover.css`.
+`tests/skills.spec.ts` verifies the approved 31-item inventory in six categories across two Skills spreads, four viewport sizes, decorative monochrome logos, overflow, reversed turns, reduced motion, and no-JS content. Skills layout and optical logo sizing are scoped to `#skills` in `app/makeover.css`.
 
 ## Documentation maintenance
 

@@ -6,17 +6,17 @@ const inventory = [
     "TypeScript",
     "Node.js",
     "NestJS",
-    "Express.js",
+    "Express",
     "Python",
     "FastAPI",
-    "Flask",
     "Java",
     "Spring Boot",
   ],
-  ["PostgreSQL", "MongoDB", "Prisma", "SQLAlchemy"],
-  ["React", "Next.js", "Angular", "JavaScript", "Tailwind CSS", "HTML", "CSS"],
-  ["Docker", "AWS", "GitHub Actions", "Supabase", "Firebase", "Azure DevOps"],
-  ["Git", "GitHub", "Postman", "Swagger", "Vitest", "Pytest", "Zod"],
+  ["PostgreSQL", "MongoDB", "Prisma"],
+  ["React", "Next.js", "JavaScript", "Angular", "Tailwind CSS"],
+  ["Docker", "AWS", "GitHub Actions", "Azure DevOps", "Supabase", "Firebase"],
+  ["Git", "GitHub", "Vitest", "Pytest", "Postman", "Swagger", "Zod"],
+  ["OpenAI Codex", "Claude Code"],
 ];
 
 for (const width of [1440, 1100, 820, 390]) {
@@ -35,8 +35,8 @@ for (const width of [1440, 1100, 820, 390]) {
     for (const [index, headings] of [
       ["01Backend"],
       ["03Frontend"],
-      ["02Data", "05Tools & Testing"],
-      ["04Infra & Cloud"],
+      ["02Databases & Data", "05Tools & Testing"],
+      ["04Infrastructure & Cloud", "06AI Development"],
     ].entries()) {
       await expect(pages.nth(index).locator("h3")).toHaveText(headings);
     }
@@ -46,13 +46,14 @@ for (const width of [1440, 1100, 820, 390]) {
     ).toHaveCount(2);
     await expect(
       skills.locator(".skills-spread").nth(1).locator(".skill-group"),
-    ).toHaveCount(3);
+    ).toHaveCount(4);
     await expect(skills.locator(".skill-group h3")).toHaveText([
       "01Backend",
       "03Frontend",
-      "02Data",
+      "02Databases & Data",
       "05Tools & Testing",
-      "04Infra & Cloud",
+      "04Infrastructure & Cloud",
+      "06AI Development",
     ]);
     for (let i = 0; i < inventory.length; i++) {
       await expect(
@@ -134,6 +135,7 @@ test("Skills inventory remains complete without JavaScript", async ({
       inventory[1],
       inventory[4],
       inventory[3],
+      inventory[5],
     ].flat(),
   );
   await expect(page.locator("#skills .skills-spread")).toHaveCount(2);

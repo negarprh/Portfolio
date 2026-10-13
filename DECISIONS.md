@@ -138,3 +138,11 @@ Negar still disliked arrows beside GitHub and other outbound links. Remove the i
 ## 2026-10-11: clearer reading cue and outbound destinations
 
 Display career dates without day numbers while preserving exact verified dates in career context. Refine project labels to “View on GitHub” and “Visit live site,” with stronger hover underlines and visible keyboard focus; retain plain contact labels and omit external arrows. Enlarge and center the cover opening link, pairing it with “Scroll down to begin” and a static downward cue. Keep native scrolling and the clickable introduction destination.
+
+## 2026-10-12: experience-led introduction and accomplishment anchors
+
+Use Negar’s latest supplied three-paragraph introduction and role descriptions, with “Hi, I’m Negar!” as the introduction heading. Replace Lienzo’s logic/data/tests diagram with 24% → 72% backend test coverage and Ozex’s authentication mark with 35% faster API responses; retain Tail’ed’s runtime visual. Phone introduction and experience copy uses visible paragraph gaps, 1.6 line height, a restrained text measure, and pretty wrapping while preserving full content and page fitting. Keep introduction stars backed by the existing server fetch. Negar confirmed that Resume links remain omitted for now.
+
+## 2026-10-12: focused skills inventory and AI development tools
+
+Use Negar’s supplied 31-item inventory in six categories, with the full Databases & Data and Infrastructure & Cloud labels. Add AI Development beneath Infrastructure & Cloud on the second spread; preserve the two-spread structure and existing category numbers. OpenAI Codex and Claude Code describe development tools, without adding AI/ML expertise claims.

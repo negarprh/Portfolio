@@ -86,6 +86,19 @@ test("no-JS and reduced-motion keep seal and all three role anchors readable", a
       "none",
     );
     await expect(page.locator(".role-anchor")).toHaveCount(3);
+    await expect(page.locator(".role-1 .role-anchor")).toContainText(
+      "Backend test coverage",
+    );
+    await expect(page.locator(".role-1 .runtime-values strong")).toHaveText([
+      "24%",
+      "72%",
+    ]);
+    await expect(page.locator(".role-2 .role-anchor")).toContainText(
+      "Faster API responses",
+    );
+    await expect(page.locator(".role-2 .runtime-values strong")).toHaveText(
+      "35%",
+    );
     const roleStacks = [
       ["Python", "Express", "GitHub Actions", "React", "Firebase"],
       [

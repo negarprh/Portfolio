@@ -216,6 +216,26 @@
   width: 38.2979%;
   opacity: 0.8;
 }
+.coverage-bars {
+  display: grid;
+  gap: 7px;
+  margin-top: 20px;
+}
+.coverage-bars span {
+  width: 24%;
+  height: 3px;
+  background: currentColor;
+  opacity: 0.25;
+}
+.coverage-bars span:last-child {
+  width: 72%;
+  opacity: 0.8;
+}
+.response-anchor > p {
+  margin-top: 18px;
+  font-size: 12px;
+  color: var(--muted);
+}
 .backend-anchor {
   padding-top: 25px;
   border-top: 1px solid #a79a7e70;
@@ -1389,6 +1409,12 @@ html[data-book-enhanced] #work .project-image img {
 }
 
 /* Content is fitted once on measurement, never moved by scroll. */
+@media (min-width: 701px) {
+  .introduction .intro-facts {
+    align-self: center;
+    padding-top: 0;
+  }
+}
 html[data-book-enhanced] .book-fixed-page > :is(.intro-grid, .spread-content) {
   position: absolute;
   padding-block: 0;
@@ -1412,6 +1438,23 @@ html[data-book-enhanced] .introduction > .chapter-running {
   margin: 0;
 }
 @media (max-width: 700px) {
+  .introduction .body-copy,
+  .experience-row .job-detail p,
+  html[data-book-enhanced] .introduction .body-copy,
+  html[data-book-enhanced] .experience-row .job-detail p {
+    font-size: 15px;
+    line-height: 1.6;
+    text-align: left;
+    text-wrap: pretty;
+    max-width: 38ch;
+    margin-block: 0;
+  }
+  .introduction .body-copy + .body-copy,
+  .experience-row .job-detail p + p,
+  html[data-book-enhanced] .introduction .body-copy + .body-copy,
+  html[data-book-enhanced] .experience-row .job-detail p + p {
+    margin-top: 1em;
+  }
   html[data-book-enhanced] .body-copy + .body-copy,
   html[data-book-enhanced] .job-detail p + p,
   html[data-book-enhanced] #work .project-copy > p + p:not(.eyebrow) {

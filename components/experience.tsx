@@ -34,49 +34,43 @@ function RoleAnchor({ index }: { index: number }) {
     );
   if (index === 1)
     return (
-      <figure className="role-anchor backend-anchor">
-        <figcaption>End-to-end backend features</figcaption>
-        <svg
-          viewBox="0 0 360 92"
-          role="img"
-          aria-label="Application logic, data interactions, and tests"
-        >
-          <path d="M54 32H306" />
-          <circle cx="54" cy="32" r="18" />
-          <rect x="162" y="14" width="36" height="36" rx="2" />
-          <circle cx="306" cy="32" r="18" />
-          <path className="diagram-tick" d="m298 32 6 6 11-13" />
-          <text x="54" y="78">
-            Logic
-          </text>
-          <text x="180" y="78">
-            Data
-          </text>
-          <text x="306" y="78">
-            Tests
-          </text>
-        </svg>
-        <p>TypeScript & NestJS</p>
+      <figure className="role-anchor coverage-anchor">
+        <figcaption>Backend test coverage</figcaption>
+        <div className="runtime-values">
+          <span>
+            <small>Before</small>
+            <strong>
+              24<em>%</em>
+            </strong>
+          </span>
+          <span className="runtime-arrow" aria-hidden="true">
+            →
+          </span>
+          <span>
+            <small>After</small>
+            <strong>
+              72<em>%</em>
+            </strong>
+          </span>
+        </div>
+        <div className="coverage-bars" aria-hidden="true">
+          <span />
+          <span />
+        </div>
       </figure>
     );
   return (
-    <figure className="role-anchor auth-anchor">
-      <svg viewBox="0 0 84 96" role="img" aria-label="Authentication">
-        <path d="M42 7 72 19v26c0 22-30 40-30 40S12 67 12 45V19Z" />
-        <rect x="29" y="39" width="26" height="22" rx="2" />
-        <path d="M34 39v-8a8 8 0 0 1 16 0v8M42 47v6" />
-      </svg>
-      <div>
-        <figcaption>
-          Authentication
-          <br />& authorization
-        </figcaption>
-        <p>
-          Supabase & JWT
-          <br />
-          for protected APIs.
-        </p>
+    <figure className="role-anchor response-anchor">
+      <figcaption>API response times</figcaption>
+      <div className="runtime-values">
+        <span>
+          <strong>
+            35<em>%</em>
+          </strong>
+          <small>Faster API responses</small>
+        </span>
       </div>
+      <p>Through query and endpoint optimization.</p>
     </figure>
   );
 }

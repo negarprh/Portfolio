@@ -12,6 +12,21 @@ for (const width of [1440, 390]) {
       "true",
     );
     await page.evaluate(() => document.fonts.ready);
+    await expect(page.locator("#introduction .availability")).toHaveText(
+      "Open to Montréal and remote roles",
+    );
+    if (width > 700) {
+      const centerDifference = await page
+        .locator(".intro-grid")
+        .evaluate((el) => {
+          const copy = el.firstElementChild!.getBoundingClientRect();
+          const facts = el.lastElementChild!.getBoundingClientRect();
+          return Math.abs(
+            copy.top + copy.height / 2 - facts.top - facts.height / 2,
+          );
+        });
+      expect(centerDifference).toBeLessThan(1);
+    }
     await expect(page.locator("#contact > .colophon > .eyebrow")).toHaveText(
       "Contact",
     );

@@ -87,29 +87,34 @@ export default async function Home() {
             </div>
             <div className="intro-grid">
               <div>
-                <h2 id="intro-title">Hi, I’m Negar.</h2>
+                <h2 id="intro-title">Hi, I’m Negar!</h2>
                 <p className="body-copy">
-                  I’m a software developer based in Montréal. I love building
-                  from the ground up and turning ideas into things people
-                  actually use.
+                  I’m a software developer based in Montréal. I enjoy building
+                  things from scratch, understanding how systems work, and
+                  turning ideas into products people actually use.
                 </p>
 
                 <p className="body-copy">
-                  I’ve helped build and launch the first versions of two
-                  products, built a large-scale data system from scratch, and
-                  created an open-source project that grew into a resource used
-                  by thousands across Canada.
+                  I’ve worked on production software across three teams, from
+                  backend systems and APIs to full-stack features. Outside of
+                  work, I built Canadian Tech Internships, an open-source
+                  project
+                  {stars !== null
+                    ? ` that has grown to ${stars > 1200 ? "over 1,200" : stars.toLocaleString("en-CA")} GitHub stars`
+                    : " on GitHub"}
+                  .
                 </p>
 
                 <p className="body-copy">
-                  I like understanding the whole system, taking ownership, and
-                  finding ways to make things faster, cleaner, and more
-                  reliable.
+                  I’m someone who takes ownership, digs into challenging
+                  problems, and cares about the details that make software
+                  better. The best part is seeing something I’ve built being
+                  used by real people.
                 </p>
               </div>
               <aside className="intro-facts">
                 <p className="availability">
-                  <span /> Open to opportunities
+                  <span /> Open to Montréal and remote roles
                 </p>
                 <dl>
                   <dt>ROLE</dt>
@@ -118,9 +123,9 @@ export default async function Home() {
                   <dd>Montréal, Canada</dd>
                   <dt>CORE STACK</dt>
                   <dd className="mono">
-                    TypeScript · Node.js · NestJS · Python · FastAPI
+                    TypeScript · Node.js · NestJS · Python
                     <br />
-                    PostgreSQL · React / Next.js · Docker
+                    PostgreSQL · React · Next.js · Docker
                   </dd>
                 </dl>
                 <ContactLinks compact />

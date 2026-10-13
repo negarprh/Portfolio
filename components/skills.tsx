@@ -81,6 +81,7 @@ export function Skills() {
           </div>
           <div className="skills-page">
             <SkillGroup index={3} />
+            <SkillGroup index={5} />
           </div>
         </div>
         <TurnSheet label="Skills" />

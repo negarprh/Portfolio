@@ -1,6 +1,6 @@
 # Career source of truth
 
-Last reconciled: 2026-09-24. This file stores public, durable career facts for portfolio copy. `lib/content.ts` and the page components are the rendered implementation; update this file and the implementation together.
+Last reconciled: 2026-10-12. This file stores public, durable career facts for portfolio copy. `lib/content.ts` and the page components are the rendered implementation; update this file and the implementation together.
 
 ## Evidence and writing rules
 
@@ -19,12 +19,12 @@ Do not infer dates, seniority, degree equivalence, business impact, ownership, t
 - Location: Montréal, Québec, Canada.
 - Public role label: Software Developer.
 - Introduction ROLE label: Backend / Full-Stack Developer (approved 2026-09-24); the cover keeps Software Developer.
-- Introduction CORE STACK: TypeScript · Node.js · NestJS · Python · FastAPI; PostgreSQL · React / Next.js · Docker.
+- Introduction CORE STACK: TypeScript · Node.js · NestJS · Python · PostgreSQL · React · Next.js · Docker (approved 2026-10-12).
 - Focus: backend software development.
 - Core backend stacks: TypeScript with NestJS; Python with FastAPI.
 - Additional verified experience: Node.js, Express, Java/Spring Boot, Prisma/PostgreSQL, SQLAlchemy, Redis, Docker, cloud/tooling, and React/frontend contributions as needed.
 - Do not describe Negar as Python-only or imply TypeScript was only frontend work.
-- Current public status: open to software engineering opportunities.
+- Current public status: open to Montréal and remote software development roles (explicitly approved 2026-10-12). Introduction availability: “Open to Montréal and remote roles.”
 
 ## Introduction facts
 
@@ -32,10 +32,13 @@ Do not infer dates, seniority, degree equivalence, business impact, ownership, t
 - Work includes healthcare platforms, job-collection pipelines, and React contributions.
 - Started and maintains the Canadian Tech Internships repository.
 - Approved personal detail: cat person; omitted from the current introduction at Negar’s request to use her original copy.
-- Current introduction uses Negar’s supplied four-paragraph wording: building products from the ground up, ownership, persistent improvement, whole-system understanding, backend/frontend contributions, and seeking a strong engineering team and interesting problems. This supersedes the longer assistant rewrite. Education and stack details remain elsewhere in the portfolio.
+- Current introduction uses Negar’s latest supplied three-paragraph wording (2026-10-12), headed “Hi, I’m Negar!”: building from scratch, understanding systems, products people use, production software across three teams (backend systems/APIs through full-stack features), Canadian Tech Internships outside work, ownership, challenging problems, attention to detail, and real people using her work. Do not lead with graduate or junior positioning.
+- Negar supplied “over 1,200 GitHub stars” on 2026-10-12. The introduction uses that phrase when the server-fetched count exceeds 1,200, the actual count otherwise, and a non-numeric GitHub fallback on API failure; project stars remain dynamic.
 - User-supplied public claim in that approved copy (2026-09-24): her open-source project grew from a personal idea into a resource used by thousands of people across Canada. This is Negar’s supplied usage claim, not a figure inferred from GitHub stars or independently measured here.
 
 ## Experience
+
+Use Negar’s latest supplied three-paragraph descriptions for each role (2026-10-12), opening with “At [company]”. Preserve detailed verified facts below even when omitted from the shorter public copy.
 
 ### Tail’ed — Software Developer Intern
 
@@ -59,7 +62,7 @@ Do not infer dates, seniority, degree equivalence, business impact, ownership, t
 - Implemented recurring to-dos with daily, weekly, biweekly, and monthly schedules.
 - Supported updating one occurrence or an entire recurring series.
 - CQRS command/query testing increased backend coverage from 24% to 72%.
-- Maintained and improved 20+ services and APIs involving authentication, RBAC, soft deletes, and core backend behavior.
+- Latest approved public scope (2026-10-12): maintained and improved 20+ existing commands, queries, and APIs. This supersedes the earlier “20+ services and APIs” wording. Verified work also included authentication, RBAC, soft deletes, and core backend behavior.
 - Worked with trunk-based development, CI/CD, pull requests, reviews, and daily stand-ups.
 - Keep the portfolio emphasis on backend work.
 - Displayed role stack: TypeScript, Node.js, NestJS, Prisma, PostgreSQL, Angular, Vitest. Negar explicitly confirmed Angular and Vitest for Lienzo on 2026-09-24; this supersedes the earlier uncertainty about the testing framework.
@@ -133,12 +136,13 @@ Do not infer dates, seniority, degree equivalence, business impact, ownership, t
 
 ## Public skills taxonomy
 
-- Backend: TypeScript, Node.js, NestJS, Express.js, Python, FastAPI, Flask, Java, Spring Boot.
-- Data: PostgreSQL, MongoDB, Prisma, SQLAlchemy.
-- Frontend: React, Next.js, Angular, JavaScript, Tailwind CSS, HTML, CSS.
-- Infra & Cloud: Docker, AWS, GitHub Actions, Supabase, Firebase, Azure DevOps.
-- Tools & Testing: Git, GitHub, Postman, Swagger, Vitest, Pytest, Zod.
-- Negar explicitly approved this inventory on 2026-09-24, including MongoDB, Pytest, and Zod. Redis, Stripe, and OpenAPI are excluded from this chapter; this does not retract verified use elsewhere. Intro: “I work primarily across backend and full-stack development.”
+- Backend: TypeScript, Node.js, NestJS, Express, Python, FastAPI, Java, Spring Boot.
+- Frontend: React, Next.js, JavaScript, Angular, Tailwind CSS.
+- Databases & Data: PostgreSQL, MongoDB, Prisma.
+- Infrastructure & Cloud: Docker, AWS, GitHub Actions, Azure DevOps, Supabase, Firebase.
+- Tools & Testing: Git, GitHub, Vitest, Pytest, Postman, Swagger, Zod.
+- AI Development: OpenAI Codex, Claude Code.
+- Negar approved this 31-item inventory on 2026-10-12, superseding the prior 33-item inventory. Flask, SQLAlchemy, HTML, and CSS are omitted from the Skills chapter; verified use elsewhere is not retracted. AI tool use is user-supplied and does not imply AI/ML engineering expertise. Intro: “I work primarily across backend and full-stack development.”
 
 This is a display taxonomy, not a proficiency ranking. Adding a skill requires an explicit user-provided fact or evidence from current work; do not scrape dependency files and present every package as a career skill.
 
@@ -150,7 +154,7 @@ This is a display taxonomy, not a proficiency ranking. Adding a skill requires a
 - Show LinkedIn in the introduction contact links; omit the introduction’s unset-resume placeholder.
 - Approved contact copy (2026-09-25): “Have a role in mind? Let’s talk.” and “I’m currently open to software development opportunities.”
 - Public email approved by Negar on 2026-09-25: `negarpr@hotmail.com` (the backslash in the supplied Markdown escaped the @ sign).
-- Résumé links and placeholders are removed at Negar’s request. Contact links are Email, LinkedIn, and GitHub.
+- Negar confirmed on 2026-10-12 that she will not add a résumé right now. Omit Resume links and placeholders; contact links remain Email, LinkedIn, and GitHub.
 
 ## Fact-update checklist
 

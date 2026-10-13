@@ -17,9 +17,9 @@ export const experience = [
     title: "Software Developer Intern",
     dates: "Summer 2026",
     lines: [
-      "I built the Python job aggregation pipeline behind Tail’ed’s internship and new-grad listings, creating automated ingestion across 3,680 company sources and nine applicant tracking systems, including Workday, Greenhouse, and Lever.",
-      "I developed workflows for job discovery, classification, normalization, deduplication, and archival, supporting 11,700+ active listings across 1,300+ companies and expanding active job coverage to 4.4× its previous level.",
-      "I introduced multithreaded concurrency to the pipeline, reducing median GitHub Actions runtime by 62%, from 4.7 hours to 1.8 hours. I also integrated the aggregated data into Tail’ed’s website, making the jobs available through its search and filtering experience.",
+      "At Tail’ed, I built a Python job aggregation pipeline that processes listings from 3,680 company sources across nine different applicant tracking systems.",
+      "The biggest challenge was making it fast enough to handle that scale. I introduced multithreaded concurrency, cutting the median runtime by 62%, from 4.7 hours to 1.8 hours.",
+      "The pipeline helped grow job coverage by 4.4×, reaching over 11,700 active listings. I also integrated the data into Tail’ed’s website, connecting the backend work to the actual user experience.",
     ],
     technologies: [
       ["Python", "python"],
@@ -34,9 +34,9 @@ export const experience = [
     title: "Backend Developer",
     dates: "Dec 2025 - Mar 2026",
     lines: [
-      "I built backend features for a healthcare coordination platform using TypeScript, NestJS, PostgreSQL, and Prisma, working across data models, APIs, business logic, and automated testing.",
-      "I implemented recurring task functionality with daily, weekly, biweekly, and monthly schedules, including logic for updating individual occurrences or an entire recurring series.",
-      "I expanded automated testing across CQRS commands and queries, increasing backend test coverage from 24% to 72%. I also maintained and improved 20+ NestJS services and APIs involving authentication, role-based access control, soft deletes, and other core backend functionality.",
+      "At Lienzo, I worked on the backend of a healthcare coordination platform, building features across database models, business logic, and APIs using NestJS and PostgreSQL.",
+      "One of the more complex features I implemented was recurring task management, supporting different schedules and allowing users to update a single occurrence or an entire series.",
+      "I also focused on backend reliability, expanding automated test coverage from 24% to 72% across CQRS commands and queries, while maintaining and improving 20+ existing commands, queries, and APIs.",
     ],
     technologies: [
       ["TypeScript", "typescript"],
@@ -53,9 +53,9 @@ export const experience = [
     title: "Software Developer Intern",
     dates: "Feb - May 2025",
     lines: [
-      "I developed backend functionality for a mental health platform using TypeScript, Express, PostgreSQL, and Prisma, building REST APIs and the application logic behind them.",
-      "I optimized database queries and high-traffic endpoints, reducing API response times by 35%. I also implemented authentication and authorization with Supabase and JWT to protect endpoints and enforce access to backend resources.",
-      "I worked across database operations, validation, error handling, and API integration, while maintaining Swagger documentation to keep the backend clear and easy to integrate with.",
+      "At Ozex, I developed backend features for a mental health platform using TypeScript, Express, PostgreSQL, and Prisma.",
+      "A key part of my work was improving API performance. I optimized database queries and high-traffic endpoints, reducing response times by 35%.",
+      "I also implemented authentication and authorization using Supabase and JWT, and worked on validation, error handling, and API documentation to make the backend more secure and reliable.",
     ],
     technologies: [
       ["TypeScript", "typescript"],
@@ -136,21 +136,19 @@ export const skills = [
       ["TypeScript", "typescript"],
       ["Node.js", "nodejs"],
       ["NestJS", "nestjs"],
-      ["Express.js", "express"],
+      ["Express", "express"],
       ["Python", "python"],
       ["FastAPI", "fastapi"],
-      ["Flask", "flask"],
       ["Java", "java"],
       ["Spring Boot", "spring"],
     ],
   },
   {
-    label: "Data",
+    label: "Databases & Data",
     items: [
       ["PostgreSQL", "postgresql"],
       ["MongoDB", "mongodb"],
       ["Prisma", "prisma"],
-      ["SQLAlchemy", "sqlalchemy"],
     ],
   },
   {
@@ -158,22 +156,20 @@ export const skills = [
     items: [
       ["React", "react"],
       ["Next.js", "nextjs"],
-      ["Angular", "angular"],
       ["JavaScript", "javascript"],
+      ["Angular", "angular"],
       ["Tailwind CSS", "tailwindcss"],
-      ["HTML", "html5"],
-      ["CSS", "css3"],
     ],
   },
   {
-    label: "Infra & Cloud",
+    label: "Infrastructure & Cloud",
     items: [
       ["Docker", "docker"],
       ["AWS", "amazonwebservices"],
       ["GitHub Actions", "githubactions"],
+      ["Azure DevOps", "azuredevops"],
       ["Supabase", "supabase"],
       ["Firebase", "firebase"],
-      ["Azure DevOps", "azuredevops"],
     ],
   },
   {
@@ -181,11 +177,18 @@ export const skills = [
     items: [
       ["Git", "git"],
       ["GitHub", "github"],
-      ["Postman", "postman"],
-      ["Swagger", "swagger"],
       ["Vitest", "vitest"],
       ["Pytest", "pytest"],
+      ["Postman", "postman"],
+      ["Swagger", "swagger"],
       ["Zod", "zod"],
+    ],
+  },
+  {
+    label: "AI Development",
+    items: [
+      ["OpenAI Codex", "openai"],
+      ["Claude Code", "claude"],
     ],
   },
 ];
