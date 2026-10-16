@@ -119,11 +119,7 @@ export default async function Home() {
                   <dt>BASED IN</dt>
                   <dd>Montréal, Canada</dd>
                   <dt>CORE STACK</dt>
-                  <dd className="mono">
-                    TypeScript · Node.js · NestJS · Python
-                    <br />
-                    PostgreSQL · React · Next.js · Docker
-                  </dd>
+                  <dd className="mono">TypeScript · Node.js · Python</dd>
                 </dl>
                 <ContactLinks compact />
               </aside>

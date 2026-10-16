@@ -33,6 +33,17 @@ for (const width of [1440, 390]) {
     ];
     for (let index = 0; index < 3; index++) {
       const article = articles.nth(index);
+      expect(
+        await article.locator(".project-links").evaluate((el) => {
+          const copy = el.parentElement!;
+          return (
+            [...copy.children].indexOf(el) <
+            [...copy.children].findIndex((node) =>
+              node.matches("p:not(.eyebrow)"),
+            )
+          );
+        }),
+      ).toBe(true);
       const screenshot = article.locator(".project-image img");
       await expect(screenshot).toHaveCount(1);
       await screenshot.scrollIntoViewIfNeeded();
@@ -97,7 +108,7 @@ for (const width of [1440, 390]) {
     await expect(chapter.locator(".community-note")).toContainText(
       "views in the past 12 months",
     );
-    await expect(chapter.locator(".community-note")).toContainText(
+    await expect(chapter.locator(".project-context")).toContainText(
       "Top Google result",
     );
     await expect(chapter.locator(".project-maintenance")).toContainText(

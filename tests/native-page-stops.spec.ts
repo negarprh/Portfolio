@@ -63,17 +63,24 @@ test("fast native touch flings stop at the next spread and reverse", async ({
   }
   // Return to free input before positioning a reading spread. Reloading here
   // races browser scroll restoration against the test's programmatic landing.
-  await page.mouse.wheel(0, 1);
+  // A modifier key exits touch snapping without starting another native scroll
+  // or snap animation that can race the programmatic reading-page setup.
+  await page.keyboard.press("Shift");
+  await expect(page.locator("html")).not.toHaveAttribute(
+    "data-book-touch-pages",
+  );
   await settleBook(page);
-  await page
-    .locator(".role-0")
-    .evaluate((el) =>
-      scrollTo({
-        top: Number((el as HTMLElement).dataset.bookTop),
-        behavior: "instant",
-      }),
-    );
+  await page.locator(".role-0").evaluate((el) =>
+    scrollTo({
+      top: Number((el as HTMLElement).dataset.bookTop),
+      behavior: "instant",
+    }),
+  );
   await settleBook(page);
+  await expect(page.locator(".role-0")).toHaveAttribute(
+    "data-page-active",
+    "true",
+  );
   await expect(
     page.locator(".physical-turn .paper-recto h3").first(),
   ).toHaveText("Tail’ed");

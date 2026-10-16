@@ -23,13 +23,6 @@ export function SelectedWork({ stars }: { stars: number | null }) {
               <div className="project-copy">
                 <h3 id={`${project.id}-title`}>{project.name}</h3>
                 <p className="eyebrow">{project.category}</p>
-                {project.paragraphs.map((paragraph) => (
-                  <p key={paragraph}>{paragraph}</p>
-                ))}
-                <dl className="project-tech mono">
-                  <dt>Tech</dt>
-                  <dd>{project.stack}</dd>
-                </dl>
                 <div className="project-links">
                   {project.live && (
                     <a
@@ -52,6 +45,13 @@ export function SelectedWork({ stars }: { stars: number | null }) {
                     View on GitHub
                   </a>
                 </div>
+                {project.paragraphs.map((paragraph) => (
+                  <p key={paragraph}>{paragraph}</p>
+                ))}
+                <dl className="project-tech mono">
+                  <dt>Tech</dt>
+                  <dd>{project.stack}</dd>
+                </dl>
               </div>
               <div className="project-evidence">
                 {project.visual === "community" && (
@@ -79,10 +79,6 @@ export function SelectedWork({ stars }: { stars: number | null }) {
                         </span>
                       </p>
                     </div>
-                    <p className="project-discovery">
-                      <strong>Top Google result</strong> for “Canadian tech
-                      internships”
-                    </p>
                   </aside>
                 )}
                 <figure>
@@ -106,10 +102,16 @@ export function SelectedWork({ stars }: { stars: number | null }) {
                   </figcaption>
                 </figure>
                 {project.visual === "community" && (
-                  <p className="mono project-maintenance">
-                    <strong>2026 → 2027</strong> · Actively maintained across
-                    recruiting cycles
-                  </p>
+                  <div className="project-context">
+                    <p className="project-discovery">
+                      <strong>Top Google result</strong> for “Canadian tech
+                      internships”
+                    </p>
+                    <p className="mono project-maintenance">
+                      <strong>2026 → 2027</strong> · Actively maintained across
+                      recruiting cycles
+                    </p>
+                  </div>
                 )}
               </div>
             </div>

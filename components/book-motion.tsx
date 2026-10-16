@@ -26,7 +26,7 @@ export function BookMotion() {
         // wrapper and chapter sections provide stable document destinations.
         const opening = document.querySelector<HTMLElement>(".book-opening");
         const top =
-          stage?.top(target) ??
+          (target.id === "top" ? 0 : stage?.top(target)) ??
           (target.id === "introduction" &&
           opening &&
           document.documentElement.dataset.bookEnhanced
@@ -35,7 +35,7 @@ export function BookMotion() {
               (opening.querySelector<HTMLElement>(".cover")?.offsetHeight || 0)
             : target.getBoundingClientRect().top + window.scrollY);
         if (window.location.hash !== link.hash)
-          history.pushState(null, "", link.hash);
+          history.pushState(history.state, "", link.hash);
         target.tabIndex = -1;
         window.scrollTo({ top, behavior: "instant" });
         renderedY = window.scrollY;
@@ -61,18 +61,21 @@ export function BookMotion() {
         if (document.documentElement.dataset.bookEnhanced) return;
         for (const entry of entries)
           if (entry.isIntersecting) {
+            const id = entry.target.matches(".cover") ? "top" : entry.target.id;
             index?.querySelectorAll("a").forEach((link) => {
-              if (link.hash === `#${entry.target.id}`)
+              if (link.hash === `#${id}`)
                 link.setAttribute("aria-current", "location");
               else link.removeAttribute("aria-current");
             });
+            if (window.location.hash !== `#${id}`)
+              history.replaceState(history.state, "", `#${id}`);
           }
       },
       { rootMargin: "-10% 0px -60% 0px", threshold: 0 },
     );
     document
       .querySelectorAll(
-        "main > section[id], .book-opening > section[id], main > footer[id]",
+        ".cover, main > section[id], .book-opening > section[id], main > footer[id]",
       )
       .forEach((section) => activeObserver.observe(section));
 
@@ -164,6 +167,11 @@ export function BookMotion() {
       if (Math.abs(targetY - renderedY) < 0.1) renderedY = targetY;
       const y = renderedY;
       stage?.update(y);
+      const currentLink = index?.querySelector<HTMLAnchorElement>(
+        'a[aria-current="location"]',
+      );
+      if (currentLink && window.location.hash !== currentLink.hash)
+        history.replaceState(history.state, "", currentLink.hash);
       const progress = clamp((y - coverHeight) / bookLength);
       if (stacks)
         stacks.style.opacity = String(
@@ -216,17 +224,17 @@ export function BookMotion() {
       measure();
     };
     const followHash = () => {
-      if (!window.location.hash || !stage) return;
+      if (!window.location.hash) return;
       const target = document.getElementById(
         decodeURIComponent(window.location.hash.slice(1)),
       );
       if (!target) return;
       const top =
-        stage.top(target) ??
+        (target.id === "top" ? 0 : stage?.top(target)) ??
         target.getBoundingClientRect().top + window.scrollY;
       window.scrollTo({ top, behavior: "instant" });
       renderedY = window.scrollY;
-      stage.update(renderedY);
+      stage?.update(renderedY);
     };
     const resize = new ResizeObserver(measure);
     resize.observe(document.body);

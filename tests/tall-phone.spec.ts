@@ -28,6 +28,15 @@ test("tall phone surfaces fill the viewport after browser-height changes", async
       "height",
       `${height}px`,
     );
+    await page.evaluate(() => scrollTo({ top: 0, behavior: "instant" }));
+    await settleBook(page);
+    expect(
+      await page
+        .locator(".cover > .cover-art")
+        .evaluate((el) =>
+          Math.abs(el.getBoundingClientRect().bottom - innerHeight),
+        ),
+    ).toBeLessThan(1);
     await page
       .locator("#introduction")
       .evaluate((el) =>

@@ -27,6 +27,7 @@ test("all chapters, real assets, and accessible desktop document", async ({
     /Currently Building|SearchStop/i,
   );
   await expect(page.locator(".book-index li a > .mono")).toHaveText([
+    "00",
     "01",
     "02",
     "03",
@@ -38,7 +39,7 @@ test("all chapters, real assets, and accessible desktop document", async ({
     await page
       .locator(".book-index li a")
       .evaluateAll((nodes) => nodes.map((node) => node.getAttribute("href"))),
-  ).toEqual(chapterIds.map((id) => `#${id}`));
+  ).toEqual(["#top", ...chapterIds.map((id) => `#${id}`)]);
   await expect(
     page.locator(".chapter-running-label > span:first-child"),
   ).toHaveText(["I", "II", "III", "IV", "V"]);

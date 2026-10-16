@@ -12,6 +12,13 @@ export function BookIndex() {
         <div className="eyebrow">Negar Pirasteh</div>
         <h2>Contents</h2>
         <ol>
+          <li>
+            <a href="#top">
+              <span className="mono">00</span>
+              Home
+              <span aria-hidden="true">↗</span>
+            </a>
+          </li>
           {chapters.map(([id, label], i) => (
             <li key={id}>
               <a href={`#${id}`}>

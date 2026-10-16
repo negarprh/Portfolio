@@ -270,10 +270,13 @@ export function createBookStage() {
         ? clamp((y - tops[incoming] + travel) / travel)
         : 0;
     const turning = p > 0 && p < 1;
-    const chapter = pages[current].closest<HTMLElement>("[id]")?.id;
+    const chapter = pages[current].matches(".cover")
+      ? "top"
+      : pages[current].closest<HTMLElement>("[id]")?.id;
     heads.forEach((head) => {
       head.style.visibility =
         head.parentElement?.id === chapter &&
+        !turning &&
         !pages[current].matches(".divider")
           ? "visible"
           : "hidden";

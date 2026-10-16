@@ -151,6 +151,14 @@ Use Negar’s supplied 31-item inventory in six categories, with the full Databa
 
 Negar reported a bottom gap on her S24 Ultra and disappearing turns during fast touch scrolling. Fill the visible stage with dynamic viewport height while keeping small-viewport scroll runways stable. Replace touch-distance snapping with bounded visual catch-up toward the latest native position; reverse without queued turns and retain immediate explicit navigation. Keep scrolling passive. Remove job-search availability from the introduction and back cover because Negar has found a role; no new job details are public.
 
+## 2026-10-16: project hierarchy and chapter-label turns
+
+Negar requested more visible project links and less clutter on phones, especially Canadian Tech Internships. Move the underlined actions directly below each title/category, strengthen their type and tap areas, and use full-width metrics followed by an uncropped screenshot and quieter contextual notes. Preserve original descriptions and factual evidence. Hide standalone running chapter labels during turns rather than leaving outgoing ink over incoming paper; restore the appropriate label on the settled reading page.
+
+## 2026-10-16: Home and navigation state
+
+Add 00 Home to the index without renumbering chapters. Keep the URL fragment aligned with the visible chapter using history replacement during scrolling, so reload no longer follows a stale explicit selection. Preserve history state and explicit navigation entries. Stretch the cover artwork and content through the dynamic viewport to address the remaining phone cover gap. Simplify the introduction Core Stack to TypeScript, Node.js, and Python; keep the full inventory in Skills. Replace “Let’s talk.” with “Get in touch.” at Negar’s request for a simpler closing.
+
 ## 2026-10-16: wide-monitor proportions and native phone page stops
 
 Negar clarified that the thin book occurs on very wide monitors. Grow the 1240px-capped paper proportionately with viewport width/height and enlarge reading blocks where space permits, sharing geometry with the fore-edges. Visual catch-up alone does not control native phone inertia: add native CSS spread stops during phone touch input and let a new finger contact cancel outstanding visual backlog at the visible page. Preserve passive gesture moves, native wheel/keyboard behavior, immediate bookmarks, and free no-JS/reduced-motion scrolling. Chapter divider runways remain longer than reading-spread runways, so a weak swipe may stay on the current chapter page.

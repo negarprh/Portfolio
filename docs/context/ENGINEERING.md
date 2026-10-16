@@ -82,6 +82,12 @@ Generated output belongs in ignored `test-results/`; do not treat it as source.
 
 ## Documentation maintenance
 
+Project action placement and evidence grouping live in `components/selected-work.tsx`; phone layouts and action emphasis are scoped in `app/makeover.css`. `book-stage.ts` hides standalone running heads while the physical sheet is turning. `tests/chapter-heads.spec.ts` checks forward/reverse chapter boundaries on desktop and phone; project tests preserve action destinations and their placement before the description.
+
+The native-fling fixture exits touch snapping with a non-scrolling modifier key before positioning a reading spread, then verifies that spread is active. A one-pixel wheel used here could race the programmatic landing with another native scroll/snap animation.
+
+`book-motion.tsx` synchronizes the URL fragment to the active index entry using replaceState while preserving framework history state. Explicit selections still push history entries. Home targets `#top` at scroll position zero; `book-stage.ts` marks the cover as Home. Cover artwork stretches to its fixed surface height, and its content uses dynamic viewport height. `tests/navigation-state.spec.ts` checks scroll/reload consistency and Home.
+
 - Update `CAREER.md` for durable personal/professional facts.
 - Update `BOOK.md` when the current visual or interaction contract changes.
 - Update this file when ownership, runtime behavior, verification, or tooling changes.

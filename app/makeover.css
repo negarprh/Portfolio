@@ -785,7 +785,7 @@ html[data-book-enhanced] .book-opening > section.introduction {
   margin: 0 0 16px;
 }
 #work .project-copy > .eyebrow {
-  margin: 0 0 26px;
+  margin: 0 0 8px;
 }
 .project-tech {
   margin-top: 28px;
@@ -863,12 +863,20 @@ html[data-book-enhanced] .book-opening > section.introduction {
   display: flex;
   flex-wrap: wrap;
   gap: 12px 28px;
-  margin-top: 22px;
+  margin: 0 0 24px;
 }
 .project-links .text-link {
   margin: 0;
   min-height: 44px;
+  padding-block: 8px;
+  color: var(--chapter-ink, #456675);
+  border-bottom-color: currentColor;
+  font-size: 16px;
+  font-weight: 600;
   gap: 8px;
+}
+.project-links + p {
+  margin-top: 0;
 }
 .project-note {
   color: var(--chapter-ink, #456675);
@@ -905,16 +913,22 @@ html[data-book-enhanced] .book-opening > section.introduction {
   font-size: clamp(24px, 2.5vw, 34px);
 }
 .project-discovery {
-  margin: 18px 0 22px;
+  margin: 0;
   font-size: 12px;
   line-height: 1.7;
 }
 .project-maintenance {
-  border-top: 1px solid var(--line);
-  padding-top: 14px;
-  margin-top: 18px;
+  margin-top: 8px;
   font-size: 10px;
   line-height: 1.8;
+}
+.project-context {
+  border-top: 1px solid var(--line);
+  margin-top: 18px;
+  padding-top: 14px;
+}
+.community-note {
+  margin-bottom: 20px;
 }
 
 /* The jacket uses the same gutter-hinged, two-sided leaf as the interior. */
@@ -938,7 +952,12 @@ html[data-book-enhanced] .cover-art::after {
   display: block;
 }
 html[data-book-enhanced] .cover > .cover-art {
+  height: 100%;
+  min-height: 100%;
   pointer-events: auto;
+}
+html[data-book-enhanced] .cover-art > .cover-content {
+  min-height: 100dvh;
 }
 html[data-book-enhanced] .cover[data-turning="true"] > .cover-art {
   clip-path: inset(0 50% 0 0);
@@ -1295,7 +1314,7 @@ html[data-book-enhanced] #work .project-image img {
     gap: 14px;
   }
   html[data-book-enhanced] #work .project-copy > .eyebrow {
-    margin-bottom: 12px;
+    margin-bottom: 4px;
   }
   html[data-book-enhanced] .project-tech {
     margin-top: 12px;
@@ -1308,11 +1327,11 @@ html[data-book-enhanced] #work .project-image img {
     line-height: 1.45;
   }
   html[data-book-enhanced] .project-links {
-    margin-top: 8px;
-    gap: 12px 24px;
+    margin: 0 0 16px;
+    gap: 8px 24px;
   }
   html[data-book-enhanced] .project-links .text-link {
-    min-height: 32px;
+    min-height: 44px;
   }
   html[data-book-enhanced] #work .project-image img {
     max-height: 20svh;
@@ -1401,14 +1420,9 @@ html[data-book-enhanced] #work .project-image img {
     line-height: 1.4;
   }
   html[data-book-enhanced] .flagship .project-evidence {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 8px 12px;
-    align-items: start;
-  }
-  html[data-book-enhanced] .flagship .project-maintenance {
-    grid-column: 1 / -1;
-    margin-top: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
   }
   html[data-book-enhanced] .flagship .project-impact {
     gap: 8px;
@@ -1417,14 +1431,69 @@ html[data-book-enhanced] #work .project-image img {
     font-size: 24px;
   }
   html[data-book-enhanced] .flagship .project-proof > span {
-    font-size: 9px;
+    font-size: 10px;
   }
   html[data-book-enhanced] .flagship .project-discovery {
-    font-size: 10px;
-    margin-bottom: 0;
+    font-size: 11px;
+    margin: 0;
   }
   html[data-book-enhanced] .book-fixed-page {
     touch-action: pan-y;
+  }
+}
+
+/* Phone projects read down one column, with actions next to their title. */
+@media (max-width: 700px) {
+  #work .project-links {
+    margin: 0 0 16px;
+    gap: 8px 24px;
+  }
+  #work .project-tech {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    margin-top: 14px;
+  }
+  #work .project-tech dt {
+    flex: none;
+    font-size: 10px;
+    margin: 0;
+  }
+  #work .project-tech dd {
+    font-size: 12px;
+    line-height: 1.5;
+  }
+  #work .project-evidence {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  #work .project-evidence > * {
+    width: 100%;
+  }
+  #work .community-note {
+    margin: 0;
+  }
+  #work .project-impact {
+    gap: 24px;
+  }
+  #work .project-context {
+    margin: 0;
+    padding-top: 10px;
+  }
+  #work .project-discovery {
+    margin: 0;
+    font-size: 11px;
+    line-height: 1.5;
+  }
+  #work .project-maintenance {
+    margin-top: 4px;
+    padding: 0;
+    font-size: 10px;
+    letter-spacing: 0;
+  }
+  html[data-book-enhanced] #work .project-image img {
+    max-height: 16svh;
   }
 }
 

@@ -15,7 +15,7 @@ export function Closing() {
       </span>
       <div className="colophon">
         <p className="eyebrow">Contact</p>
-        <h2 id="contact-title">Let’s talk.</h2>
+        <h2 id="contact-title">Get in touch.</h2>
         <ContactLinks />
       </div>
       <p className="colophon-device mono">Montréal · 2026</p>

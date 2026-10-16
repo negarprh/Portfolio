@@ -19,7 +19,7 @@ Do not infer dates, seniority, degree equivalence, business impact, ownership, t
 - Location: Montréal, Québec, Canada.
 - Public role label: Software Developer.
 - Introduction ROLE label: Backend / Full-Stack Developer (approved 2026-09-24); the cover keeps Software Developer.
-- Introduction CORE STACK: TypeScript · Node.js · NestJS · Python · PostgreSQL · React · Next.js · Docker (approved 2026-10-12).
+- Introduction CORE STACK: TypeScript · Node.js · Python (simplified at Negar’s request, 2026-10-16). Frameworks and supporting tools remain in the Skills chapter.
 - Focus: backend software development.
 - Core backend stacks: TypeScript with NestJS; Python with FastAPI.
 - Additional verified experience: Node.js, Express, Java/Spring Boot, Prisma/PostgreSQL, SQLAlchemy, Redis, Docker, cloud/tooling, and React/frontend contributions as needed.
@@ -152,7 +152,7 @@ This is a display taxonomy, not a proficiency ranking. Adding a skill requires a
 - GitHub: `https://github.com/negarprh`.
 - LinkedIn: `https://www.linkedin.com/in/negar-pirasteh/`.
 - Show LinkedIn in the introduction contact links; omit the introduction’s unset-resume placeholder.
-- Contact keeps “Let’s talk.” and Email/LinkedIn/GitHub links. The earlier role-seeking contact copy is superseded by Negar’s 2026-10-16 request to remove availability messages.
+- Contact uses “Get in touch.” and Email/LinkedIn/GitHub links, simplified at Negar’s request on 2026-10-16. The earlier role-seeking contact copy is superseded by her request to remove availability messages.
 - Public email approved by Negar on 2026-09-25: `negarpr@hotmail.com` (the backslash in the supplied Markdown escaped the @ sign).
 - Negar confirmed on 2026-10-12 that she will not add a résumé right now. Omit Resume links and placeholders; contact links remain Email, LinkedIn, and GitHub.
 
