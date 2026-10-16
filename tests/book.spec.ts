@@ -66,11 +66,9 @@ test("all chapters, real assets, and accessible desktop document", async ({
     "Lienzo",
     "Ozex",
   ]);
-  await expect(page.locator(".experience-row .job-heading > .eyebrow")).toHaveText([
-    "Summer 2026",
-    "Dec 2025 - Mar 2026",
-    "Feb - May 2025",
-  ]);
+  await expect(
+    page.locator(".experience-row .job-heading > .eyebrow"),
+  ).toHaveText(["Summer 2026", "Dec 2025 - Mar 2026", "Feb - May 2025"]);
   await expect(page.locator("#experience")).toContainText(
     "4.7 hours to 1.8 hours",
   );
@@ -80,6 +78,12 @@ test("all chapters, real assets, and accessible desktop document", async ({
   );
   await expect(page.locator("#education .education-program")).toHaveText(
     "Computer Science: Programming",
+  );
+  await expect(page.locator("#education h4")).toHaveText(
+    "Computer Science: Programming",
+  );
+  await expect(page.locator("#education .education-college")).toHaveText(
+    "LaSalle College",
   );
   await expect(page.locator("#education .education-dates")).toHaveText(
     "2023 - 2026",

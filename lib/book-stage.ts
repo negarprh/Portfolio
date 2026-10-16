@@ -357,6 +357,8 @@ export function createBookStage() {
   return {
     measure,
     update,
+    stops: () => [...tops],
+    travel: () => runwayHeight * TURN_TRAVEL,
     top: (page: HTMLElement) => tops[pages.indexOf(page)],
     destroy() {
       restoreReading();

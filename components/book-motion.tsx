@@ -2,6 +2,7 @@
 import { useEffect } from "react";
 import { createBookStage } from "@/lib/book-stage";
 import { TURN_RESPONSE_MS } from "@/lib/book-effects";
+import { createPhoneTurns } from "@/lib/phone-turns";
 
 /** Enhancement only: native links and the full document remain usable without JS. */
 export function BookMotion() {
@@ -21,6 +22,7 @@ export function BookMotion() {
       index.open = false;
       const target = document.querySelector<HTMLElement>(link.hash);
       if (target) {
+        phoneTurns.cancel();
         event.preventDefault();
         // Sticky rectangles depend on the current scroll position. The opening
         // wrapper and chapter sections provide stable document destinations.
@@ -96,35 +98,39 @@ export function BookMotion() {
     let bookLength = 1;
     let backTop = 0;
     let touchScroll = false;
+    const phoneEnabled = () =>
+      !!stage &&
+      !preference.matches &&
+      window.matchMedia("(max-width: 700px)").matches;
+    const phoneTurns = createPhoneTurns({
+      enabled: phoneEnabled,
+      stops: () => stage?.stops() ?? [],
+      travel: () => stage?.travel() ?? innerHeight * 0.85,
+      position: () => renderedY,
+      seek: (top) => {
+        window.scrollTo({ top, behavior: "instant" });
+        renderedY = window.scrollY;
+        stage?.update(renderedY);
+        scroll();
+      },
+    });
     const onTouch = () => {
+      if (phoneEnabled()) return;
       // A new finger contact is a brake: cancel the visual backlog at the page
       // the reader actually sees, before the next native gesture begins.
       const braking =
         stage && touchScroll && Math.abs(window.scrollY - renderedY) > 1;
       if (braking) {
-        delete document.documentElement.dataset.bookTouchPages;
         window.scrollTo({ top: renderedY, behavior: "instant" });
         renderedY = window.scrollY;
         stage?.update(renderedY);
       }
       touchScroll = true;
-      if (!braking && stage && window.matchMedia("(max-width: 700px)").matches)
-        document.documentElement.dataset.bookTouchPages = "true";
-    };
-    const onTouchMove = () => {
-      if (
-        stage &&
-        !document.documentElement.dataset.bookTouchPages &&
-        window.matchMedia("(max-width: 700px)").matches
-      )
-        document.documentElement.dataset.bookTouchPages = "true";
     };
     const onDirectInput = () => {
       touchScroll = false;
-      delete document.documentElement.dataset.bookTouchPages;
     };
     window.addEventListener("touchstart", onTouch, { passive: true });
-    window.addEventListener("touchmove", onTouchMove, { passive: true });
     window.addEventListener("wheel", onDirectInput, { passive: true });
     window.addEventListener("keydown", onDirectInput);
     const clamp = (value: number) => Math.max(0, Math.min(1, value));
@@ -154,9 +160,8 @@ export function BookMotion() {
       const elapsed = lastFrame ? Math.min(now - lastFrame, 64) : 1000 / 60;
       lastFrame = now;
       const distance = targetY - renderedY;
-      // Follow the latest target with no queued turns or native input blocking.
-      // Touch inertia can cross a whole leaf between scroll events: bound the
-      // visual step so it still traverses the physical turn instead of snapping.
+      // Wheel/keyboard and larger touch surfaces retain native scroll response.
+      // Phone gestures synchronize their visual coordinate directly in seek().
       const response = distance * (1 - Math.exp(-elapsed / TURN_RESPONSE_MS));
       const maxStep = (window.innerHeight * 6 * Math.min(elapsed, 32)) / 1000;
       renderedY += touchScroll
@@ -190,6 +195,7 @@ export function BookMotion() {
       if (!frame) frame = requestAnimationFrame(update);
     };
     const clear = () => {
+      phoneTurns.cancel();
       stage?.destroy();
       stage = undefined;
       if (cover) cover.style.visibility = "";
@@ -199,7 +205,6 @@ export function BookMotion() {
       frame = 0;
       lastFrame = 0;
       delete document.documentElement.dataset.bookEnhanced;
-      delete document.documentElement.dataset.bookTouchPages;
       if (cover) delete cover.dataset.turning;
       cover?.querySelector(".sheet-front")?.replaceChildren();
       backCover?.querySelector(".sheet-back .closing-art")?.remove();
@@ -224,6 +229,7 @@ export function BookMotion() {
       measure();
     };
     const followHash = () => {
+      phoneTurns.cancel();
       if (!window.location.hash) return;
       const target = document.getElementById(
         decodeURIComponent(window.location.hash.slice(1)),
@@ -253,6 +259,7 @@ export function BookMotion() {
     window.addEventListener("resize", measure);
     return () => {
       disposed = true;
+      phoneTurns.destroy();
       images.forEach((image) => image.removeEventListener("load", measure));
       clear();
       resize.disconnect();
@@ -264,7 +271,6 @@ export function BookMotion() {
       window.removeEventListener("resize", measure);
       window.removeEventListener("hashchange", followHash);
       window.removeEventListener("touchstart", onTouch);
-      window.removeEventListener("touchmove", onTouchMove);
       window.removeEventListener("wheel", onDirectInput);
       window.removeEventListener("keydown", onDirectInput);
     };

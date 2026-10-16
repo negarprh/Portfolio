@@ -130,6 +130,7 @@ Use Negar’s latest supplied three-paragraph descriptions for each role (2026-1
 
 - LaSalle College, Montréal, Québec.
 - DEC / Diploma of College Studies; Computer Science: Programming.
+- Education emphasizes Computer Science: Programming as the main credential heading, with LaSalle College in supporting type (Negar’s direction, 2026-10-16). Credential meaning remains DEC, not a bachelor’s degree.
 - Do not recast this credential as a bachelor’s degree.
 - Negar supplied and approved study dates 2023–2026 and the three-year technical program description on 2026-09-24, superseding the earlier unverified-date fallback.
 - Approved context: “A three-year technical program centered on software development, combining computer science fundamentals with hands-on application.” Do not include internship counts or repeat employers in Education.

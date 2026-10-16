@@ -845,6 +845,11 @@ html[data-book-enhanced] .book-opening > section.introduction {
   color: var(--muted);
   margin-top: 18px;
 }
+.education-college {
+  font-size: 16px;
+  line-height: 1.7;
+  margin-top: 10px;
+}
 .education-context {
   border-top: 1px solid var(--line);
   margin-top: 28px;
@@ -1104,14 +1109,6 @@ html[data-book-enhanced] .back-cover .sheet-back {
   html[data-book-enhanced] {
     --book-inset: calc((100vw - var(--wide-book-width)) / 2);
   }
-}
-html[data-book-enhanced][data-book-touch-pages] {
-  scroll-snap-type: y mandatory;
-  scroll-padding-top: 0;
-}
-html[data-book-enhanced][data-book-touch-pages] .book-page-slot {
-  scroll-snap-align: start;
-  scroll-snap-stop: always;
 }
 html[data-book-enhanced] .book-fixed-page.book-fixed-page {
   position: fixed !important;
@@ -1438,7 +1435,7 @@ html[data-book-enhanced] #work .project-image img {
     margin: 0;
   }
   html[data-book-enhanced] .book-fixed-page {
-    touch-action: pan-y;
+    touch-action: pan-x pinch-zoom;
   }
 }
 

@@ -151,6 +151,10 @@ Use Negar’s supplied 31-item inventory in six categories, with the full Databa
 
 Negar reported a bottom gap on her S24 Ultra and disappearing turns during fast touch scrolling. Fill the visible stage with dynamic viewport height while keeping small-viewport scroll runways stable. Replace touch-distance snapping with bounded visual catch-up toward the latest native position; reverse without queued turns and retain immediate explicit navigation. Keep scrolling passive. Remove job-search availability from the introduction and back cover because Negar has found a role; no new job details are public.
 
+## 2026-10-16: controlled phone turns and degree-first education
+
+Native snap and bounded visual catch-up still felt uncontrolled on Negar’s phone, with a vertical shift during the first opening. Replace enhanced phone vertical panning with a finger-driven gesture limited to one adjacent leaf. Release settles or rolls back; a fresh touch brakes immediately. Permit pinch zoom and preserve native wheel/keyboard, reduced-motion, and no-JS behavior. This explicitly supersedes the earlier passive-phone/no-interception direction. Keep paper fixed from the first gesture and verify its top coordinate during actual simulated swipes. In Education, promote Computer Science: Programming over the college name while retaining the verified DEC credential.
+
 ## 2026-10-16: project hierarchy and chapter-label turns
 
 Negar requested more visible project links and less clutter on phones, especially Canadian Tech Internships. Move the underlined actions directly below each title/category, strengthen their type and tap areas, and use full-width metrics followed by an uncropped screenshot and quieter contextual notes. Preserve original descriptions and factual evidence. Hide standalone running chapter labels during turns rather than leaving outgoing ink over incoming paper; restore the appropriate label on the settled reading page.
