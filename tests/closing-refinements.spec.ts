@@ -12,9 +12,7 @@ for (const width of [1440, 390]) {
       "true",
     );
     await page.evaluate(() => document.fonts.ready);
-    await expect(page.locator("#introduction .availability")).toHaveText(
-      "Open to Montréal and remote roles",
-    );
+    await expect(page.locator("#introduction .availability")).toHaveCount(0);
     if (width > 700) {
       const centerDifference = await page
         .locator(".intro-grid")
@@ -33,7 +31,7 @@ for (const width of [1440, 390]) {
     await expect(page.locator("#contact-title")).toHaveText("Let’s talk.");
     await expect(
       page.locator("#contact > .colophon > .colophon-note"),
-    ).toHaveText("I’m currently open to softwaredevelopment opportunities.");
+    ).toHaveCount(0);
     await expect(page.locator("#contact .colophon-name")).toHaveCount(0);
     const contactLinks = page.locator(
       "#contact > .colophon > .closing-links > *",

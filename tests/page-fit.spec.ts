@@ -7,9 +7,17 @@ for (const [width, height] of [
   [360, 640],
   [390, 844],
   [430, 932],
+  [384, 824],
+  [412, 915],
+  [412, 1000],
+  [430, 960],
   [768, 1024],
   [844, 390],
   [1440, 900],
+  [1920, 1080],
+  [2560, 1440],
+  [3440, 1440],
+  [3840, 2160],
 ]) {
   test(`complete reading content fits and stays centered at ${width}x${height}`, async ({
     page,
@@ -87,7 +95,9 @@ for (const [width, height] of [
     });
     await page.emulateMedia({ reducedMotion: "reduce" });
     await expect(
-      page.locator('.spread-content[style*="zoom"], .intro-grid[style*="zoom"]'),
+      page.locator(
+        '.spread-content[style*="zoom"], .intro-grid[style*="zoom"]',
+      ),
     ).toHaveCount(0);
   });
 }

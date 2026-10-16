@@ -116,8 +116,8 @@ test("both covers share their material and remain complete in static fallbacks",
     expect(materials[0].texture).toBe(materials[1].texture);
     expect(materials[0].border).toBe(materials[1].border);
     expect(materials[0].position).toBe("relative");
-    await expect(page.locator(".back-cover")).toContainText(
-      "development opportunities.",
+    await expect(page.locator(".back-cover")).not.toContainText(
+      /open to|opportunities/i,
     );
     await expect(page.locator(".back-cover .closing-links")).toContainText(
       "Email",

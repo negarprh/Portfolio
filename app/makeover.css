@@ -1074,14 +1074,34 @@ html[data-book-enhanced] .back-cover .sheet-back {
 }
 
 /* Scroll runways retain document destinations; only the articulated leaf moves. */
+@media (min-width: 1600px) {
+  html {
+    --wide-book-width: min(calc(100vw - 112px), max(1240px, min(80vw, 180dvh)));
+  }
+  :is(main, .book-opening) > section:not(.cover),
+  .back-cover {
+    width: var(--wide-book-width);
+  }
+  html[data-book-enhanced] {
+    --book-inset: calc((100vw - var(--wide-book-width)) / 2);
+  }
+}
+html[data-book-enhanced][data-book-touch-pages] {
+  scroll-snap-type: y mandatory;
+  scroll-padding-top: 0;
+}
+html[data-book-enhanced][data-book-touch-pages] .book-page-slot {
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+}
 html[data-book-enhanced] .book-fixed-page.book-fixed-page {
   position: fixed !important;
   top: 0 !important;
   left: var(--fixed-book-left);
   width: var(--fixed-book-width);
-  height: 100svh !important;
+  height: 100dvh !important;
   min-height: 0 !important;
-  max-height: 100svh;
+  max-height: 100dvh;
   margin: 0 !important;
   overflow: auto;
   overscroll-behavior: auto;
@@ -1107,7 +1127,7 @@ html[data-book-enhanced] main > section > .book-fixed-head {
 .physical-turn {
   position: fixed;
   top: 0;
-  height: 100svh;
+  height: 100dvh;
   z-index: 18;
   pointer-events: none;
   overflow: clip;

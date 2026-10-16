@@ -113,9 +113,6 @@ export default async function Home() {
                 </p>
               </div>
               <aside className="intro-facts">
-                <p className="availability">
-                  <span /> Open to Montréal and remote roles
-                </p>
                 <dl>
                   <dt>ROLE</dt>
                   <dd>Backend / Full-Stack Developer</dd>

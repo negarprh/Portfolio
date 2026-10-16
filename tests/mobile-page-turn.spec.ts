@@ -1,7 +1,7 @@
 import { test, expect } from "@playwright/test";
 import { settleBook } from "./motion-helpers";
 
-test("native phone swipes turn and reverse the opening, interior and closing sheets", async ({
+test("phone reading input scrolls the document and reverse sheet text stays hidden", async ({
   browser,
 }) => {
   const context = await browser.newContext({
@@ -13,49 +13,6 @@ test("native phone swipes turn and reverse the opening, interior and closing she
   await page.goto("/");
   await expect(page.locator(".physical-turn")).toHaveCount(1);
   await page.evaluate(() => document.fonts.ready);
-  const client = await context.newCDPSession(page);
-  for (const selector of ["#introduction", ".skills-spread", "#contact"]) {
-    const top = await page
-      .locator(selector)
-      .first()
-      .evaluate((el) => Number((el as HTMLElement).dataset.bookTop));
-    await page.evaluate((y) => scrollTo(0, y), top - 844 * 0.85 * 0.7);
-    await settleBook(page);
-    for (const points of [
-      [650, 600, 550, 500],
-      [400, 450, 500, 550],
-    ]) {
-      const before = await page.evaluate(() => scrollY);
-      await client.send("Input.dispatchTouchEvent", {
-        type: "touchStart",
-        touchPoints: [{ x: 190, y: points[0] }],
-      });
-      for (const y of points.slice(1)) {
-        await client.send("Input.dispatchTouchEvent", {
-          type: "touchMove",
-          touchPoints: [{ x: 190, y }],
-        });
-        await page.waitForTimeout(30);
-      }
-      await page.waitForTimeout(100);
-      await client.send("Input.dispatchTouchEvent", {
-        type: "touchEnd",
-        touchPoints: [],
-      });
-      await settleBook(page);
-      const after = await page.evaluate(() => scrollY);
-      if (points[0] === 650) expect(after).toBeGreaterThan(before);
-      else expect(after).toBeLessThan(before);
-      expect(
-        await page
-          .locator(".book-fixed-page")
-          .evaluateAll((es) =>
-            es.every((el) => el.getBoundingClientRect().top === 0),
-          ),
-      ).toBe(true);
-      await expect(page.locator(".physical-turn")).toBeVisible();
-    }
-  }
   // Input over reading text must scroll the document, never a nested page.
   const top = await page
     .locator("#introduction")

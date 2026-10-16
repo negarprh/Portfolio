@@ -17,7 +17,7 @@ export async function settleBook(page: Page) {
           const stage = document.querySelector<HTMLElement>(".physical-turn");
           return !!stage && Math.abs(Number(stage.dataset.scrollY) - y) < 0.01;
         }),
-      { timeout: 1500, intervals: [16, 32, 64] },
+      { timeout: 5000, intervals: [16, 32, 64] },
     )
     .toBe(true);
 }

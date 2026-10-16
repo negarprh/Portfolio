@@ -41,6 +41,10 @@ Legacy `index.html`, `head.html`, and `assets/` are reference material from the 
 - GitHub stars are server-fetched public data; no client polling and no invented fallback number.
 - Enhanced interior materials are gated by `html[data-book-enhanced]`. Static fallbacks remain readable without it.
 - `lib/book-stage.ts` measures full reading blocks after fonts and images load and on resize, applies a static layout scale only when necessary, and centers them within symmetric bounds. Teardown restores their original inline styles. Do not reintroduce nested page scrolling or replace original copy with summaries.
+- Fixed visible pages and the turn stage use dynamic viewport height; a hidden fixed `100svh` probe supplies stable runway heights and turn distances. The probe is removed on teardown. `BookMotion` bounds touch visual catch-up while leaving native scrolling passive; explicit navigation still lands immediately.
+- The final slot uses the larger of small and visible viewport height so contact remains reachable after browser chrome retracts. `tests/tall-phone.spec.ts` explicitly simulates this height mismatch without claiming to reproduce real browser chrome.
+- Phone gestures enable native snap stops on `.book-page-slot`; their scroll margins match measured chapter/spread destinations. A fresh touch brakes outstanding visual lag by resynchronizing native scroll to the visible position. Wheel, keyboard, reduced motion, and teardown remove phone snap mode.
+- Large-monitor paper widths and fore-edge insets share `--wide-book-width` in `makeover.css`. `book-stage.ts` scales reading content up to 1.8× on spacious screens before applying height fitting. `tests/wide-book.spec.ts` checks proportions and fore-edge alignment from 1920×1080 through 5120×1440; the page-fit matrix also covers large monitors. `tests/native-page-stops.spec.ts` checks actual simulated fast touch flings, reversal, touch-down braking, and reduced-motion removal. The older coalesced-scroll test alone does not establish native fling control.
 - Decorative turning-sheet snapshots are inert and sanitized, including removal of IDs and boundary attributes. Original pages retain semantic content and links. Source styles preserve chapter-scoped layouts inside clipped front/back sheet strips.
 - Experience SVG chips load eagerly so requests begin during the opening; other deferred assets keep their existing loading policy.
 - `.book-opening`, `.opening-runway`, and introduction scroll margins coordinate the enhanced cover overlap with native anchor landing. Do not remove one in isolation.
@@ -73,6 +77,8 @@ Generated output belongs in ignored `test-results/`; do not treat it as source.
 `tests/projects.spec.ts` verifies the three-project selection, public link destinations and attributes, desktop/mobile spread reversals, reduced motion, and no-JS rendering. Project data owns explicit GitHub/live URLs and optional existing artwork; do not infer a deployment URL from a repository name.
 
 `tests/skills.spec.ts` verifies the approved 31-item inventory in six categories across two Skills spreads, four viewport sizes, decorative monochrome logos, overflow, reversed turns, reduced motion, and no-JS content. Skills layout and optical logo sizing are scoped to `#skills` in `app/makeover.css`.
+
+`tests/tall-phone.spec.ts` covers tall touch viewports, height changes, coalesced touch-scroll jumps, intermediate turns, reversal, and removed availability. Page-fit coverage includes 384×824, 412×915, 412×1000, and 430×960 in addition to the existing matrix. These are simulated browser checks, not physical Samsung device validation.
 
 ## Documentation maintenance
 

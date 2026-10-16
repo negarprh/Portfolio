@@ -92,6 +92,38 @@ export function BookMotion() {
     let coverHeight = window.innerHeight;
     let bookLength = 1;
     let backTop = 0;
+    let touchScroll = false;
+    const onTouch = () => {
+      // A new finger contact is a brake: cancel the visual backlog at the page
+      // the reader actually sees, before the next native gesture begins.
+      const braking =
+        stage && touchScroll && Math.abs(window.scrollY - renderedY) > 1;
+      if (braking) {
+        delete document.documentElement.dataset.bookTouchPages;
+        window.scrollTo({ top: renderedY, behavior: "instant" });
+        renderedY = window.scrollY;
+        stage?.update(renderedY);
+      }
+      touchScroll = true;
+      if (!braking && stage && window.matchMedia("(max-width: 700px)").matches)
+        document.documentElement.dataset.bookTouchPages = "true";
+    };
+    const onTouchMove = () => {
+      if (
+        stage &&
+        !document.documentElement.dataset.bookTouchPages &&
+        window.matchMedia("(max-width: 700px)").matches
+      )
+        document.documentElement.dataset.bookTouchPages = "true";
+    };
+    const onDirectInput = () => {
+      touchScroll = false;
+      delete document.documentElement.dataset.bookTouchPages;
+    };
+    window.addEventListener("touchstart", onTouch, { passive: true });
+    window.addEventListener("touchmove", onTouchMove, { passive: true });
+    window.addEventListener("wheel", onDirectInput, { passive: true });
+    window.addEventListener("keydown", onDirectInput);
     const clamp = (value: number) => Math.max(0, Math.min(1, value));
     const measure = () => {
       if (preference.matches) return;
@@ -106,7 +138,7 @@ export function BookMotion() {
       backTop =
         (backCover && stage?.top(backCover)) ||
         (backCover?.getBoundingClientRect().top || 0) + window.scrollY;
-      renderedY = window.scrollY;
+      if (!touchScroll) renderedY = window.scrollY;
       scroll();
     };
     const update = (now: number) => {
@@ -119,12 +151,16 @@ export function BookMotion() {
       const elapsed = lastFrame ? Math.min(now - lastFrame, 64) : 1000 / 60;
       lastFrame = now;
       const distance = targetY - renderedY;
-      // Follow the latest native position, never intercept wheel input. Large
-      // navigation jumps snap; small notches settle without queued animations.
-      renderedY =
-        Math.abs(distance) > window.innerHeight
-          ? targetY
-          : renderedY + distance * (1 - Math.exp(-elapsed / TURN_RESPONSE_MS));
+      // Follow the latest target with no queued turns or native input blocking.
+      // Touch inertia can cross a whole leaf between scroll events: bound the
+      // visual step so it still traverses the physical turn instead of snapping.
+      const response = distance * (1 - Math.exp(-elapsed / TURN_RESPONSE_MS));
+      const maxStep = (window.innerHeight * 6 * Math.min(elapsed, 32)) / 1000;
+      renderedY += touchScroll
+        ? Math.max(-maxStep, Math.min(maxStep, response))
+        : Math.abs(distance) > window.innerHeight
+          ? distance
+          : response;
       if (Math.abs(targetY - renderedY) < 0.1) renderedY = targetY;
       const y = renderedY;
       stage?.update(y);
@@ -155,6 +191,7 @@ export function BookMotion() {
       frame = 0;
       lastFrame = 0;
       delete document.documentElement.dataset.bookEnhanced;
+      delete document.documentElement.dataset.bookTouchPages;
       if (cover) delete cover.dataset.turning;
       cover?.querySelector(".sheet-front")?.replaceChildren();
       backCover?.querySelector(".sheet-back .closing-art")?.remove();
@@ -173,6 +210,8 @@ export function BookMotion() {
       if (preference.matches) return;
       document.documentElement.dataset.bookEnhanced = "true";
       stage = createBookStage();
+      renderedY = window.scrollY;
+      lastFrame = 0;
       window.addEventListener("scroll", scroll, { passive: true });
       measure();
     };
@@ -196,7 +235,9 @@ export function BookMotion() {
     document.fonts.ready.then(() => {
       if (!disposed) measure();
     });
-    const images = Array.from(document.querySelectorAll<HTMLImageElement>(".book-fixed-page img"));
+    const images = Array.from(
+      document.querySelectorAll<HTMLImageElement>(".book-fixed-page img"),
+    );
     images.forEach((image) => image.addEventListener("load", measure));
     followHash();
     window.addEventListener("hashchange", followHash);
@@ -214,6 +255,10 @@ export function BookMotion() {
       preference.removeEventListener("change", configureMotion);
       window.removeEventListener("resize", measure);
       window.removeEventListener("hashchange", followHash);
+      window.removeEventListener("touchstart", onTouch);
+      window.removeEventListener("touchmove", onTouchMove);
+      window.removeEventListener("wheel", onDirectInput);
+      window.removeEventListener("keydown", onDirectInput);
     };
   }, []);
   return (

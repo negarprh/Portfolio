@@ -16,11 +16,6 @@ export function Closing() {
       <div className="colophon">
         <p className="eyebrow">Contact</p>
         <h2 id="contact-title">Let’s talk.</h2>
-        <p className="colophon-note">
-          I’m currently open to software
-          <br />
-          development opportunities.
-        </p>
         <ContactLinks />
       </div>
       <p className="colophon-device mono">Montréal · 2026</p>

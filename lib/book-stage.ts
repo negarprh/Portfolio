@@ -46,11 +46,19 @@ export function createBookStage() {
   contact.className = "turn-shadow physical-contact";
   stage.append(shadow, contact);
   document.body.append(stage);
+  // Keep native destinations stable as mobile browser chrome expands/collapses.
+  // Only the visible paper uses the dynamic viewport height.
+  const runway = document.createElement("div");
+  runway.className = "book-viewport-probe";
+  runway.style.cssText =
+    "position:fixed;height:100svh;width:0;visibility:hidden;pointer-events:none";
+  document.body.append(runway);
   let tops: number[] = [];
   let active = -1;
   let strips: HTMLElement[] = [];
   let width = 0;
   let height = 0;
+  let runwayHeight = 0;
   let sizes: DOMRect[] = [];
   let stageLeft = 0;
   let warmTimer = 0;
@@ -140,8 +148,8 @@ export function createBookStage() {
   const measure = () => {
     clearTimeout(warmTimer);
     warmTimer = 0;
-    // Match the CSS small-viewport book height on phones with collapsing chrome.
     height = stage.getBoundingClientRect().height;
+    runwayHeight = runway.getBoundingClientRect().height;
     restoreReading();
     // Temporarily restore natural sizes; all writes complete before the next paint.
     pages.forEach((page) => page.classList.remove("book-fixed-page"));
@@ -159,7 +167,9 @@ export function createBookStage() {
     mobile = matchMedia("(max-width: 700px)").matches;
     slots.forEach((slot, i) => {
       slot.style.display = "block";
-      slot.style.height = `${height}px`;
+      // The final destination must remain reachable when browser chrome hides
+      // and the visible viewport grows beyond the stable small-viewport runway.
+      slot.style.height = `${i === pages.length - 1 ? Math.max(height, runwayHeight) : runwayHeight}px`;
     });
     pages.forEach((page) => page.classList.add("book-fixed-page"));
     tops = slots.map((slot, i) => {
@@ -168,6 +178,8 @@ export function createBookStage() {
     });
     pages.forEach((page, i) => {
       page.dataset.bookTop = String(tops[i]);
+      slots[i].style.scrollMarginTop =
+        `${slots[i].getBoundingClientRect().top + scrollY - tops[i]}px`;
     });
     heads.forEach((head) => {
       head.classList.add("book-fixed-head");
@@ -191,10 +203,13 @@ export function createBookStage() {
         content.style.left = `${left / scale}px`;
         return content.getBoundingClientRect().height;
       };
-      let scale = 1;
-      if (size(1) > availableHeight) {
+      // Large monitors need a proportionate reading block as well as wider paper.
+      let scale = mobile
+        ? 1
+        : Math.max(1, Math.min(page.clientWidth / 1240, height / 900, 1.8));
+      if (size(scale) > availableHeight) {
         let low = 0.1;
-        let high = 1;
+        let high = scale;
         for (let n = 0; n < 12; n++) {
           const mid = (low + high) / 2;
           if (size(mid) <= availableHeight - 1) low = mid;
@@ -246,7 +261,7 @@ export function createBookStage() {
   };
   const update = (y: number) => {
     stage.dataset.scrollY = String(y);
-    const travel = height * TURN_TRAVEL;
+    const travel = runwayHeight * TURN_TRAVEL;
     let current = 0;
     while (current + 1 < pages.length && y >= tops[current + 1]) current++;
     const incoming = current + 1;
@@ -344,6 +359,7 @@ export function createBookStage() {
       restoreReading();
       clearTimeout(warmTimer);
       stage.remove();
+      runway.remove();
       heads.forEach((head) => {
         head.classList.remove("book-fixed-head");
         head.style.removeProperty("left");
