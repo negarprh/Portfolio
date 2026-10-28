@@ -53,7 +53,7 @@ test("three adjacent chapters are identifiable with every animation stopped", as
   expect(new Set(papers).size).toBe(3);
 });
 
-test("a fast wheel scroll holds the full chapter title without blocking scrolling", async ({
+test("a fast wheel scroll is slowed while keeping the full chapter title readable", async ({
   page,
 }) => {
   await page.setViewportSize({ width: 1440, height: 1000 });
@@ -74,7 +74,8 @@ test("a fast wheel scroll holds the full chapter title without blocking scrollin
   await page.mouse.wheel(0, 600);
   await expect
     .poll(() => page.evaluate(() => scrollY))
-    .toBeGreaterThan(before + 500);
+    .toBeGreaterThan(before + 300);
+  expect(await page.evaluate(() => scrollY)).toBeLessThan(before + 550);
   await expect(page.locator("#work .divider h2")).toBeInViewport();
   const divider = await page.locator("#work .divider").boundingBox();
   expect(Math.abs(divider!.y)).toBeLessThan(3);

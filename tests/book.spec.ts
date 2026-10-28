@@ -79,8 +79,12 @@ test("all chapters, real assets, and accessible desktop document", async ({
   await expect(page.locator("#education .education-program")).toHaveText(
     "Computer Science: Programming",
   );
-  await expect(page.locator("#education h4")).toHaveText(
+  await expect(page.locator("#education .education-content h3")).toHaveText(
     "Computer Science: Programming",
+  );
+  await expect(page.locator("#education .education-content h4")).toHaveCount(0);
+  await expect(page.locator("#education .education-content")).not.toContainText(
+    "Software Development",
   );
   await expect(page.locator("#education .education-college")).toHaveText(
     "LaSalle College",

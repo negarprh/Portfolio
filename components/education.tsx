@@ -12,18 +12,12 @@ export function Education() {
       <div className="section education-spread" data-boundary="spread">
         <div className="spread-content education-content">
           <div className="education-field">
-            <h3>
-              COMPUTER
-              <br />
-              SCIENCE
-            </h3>
-            <p className="eyebrow">Software Development</p>
+            <h3 className="education-program">Computer Science: Programming</h3>
+            <p className="education-degree">DEC / Diploma of College Studies</p>
           </div>
           <div className="education-credential">
-            <p className="eyebrow">Montréal, Québec</p>
-            <h4 className="education-program">Computer Science: Programming</h4>
-            <p className="education-degree">DEC / Diploma of College Studies</p>
             <p className="education-college">LaSalle College</p>
+            <p className="education-location">Montréal, Québec</p>
             <p className="education-dates mono">2023 - 2026</p>
             <p className="education-context">
               A three-year technical program centered on software development,

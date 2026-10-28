@@ -806,38 +806,23 @@ html[data-book-enhanced] .book-opening > section.introduction {
   min-width: 0;
 }
 .education-field h3 {
-  font-size: clamp(26px, 4.4vw, 68px);
-  line-height: 1.08;
+  font-size: clamp(36px, 4vw, 60px);
+  line-height: 1.15;
   letter-spacing: -0.035em;
   color: var(--chapter-ink, #615e3b);
   margin: 0;
 }
-.education-field > .eyebrow {
-  border-top: 1px solid var(--line);
-  margin-top: 32px;
-  padding-top: 18px;
-  font-size: 11px;
-  letter-spacing: 0.1em;
-}
-.education-credential > .eyebrow {
-  color: var(--muted);
-  margin-bottom: 20px;
-}
-.education-credential h4 {
-  font-family: Editorial, Georgia, serif;
-  font-weight: 400;
-  font-size: clamp(30px, 3.1vw, 44px);
-  line-height: 1.2;
-  letter-spacing: -0.02em;
-  margin: 0 0 28px;
-}
-.education-degree,
-.education-program {
-  font-size: 18px;
+.education-degree {
+  margin-top: 24px;
+  font-size: 16px;
   line-height: 1.7;
+  color: var(--muted);
 }
-.education-program {
-  margin-top: 6px;
+.education-location {
+  margin-top: 4px;
+  font-size: 14px;
+  line-height: 1.7;
+  color: var(--muted);
 }
 .education-dates {
   font-size: 12px;
@@ -846,9 +831,9 @@ html[data-book-enhanced] .book-opening > section.introduction {
   margin-top: 18px;
 }
 .education-college {
-  font-size: 16px;
+  font-size: 20px;
   line-height: 1.7;
-  margin-top: 10px;
+  margin: 0;
 }
 .education-context {
   border-top: 1px solid var(--line);
@@ -1383,20 +1368,10 @@ html[data-book-enhanced] #work .project-image img {
   html[data-book-enhanced] .education-field h3 {
     font-size: 38px;
   }
-  html[data-book-enhanced] .education-field > .eyebrow {
-    margin-top: 14px;
-    padding-top: 10px;
-  }
-  html[data-book-enhanced] .education-credential > .eyebrow {
-    margin-bottom: 8px;
-  }
-  html[data-book-enhanced] .education-credential h4 {
-    font-size: 30px;
-    margin-bottom: 12px;
-  }
-  html[data-book-enhanced] :is(.education-degree, .education-program) {
+  html[data-book-enhanced] .education-degree {
     font-size: 15px;
     line-height: 1.5;
+    margin-top: 16px;
   }
   html[data-book-enhanced] .education-context {
     font-size: 14px;

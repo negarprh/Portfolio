@@ -25,17 +25,24 @@ export function CoverName() {
         .forEach((line) => line.style.removeProperty("clip-path"));
       preference.removeEventListener("change", interrupt);
       window.removeEventListener("scroll", interrupt);
+      window.removeEventListener("booknavigationstart", interrupt);
       document.removeEventListener("visibilitychange", interrupt);
       window.removeEventListener("resize", settle);
     };
     const interrupt = () => {
-      if (preference.matches || window.scrollY > 8 || document.hidden) {
+      if (
+        preference.matches ||
+        window.scrollY > 8 ||
+        document.hidden ||
+        document.documentElement.dataset.bookNavigating
+      ) {
         entered.current = true;
         settle();
       }
     };
     preference.addEventListener("change", interrupt);
     window.addEventListener("scroll", interrupt, { passive: true });
+    window.addEventListener("booknavigationstart", interrupt);
     document.addEventListener("visibilitychange", interrupt);
     window.addEventListener("resize", settle, { once: true });
     const loaded =

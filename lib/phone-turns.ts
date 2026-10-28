@@ -1,4 +1,6 @@
-/** A phone swipe owns one leaf; browser inertia never runs ahead of the book. */
+import { INPUT_TURN_MS, PHONE_DRAG_VIEWPORTS } from "./book-effects";
+
+/** A phone swipe owns one leaf; both dragging and release have bounded speed. */
 export function createPhoneTurns(options: {
   enabled: () => boolean;
   stops: () => number[];
@@ -7,6 +9,8 @@ export function createPhoneTurns(options: {
   seek: (y: number) => void;
 }) {
   let frame = 0;
+  let dragTarget = 0;
+  let lastDragFrame = 0;
   let gesture:
     | {
         x: number;
@@ -22,7 +26,9 @@ export function createPhoneTurns(options: {
   const cancel = () => {
     cancelAnimationFrame(frame);
     frame = 0;
+    lastDragFrame = 0;
     gesture = undefined;
+    delete document.documentElement.dataset.bookInputMoving;
   };
   const start = (event: TouchEvent) => {
     if (
@@ -85,22 +91,47 @@ export function createPhoneTurns(options: {
     // divider responds immediately once a vertical drag is recognized.
     const base =
       dy >= 0 ? Math.max(gesture.start, next - travel) : gesture.start;
-    const position = base + (dy / (innerHeight * 0.65)) * travel;
-    options.seek(Math.max(previous, Math.min(next, position)));
+    const position =
+      base + (dy / (innerHeight * PHONE_DRAG_VIEWPORTS)) * travel;
+    dragTarget = Math.max(previous, Math.min(next, position));
+    document.documentElement.dataset.bookInputMoving = "true";
+    if (!frame) {
+      const follow = (now: number) => {
+        const elapsed = lastDragFrame ? Math.min(32, now - lastDragFrame) : 16;
+        lastDragFrame = now;
+        const distance = dragTarget - options.position();
+        const step = Math.max(1, (options.travel() * elapsed) / INPUT_TURN_MS);
+        options.seek(
+          options.position() +
+            Math.sign(distance) * Math.min(Math.abs(distance), step),
+        );
+        frame =
+          Math.abs(dragTarget - options.position()) > 1
+            ? requestAnimationFrame(follow)
+            : 0;
+        if (!frame) lastDragFrame = 0;
+      };
+      frame = requestAnimationFrame(follow);
+    }
   };
   const finish = (event: TouchEvent) => {
     if (!gesture) return;
     const current = gesture;
     gesture = undefined;
+    cancelAnimationFrame(frame);
+    frame = 0;
+    lastDragFrame = 0;
     if (
       !current.dragging &&
       Math.abs(options.position() - current.stops[current.origin]) < 1
-    )
+    ) {
+      delete document.documentElement.dataset.bookInputMoving;
       return;
+    }
     if (current.dragging) suppressClickUntil = performance.now() + 400;
     const direction =
       event.type !== "touchcancel" &&
-      Math.abs(current.delta) >= Math.min(60, innerHeight * 0.08)
+      Math.abs(current.delta) >= Math.min(90, innerHeight * 0.12)
         ? Math.sign(current.delta)
         : 0;
     const target =
@@ -111,19 +142,30 @@ export function createPhoneTurns(options: {
         )
       ];
     const from = options.position();
-    const began = performance.now();
+    let releaseElapsed = 0;
+    let releaseFrame = performance.now();
     const duration = Math.max(
-      160,
-      Math.min(420, (Math.abs(target - from) / innerHeight) * 420),
+      300,
+      Math.min(
+        INPUT_TURN_MS,
+        (Math.abs(target - from) / options.travel()) * INPUT_TURN_MS,
+      ),
     );
     const tick = (now: number) => {
       if (!options.enabled()) {
         cancel();
         return;
       }
-      const progress = Math.min(1, (now - began) / duration);
-      options.seek(from + (target - from) * (1 - Math.pow(1 - progress, 3)));
+      // A late frame must not skip the middle of the leaf on a slower phone.
+      releaseElapsed += Math.min(32, now - releaseFrame);
+      releaseFrame = now;
+      const progress = Math.min(1, releaseElapsed / duration);
+      document.documentElement.dataset.bookInputMoving = "true";
+      options.seek(
+        from + (target - from) * progress * progress * (3 - 2 * progress),
+      );
       frame = progress < 1 ? requestAnimationFrame(tick) : 0;
+      if (!frame) delete document.documentElement.dataset.bookInputMoving;
     };
     frame = requestAnimationFrame(tick);
   };

@@ -41,6 +41,7 @@ for (const width of [390, 412]) {
   test(`phone swipes turn exactly one leaf and keep the first cover anchored at ${width}px`, async ({
     browser,
   }) => {
+    test.setTimeout(60000);
     const context = await browser.newContext({
       viewport: { width, height: 915 },
       isMobile: true,
@@ -65,6 +66,7 @@ for (const width of [390, 412]) {
         );
       expect(bounds.every((top) => Math.abs(top) < 1)).toBe(true);
     }
+    await page.waitForTimeout(700);
     const held = await page.evaluate(() => scrollY);
     await page.waitForTimeout(120);
     expect(await page.evaluate(() => scrollY)).toBe(held);

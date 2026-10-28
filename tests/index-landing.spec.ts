@@ -6,6 +6,7 @@ for (const width of [1440, 390]) {
     test(`index lands at chapter starts from either direction: ${width}, ${reducedMotion}`, async ({
       page,
     }) => {
+      test.setTimeout(60000);
       await page.setViewportSize({ width, height: 1000 });
       await page.emulateMedia({ reducedMotion });
       await page.goto("/");

@@ -27,6 +27,13 @@ export function CoverSeal() {
         shadowAnimation?.cancel();
       }
     };
+    const settleForNavigation = () => {
+      entered.current = true;
+      seal.current?.classList.remove("seal-pending");
+      animation?.cancel();
+      shadowAnimation?.cancel();
+    };
+    window.addEventListener("booknavigationstart", settleForNavigation);
     Promise.all([document.fonts.ready, loaded]).then(() => {
       if (disposed) return;
       seal.current?.classList.remove("seal-pending");
@@ -72,6 +79,7 @@ export function CoverSeal() {
       animation?.cancel();
       shadowAnimation?.cancel();
       preference.removeEventListener("change", stop);
+      window.removeEventListener("booknavigationstart", settleForNavigation);
     };
   }, []);
   return (

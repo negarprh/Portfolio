@@ -151,6 +151,26 @@ Use Negar’s supplied 31-item inventory in six categories, with the full Databa
 
 Negar reported a bottom gap on her S24 Ultra and disappearing turns during fast touch scrolling. Fill the visible stage with dynamic viewport height while keeping small-viewport scroll runways stable. Replace touch-distance snapping with bounded visual catch-up toward the latest native position; reverse without queued turns and retain immediate explicit navigation. Keep scrolling passive. Remove job-search availability from the introduction and back cover because Negar has found a role; no new job details are public.
 
+## 2026-10-27: a single direct index effect
+
+Negar rejected the multi-page index journey as slow and impractical. Replace it with one 360ms paper effect directly between current and destination surfaces. No intermediate chapters are rendered. Reuse the articulated sheet with arbitrary source/destination pairing, preserve the stationary document during animation, and retain interruption, URL/focus, and reduced-motion behavior. This supersedes the earlier riffling sequence.
+
+## 2026-10-27: paper turns for index navigation
+
+Negar requested that choosing a chapter from the index visibly turns the paper instead of jumping. Traverse the existing physical leaves in the requested direction, omit motionless runway time, and accelerate distant trips into a short riffling sequence. Keep the selected hash stable until arrival, focus the destination afterward, and allow input/new selections to interrupt. Reduced motion, browser history, initial hashes, and inline anchors retain immediate navigation. Reconcile live reduced-motion completion with static document geometry after teardown.
+
+## 2026-10-27: quicker balanced scroll pacing
+
+Negar found the 1.6-second pace too slow. Set the shared full-turn pace to 850ms, phone release to 300–850ms, and phone drag travel to 0.95 viewport heights. Raise wheel/trackpad gain from 40% to 75%. Retain per-frame limits, one-leaf phone gestures, bounded pending wheel travel, and immediate reversal/braking so responsiveness improves without returning to skipped turns. Pacing tests enforce both a visible turn and a shorter completion time.
+
+## 2026-10-27: one education heading
+
+Negar found the large COMPUTER SCIENCE artwork repetitive beside Computer Science: Programming. Use the exact program name once as the left-page heading, with the DEC credential beneath it. Group college, location, dates, and the existing context on the right. Remove the redundant Software Development label and unused duplicate-heading styles; retain the book spread and verified facts.
+
+## 2026-10-19: visibly slower phone and trackpad turns
+
+Negar reported that controlled phone swipes still jumped through the physical turn and requested slower laptop trackpad scrolling too. Rate-limit displayed phone dragging rather than seeking immediately on each touch event, reduce drag gain, and replace the 160–420ms release with a 650–1600ms smooth turn. Intercept enhanced vertical wheel/trackpad input at 40% gain with one turn per 1.6 seconds and bounded pending movement; reversing discards old momentum. This extends the earlier phone-only interception exception to vertical wheel/trackpad input. Preserve instant explicit navigation, native keyboard/horizontal/zoom input, and reduced-motion/no-JS fallbacks. Validate turn duration and intermediate frames rather than only final landing positions.
+
 ## 2026-10-16: controlled phone turns and degree-first education
 
 Native snap and bounded visual catch-up still felt uncontrolled on Negar’s phone, with a vertical shift during the first opening. Replace enhanced phone vertical panning with a finger-driven gesture limited to one adjacent leaf. Release settles or rolls back; a fresh touch brakes immediately. Permit pinch zoom and preserve native wheel/keyboard, reduced-motion, and no-JS behavior. This explicitly supersedes the earlier passive-phone/no-interception direction. Keep paper fixed from the first gesture and verify its top coordinate during actual simulated swipes. In Education, promote Computer Science: Programming over the college name while retaining the verified DEC credential.

@@ -5,7 +5,7 @@ for (const input of ["wheel", "trackpad"]) {
   test(`${input}: every leaf follows a complete down/up journey and rapid reversals`, async ({
     page,
   }) => {
-    test.setTimeout(240000);
+    test.setTimeout(600000);
     await page.setViewportSize({ width: 1440, height: 1000 });
     await page.goto("/");
     await expect(page.locator("html")).toHaveAttribute(

@@ -3,6 +3,8 @@ import { useEffect } from "react";
 import { createBookStage } from "@/lib/book-stage";
 import { TURN_RESPONSE_MS } from "@/lib/book-effects";
 import { createPhoneTurns } from "@/lib/phone-turns";
+import { createWheelTurns } from "@/lib/wheel-turns";
+import { createIndexTurns } from "@/lib/index-turns";
 
 /** Enhancement only: native links and the full document remain usable without JS. */
 export function BookMotion() {
@@ -23,6 +25,8 @@ export function BookMotion() {
       const target = document.querySelector<HTMLElement>(link.hash);
       if (target) {
         phoneTurns.cancel();
+        wheelTurns.cancel();
+        indexTurns.cancel();
         event.preventDefault();
         // Sticky rectangles depend on the current scroll position. The opening
         // wrapper and chapter sections provide stable document destinations.
@@ -39,6 +43,10 @@ export function BookMotion() {
         if (window.location.hash !== link.hash)
           history.pushState(history.state, "", link.hash);
         target.tabIndex = -1;
+        if (stage && !preference.matches && index.contains(link)) {
+          indexTurns.go(top, () => target.focus({ preventScroll: true }));
+          return;
+        }
         window.scrollTo({ top, behavior: "instant" });
         renderedY = window.scrollY;
         stage?.update(renderedY);
@@ -127,9 +135,40 @@ export function BookMotion() {
       }
       touchScroll = true;
     };
+    const wheelTurns = createWheelTurns({
+      enabled: () => !!stage && !preference.matches,
+      position: () => renderedY,
+      travel: () => stage?.travel() ?? innerHeight * 0.85,
+      seek: (top) => {
+        window.scrollTo({ top, behavior: "instant" });
+        renderedY = window.scrollY;
+        stage?.update(renderedY);
+        scroll();
+      },
+    });
     const onDirectInput = () => {
       touchScroll = false;
     };
+    const indexTurns = createIndexTurns({
+      position: () => renderedY,
+      stops: () => stage?.stops() ?? [],
+      transition: (from, to, progress) => stage?.transition(from, to, progress),
+      seek: (top) => {
+        if (indexTurns.active()) renderedY = top;
+        else {
+          window.scrollTo({ top, behavior: "instant" });
+          renderedY = window.scrollY;
+        }
+        stage?.update(renderedY);
+        scroll();
+      },
+      interrupted: () => {
+        window.scrollTo({ top: renderedY, behavior: "instant" });
+        renderedY = window.scrollY;
+        stage?.update(renderedY);
+        scroll();
+      },
+    });
     window.addEventListener("touchstart", onTouch, { passive: true });
     window.addEventListener("wheel", onDirectInput, { passive: true });
     window.addEventListener("keydown", onDirectInput);
@@ -147,7 +186,7 @@ export function BookMotion() {
       backTop =
         (backCover && stage?.top(backCover)) ||
         (backCover?.getBoundingClientRect().top || 0) + window.scrollY;
-      if (!touchScroll) renderedY = window.scrollY;
+      if (!touchScroll && !indexTurns.active()) renderedY = window.scrollY;
       scroll();
     };
     const update = (now: number) => {
@@ -156,12 +195,12 @@ export function BookMotion() {
         clear();
         return;
       }
-      const targetY = window.scrollY;
+      const targetY = indexTurns.active() ? renderedY : window.scrollY;
       const elapsed = lastFrame ? Math.min(now - lastFrame, 64) : 1000 / 60;
       lastFrame = now;
       const distance = targetY - renderedY;
-      // Wheel/keyboard and larger touch surfaces retain native scroll response.
-      // Phone gestures synchronize their visual coordinate directly in seek().
+      // Keyboard/programmatic input and larger touch surfaces retain this
+      // response. Paced phone/wheel input synchronizes directly in seek().
       const response = distance * (1 - Math.exp(-elapsed / TURN_RESPONSE_MS));
       const maxStep = (window.innerHeight * 6 * Math.min(elapsed, 32)) / 1000;
       renderedY += touchScroll
@@ -171,11 +210,15 @@ export function BookMotion() {
           : response;
       if (Math.abs(targetY - renderedY) < 0.1) renderedY = targetY;
       const y = renderedY;
-      stage?.update(y);
+      if (!indexTurns.active()) stage?.update(y);
       const currentLink = index?.querySelector<HTMLAnchorElement>(
         'a[aria-current="location"]',
       );
-      if (currentLink && window.location.hash !== currentLink.hash)
+      if (
+        !indexTurns.active() &&
+        currentLink &&
+        window.location.hash !== currentLink.hash
+      )
         history.replaceState(history.state, "", currentLink.hash);
       const progress = clamp((y - coverHeight) / bookLength);
       if (stacks)
@@ -195,7 +238,10 @@ export function BookMotion() {
       if (!frame) frame = requestAnimationFrame(update);
     };
     const clear = () => {
+      if (preference.matches) indexTurns.finish();
+      else indexTurns.cancel();
       phoneTurns.cancel();
+      wheelTurns.cancel();
       stage?.destroy();
       stage = undefined;
       if (cover) cover.style.visibility = "";
@@ -219,8 +265,12 @@ export function BookMotion() {
         .forEach((container) => container.replaceChildren());
     };
     const configureMotion = () => {
+      const wasNavigating = indexTurns.active();
       clear();
-      if (preference.matches) return;
+      if (preference.matches) {
+        if (wasNavigating) followHash();
+        return;
+      }
       document.documentElement.dataset.bookEnhanced = "true";
       stage = createBookStage();
       renderedY = window.scrollY;
@@ -229,7 +279,9 @@ export function BookMotion() {
       measure();
     };
     const followHash = () => {
+      indexTurns.cancel();
       phoneTurns.cancel();
+      wheelTurns.cancel();
       if (!window.location.hash) return;
       const target = document.getElementById(
         decodeURIComponent(window.location.hash.slice(1)),
@@ -260,6 +312,8 @@ export function BookMotion() {
     return () => {
       disposed = true;
       phoneTurns.destroy();
+      wheelTurns.destroy();
+      indexTurns.destroy();
       images.forEach((image) => image.removeEventListener("load", measure));
       clear();
       resize.disconnect();

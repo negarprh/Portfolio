@@ -55,6 +55,7 @@ export function createBookStage() {
   document.body.append(runway);
   let tops: number[] = [];
   let active = -1;
+  let activeOutgoing = -1;
   let strips: HTMLElement[] = [];
   let width = 0;
   let height = 0;
@@ -146,6 +147,11 @@ export function createBookStage() {
     return copy;
   };
   const measure = () => {
+    // Measuring natural pages must not shrink the document and let the browser
+    // clamp a reader's position near the end of the book.
+    const root = document.documentElement;
+    const previousMinHeight = root.style.minHeight;
+    root.style.minHeight = `${root.scrollHeight}px`;
     clearTimeout(warmTimer);
     warmTimer = 0;
     height = stage.getBoundingClientRect().height;
@@ -222,12 +228,13 @@ export function createBookStage() {
     });
     snapshotCache = new Map();
     active = -1;
+    root.style.minHeight = previousMinHeight;
   };
-  const buildSheet = (index: number) => {
+  const buildSheet = (index: number, outgoing = index - 1) => {
     stage.querySelector(".paper-joint")?.remove();
     strips = [];
-    width = sizes[index - 1].width;
-    stageLeft = sizes[index - 1].left;
+    width = sizes[outgoing].width;
+    stageLeft = sizes[outgoing].left;
     stage.style.left = `${stageLeft}px`;
     stage.style.width = `${width}px`;
     const leafWidth = mobile ? width : width / 2;
@@ -241,7 +248,7 @@ export function createBookStage() {
       for (const back of [false, true]) {
         const face = document.createElement("div");
         face.className = `paper-strip ${back ? "paper-verso" : "paper-recto"}`;
-        const sourceIndex = back ? index : index - 1;
+        const sourceIndex = back ? index : outgoing;
         const copy = snapshot(pages[sourceIndex]).cloneNode(
           true,
         ) as HTMLElement;
@@ -257,18 +264,11 @@ export function createBookStage() {
       strips.push(joint);
     }
     active = index;
-    preparedOffsets = [pages[index - 1].scrollTop, pages[index].scrollTop];
+    activeOutgoing = outgoing;
+    preparedOffsets = [pages[outgoing].scrollTop, pages[index].scrollTop];
   };
-  const update = (y: number) => {
+  const paint = (current: number, incoming: number, p: number, y: number) => {
     stage.dataset.scrollY = String(y);
-    const travel = runwayHeight * TURN_TRAVEL;
-    let current = 0;
-    while (current + 1 < pages.length && y >= tops[current + 1]) current++;
-    const incoming = current + 1;
-    const p =
-      incoming < pages.length
-        ? clamp((y - tops[incoming] + travel) / travel)
-        : 0;
     const turning = p > 0 && p < 1;
     const chapter = pages[current].matches(".cover")
       ? "top"
@@ -310,7 +310,7 @@ export function createBookStage() {
       if (
         !warmTimer &&
         incoming < pages.length &&
-        active !== incoming &&
+        (active !== incoming || activeOutgoing !== current) &&
         document.fonts.status === "loaded"
       ) {
         const prepare = () => {
@@ -329,10 +329,11 @@ export function createBookStage() {
     warmTimer = 0;
     if (
       active !== incoming ||
+      activeOutgoing !== current ||
       preparedOffsets[0] !== pages[current].scrollTop ||
       preparedOffsets[1] !== pages[incoming].scrollTop
     )
-      buildSheet(incoming);
+      buildSheet(incoming, current);
     // Linear scroll coordinate, gently flexed near the outer edge. Adjacent
     // joints share endpoints, so curvature never opens cracks between strips.
     const bend = Math.sin(Math.PI * p) * 38;
@@ -352,11 +353,35 @@ export function createBookStage() {
     shadow.style.transform = `translateX(${-100 * p}%) scaleX(${0.3 + 0.7 * Math.abs(Math.cos(Math.PI * p))})`;
     stage.dataset.progress = String(p);
   };
+  const pageAt = (y: number) => {
+    let index = 0;
+    while (index + 1 < pages.length && y >= tops[index + 1]) index++;
+    return index;
+  };
+  const update = (y: number) => {
+    const current = pageAt(y);
+    const incoming = current + 1;
+    const travel = runwayHeight * TURN_TRAVEL;
+    const p =
+      incoming < pages.length
+        ? clamp((y - tops[incoming] + travel) / travel)
+        : 0;
+    paint(current, incoming, p, y);
+  };
   measure();
   update(scrollY);
   return {
     measure,
     update,
+    transition(from: number, to: number, progress: number) {
+      const source = pageAt(from);
+      // Native anchor landing rounds fractional chapter positions to pixels.
+      const destination = pageAt(Math.round(to));
+      if (source === destination) return;
+      const p = Math.max(0.0001, Math.min(0.9999, progress));
+      if (destination > source) paint(source, destination, p, from);
+      else paint(destination, source, 1 - p, from);
+    },
     stops: () => [...tops],
     travel: () => runwayHeight * TURN_TRAVEL,
     top: (page: HTMLElement) => tops[pages.indexOf(page)],
