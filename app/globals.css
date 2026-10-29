@@ -289,7 +289,6 @@ em {
   font-size: 9px;
 }
 
-/* The inside is a continuous, bounded book. Each spread has its own reading space. */
 body {
   background: #33342e;
 }
@@ -416,7 +415,6 @@ dd.mono {
 .pending-link small {
   font-size: 10px;
 }
-/* A chapter opening is a quiet title page, with a leaf hinged at the binding. */
 .divider {
   position: relative;
   min-height: 68svh;
@@ -520,7 +518,6 @@ dd.mono {
   background: #e8e2d3;
   box-shadow: -8px 3px 18px #302d2526;
 }
-/* One job or project per spread. No overlapping numerals or competing headings. */
 .experience-row,
 .project-spread,
 .flagship {

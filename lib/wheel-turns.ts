@@ -1,6 +1,5 @@
 import { INPUT_TURN_MS, WHEEL_INPUT_GAIN } from "./book-effects";
 
-/** Slow vertical wheel/trackpad input before it reaches the physical page. */
 export function createWheelTurns(options: {
   enabled: () => boolean;
   position: () => number;

@@ -48,7 +48,6 @@ export function Skills() {
           <filter id="skills-icon-ink" colorInterpolationFilters="sRGB">
             <feColorMatrix type="saturate" values="0" />
             <feComponentTransfer>
-              {/* Compress logo tones into muted ink while retaining internal detail. */}
               <feFuncR type="gamma" amplitude=".46" exponent="2" offset=".28" />
               <feFuncG type="gamma" amplitude=".46" exponent="2" offset=".28" />
               <feFuncB type="gamma" amplitude=".46" exponent="2" offset=".28" />

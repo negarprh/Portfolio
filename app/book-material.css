@@ -81,7 +81,6 @@ html[data-book-enhanced] :is(main, .book-opening) > section:not(.cover) {
     5px 0 #81796a,
     0 12px 35px #17191024;
 }
-/* A whole spread is lit together, including the full height of its binding. */
 html[data-book-enhanced]
   :is(
     .introduction,
@@ -145,7 +144,6 @@ html[data-book-enhanced]
 html[data-book-enhanced] .spread-content::before {
   display: none;
 }
-/* More inner margin at the binding; less at the fore-edge. */
 html[data-book-enhanced] :is(.spread-content, .intro-grid) {
   grid-template-columns: 1fr 1fr;
   gap: 0;
@@ -225,7 +223,6 @@ html[data-book-enhanced] .sheet-back {
     linear-gradient(90deg, #ded4c0, #f3edde 6%, #f5f0e5 84%, #dbd1bc);
   box-shadow: -5px 3px 14px #29231322;
 }
-/* Fixed fore-edges stay at the book's sides as the reader moves through it. */
 html[data-book-enhanced] .page-stacks {
   display: block;
   position: fixed;
@@ -301,7 +298,6 @@ html[data-book-enhanced] .page-stacks {
     width: 21px;
   }
 }
-/* Phones keep a single readable page; binding and accumulated fore-edges belong to spreads. */
 @media (max-width: 700px) {
   html[data-book-enhanced] .page-stacks {
     display: none;

@@ -1,7 +1,4 @@
-/** Original monoline handwriting, drawn specifically for Negar Pirasteh.
- * Each path follows the pen's centreline, not a font glyph's outline.
- * Separate paths are real pen lifts; connected letters share one stroke.
- */
+// Paths follow stroke centerlines; separate paths represent pen lifts.
 export const signatureStrokes = [
   {
     // Negar: capital entry, connected e/g/a/r, then the exit stroke.

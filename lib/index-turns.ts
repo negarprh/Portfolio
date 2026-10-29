@@ -1,4 +1,3 @@
-/** One brief paper transition, directly between the current and chosen pages. */
 export function createIndexTurns(options: {
   position: () => number;
   stops: () => number[];

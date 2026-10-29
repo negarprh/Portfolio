@@ -1,4 +1,3 @@
-/* Hardcover finish: static cloth, inset edging, and pressed type. */
 .cover h1,
 .cover h1 em {
   font-family: Orbitron, Arial, sans-serif;
@@ -398,7 +397,6 @@
   opacity: 0;
 }
 
-/* Jacket typography follows one axis; the cloth and tooling are shared by both boards. */
 .cover-content {
   padding-inline: 7.2%;
 }
@@ -657,7 +655,6 @@ html[data-book-enhanced] .book-opening > section.introduction {
   }
 }
 
-/* Skills keeps each category heading and inventory on the same reading page. */
 #skills {
   --skill-icon-column: 32px;
   --skill-text-gap: 12px;
@@ -772,7 +769,6 @@ html[data-book-enhanced] .book-opening > section.introduction {
   }
 }
 
-/* Project spreads use the book's existing type, rules, and mirrored margins. */
 .intro-facts dd.mono {
   font-size: 16px;
   line-height: 1.75;
@@ -921,7 +917,6 @@ html[data-book-enhanced] .book-opening > section.introduction {
   margin-bottom: 20px;
 }
 
-/* The jacket uses the same gutter-hinged, two-sided leaf as the interior. */
 .cover-art {
   position: relative;
   min-height: 100svh;
@@ -994,7 +989,6 @@ html[data-book-enhanced] .cover[data-turning="false"] > .turn-sheet {
   }
 }
 
-/* The last leaf carries the cloth jacket on its reverse. */
 html[data-book-enhanced] .back-cover .sheet-back {
   padding: 0;
   border: 0;
@@ -1414,7 +1408,6 @@ html[data-book-enhanced] #work .project-image img {
   }
 }
 
-/* Phone projects read down one column, with actions next to their title. */
 @media (max-width: 700px) {
   #work .project-links {
     margin: 0 0 16px;

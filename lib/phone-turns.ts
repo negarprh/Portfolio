@@ -1,6 +1,5 @@
 import { INPUT_TURN_MS, PHONE_DRAG_VIEWPORTS } from "./book-effects";
 
-/** A phone swipe owns one leaf; both dragging and release have bounded speed. */
 export function createPhoneTurns(options: {
   enabled: () => boolean;
   stops: () => number[];
