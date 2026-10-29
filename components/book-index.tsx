@@ -1,4 +1,21 @@
 import { chapters } from "@/lib/content";
+function IndexArrow() {
+  return (
+    <svg
+      width="16"
+      height="16"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      aria-hidden="true"
+      focusable="false"
+    >
+      <path d="M6 18 18 6M6 6h12v12" />
+    </svg>
+  );
+}
+
 export function BookIndex() {
   return (
     <details className="book-index" id="book-index">
@@ -16,7 +33,7 @@ export function BookIndex() {
             <a href="#top">
               <span className="mono">00</span>
               Home
-              <span aria-hidden="true">↗</span>
+              <IndexArrow />
             </a>
           </li>
           {chapters.map(([id, label], i) => (
@@ -24,7 +41,7 @@ export function BookIndex() {
               <a href={`#${id}`}>
                 <span className="mono">0{i + 1}</span>
                 {label}
-                <span aria-hidden="true">↗</span>
+                <IndexArrow />
               </a>
             </li>
           ))}

@@ -69,7 +69,6 @@ export default async function Home() {
                       />
                     </svg>
                   </a>
-                  <span className="edition mono">MONTRÉAL, CANADA</span>
                 </div>
               </div>
             </div>

@@ -195,7 +195,7 @@ html[data-book-enhanced] .folio-number {
   margin-left: auto;
   padding-right: 8px;
 }
-html[data-book-enhanced] .divider-top > span:last-child,
+html[data-book-enhanced] .divider-top > span:nth-child(2),
 html[data-book-enhanced] .divider-note {
   padding-right: 8px;
 }

@@ -85,7 +85,6 @@ export function Divider({
         </span>
         <div className="divider-top mono">
           <span>Negar Pirasteh</span>
-          <span>Selected work & experience</span>
         </div>
         <div className="divider-title">
           <p className="eyebrow">Chapter {number}</p>

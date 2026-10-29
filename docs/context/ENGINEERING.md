@@ -10,6 +10,7 @@ Last reconciled: 2026-09-27. Use this file to locate implementation ownership an
 - `app/page.tsx` and the GitHub request use hourly ISR (`revalidate = 3600`). `lib/github.ts` has a five-second timeout and returns `null` on failure.
 - Design tokens live in CSS rather than a Tailwind theme. Styles load in this order: `globals.css`, `book-material.css`, `chapters.css`, `makeover.css`; later overrides are intentional.
 - Next.js discovers `app/icon.svg`, `app/favicon.ico` (16/32/48px), and `app/apple-icon.png` (180px) automatically. After editing the SVG master, regenerate raster fallbacks with `node scripts/generate-favicon.cjs`.
+- Share previews use `app/opengraph-image.png`, a 1200×630 screenshot of the settled front cover, with accessible text in `app/opengraph-image.alt.txt`. Next.js supplies the Open Graph image and Twitter image fallback; the layout requests a large Twitter card. Recapture the image after cover design changes. `NEXT_PUBLIC_SITE_URL` can set the canonical origin for custom domains; otherwise the Vercel production/deployment host is used, with localhost for local development.
 
 ## Ownership map
 

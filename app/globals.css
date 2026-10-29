@@ -276,8 +276,9 @@ em {
   border-top: 1px solid var(--line);
   font-size: 14px;
 }
-.book-index li a > span:last-child {
+.book-index li a > svg:last-child {
   margin-left: auto;
+  flex-shrink: 0;
 }
 .book-index li a[aria-current] {
   color: #80652f;
@@ -926,7 +927,7 @@ figcaption {
   .divider-top {
     font-size: 9px;
   }
-  .divider-top > span:last-child {
+  .divider-top > span:nth-child(2) {
     display: none;
   }
   .divider-title {

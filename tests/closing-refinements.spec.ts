@@ -28,7 +28,7 @@ for (const width of [1440, 390]) {
     await expect(page.locator("#contact > .colophon > .eyebrow")).toHaveText(
       "Contact",
     );
-    await expect(page.locator("#contact-title")).toHaveText("Get in touch.");
+    await expect(page.locator("#contact-title")).toHaveText("Contact");
     await expect(
       page.locator("#contact > .colophon > .colophon-note"),
     ).toHaveCount(0);

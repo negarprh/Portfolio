@@ -17,7 +17,7 @@ export const experience = [
     title: "Software Developer Intern",
     dates: "Summer 2026",
     lines: [
-      "At Tail’ed, I built a Python job aggregation pipeline that processes listings from 3,680 company sources across nine different applicant tracking systems.",
+      "I built a Python job aggregation pipeline that processes listings from 3,680 company sources across nine different applicant tracking systems.",
       "The biggest challenge was making it fast enough to handle that scale. I introduced multithreaded concurrency, cutting the median runtime by 62%, from 4.7 hours to 1.8 hours.",
       "The pipeline helped grow job coverage by 4.4×, reaching over 11,700 active listings. I also integrated the data into Tail’ed’s website, connecting the backend work to the actual user experience.",
     ],
@@ -34,7 +34,7 @@ export const experience = [
     title: "Backend Developer",
     dates: "Dec 2025 - Mar 2026",
     lines: [
-      "At Lienzo, I worked on the backend of a healthcare coordination platform, building features across database models, business logic, and APIs using NestJS and PostgreSQL.",
+      "I worked on the backend of a healthcare coordination platform, building features across database models, business logic, and APIs using NestJS and PostgreSQL.",
       "One of the more complex features I implemented was recurring task management, supporting different schedules and allowing users to update a single occurrence or an entire series.",
       "I also focused on backend reliability, expanding automated test coverage from 24% to 72% across CQRS commands and queries, while maintaining and improving 20+ existing commands, queries, and APIs.",
     ],
@@ -53,7 +53,7 @@ export const experience = [
     title: "Software Developer Intern",
     dates: "Feb - May 2025",
     lines: [
-      "At Ozex, I developed backend features for a mental health platform using TypeScript, Express, PostgreSQL, and Prisma.",
+      "I developed backend features for a mental health platform using TypeScript, Express, PostgreSQL, and Prisma.",
       "A key part of my work was improving API performance. I optimized database queries and high-traffic endpoints, reducing response times by 35%.",
       "I also implemented authentication and authorization using Supabase and JWT, and worked on validation, error handling, and API documentation to make the backend more secure and reliable.",
     ],
