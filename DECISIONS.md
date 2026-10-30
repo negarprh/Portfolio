@@ -1,5 +1,9 @@
 # The Book: decisions and implementation record
 
+## 2026-10-30: visible book depth on phones
+
+Negar found the physical book much less visible on phones than on desktop. Expose narrow portions of the existing sheet stacks, restore a left-edge binding shade, and add a fine board lip without narrowing reading content. Strengthen mobile perspective, articulated flex, face lighting, and contact shade using the existing renderer. Keep desktop styling and gesture pacing unchanged; preserve reversible turns and native reduced-motion/no-JS fallbacks. Compare intermediate screenshots and measured fitting rather than introducing extra motion or shrinking the paper.
+
 ## 2026-10-30: coordinated modern editorial materials
 
 Use Negar's charcoal/ivory/forest/brass foundation with coordinated cream, sand, pale green, blue-gray, and stone chapter stocks. Separate cover cloth from primary text ink and functional forest from decorative brass. Carry chapter colors into native fallbacks, fold/edge shades, neutral binding, and turning-sheet lighting. Keep existing fonts, complete content, and physical turn mechanics; refine heading proportions, date hierarchy, links, and screenshot boundaries without adding cards or increasing phone fitting. This supersedes the earlier warmer disconnected chapter palette. Verify against rendered textures and compare measured fitting at the four requested sizes.

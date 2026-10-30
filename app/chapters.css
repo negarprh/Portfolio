@@ -302,7 +302,7 @@ html[data-book-enhanced] .sheet-back > span:first-child {
   html[data-book-enhanced] :is(main, .book-opening) > section:not(.cover) {
     --paper-wash: linear-gradient(
       90deg,
-      var(--chapter-edge),
+      var(--chapter-fold),
       var(--chapter-paper) 8%,
       var(--chapter-paper) 94%,
       var(--chapter-edge)

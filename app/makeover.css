@@ -1203,6 +1203,19 @@ html[data-book-enhanced] #work .project-image img {
 
 /* A phone leaf is a complete reading unit, never a nested scroll container. */
 @media (max-width: 700px) {
+  .physical-turn {
+    perspective: 1100px;
+  }
+  html[data-book-enhanced] .book-fixed-page:not(.cover):not(.back-cover) {
+    box-shadow:
+      inset 2px 0 var(--cover),
+      inset -2px 0 var(--cover),
+      inset 10px 0 14px -10px #25282490,
+      inset -8px 0 12px -10px #25282470;
+  }
+  .physical-turn > .physical-contact {
+    width: 7%;
+  }
   html[data-book-enhanced] .section {
     padding: 52px 24px 18px;
   }

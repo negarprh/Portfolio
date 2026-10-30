@@ -43,6 +43,8 @@ Existing static CSS gradients are intentionally retained for cloth, paper grain,
 
 The exposed page blocks use one non-tiled SVG paper texture on both sides, mirrored at the binding. Negar approved irregular sheet spacing, varied fine seams, restrained warm sheet tones, sparse darker gaps, subtle fibers/grain, 1–2px edge offsets, and a shallow natural bow with soft contact/outer shading. Preserve their existing 27px/21px dimensions, opacity, and thickness-transfer transforms. Keep the paper clean and modern, without yellowing, damage, or obvious repeating stripes.
 
+On enhanced phones, expose up to 6px of the existing page stacks at each side, clipped to the viewport. Keep full-width paper and existing reading padding so text does not shrink further. A narrow 24px binding shade sits at the left hinge, paired with a fine charcoal board lip. Phone turns use 1100px perspective, 52° peak articulated flex, stronger face lighting, and a slightly broader contact shadow; desktop retains its existing 2200px/38° treatment. Gesture distances, timing, runways, fixed page bounds, and forward/reverse progression stay unchanged. Reduced motion hides the enhanced edge layers and restores native reading.
+
 Base tokens in `app/globals.css`:
 
 | Token      | Value     | Use                               |

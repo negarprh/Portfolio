@@ -299,8 +299,16 @@ html[data-book-enhanced] .page-stacks {
   }
 }
 @media (max-width: 700px) {
+  html[data-book-enhanced] {
+    --book-inset: 6px;
+  }
   html[data-book-enhanced] .page-stacks {
-    display: none;
+    display: block;
+    overflow: clip;
+  }
+  html[data-book-enhanced] .page-stack {
+    top: 10px;
+    bottom: 10px;
   }
   html[data-book-enhanced]
     :is(
@@ -314,7 +322,11 @@ html[data-book-enhanced] .page-stacks {
       .skills-spread,
       .closing
     )::before {
-    display: none;
+    display: block;
+    left: 0;
+    width: 24px;
+    transform: none;
+    opacity: 0.7;
   }
   html[data-book-enhanced] {
     --paper-wash: linear-gradient(

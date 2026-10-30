@@ -1,4 +1,53 @@
 import { test, expect } from "@playwright/test";
+import { settleBook } from "./motion-helpers";
+
+for (const width of [320, 390]) {
+  test(`phone binding and sheet edges remain visible without taking reading space at ${width}px`, async ({
+    page,
+  }) => {
+    await page.setViewportSize({ width, height: 844 });
+    await page.goto("/");
+    await expect(page.locator(".book-fixed-page")).toHaveCount(16);
+    await page.evaluate(() => document.fonts.ready);
+    const surface = page.locator(".skills-spread").first();
+    await surface.evaluate((el) =>
+      scrollTo({
+        top: Number((el as HTMLElement).dataset.bookTop),
+        behavior: "instant",
+      }),
+    );
+    await settleBook(page);
+    await expect(page.locator(".page-stacks")).toHaveCSS("display", "block");
+    await expect
+      .poll(() =>
+        page
+          .locator(".page-stacks")
+          .evaluate((el) => Number(getComputedStyle(el).opacity)),
+      )
+      .toBeGreaterThan(0.9);
+    const bounds = await surface.boundingBox();
+    expect(bounds!.x).toBe(0);
+    expect(bounds!.width).toBe(width);
+    for (const rail of await page.locator(".page-stack").all()) {
+      const rect = await rail.boundingBox();
+      const exposed =
+        Math.min(width, rect!.x + rect!.width) - Math.max(0, rect!.x);
+      expect(exposed).toBeGreaterThan(0);
+      expect(exposed).toBeLessThanOrEqual(6.1);
+    }
+    expect(
+      await surface.evaluate((el) => getComputedStyle(el, "::before").display),
+    ).toBe("block");
+    expect(
+      await page.evaluate(
+        () => document.documentElement.scrollWidth <= innerWidth,
+      ),
+    ).toBe(true);
+    await page.emulateMedia({ reducedMotion: "reduce" });
+    await expect(page.locator(".page-stacks")).toHaveCSS("display", "none");
+    await expect(page.locator(".physical-turn")).toHaveCount(0);
+  });
+}
 
 test("the articulated leaf hinges at the gutter with opaque faces and a moving shadow", async ({
   page,

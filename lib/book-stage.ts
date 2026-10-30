@@ -336,7 +336,7 @@ export function createBookStage() {
       buildSheet(incoming, current);
     // Linear scroll coordinate, gently flexed near the outer edge. Adjacent
     // joints share endpoints, so curvature never opens cracks between strips.
-    const bend = Math.sin(Math.PI * p) * 38;
+    const bend = Math.sin(Math.PI * p) * (mobile ? 52 : 38);
     strips.forEach((strip, i) => {
       const angle = i === 0 ? -180 * p + bend * 0.5 : -bend / (STRIPS - 1);
       strip.style.transform = `rotateY(${angle}deg)`;
@@ -344,12 +344,19 @@ export function createBookStage() {
         .querySelectorAll<HTMLElement>(":scope > .paper-strip > .paper-light")
         .forEach((light) => {
           light.style.opacity = String(
-            Math.sin(Math.PI * p) * (0.035 + (0.11 * i) / STRIPS),
+            Math.sin(Math.PI * p) *
+              (mobile
+                ? 0.065 + (0.17 * i) / STRIPS
+                : 0.035 + (0.11 * i) / STRIPS),
           );
         });
     });
-    shadow.style.opacity = String(Math.sin(Math.PI * p) * 0.65);
-    contact.style.opacity = String(Math.sin(Math.PI * p) * 0.8);
+    shadow.style.opacity = String(
+      Math.sin(Math.PI * p) * (mobile ? 0.85 : 0.65),
+    );
+    contact.style.opacity = String(
+      Math.sin(Math.PI * p) * (mobile ? 0.95 : 0.8),
+    );
     shadow.style.transform = `translateX(${-100 * p}%) scaleX(${0.3 + 0.7 * Math.abs(Math.cos(Math.PI * p))})`;
     stage.dataset.progress = String(p);
   };
