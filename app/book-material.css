@@ -17,9 +17,9 @@
   transform-origin: left center;
   background: linear-gradient(
     90deg,
-    #30261570,
-    #30261535 18%,
-    #30261510 58%,
+    #30332d70,
+    #30332d35 18%,
+    #30332d10 58%,
     transparent
   );
 }
@@ -56,20 +56,20 @@ html[data-book-enhanced] {
   --book-inset: max(56px, calc((100vw - 1240px) / 2));
   --paper-wash: linear-gradient(
     105deg,
-    #f6f2e8 0%,
-    #f3eee1 43%,
-    #ece5d5 50%,
-    #f6f1e6 59%,
-    #f1ebdd 100%
+    var(--paper) 0%,
+    var(--paper) 43%,
+    #e2ddd2 50%,
+    var(--paper) 59%,
+    #ece7dd 100%
   );
   --paper-grain: radial-gradient(
     ellipse at center,
-    #76623b05 0.45px,
+    #62665e05 0.45px,
     transparent 0.9px
   );
 }
 html[data-book-enhanced] :is(main, .book-opening) > section:not(.cover) {
-  background-color: #f3eee2;
+  background-color: var(--chapter-paper, var(--paper));
   background-image: var(--paper-grain), var(--paper-wash);
   background-size:
     5px 7px,
@@ -93,16 +93,16 @@ html[data-book-enhanced]
     .skills-spread,
     .closing
   ) {
-  background-color: #f3eee2;
+  background-color: var(--chapter-paper, var(--paper));
   background-image: var(--paper-grain), var(--paper-wash);
   background-size:
     5px 7px,
     100% 100%;
   box-shadow:
-    inset 9px 0 14px -11px #57482ea6,
-    inset -9px 0 14px -11px #57482e85,
+    inset 9px 0 14px -11px #474c42a6,
+    inset -9px 0 14px -11px #474c4285,
     inset 0 1px #fff9,
-    inset 0 -2px 5px -4px #65553b;
+    inset 0 -2px 5px -4px #62665e;
 }
 html[data-book-enhanced]
   :is(
@@ -130,13 +130,13 @@ html[data-book-enhanced]
   background: linear-gradient(
     90deg,
     transparent 0%,
-    #57482903 12%,
-    #5748290c 32%,
-    #57482924 43%,
-    #41372347 49%,
-    #352c1b70 50%,
-    #41372332 52%,
-    #5748290f 67%,
+    #474c4203 12%,
+    #474c420c 32%,
+    #474c4224 43%,
+    #30332d47 49%,
+    #30332d70 50%,
+    #30332d32 52%,
+    #474c420f 67%,
     #fff4 84%,
     transparent 100%
   );

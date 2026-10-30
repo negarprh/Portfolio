@@ -60,9 +60,6 @@ export function Skills() {
       <div className="section skills-spread" data-boundary="spread">
         <div className="spread-content skills-content">
           <div className="skills-page">
-            <p className="skills-intro">
-              I work primarily across backend and full-stack development.
-            </p>
             <SkillGroup index={0} />
           </div>
           <div className="skills-page">

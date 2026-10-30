@@ -1,5 +1,9 @@
 # The Book: decisions and implementation record
 
+## 2026-10-30: coordinated modern editorial materials
+
+Use Negar's charcoal/ivory/forest/brass foundation with coordinated cream, sand, pale green, blue-gray, and stone chapter stocks. Separate cover cloth from primary text ink and functional forest from decorative brass. Carry chapter colors into native fallbacks, fold/edge shades, neutral binding, and turning-sheet lighting. Keep existing fonts, complete content, and physical turn mechanics; refine heading proportions, date hierarchy, links, and screenshot boundaries without adding cards or increasing phone fitting. This supersedes the earlier warmer disconnected chapter palette. Verify against rendered textures and compare measured fitting at the four requested sizes.
+
 This is a historical ledger, not the default source of current behavior. Load it only when a task revisits rationale, an accepted direction, or a rejected experiment. Current facts live in [`docs/context/CAREER.md`](docs/context/CAREER.md), the active design contract in [`docs/context/BOOK.md`](docs/context/BOOK.md), and implementation ownership in [`docs/context/ENGINEERING.md`](docs/context/ENGINEERING.md).
 
 Recorded from current source, Git history, and the user’s design instructions beginning 2026-09-13. Active work is on `makeover`.

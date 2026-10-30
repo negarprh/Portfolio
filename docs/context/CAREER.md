@@ -143,7 +143,7 @@ Use Negar’s latest supplied three-paragraph descriptions for each role (2026-1
 - Infrastructure & Cloud: Docker, AWS, GitHub Actions, Azure DevOps, Supabase, Firebase.
 - Tools & Testing: Git, GitHub, Vitest, Pytest, Postman, Swagger, Zod.
 - AI Development: OpenAI Codex, Claude Code.
-- Negar approved this 31-item inventory on 2026-10-12, superseding the prior 33-item inventory. Flask, SQLAlchemy, HTML, and CSS are omitted from the Skills chapter; verified use elsewhere is not retracted. AI tool use is user-supplied and does not imply AI/ML engineering expertise. Intro: “I work primarily across backend and full-stack development.”
+- Negar approved this 31-item inventory on 2026-10-12, superseding the prior 33-item inventory. Flask, SQLAlchemy, HTML, and CSS are omitted from the Skills chapter; verified use elsewhere is not retracted. AI tool use is user-supplied and does not imply AI/ML engineering expertise. The Skills introduction sentence was removed at Negar’s request on 2026-10-30; start directly with the category inventory.
 
 This is a display taxonomy, not a proficiency ranking. Adding a skill requires an explicit user-provided fact or evidence from current work; do not scrape dependency files and present every package as a career skill.
 

@@ -1,6 +1,6 @@
 # Book product and interaction contract
 
-Last reconciled: 2026-09-27. This is the current-state design contract. Historical experiments and rationale live in `DECISIONS.md` and are not requirements unless repeated here.
+Last reconciled: 2026-10-30. This is the current-state design contract. Historical experiments and rationale live in `DECISIONS.md` and are not requirements unless repeated here.
 
 ## Product concept
 
@@ -47,23 +47,27 @@ Base tokens in `app/globals.css`:
 
 | Token      | Value     | Use                               |
 | ---------- | --------- | --------------------------------- |
-| `--ink`    | `#24241f` | Dark olive-charcoal cover and ink |
-| `--paper`  | `#f2efe6` | Ivory paper and cover lettering   |
-| `--accent` | `#b9a06a` | Muted amber/gold                  |
-| `--line`   | `#cecabd` | Interior rules                    |
-| `--muted`  | `#65655b` | Secondary copy                    |
+| `--ink`    | `#252923` | Primary interior text             |
+| `--cover`  | `#252824` | Charcoal cloth                    |
+| `--paper`  | `#f5f1e8` | Primary paper and cover lettering |
+| `--accent` | `#b59a64` | Decorative brass / index bookmark |
+| `--functional` | `#355747` | Functional fallback / active index |
+| `--line`   | `#d5d0c5` | Decorative interior rules         |
+| `--muted`  | `#62665e` | Secondary copy                    |
 
 Chapter paper/ink pairs:
 
 | Section            | Paper     | Ink       |
 | ------------------ | --------- | --------- |
-| Introduction       | `#f4efe3` | `#7d6844` |
-| Experience         | `#f1ebdc` | `#7d6339` |
-| Projects           | `#e5edf0` | `#456675` |
-| Education          | `#eeeddf` | `#615e3b` |
-| Skills             | `#e3eade` | `#53674a` |
+| Introduction       | `#f5f1e8` | `#355747` |
+| Experience         | `#f1e9db` | `#70543d` |
+| Projects           | `#e8edf0` | `#36596a` |
+| Education          | `#f0ede5` | `#595d50` |
+| Skills             | `#e9eee7` | `#355747` |
 
 Enhanced chapter surfaces also use `--chapter-fold` and `--chapter-edge`; preserve their role when changing a palette.
+
+The coordinated chapter tokens also apply to native no-JS/reduced-motion paper. Fold and edge colors are restrained darker versions of each stock; binding and turning-sheet shade use neutral charcoal rather than brown. Shared cloth has a cool, low-contrast weave and brass tooling. Brass is decorative on paper; text links use chapter ink, active index uses forest green plus an underline, and meaningful outlines use current ink. Decorative rules need not meet interface contrast requirements. Project image outlines follow the actual screenshot, not an empty frame around it.
 
 The visible contact surface is the shared dark cloth back cover. Retained `#contact` paper tokens are not its active presentation.
 
@@ -74,11 +78,11 @@ The visible contact surface is the shared dark cloth back cover. Retained `#cont
 - Phone introduction and experience paragraphs use left-aligned 15px type, 1.6 line height, a 38ch maximum measure, pretty wrapping, and one-em paragraph gaps. Preserve complete copy and measured page fitting, including static fallbacks.
 - Front-cover name only: local Orbitron 400. Preserve its scale, centered composition, and letterpress shadows.
 - Technical labels: system `"Courier New", monospace`; interior folios use Georgia.
-- Introduction/project technology lists and experience dates use 16px on desktop. Phone typography may be smaller to fit the full original content on one centered page. Display experience dates without day numbers, retaining verified months, seasons, and years. Preserve regular monospace, the original softer colors, and uppercase date styling; do not substitute heavier type or a different font.
+- Introduction/project technology lists use 16px on desktop; experience dates use quieter 14px regular monospace with 0.04em tracking. Phone typography may be smaller to fit the full original content on one centered page. Display experience dates without day numbers, retaining verified months, seasons, and years and uppercase styling. Company headings share upright serif type, tighter spacing, and chapter-ink role names. Desktop body paragraphs use 1.8 line height, while the existing phone introduction/experience 1.6 remains. Project headings use 44px/1.14 at the base desktop size, with existing responsive sizes retained. Skills category headings use primary ink and tighter tracking, keeping numbers secondary.
 - Education remains one reading spread with a single large “Computer Science: Programming” heading and the DEC / Diploma of College Studies credential beneath it on the left. The right page groups LaSalle College, Montréal/Québec, subtle 12px dates, and the existing contextual sentence. Omit the duplicate COMPUTER SCIENCE heading and SOFTWARE DEVELOPMENT label. Phones stack the same two groups. Preserve the spread grid, paper, folios, turn boundary, and degree-first hierarchy; no year-focused artwork, logos, skills, course lists, or experience repetition.
 - The cover-name size remains `clamp(88px, 11.7vw, 190px)` desktop and `clamp(72px, 19vw, 132px)` mobile.
 - Use recognizable local SVG brand marks with text labels for experience and skills. Attributions and licenses remain in `README.md` and `public/licenses/`.
-- Skills uses two reading spreads: short intro immediately above Backend on the first left page, with Frontend opposite; Databases & Data and Tools & Testing on the second left page, with Infrastructure & Cloud and AI Development opposite. Original category numbers remain attached to their categories; AI Development is 06. The spreads retain all 13/18 entries of the approved 31-item inventory. All six categories share one heading/rule anatomy and two-column inventory, falling back to one column only when page width requires it. On desktop, one SkillItem uses a fixed 32px icon column, 12px text gap, 40px minimum row height, and 16px names. Phones use a compact version and measured page fitting without removing entries. Spacing tokens control rules, headings, rows, and category separation. A Skills-local SVG filter compresses logo luminance into a muted gray range while retaining internal details; optical sizes compensate for dense marks and internal SVG whitespace. Reuse the existing spread grid, paper, and turn boundaries; no proficiency ratings.
+- Skills uses two reading spreads: Backend on the first left page, with Frontend opposite; Databases & Data and Tools & Testing on the second left page, with Infrastructure & Cloud and AI Development opposite. Start directly with the categories, without an introduction sentence. Original category numbers remain attached to their categories; AI Development is 06. The spreads retain all 13/18 entries of the approved 31-item inventory. All six categories share one heading/rule anatomy and two-column inventory, falling back to one column only when page width requires it. On desktop, one SkillItem uses a fixed 32px icon column, 12px text gap, 40px minimum row height, and 16px names. Phones use a compact version and measured page fitting without removing entries. Spacing tokens control rules, headings, rows, and category separation. A Skills-local SVG filter compresses logo luminance into a muted gray range while retaining internal details; optical sizes compensate for dense marks and internal SVG whitespace. Reuse the existing spread grid, paper, and turn boundaries; no proficiency ratings.
 
 ## Motion contract
 
@@ -92,7 +96,7 @@ The visible contact surface is the shared dark cloth back cover. Retained `#cont
 - Fit and vertically center each complete reading block inside symmetric page bounds on measurement, font readiness, and resize. Responsive type, spacing, and image sizes establish the layout; a measured layout scale reduces it only as necessary to fit. Above the normal desktop size, scale reading content proportionately up to 1.8× when height permits. The fit is static during a turn. Folios and running heads stay anchored. Every reading runway occupies one viewport height, including Evenly.
 - At widths of 1600px and above, paper width grows beyond the original 1240px cap, using 80vw bounded by 180dvh and 56px minimum side margins. Fore-edges share the resulting inset. Preserve readable line lengths and centered geometry; do not stretch the book across an entire super-ultrawide monitor.
 - Empty document runways retain native scroll distance and stable chapter destinations. Index, cover link, and inline chapter links use those destinations; hidden reading surfaces are inert. Clearing enhancement removes the fixed positioning, runways, snapshots, visibility and clipping state, restoring the original static document.
-- Divider wrappers retain 175svh desktop / 150svh mobile runways. Paper texture, page blocks, INDEX, navigation labels, content and typography remain unchanged.
+- Divider wrappers retain 175svh desktop / 150svh mobile runways. Their geometry remains independent of the CSS-owned chapter materials and typography; page blocks, INDEX, navigation labels, and complete content remain available during enhancement.
 - The one-time cover pen entrance reveals the actual Orbitron heading one line at a time using clip-path, with no font swap. It waits for fonts/window load and runs for 2.48 seconds. No-JS, reduced motion, scroll-away, or tab hiding resolve immediately to resting type; it never replays on scroll.
 - The front NP seal also waits for fonts and page assets, enters once, and remains still. Its static fallback stays visible without JavaScript or with reduced motion.
 

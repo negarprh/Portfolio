@@ -27,9 +27,7 @@ for (const width of [1440, 1100, 820, 390]) {
     await page.goto("/");
     await page.evaluate(() => document.fonts.ready);
     const skills = page.locator("#skills");
-    await expect(skills.locator(".skills-intro")).toHaveText(
-      "I work primarily across backend and full-stack development.",
-    );
+    await expect(skills.locator(".skills-intro")).toHaveCount(0);
     await expect(skills.locator(".skills-spread")).toHaveCount(2);
     const pages = skills.locator(".skills-page");
     for (const [index, headings] of [
@@ -40,7 +38,6 @@ for (const width of [1440, 1100, 820, 390]) {
     ].entries()) {
       await expect(pages.nth(index).locator("h3")).toHaveText(headings);
     }
-    await expect(pages.nth(0).locator(".skills-intro")).toHaveCount(1);
     await expect(
       skills.locator(".skills-spread").nth(0).locator(".skill-group"),
     ).toHaveCount(2);

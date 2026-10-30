@@ -68,6 +68,8 @@ Primary suites include `book.spec.ts`, `book-material.spec.ts`, `chapters.spec.t
 
 Useful review scripts:
 
+- `node scripts/review-editorial.cjs final` captures eight representative surfaces at 1440×900, 768×1024, 390×844, and 320×568 plus fitting measurements under ignored `test-results/editorial-final/`. Set `BOOK_TEST_BASE_URL` to inspect a production server. `tests/editorial-contrast.spec.ts` samples rendered background pixels with text temporarily transparent and checks representative text against AA thresholds; axe and existing viewport/interaction suites provide broader coverage.
+
 - `node scripts/review-jackets.cjs` for front/back desktop comparisons and mobile covers.
 - `node scripts/review-chapters.cjs` for adjacent content pages and divider views.
 - `node scripts/review-signature.cjs` for signature videos and timing traces.
