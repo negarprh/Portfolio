@@ -579,12 +579,6 @@ dd.mono {
 .job-detail p + p {
   margin-top: 24px;
 }
-.project-copy h3 {
-  font-size: 44px;
-  line-height: 1.14;
-  margin: 24px 0 30px;
-  letter-spacing: -0.02em;
-}
 .project-copy > p:not(.eyebrow):not(.stack):not(.star-count) {
   font-size: 17px;
   line-height: 1.8;
@@ -593,10 +587,6 @@ dd.mono {
 }
 .project-copy > p + p:not(.stack) {
   margin-top: 20px;
-}
-.project-copy .eyebrow {
-  font-size: 10px;
-  letter-spacing: 0.08em;
 }
 .star-count {
   color: #746039;
@@ -799,9 +789,6 @@ figcaption {
   .job-heading h3 {
     font-size: 45px;
   }
-  .project-copy h3 {
-    font-size: 35px;
-  }
 }
 @media (max-width: 700px) {
   html {
@@ -973,9 +960,6 @@ figcaption {
   }
   .job-detail p + p {
     margin-top: 24px;
-  }
-  .project-copy h3 {
-    font-size: 39px;
   }
   .project-image {
     padding: 8px;

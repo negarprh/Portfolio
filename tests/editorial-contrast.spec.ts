@@ -39,7 +39,7 @@ test("editorial text contrasts with rendered cloth and chapter stock", async ({
     [".skills-spread", ".skill-group h3, .skill-group li"],
     [
       ".flagship",
-      "h3, .project-copy > p, .project-links a, .project-tech dd, .project-proof > span, figcaption, .project-context p",
+      "h3, .project-copy > p, .project-links a, .project-tech dd, .project-proof, figcaption",
     ],
     [".education-spread", "h3, p"],
     [".back-cover", "h2, .eyebrow, .closing-links a, .colophon-device"],

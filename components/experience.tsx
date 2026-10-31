@@ -26,10 +26,6 @@ function RoleAnchor({ index }: { index: number }) {
         <span className="sr-only">
           Median runtime reduced by 62%, from 4.7 hours to 1.8 hours.
         </span>
-        <div className="runtime-bars" aria-hidden="true">
-          <span />
-          <span />
-        </div>
       </figure>
     );
   if (index === 1)
@@ -52,10 +48,6 @@ function RoleAnchor({ index }: { index: number }) {
               72<em>%</em>
             </strong>
           </span>
-        </div>
-        <div className="coverage-bars" aria-hidden="true">
-          <span />
-          <span />
         </div>
       </figure>
     );

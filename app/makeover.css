@@ -202,35 +202,6 @@
   color: var(--muted);
   padding-top: 20px;
 }
-.runtime-bars {
-  display: grid;
-  gap: 7px;
-  margin-top: 20px;
-}
-.runtime-bars span {
-  height: 3px;
-  background: currentColor;
-  opacity: 0.25;
-}
-.runtime-bars span:last-child {
-  width: 38.2979%;
-  opacity: 0.8;
-}
-.coverage-bars {
-  display: grid;
-  gap: 7px;
-  margin-top: 20px;
-}
-.coverage-bars span {
-  width: 24%;
-  height: 3px;
-  background: currentColor;
-  opacity: 0.25;
-}
-.coverage-bars span:last-child {
-  width: 72%;
-  opacity: 0.8;
-}
 .response-anchor > p {
   margin-top: 18px;
   font-size: 12px;
@@ -779,25 +750,13 @@ html[data-book-enhanced] .book-opening > section.introduction {
   font-size: 14px;
   letter-spacing: 0.04em;
 }
-#work .project-copy h3 {
-  margin: 0 0 16px;
-}
-#work .project-copy > .eyebrow {
-  margin: 0 0 8px;
-  color: var(--muted);
-  letter-spacing: 0.04em;
-}
 .project-tech {
-  margin-top: 28px;
-}
-.project-tech dt {
-  margin: 0 0 8px;
-  text-transform: uppercase;
+  grid-area: tech;
 }
 .project-tech dd {
   margin: 0;
-  font-size: 16px;
-  line-height: 1.75;
+  font-size: 13px;
+  line-height: 1.6;
   letter-spacing: 0;
   color: var(--muted);
 }
@@ -849,29 +808,53 @@ html[data-book-enhanced] .book-opening > section.introduction {
     font-size: clamp(36px, 10vw, 60px);
   }
 }
+#work .spread-content {
+  grid-template-areas: "heading evidence" "copy evidence" "tech evidence" "actions evidence";
+  grid-template-rows: auto auto auto auto;
+  column-gap: 146px;
+  row-gap: 18px;
+  align-content: center;
+  align-items: start;
+}
+#work .spread-content > * {
+  min-width: 0;
+  padding: 0;
+}
+.project-heading {
+  grid-area: heading;
+}
+.project-heading h3 {
+  font-size: 44px;
+  line-height: 1.14;
+  letter-spacing: -0.025em;
+  text-wrap: balance;
+}
+.project-copy {
+  grid-area: copy;
+}
 .project-links {
+  grid-area: actions;
   display: flex;
   flex-wrap: wrap;
-  gap: 12px 28px;
-  margin: 0 0 24px;
+  align-items: center;
+  gap: 8px 24px;
+  margin: 0;
 }
 .project-links .text-link {
   margin: 0;
   min-height: 44px;
-  padding-block: 8px;
-  color: var(--chapter-ink, #456675);
-  border-bottom-color: currentColor;
-  font-size: 16px;
+  padding: 10px 0;
+  color: var(--chapter-ink);
+  border: 0;
+  font-size: 15px;
   font-weight: 600;
-  gap: 8px;
-}
-.project-links + p {
-  margin-top: 0;
-}
-.project-note {
-  color: var(--chapter-ink, #456675);
+  line-height: 1.5;
+  text-decoration: underline;
+  text-underline-offset: 4px;
 }
 .project-evidence {
+  grid-area: evidence;
+  align-self: center;
   min-width: 0;
 }
 #work .project-image {
@@ -883,50 +866,26 @@ html[data-book-enhanced] .book-opening > section.introduction {
   outline: 1px solid var(--line);
   outline-offset: 0;
 }
-#work .project-image:is(:hover, :focus-visible) {
-  outline: 2px solid var(--chapter-ink);
-  outline-offset: 4px;
-}
-.project-impact {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 20px;
-}
 .project-proof {
-  margin: 0;
-  font-family: Editorial, Georgia, serif;
-  font-size: clamp(36px, 4vw, 58px);
-  line-height: 1.1;
-  letter-spacing: -0.04em;
+  margin: 16px 0 0;
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--chapter-ink);
   font-variant-numeric: tabular-nums;
 }
-.project-proof > span {
-  display: block;
-  margin-top: 8px;
-  font-size: 10px;
-  line-height: 1.6;
-  letter-spacing: 0;
+.project-proof strong {
+  margin-right: 0.25em;
 }
-.fallback-proof {
-  font-size: clamp(24px, 2.5vw, 34px);
+.project-proof > span[aria-hidden] {
+  padding-inline: 0.35em;
 }
-.project-discovery {
-  margin: 0;
-  font-size: 12px;
-  line-height: 1.7;
-}
-.project-maintenance {
-  margin-top: 8px;
-  font-size: 10px;
-  line-height: 1.8;
-}
-.project-context {
-  border-top: 1px solid var(--line);
-  margin-top: 18px;
-  padding-top: 14px;
-}
-.community-note {
-  margin-bottom: 20px;
+@media (min-width: 701px) and (max-width: 1000px) {
+  #work .spread-content {
+    column-gap: 80px;
+  }
+  .project-heading h3 {
+    font-size: 32px;
+  }
 }
 
 .cover-art {
@@ -1231,8 +1190,7 @@ html[data-book-enhanced] #work .project-image img {
     margin-top: 0;
     max-width: none;
   }
-  html[data-book-enhanced]
-    :is(.introduction h2, .job-heading h3, #work .project-copy h3) {
+  html[data-book-enhanced] :is(.introduction h2, .job-heading h3) {
     font-size: 32px;
     margin: 0 0 10px;
   }
@@ -1288,9 +1246,6 @@ html[data-book-enhanced] #work .project-image img {
   html[data-book-enhanced] .runtime-values > span {
     gap: 2px;
   }
-  html[data-book-enhanced] .runtime-bars {
-    margin-top: 8px;
-  }
   html[data-book-enhanced] .backend-anchor {
     padding-top: 10px;
   }
@@ -1313,44 +1268,6 @@ html[data-book-enhanced] #work .project-image img {
   html[data-book-enhanced] #work .spread-content {
     padding: 0;
     gap: 14px;
-  }
-  html[data-book-enhanced] #work .project-copy > .eyebrow {
-    margin-bottom: 4px;
-  }
-  html[data-book-enhanced] .project-tech {
-    margin-top: 12px;
-  }
-  html[data-book-enhanced] .project-tech dt {
-    margin: 0 0 3px;
-  }
-  html[data-book-enhanced] .project-tech dd {
-    font-size: 14px;
-    line-height: 1.45;
-  }
-  html[data-book-enhanced] .project-links {
-    margin: 0 0 16px;
-    gap: 8px 24px;
-  }
-  html[data-book-enhanced] .project-links .text-link {
-    min-height: 44px;
-  }
-  html[data-book-enhanced] #work .project-image img {
-    max-height: 20svh;
-  }
-  html[data-book-enhanced] .project-proof {
-    font-size: 28px;
-  }
-  html[data-book-enhanced] .project-proof > span {
-    margin-top: 3px;
-  }
-  html[data-book-enhanced] .project-discovery {
-    margin: 6px 0 10px;
-    line-height: 1.4;
-  }
-  html[data-book-enhanced] .project-maintenance {
-    margin-top: 8px;
-    padding-top: 6px;
-    line-height: 1.4;
   }
   html[data-book-enhanced] #skills {
     --skill-icon-column: 24px;
@@ -1393,35 +1310,10 @@ html[data-book-enhanced] #work .project-image img {
     margin-top: 14px;
     padding-top: 12px;
   }
-  html[data-book-enhanced]
-    #work
-    .project-copy
-    > p:not(.eyebrow):not(.stack):not(.star-count) {
-    font-size: 15px;
-    line-height: 1.5;
-  }
   html[data-book-enhanced] #work figcaption {
     margin-top: 6px;
     font-size: 10px;
     line-height: 1.4;
-  }
-  html[data-book-enhanced] .flagship .project-evidence {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-  }
-  html[data-book-enhanced] .flagship .project-impact {
-    gap: 8px;
-  }
-  html[data-book-enhanced] .flagship .project-proof {
-    font-size: 24px;
-  }
-  html[data-book-enhanced] .flagship .project-proof > span {
-    font-size: 10px;
-  }
-  html[data-book-enhanced] .flagship .project-discovery {
-    font-size: 11px;
-    margin: 0;
   }
   html[data-book-enhanced] .book-fixed-page {
     touch-action: pan-x pinch-zoom;
@@ -1429,56 +1321,51 @@ html[data-book-enhanced] #work .project-image img {
 }
 
 @media (max-width: 700px) {
-  #work .project-links {
-    margin: 0 0 16px;
-    gap: 8px 24px;
+  #work .spread-content {
+    grid-template-areas: "heading" "evidence" "copy" "tech" "actions";
+    grid-template-columns: minmax(0, 1fr);
+    gap: 14px;
   }
-  #work .project-tech {
-    display: flex;
-    align-items: baseline;
-    gap: 10px;
-    margin-top: 14px;
+  #work .project-heading h3 {
+    font-size: clamp(25px, 7.2vw, 32px);
+    text-align: center;
   }
-  #work .project-tech dt {
-    flex: none;
-    font-size: 10px;
-    margin: 0;
+  #work .project-copy > p:not(.eyebrow):not(.stack):not(.star-count) {
+    font-size: 15px;
+    line-height: 1.5;
+  }
+  #work .project-copy > p + p {
+    margin-top: 12px;
   }
   #work .project-tech dd {
     font-size: 12px;
     line-height: 1.5;
   }
-  #work .project-evidence {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
+  #work .project-links {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
   }
-  #work .project-evidence > * {
-    width: 100%;
+  #work .project-links .text-link {
+    min-height: 52px;
+    justify-content: center;
+    padding-inline: 10px;
+    text-align: center;
+    white-space: nowrap;
   }
-  #work .community-note {
-    margin: 0;
+  #work .project-links .text-link:only-child {
+    grid-column: 1 / -1;
   }
-  #work .project-impact {
-    gap: 24px;
+  #work .project-links .text-link:focus-visible {
+    outline: 2px solid var(--chapter-ink);
+    outline-offset: 4px;
   }
-  #work .project-context {
-    margin: 0;
-    padding-top: 10px;
-  }
-  #work .project-discovery {
-    margin: 0;
-    font-size: 11px;
-    line-height: 1.5;
-  }
-  #work .project-maintenance {
-    margin-top: 4px;
-    padding: 0;
-    font-size: 10px;
-    letter-spacing: 0;
+  #work .project-proof {
+    margin-top: 8px;
+    font-size: 12px;
   }
   html[data-book-enhanced] #work .project-image img {
-    max-height: 16svh;
+    max-height: 18svh;
   }
 }
 
@@ -1530,8 +1417,7 @@ html[data-book-enhanced] .introduction > .chapter-running {
     margin-top: 1em;
   }
   html[data-book-enhanced] .body-copy + .body-copy,
-  html[data-book-enhanced] .job-detail p + p,
-  html[data-book-enhanced] #work .project-copy > p + p:not(.eyebrow) {
+  html[data-book-enhanced] .job-detail p + p {
     margin-top: 12px;
   }
 }

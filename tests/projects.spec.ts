@@ -1,11 +1,12 @@
 import { test, expect } from "@playwright/test";
 import { settleBook } from "./motion-helpers";
 
-for (const width of [1440, 390]) {
+for (const width of [1440, 390, 320]) {
   test(`three editorial projects preserve links and readable turns at ${width}px`, async ({
     page,
   }) => {
-    await page.setViewportSize({ width, height: 1000 });
+    const height = width === 320 ? 568 : 1000;
+    await page.setViewportSize({ width, height });
     await page.goto("/");
     await expect(page.locator("html")).toHaveAttribute(
       "data-book-enhanced",
@@ -33,17 +34,6 @@ for (const width of [1440, 390]) {
     ];
     for (let index = 0; index < 3; index++) {
       const article = articles.nth(index);
-      expect(
-        await article.locator(".project-links").evaluate((el) => {
-          const copy = el.parentElement!;
-          return (
-            [...copy.children].indexOf(el) <
-            [...copy.children].findIndex((node) =>
-              node.matches("p:not(.eyebrow)"),
-            )
-          );
-        }),
-      ).toBe(true);
       const screenshot = article.locator(".project-image img");
       await expect(screenshot).toHaveCount(1);
       await screenshot.scrollIntoViewIfNeeded();
@@ -86,11 +76,37 @@ for (const width of [1440, 390]) {
       for (const progress of [1, 0.4, 0.8, 0.2, 1]) {
         await page.evaluate(
           (y) => scrollTo({ top: y, behavior: "instant" }),
-          top - 850 + progress * 850,
+          top - height * 0.85 + progress * height * 0.85,
         );
         await settleBook(page);
       }
       await expect(article.locator("h3")).toBeVisible();
+      const actions = await article.locator(".project-links").boundingBox();
+      const stack = await article.locator(".project-tech").boundingBox();
+      expect(actions!.y).toBeGreaterThanOrEqual(stack!.y + stack!.height);
+      for (const link of await article.locator(".project-links a").all()) {
+        await expect(link).toHaveCSS(
+          "min-height",
+          width <= 700 ? "52px" : "44px",
+        );
+        expect((await link.boundingBox())!.height).toBeGreaterThanOrEqual(44);
+      }
+      if (width <= 700) {
+        await expect(article.locator(".project-heading h3")).toHaveCSS(
+          "text-align",
+          "center",
+        );
+        const picture = await article
+          .locator(".project-evidence")
+          .boundingBox();
+        const copy = await article.locator(".project-copy").boundingBox();
+        expect(picture!.y + picture!.height).toBeLessThanOrEqual(copy!.y + 1);
+      }
+      await expect(
+        article.locator(
+          ".project-heading .eyebrow, .project-context, .project-image[href]",
+        ),
+      ).toHaveCount(0);
       await expect(article.locator(".spread-content")).toHaveCSS(
         "clip-path",
         "none",
@@ -107,12 +123,6 @@ for (const width of [1440, 390]) {
     await expect(chapter.locator(".community-note")).toContainText("197K+");
     await expect(chapter.locator(".community-note")).toContainText(
       "views in the past 12 months",
-    );
-    await expect(chapter.locator(".project-context")).toContainText(
-      "Top Google result",
-    );
-    await expect(chapter.locator(".project-maintenance")).toContainText(
-      "2026 → 2027",
     );
     await expect(articles.nth(1).locator("figcaption")).toContainText(
       "sample data",

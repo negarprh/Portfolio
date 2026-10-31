@@ -20,75 +20,12 @@ export function SelectedWork({ stars }: { stars: number | null }) {
             key={project.id}
           >
             <div className="spread-content">
-              <div className="project-copy">
+              <header className="project-heading">
                 <h3 id={`${project.id}-title`}>{project.name}</h3>
-                <p className="eyebrow">{project.category}</p>
-                <div className="project-links">
-                  {project.live && (
-                    <a
-                      className="text-link"
-                      href={project.live}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      aria-label={`View ${project.name} live (opens in a new tab)`}
-                    >
-                      Visit live site
-                    </a>
-                  )}
-                  <a
-                    className="text-link"
-                    href={project.github}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label={`${project.name} on GitHub (opens in a new tab)`}
-                  >
-                    View on GitHub
-                  </a>
-                </div>
-                {project.paragraphs.map((paragraph) => (
-                  <p key={paragraph}>{paragraph}</p>
-                ))}
-                <dl className="project-tech mono">
-                  <dt>Tech</dt>
-                  <dd>{project.stack}</dd>
-                </dl>
-              </div>
+              </header>
               <div className="project-evidence">
-                {project.visual === "community" && (
-                  <aside
-                    className="project-note community-note"
-                    aria-label="Community response"
-                  >
-                    <div className="project-impact">
-                      {stars === null ? (
-                        <p className="project-proof fallback-proof">
-                          Open source
-                          <br />
-                          on GitHub
-                        </p>
-                      ) : (
-                        <p className="project-proof">
-                          {stars.toLocaleString("en-CA")}
-                          <span className="mono">GitHub stars</span>
-                        </p>
-                      )}
-                      <p className="project-proof">
-                        197K+
-                        <span className="mono">
-                          views in the past 12 months
-                        </span>
-                      </p>
-                    </div>
-                  </aside>
-                )}
                 <figure>
-                  <a
-                    className="project-image"
-                    href={project.live || project.github}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label={`Explore ${project.name} (opens in a new tab)`}
-                  >
+                  <div className="project-image">
                     <img
                       src={project.image.src}
                       alt={project.image.alt}
@@ -96,23 +33,62 @@ export function SelectedWork({ stars }: { stars: number | null }) {
                       height={project.image.height}
                       loading="lazy"
                     />
-                  </a>
-                  <figcaption className="mono">
-                    {project.image.caption}
-                  </figcaption>
+                  </div>
+                  {project.id === "evenly" && (
+                    <figcaption>{project.image.caption}</figcaption>
+                  )}
                 </figure>
                 {project.visual === "community" && (
-                  <div className="project-context">
-                    <p className="project-discovery">
-                      <strong>Top Google result</strong> for “Canadian tech
-                      internships”
-                    </p>
-                    <p className="mono project-maintenance">
-                      <strong>2026 → 2027</strong> · Actively maintained across
-                      recruiting cycles
-                    </p>
-                  </div>
+                  <p className="project-proof community-note">
+                    {stars === null ? (
+                      "Open source on GitHub"
+                    ) : (
+                      <>
+                        <strong>{stars.toLocaleString("en-CA")}</strong> GitHub
+                        stars
+                      </>
+                    )}
+                    <span aria-hidden="true"> · </span>
+                    <span>
+                      <strong>197K+</strong> views in the past 12 months
+                    </span>
+                  </p>
                 )}
+              </div>
+              <div className="project-copy">
+                {project.paragraphs.map((paragraph) => (
+                  <p key={paragraph}>{paragraph}</p>
+                ))}
+              </div>
+              <dl className="project-tech mono">
+                <dt className="sr-only">Technologies</dt>
+                <dd>{project.stack}</dd>
+              </dl>
+              <div
+                className="project-links"
+                role="group"
+                aria-label={`${project.name} links`}
+              >
+                {project.live && (
+                  <a
+                    className="text-link"
+                    href={project.live}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={`View ${project.name} live (opens in a new tab)`}
+                  >
+                    Visit live site
+                  </a>
+                )}
+                <a
+                  className="text-link"
+                  href={project.github}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={`${project.name} on GitHub (opens in a new tab)`}
+                >
+                  View on GitHub
+                </a>
               </div>
             </div>
             <TurnSheet label="Projects" />

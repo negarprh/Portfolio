@@ -86,6 +86,7 @@ test("no-JS and reduced-motion keep seal and all three role anchors readable", a
       "none",
     );
     await expect(page.locator(".role-anchor")).toHaveCount(3);
+    await expect(page.locator(".runtime-bars, .coverage-bars")).toHaveCount(0);
     await expect(page.locator(".role-1 .role-anchor")).toContainText(
       "Backend test coverage",
     );

@@ -1,5 +1,9 @@
 # The Book: decisions and implementation record
 
+## 2026-10-31: quieter projects and meaningful experience comparisons
+
+Negar found Projects cluttered, especially on phones, and disliked the action placement and unexplained lines beneath two experience metrics. Give each project one title, screenshot, complete description, quieter stack, and final action group. Use named grid areas to retain desktop spreads while keeping phone/DOM order coherent. Remove redundant category/caption labels and separate Google/cycle notes; retain their facts in career context, dynamic stars/views as a quiet evidence line, and Evenly's sample-data attribution. Replace duplicate screenshot links with one clear action group, using an outlined main action and underlined secondary action. Remove runtime/coverage decorative bars instead of adding more diagram labels. Preserve original paragraphs, comparisons, links, and the book engine. This supersedes the earlier requirement to put actions before the description and enlarge project metrics.
+
 ## 2026-10-30: visible book depth on phones
 
 Negar found the physical book much less visible on phones than on desktop. Expose narrow portions of the existing sheet stacks, restore a left-edge binding shade, and add a fine board lip without narrowing reading content. Strengthen mobile perspective, articulated flex, face lighting, and contact shade using the existing renderer. Keep desktop styling and gesture pacing unchanged; preserve reversible turns and native reduced-motion/no-JS fallbacks. Compare intermediate screenshots and measured fitting rather than introducing extra motion or shrinking the paper.
