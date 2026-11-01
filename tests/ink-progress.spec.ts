@@ -52,7 +52,9 @@ for (const width of [1440, 390]) {
       expect(state.ids).toBe(0);
       expect(state.inert).toBe(true);
       if (p !== 1) {
-        expect(state.front).toContain("Hi, I’m Negar!");
+        expect(state.front).toContain(
+          "I’m a software developer based in Montréal.",
+        );
         expect(state.back).toContain("Experience");
         expect(new Set(state.transforms).size).toBeGreaterThan(1);
         if (states.has(p)) expect(state.transforms).toEqual(states.get(p));

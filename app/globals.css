@@ -35,6 +35,7 @@
   --functional: #355747;
   --line: #d5d0c5;
   --muted: #62665e;
+  --paper-grain: url("/images/editorial-paper.svg");
 }
 * {
   box-sizing: border-box;
@@ -345,12 +346,6 @@ body {
   gap: 13%;
   align-items: start;
   padding: 90px 0;
-}
-.introduction h2 {
-  font-size: clamp(38px, 4vw, 54px);
-  line-height: 1.2;
-  letter-spacing: -0.02em;
-  margin-bottom: 32px;
 }
 .body-copy {
   font-size: 18px;
@@ -882,9 +877,6 @@ figcaption {
     grid-template-columns: 1fr;
     gap: 50px;
     padding: 65px 0;
-  }
-  .introduction h2 {
-    font-size: 42px;
   }
   .body-copy {
     font-size: 17px;

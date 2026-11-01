@@ -1,5 +1,19 @@
 # The Book: decisions and implementation record
 
+## 2026-10-31: cohesive author details and the Ozex comparison
+
+Negar requested consistent small uppercase monospace labels, Manrope values/links, a slightly emphasized Role, and refined link underlines/focus. Remove the Introduction's redundant Contact anchor while preserving Email/LinkedIn/GitHub and the contact chapter. On phones, put the unchanged portrait to the lower right of the metadata rather than stacking it above. Keep the desktop/tablet book composition. Give Ozex a compact relative response-time comparison: before = 100, after = 65, derived from the verified 35% reduction. Label its scale explicitly; do not invent milliseconds or additional performance claims. Use static HTML/CSS without generation credits, dependencies, or turn-engine changes.
+
+## 2026-10-31: a personal author portrait for the Introduction
+
+Negar requested replacing the generated introductory artwork with her supplied pencil portrait, removing the greeting heading, and balancing the resulting author spread. Extract transparency deterministically from the original sketch, retaining opaque facial pixels and unmatting only translucent edges; never generate or retouch the face. Use a lossless WebP on the right page above professional details, with no frame, image filters, or blend effects. Center the two desktop/tablet columns and retain a small portrait on phones, reducing its size on short viewports so reading does not shrink further. Preserve all three paragraphs and the motion engine. Retire the former public illustration and update heading-dependent tests to verify the actual biography, portrait, and accessible section name.
+
+## 2026-10-31: selective illustrated engineering publication
+
+Negar requested a significant material and storytelling refinement using Higgsfield, Codex, and Playwright while preserving the book. Keep illustration selective: one engraved woven-paths metaphor on the spacious desktop introduction, labeled runtime/coverage figures, and the verified Canadian Tech Internships automation workflow. Omit supplemental figures on compact layouts so the existing mobile fitting does not become denser. Preserve all original career copy, accurate screenshots, 31 skills, navigation, and motion. Refine Skills with catalog rules and Education with a quiet typographic detail rather than adding illustrations to every spread.
+
+Use free deterministic SVG cloth and paper consistently across covers, chapter stocks, turning surfaces, and native fallbacks. Negar approved a maximum of 8.25 credits from the 10 welcome credits. GPT Image 2.5 was plan-gated; Nano Banana 2 cloth attempts were rejected and refunded. The usable woven-paths illustration and its refinement cost 4 credits total, leaving 6. Do not buy credits. This extends the prior quieter-project direction; desktop-only figures have explicit scales/legends instead of the rejected unexplained phone bars.
+
 ## 2026-10-31: quieter projects and meaningful experience comparisons
 
 Negar found Projects cluttered, especially on phones, and disliked the action placement and unexplained lines beneath two experience metrics. Give each project one title, screenshot, complete description, quieter stack, and final action group. Use named grid areas to retain desktop spreads while keeping phone/DOM order coherent. Remove redundant category/caption labels and separate Google/cycle notes; retain their facts in career context, dynamic stars/views as a quiet evidence line, and Evenly's sample-data attribution. Replace duplicate screenshot links with one clear action group, using an outlined main action and underlined secondary action. Remove runtime/coverage decorative bars instead of adding more diagram labels. Preserve original paragraphs, comparisons, links, and the book engine. This supersedes the earlier requirement to put actions before the description and enlarge project metrics.

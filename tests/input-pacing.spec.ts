@@ -16,8 +16,10 @@ test("a fast phone flick exposes intermediate turning frames instead of jumping"
   // Measure gesture pacing after the one-time entrance and snapshot warm-up,
   // rather than including cold asset/style preparation in the turn duration.
   await expect(
-    page.locator(".physical-turn .paper-verso h2").first(),
-  ).toContainText("Hi, I’m Negar!");
+    page
+      .locator(".physical-turn .paper-verso .intro-biography .body-copy")
+      .first(),
+  ).toContainText("I’m a software developer based in Montréal.");
   const client = await context.newCDPSession(page);
   await client.send("Input.dispatchTouchEvent", {
     type: "touchStart",

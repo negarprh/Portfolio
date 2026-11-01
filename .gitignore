@@ -52,3 +52,6 @@ Desktop.ini
 notes/private/
 .context-local/
 docs/context/generated/
+
+# Higgsfield AI skills (local only)
+.agents/skills/higgsfield-*/

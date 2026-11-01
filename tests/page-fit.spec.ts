@@ -66,6 +66,28 @@ for (const [width, height] of [
       expect(state.bounded).toBe(true);
       expect(state.paragraphs).toBe(true);
     }
+    if (width <= 360 && height <= 650) {
+      const clearsIndex = await page.evaluate(() => {
+        const bookmark = document
+          .querySelector(".book-index summary")!
+          .getBoundingClientRect();
+        const range = document.createRange();
+        range.selectNodeContents(
+          document.querySelector(".intro-biography .body-copy")!,
+        );
+        return Array.from(range.getClientRects()).every(
+          (line) =>
+            line.bottom <= bookmark.top ||
+            line.top >= bookmark.bottom ||
+            line.right <= bookmark.left ||
+            line.left >= bookmark.right,
+        );
+      });
+      expect(
+        clearsIndex,
+        "opening paragraph clears the fixed index bookmark",
+      ).toBe(true);
+    }
     for (const [i, job] of experience.entries())
       await expect(
         page.locator(".experience-row").nth(i).locator(".job-detail p"),

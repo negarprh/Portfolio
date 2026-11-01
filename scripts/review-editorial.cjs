@@ -5,7 +5,8 @@ const sharp = require("sharp");
 (async () => {
   const browser = await chromium.launch();
   const phase = process.argv[2] || "after";
-  const root = `test-results/editorial-${phase}`;
+  const root =
+    process.env.BOOK_REVIEW_OUTPUT || `test-results/editorial-${phase}`;
   fs.mkdirSync(root, { recursive: true });
   const measurements = [];
   for (const [width, height] of [
@@ -18,7 +19,7 @@ const sharp = require("sharp");
     await page.goto(process.env.BOOK_TEST_BASE_URL || "http://localhost:3000");
     await page.waitForSelector(".book-fixed-page");
     await page.evaluate(() => document.fonts.ready);
-    await page.waitForTimeout(3000);
+    await page.waitForSelector('.cover-name[data-signature="complete"]');
     measurements.push({
       width,
       height,
@@ -43,6 +44,11 @@ const sharp = require("sharp");
       ["education", ".education-spread"],
       ["contact", ".back-cover"],
       ["divider", "#work .divider"],
+      ["experience-lienzo", ".experience-row.role-1"],
+      ["experience-ozex", ".experience-row.role-2"],
+      ["skills-tools", ".skills-spread:has(#skill-category-1)"],
+      ["project-evenly", ".project-spread:has(#evenly-title)"],
+      ["project-airsense", ".project-spread:has(#airsense-title)"],
     ]) {
       await page
         .locator(selector)

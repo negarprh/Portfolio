@@ -32,7 +32,7 @@ Do not infer dates, seniority, degree equivalence, business impact, ownership, t
 - Work includes healthcare platforms, job-collection pipelines, and React contributions.
 - Started and maintains the Canadian Tech Internships repository.
 - Approved personal detail: cat person; omitted from the current introduction at Negar’s request to use her original copy.
-- Current introduction uses Negar’s latest supplied three-paragraph wording (2026-10-12), headed “Hi, I’m Negar!”: building from scratch, understanding systems, products people use, production software across three teams (backend systems/APIs through full-stack features), Canadian Tech Internships outside work, ownership, challenging problems, attention to detail, and real people using her work. Do not lead with graduate or junior positioning.
+- Current introduction uses Negar’s latest supplied three-paragraph wording (2026-10-12): building from scratch, understanding systems, products people use, production software across three teams (backend systems/APIs through full-stack features), Canadian Tech Internships outside work, ownership, challenging problems, attention to detail, and real people using her work. Negar removed the greeting heading on 2026-10-31 and supplied her pencil portrait for the right page; the biography wording remains unchanged. Do not lead with graduate or junior positioning.
 - Negar supplied “over 1,200 GitHub stars” on 2026-10-12. The introduction uses that phrase when the server-fetched count exceeds 1,200, the actual count otherwise, and a non-numeric GitHub fallback on API failure; project stars remain dynamic.
 - User-supplied public claim in that approved copy (2026-09-24): her open-source project grew from a personal idea into a resource used by thousands of people across Canada. This is Negar’s supplied usage claim, not a figure inferred from GitHub stars or independently measured here.
 
@@ -153,6 +153,7 @@ This is a display taxonomy, not a proficiency ranking. Adding a skill requires a
 - GitHub: `https://github.com/negarprh`.
 - LinkedIn: `https://www.linkedin.com/in/negar-pirasteh/`.
 - Show LinkedIn in the introduction contact links; omit the introduction’s unset-resume placeholder.
+- Introduction links are Email, LinkedIn, and GitHub; Negar removed the redundant Contact anchor on 2026-10-31. The contact chapter and index entry remain unchanged.
 - Contact uses “Get in touch.” and Email/LinkedIn/GitHub links, simplified at Negar’s request on 2026-10-16. The earlier role-seeking contact copy is superseded by her request to remove availability messages.
 - Public email approved by Negar on 2026-09-25: `negarpr@hotmail.com` (the backslash in the supplied Markdown escaped the @ sign).
 - Negar confirmed on 2026-10-12 that she will not add a résumé right now. Omit Resume links and placeholders; contact links remain Email, LinkedIn, and GitHub.

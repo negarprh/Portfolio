@@ -147,7 +147,7 @@ test("page stacks transfer thickness from right to left and folios mirror", asyn
   await page.screenshot({ path: "test-results/material-late.png" });
 });
 
-test("no-JS desktop preserves the original flat paper and content", async ({
+test("no-JS desktop preserves native paper, shared grain, and content", async ({
   browser,
 }) => {
   const context = await browser.newContext({
@@ -160,7 +160,11 @@ test("no-JS desktop preserves the original flat paper and content", async ({
   await expect(page.locator(".page-stacks")).toBeHidden();
   await expect(page.locator(".introduction")).toHaveCSS(
     "background-image",
-    "none",
+    /editorial-paper\.svg/,
+  );
+  await expect(page.locator(".introduction")).toHaveCSS(
+    "background-size",
+    "320px 320px",
   );
   await expect(page.locator(".introduction .folio-flat")).toBeVisible();
   await page.locator(".book-index summary").click();

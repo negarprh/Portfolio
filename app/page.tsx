@@ -77,7 +77,7 @@ export default async function Home() {
           <section
             id="introduction"
             className="paper section introduction"
-            aria-labelledby="intro-title"
+            aria-label="Introduction"
           >
             <RunningHead number="I" name="Introduction" />
             <div className="running-head mono">
@@ -85,8 +85,7 @@ export default async function Home() {
               <span>HELLO, I’M NEGAR</span>
             </div>
             <div className="intro-grid">
-              <div>
-                <h2 id="intro-title">Hi, I’m Negar!</h2>
+              <div className="intro-biography">
                 <p className="body-copy">
                   I’m a software developer based in Montréal. I enjoy building
                   things from scratch, understanding how systems work, and
@@ -112,15 +111,31 @@ export default async function Home() {
                 </p>
               </div>
               <aside className="intro-facts">
-                <dl>
-                  <dt>ROLE</dt>
-                  <dd>Backend / Full-Stack Developer</dd>
-                  <dt>BASED IN</dt>
-                  <dd>Montréal, Canada</dd>
-                  <dt>CORE STACK</dt>
-                  <dd className="mono">TypeScript · Node.js · Python</dd>
-                </dl>
-                <ContactLinks compact />
+                <img
+                  className="author-portrait"
+                  src="/images/author-portrait.webp"
+                  alt="Pencil-sketch portrait of Negar Pirasteh"
+                  width="768"
+                  height="576"
+                  loading="eager"
+                />
+                <div className="intro-profile">
+                  <dl>
+                    <div className="intro-detail intro-detail-role">
+                      <dt>ROLE</dt>
+                      <dd>Backend / Full-Stack Developer</dd>
+                    </div>
+                    <div className="intro-detail">
+                      <dt>BASED IN</dt>
+                      <dd>Montréal, Canada</dd>
+                    </div>
+                    <div className="intro-detail">
+                      <dt>CORE STACK</dt>
+                      <dd>TypeScript · Node.js · Python</dd>
+                    </div>
+                  </dl>
+                  <ContactLinks compact />
+                </div>
               </aside>
             </div>
             <Folio label="Negar Pirasteh" page="01" />

@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="256" height="256" viewBox="0 0 256 256">
+  <defs>
+    <pattern id="linen" width="8" height="8" patternUnits="userSpaceOnUse">
+      <path d="M.6 0v8M4.6 0v8" stroke="#c3c8bb" stroke-width=".7" opacity=".035"/>
+      <path d="M2.2 0v8M6.2 0v8" stroke="#080b07" stroke-width=".8" opacity=".22"/>
+      <path d="M0 .8h4m0 4h4M0 2.7h8M0 6.7h8" stroke="#bdc3b4" stroke-width=".55" opacity=".035"/>
+      <path d="M0 4h4m0-4h4M0 7.8h8" stroke="#080b07" stroke-width=".65" opacity=".25"/>
+    </pattern>
+    <filter id="fibers" x="0" y="0" width="100%" height="100%">
+      <feTurbulence type="fractalNoise" baseFrequency=".18 .72" numOctaves="3" seed="23" stitchTiles="stitch"/>
+      <feColorMatrix type="saturate" values="0"/>
+      <feComponentTransfer><feFuncA type="linear" slope=".035"/></feComponentTransfer>
+    </filter>
+  </defs>
+  <path fill="#20231f" d="M0 0h256v256H0z"/>
+  <path fill="url(#linen)" d="M0 0h256v256H0z"/>
+  <path fill="#62665e" filter="url(#fibers)" d="M0 0h256v256H0z"/>
+</svg>

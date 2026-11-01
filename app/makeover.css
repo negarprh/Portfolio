@@ -1,3 +1,95 @@
+/* Supplemental figures use duplicate evidence, leaving compact reading intact. */
+.engineering-figure,
+.repository-figure {
+  display: none;
+}
+.author-portrait {
+  display: block;
+  width: min(100%, 330px);
+  height: auto;
+  margin: 0 0 24px;
+}
+@media (min-width: 1001px) {
+  .engineering-figure {
+    display: block;
+    width: min(100%, 300px);
+    height: auto;
+    margin-top: 24px;
+    overflow: visible;
+  }
+  .figure-labels {
+    fill: var(--muted);
+    font:
+      10px "Courier New",
+      monospace;
+  }
+  .figure-guides {
+    fill: none;
+    stroke: var(--line);
+    stroke-width: 0.7;
+  }
+  .figure-baseline {
+    stroke: var(--muted);
+    stroke-width: 1;
+    stroke-dasharray: 2 3;
+  }
+  .figure-result {
+    stroke: currentColor;
+    stroke-width: 2;
+  }
+  .figure-before {
+    fill: var(--chapter-paper);
+    stroke: var(--muted);
+    stroke-width: 1.5;
+  }
+  .figure-after,
+  .coverage-tested {
+    fill: currentColor;
+  }
+  .coverage-untested {
+    fill: none;
+    stroke: var(--muted);
+    stroke-opacity: 0.4;
+    stroke-width: 0.7;
+  }
+  .repository-figure {
+    display: block;
+    margin-top: 26px;
+    padding-top: 16px;
+    border-top: 1px solid var(--line);
+    color: var(--chapter-ink);
+  }
+  .repository-caption {
+    display: block;
+    font-size: 11px;
+    color: var(--muted);
+    margin-bottom: 14px;
+  }
+  .repository-root {
+    font-size: 12px;
+    text-align: center;
+  }
+  .repository-figure svg {
+    display: block;
+    width: 100%;
+    height: 22px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 0.7;
+  }
+  .repository-branches {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    text-align: center;
+    font-size: 11px;
+    line-height: 1.6;
+  }
+  .repository-branches small {
+    font-size: 10px;
+    color: var(--muted);
+  }
+}
+
 .cover h1,
 .cover h1 em {
   font-family: Orbitron, Arial, sans-serif;
@@ -11,22 +103,10 @@
   background-color: var(--cover) !important;
   background-image:
     radial-gradient(ellipse at 48% 40%, #d0d4c910, transparent 72%),
-    repeating-linear-gradient(
-      0deg,
-      #e2e4d908 0,
-      #e2e4d908 1px,
-      #00000038 1px,
-      transparent 2px,
-      transparent 4px
-    ),
-    repeating-linear-gradient(
-      90deg,
-      #d2d7cb08 0,
-      #d2d7cb08 1px,
-      #00000035 1px,
-      transparent 2px,
-      transparent 3px
-    ) !important;
+    url("/images/editorial-cloth.svg") !important;
+  background-size:
+    100% 100%,
+    256px 256px !important;
 }
 .cover::after,
 .cover-art::after,
@@ -662,6 +742,15 @@ html[data-book-enhanced] .book-opening > section.introduction {
 #skills .skill-group {
   display: block;
   padding: var(--skill-rule-gap) 0 0;
+  position: relative;
+}
+#skills .skill-group::before {
+  content: "";
+  position: absolute;
+  top: -1px;
+  left: 0;
+  width: var(--skill-icon-column);
+  border-top: 2px solid var(--chapter-ink);
 }
 #skills .skill-group + .skill-group {
   margin-top: var(--skill-category-gap);
@@ -678,6 +767,8 @@ html[data-book-enhanced] .book-opening > section.introduction {
 }
 #skills .skill-group h3 .mono {
   font-size: 12px;
+  color: var(--chapter-ink);
+  font-variant-numeric: tabular-nums;
 }
 #skills .skill-group ul {
   padding: 0;
@@ -692,6 +783,7 @@ html[data-book-enhanced] .book-opening > section.introduction {
   min-height: var(--skill-row-height);
   font-size: 16px;
   line-height: 1.5;
+  box-shadow: 0 1px 0 #35574712;
 }
 #skills .skill-mark {
   display: grid;
@@ -742,10 +834,6 @@ html[data-book-enhanced] .book-opening > section.introduction {
   }
 }
 
-.intro-facts dd.mono {
-  font-size: 16px;
-  line-height: 1.75;
-}
 .job-heading > .eyebrow {
   font-size: 14px;
   letter-spacing: 0.04em;
@@ -763,6 +851,17 @@ html[data-book-enhanced] .book-opening > section.introduction {
 .education-field,
 .education-credential {
   min-width: 0;
+}
+.education-field {
+  position: relative;
+}
+.education-field::before {
+  content: "";
+  position: absolute;
+  top: -28px;
+  width: 48px;
+  border-top: 3px double var(--chapter-ink);
+  opacity: 0.5;
 }
 .education-field h3 {
   font-size: clamp(36px, 4vw, 60px);
@@ -1190,7 +1289,7 @@ html[data-book-enhanced] #work .project-image img {
     margin-top: 0;
     max-width: none;
   }
-  html[data-book-enhanced] :is(.introduction h2, .job-heading h3) {
+  html[data-book-enhanced] .job-heading h3 {
     font-size: 32px;
     margin: 0 0 10px;
   }
@@ -1199,18 +1298,6 @@ html[data-book-enhanced] #work .project-image img {
   }
   html[data-book-enhanced] .availability {
     margin-bottom: 8px;
-  }
-  html[data-book-enhanced] .intro-facts dt {
-    margin-top: 10px;
-  }
-  html[data-book-enhanced] .intro-facts dd {
-    margin-top: 3px;
-    font-size: 14px;
-    line-height: 1.5;
-  }
-  html[data-book-enhanced] .intro-facts .links {
-    margin-top: 12px;
-    gap: 16px;
   }
   html[data-book-enhanced] .folio {
     margin-top: auto;
@@ -1371,9 +1458,35 @@ html[data-book-enhanced] #work .project-image img {
 
 /* Content is fitted once on measurement, never moved by scroll. */
 @media (min-width: 701px) {
+  .introduction .intro-grid,
+  html[data-book-enhanced] .introduction .intro-grid {
+    align-items: center;
+  }
   .introduction .intro-facts {
     align-self: center;
     padding-top: 0;
+  }
+}
+@media (min-width: 701px) and (max-width: 1000px) {
+  .author-portrait {
+    width: min(100%, 260px);
+    margin-bottom: 20px;
+  }
+}
+@media (max-width: 700px) and (max-height: 650px) {
+  html[data-book-enhanced] .introduction .intro-grid {
+    gap: 12px;
+  }
+  html[data-book-enhanced] .introduction .intro-facts {
+    padding-top: 8px;
+  }
+}
+@media (max-width: 360px) and (max-height: 650px) {
+  .introduction .intro-biography > .body-copy:first-child {
+    padding-right: 22px;
+  }
+  html[data-book-enhanced] .introduction .intro-grid {
+    gap: 10px;
   }
 }
 html[data-book-enhanced] .book-fixed-page > :is(.intro-grid, .spread-content) {
@@ -1397,6 +1510,167 @@ html[data-book-enhanced] .introduction > .chapter-running {
   inset: 0;
   height: 0;
   margin: 0;
+}
+
+/* One editorial vocabulary for the author's details and correspondence. */
+.intro-facts dl {
+  display: grid;
+  gap: 20px;
+}
+.intro-facts dt {
+  margin: 0;
+  font:
+    10px/1.4 "Courier New",
+    monospace;
+  letter-spacing: 0.12em;
+  color: var(--muted);
+}
+.intro-facts dd {
+  margin: 5px 0 0;
+  font:
+    400 15px/1.6 Body,
+    Arial,
+    sans-serif;
+  letter-spacing: 0;
+  color: var(--ink);
+  text-wrap: pretty;
+}
+.intro-facts .intro-detail-role dd {
+  font-size: 17px;
+  font-weight: 600;
+  line-height: 1.5;
+}
+.intro-facts .links {
+  margin-top: 20px;
+  gap: 0 22px;
+  font:
+    500 13px/1.5 Body,
+    Arial,
+    sans-serif;
+  letter-spacing: 0;
+}
+.intro-facts .links a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 4px 0;
+  border: 0;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 4px;
+}
+.intro-facts .links a:is(:hover, :focus-visible) {
+  text-decoration-thickness: 2px;
+}
+.intro-facts .links a:focus-visible {
+  outline: 2px solid var(--chapter-ink);
+  outline-offset: 3px;
+}
+@media (max-width: 700px) {
+  .introduction .intro-facts {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 120px;
+    gap: 16px;
+    align-items: end;
+  }
+  .intro-profile {
+    grid-column: 1;
+    grid-row: 1;
+    min-width: 0;
+  }
+  .introduction .author-portrait {
+    grid-column: 2;
+    grid-row: 1;
+    width: 100%;
+    margin: 0 0 56px;
+  }
+  .intro-facts dl {
+    gap: 12px;
+  }
+  .intro-facts dd {
+    margin-top: 3px;
+    font-size: 14px;
+    line-height: 1.5;
+  }
+  .intro-facts .intro-detail-role dd {
+    font-size: 14px;
+  }
+  .intro-facts .links {
+    margin-top: 8px;
+    gap: 0 16px;
+    font-size: 12px;
+  }
+}
+@media (max-width: 360px) {
+  .introduction .intro-facts {
+    grid-template-columns: minmax(0, 1fr) 92px;
+    column-gap: 12px;
+  }
+  .intro-facts dl {
+    gap: 10px;
+  }
+  .intro-facts .links {
+    gap: 0 12px;
+  }
+}
+
+/* Ozex: a normalized comparison, never invented absolute milliseconds. */
+.response-impact {
+  display: grid;
+  grid-template-columns: minmax(104px, 0.75fr) minmax(0, 1.65fr);
+  gap: 18px;
+  align-items: center;
+  max-width: 420px;
+}
+.response-impact .runtime-values small {
+  font:
+    10px/1.4 Body,
+    Arial,
+    sans-serif;
+}
+.response-comparison {
+  display: grid;
+  gap: 8px;
+  color: var(--chapter-ink);
+  font:
+    11px/1.4 Body,
+    Arial,
+    sans-serif;
+  font-variant-numeric: tabular-nums;
+}
+.response-comparison-row {
+  display: grid;
+  grid-template-columns: 36px minmax(0, 1fr) 22px;
+  gap: 8px;
+  align-items: center;
+}
+.response-track {
+  height: 7px;
+}
+.response-track i {
+  display: block;
+  height: 100%;
+}
+.response-before {
+  width: 100%;
+  border: 1px solid var(--muted);
+}
+.response-after {
+  width: 65%;
+  background: currentColor;
+}
+.response-scale {
+  color: var(--muted);
+  font-size: 10px;
+}
+.response-anchor > p {
+  margin-top: 12px;
+}
+@media (max-width: 700px) {
+  .response-comparison {
+    gap: 6px;
+    font-size: 10px;
+  }
 }
 @media (max-width: 700px) {
   .introduction .body-copy,

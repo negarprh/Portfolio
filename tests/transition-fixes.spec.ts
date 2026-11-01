@@ -57,9 +57,9 @@ for (const mode of ["no-js", "reduced"] as const) {
     await expect(page.locator("#introduction")).toContainText(
       "open-source project",
     );
-    await expect(page.locator("#intro-title")).toHaveCSS(
+    await expect(page.locator(".intro-biography .body-copy").first()).toHaveCSS(
       "font-family",
-      "Editorial, Georgia, serif",
+      "Body, Arial, sans-serif",
     );
     await expect(page.locator("#cover-title")).toHaveCSS(
       "font-family",
@@ -71,11 +71,11 @@ for (const mode of ["no-js", "reduced"] as const) {
     );
     for (const selector of [
       "#cover-title",
-      "#intro-title",
+      ".intro-biography",
       "#work .divider h2",
       ".flagship h3",
       "#work .divider h2",
-      "#intro-title",
+      ".intro-biography",
       "#cover-title",
     ]) {
       await page.locator(selector).scrollIntoViewIfNeeded();

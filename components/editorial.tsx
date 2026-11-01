@@ -5,7 +5,6 @@ export function ContactLinks({ compact = false }: { compact?: boolean }) {
       <a href={`mailto:${profile.email}`}>Email</a>
       <a href={profile.linkedin}>LinkedIn</a>
       <a href={profile.github}>GitHub</a>
-      {compact && <a href="#contact">Contact</a>}
     </div>
   );
 }

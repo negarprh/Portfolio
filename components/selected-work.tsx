@@ -1,5 +1,6 @@
 import { Divider, Folio, RunningHead, TurnSheet } from "./editorial";
 import { projects } from "@/lib/content";
+import { RepositoryFigure } from "./engineering-figures";
 
 export function SelectedWork({ stars }: { stars: number | null }) {
   return (
@@ -54,6 +55,7 @@ export function SelectedWork({ stars }: { stars: number | null }) {
                     </span>
                   </p>
                 )}
+                {project.visual === "community" && <RepositoryFigure />}
               </div>
               <div className="project-copy">
                 {project.paragraphs.map((paragraph) => (

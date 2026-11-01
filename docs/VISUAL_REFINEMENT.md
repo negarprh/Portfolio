@@ -1,5 +1,7 @@
 # Editorial refinement — 2026-10-30
 
+The subsequent illustrated-material refinement is documented in [ILLUSTRATED_BOOK.md](ILLUSTRATED_BOOK.md), including Higgsfield provenance, budget, engineering figures, and current verification. This file records the preceding refinement.
+
 Implemented on `makeover`. The starting working tree was clean. The requested `PORTFOLIO_AUDIT.md` was not present; current implementation and focused project context supplied the baseline.
 
 ## Visual changes

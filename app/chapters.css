@@ -59,6 +59,8 @@ html[data-book-enhanced] #contact {
 /* The same chapter stock remains visible in the native reading fallback. */
 :is(#introduction, #experience, #skills, #work, #education) {
   background-color: var(--chapter-paper);
+  background-image: var(--paper-grain);
+  background-size: 320px 320px;
 }
 html[data-book-enhanced] :is(main, .book-opening) > section:not(.cover) {
   position: relative;

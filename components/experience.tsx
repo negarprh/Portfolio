@@ -1,5 +1,10 @@
 import { Divider, Folio, RunningHead, TurnSheet } from "./editorial";
 import { experience } from "@/lib/content";
+import {
+  CoverageFigure,
+  ResponseFigure,
+  RuntimeFigure,
+} from "./engineering-figures";
 
 function RoleAnchor({ index }: { index: number }) {
   if (index === 0)
@@ -23,6 +28,7 @@ function RoleAnchor({ index }: { index: number }) {
             </strong>
           </span>
         </div>
+        <RuntimeFigure />
         <span className="sr-only">
           Median runtime reduced by 62%, from 4.7 hours to 1.8 hours.
         </span>
@@ -49,18 +55,22 @@ function RoleAnchor({ index }: { index: number }) {
             </strong>
           </span>
         </div>
+        <CoverageFigure />
       </figure>
     );
   return (
     <figure className="role-anchor response-anchor">
       <figcaption>API response times</figcaption>
-      <div className="runtime-values">
-        <span>
-          <strong>
-            35<em>%</em>
-          </strong>
-          <small>Faster API responses</small>
-        </span>
+      <div className="response-impact">
+        <div className="runtime-values">
+          <span>
+            <strong>
+              35<em>%</em>
+            </strong>
+            <small>Faster API responses</small>
+          </span>
+        </div>
+        <ResponseFigure />
       </div>
       <p>Through query and endpoint optimization.</p>
     </figure>

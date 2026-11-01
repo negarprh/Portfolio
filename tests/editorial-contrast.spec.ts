@@ -31,10 +31,14 @@ test("editorial text contrasts with rendered cloth and chapter stock", async ({
       ".cover",
       ".cover-top, .cover-heading .eyebrow, .cover-role, .open-book-title, .open-book-hint",
     ],
-    ["#introduction", "h2, .body-copy, dt, dd, .links a"],
+    ["#introduction", ".body-copy, dt, dd, .links a"],
     [
       ".experience-row",
       ".job-heading > .eyebrow, h3, .job-role, .stack-chips span, .job-detail p, .role-anchor figcaption, .runtime-values small",
+    ],
+    [
+      ".role-2",
+      ".role-anchor figcaption, .runtime-values small, .response-anchor > p, .response-comparison-row > span:first-child, .response-comparison-row > span:last-child, .response-scale",
     ],
     [".skills-spread", ".skill-group h3, .skill-group li"],
     [
@@ -96,11 +100,13 @@ test("editorial text contrasts with rendered cloth and chapter stock", async ({
         b = luminance(background);
       const ratio = (Math.max(a, b) + 0.05) / (Math.min(a, b) + 0.05);
       results.push({ surface, text: sample.text, ratio });
-      expect(ratio, `${surface}: ${sample.text}`).toBeGreaterThanOrEqual(
-        sample.size >= 24 || (sample.size >= 18.66 && sample.weight >= 700)
-          ? 3
-          : 4.5,
-      );
+      expect
+        .soft(ratio, `${surface}: ${sample.text}`)
+        .toBeGreaterThanOrEqual(
+          sample.size >= 24 || (sample.size >= 18.66 && sample.weight >= 700)
+            ? 3
+            : 4.5,
+        );
     }
   }
   const report = testInfo.outputPath("rendered-contrast.json");

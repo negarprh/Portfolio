@@ -53,11 +53,14 @@ for (const width of [1440, 390]) {
     );
     expect(linkBounds[0].top).toBe(linkBounds[1].top);
     expect(linkBounds[1].top).toBe(linkBounds[2].top);
-    await expect(page.locator("#intro-title")).toHaveCSS(
+    await expect(page.locator(".intro-biography .body-copy").first()).toHaveCSS(
       "font-family",
-      "Editorial, Georgia, serif",
+      "Body, Arial, sans-serif",
     );
-    await expect(page.locator("#intro-title")).toHaveCSS("font-weight", "400");
+    await expect(
+      page.locator("#introduction .author-portrait"),
+    ).toHaveAttribute("alt", "Pencil-sketch portrait of Negar Pirasteh");
+    await expect(page.locator("#introduction h2")).toHaveCount(0);
     await page
       .locator("#introduction")
       .evaluate((el) =>
@@ -68,6 +71,33 @@ for (const width of [1440, 390]) {
     await page.screenshot({
       path: `test-results/intro-merged-${width}.png`,
     });
+    await expect(
+      page.locator("#introduction .author-portrait"),
+    ).toBeInViewport();
+    const intro = page.locator("#introduction");
+    await expect(intro.locator(".links a")).toHaveText([
+      "Email",
+      "LinkedIn",
+      "GitHub",
+    ]);
+    await expect(intro.locator('.links a[href="#contact"]')).toHaveCount(0);
+    for (const value of await intro.locator("dd, .links a").all()) {
+      await expect(value).toHaveCSS("font-family", "Body, Arial, sans-serif");
+    }
+    await expect(intro.locator(".intro-detail-role dd")).toHaveCSS(
+      "font-weight",
+      "600",
+    );
+    if (width <= 700) {
+      const portrait = await intro.locator(".author-portrait").boundingBox();
+      const details = await intro.locator("dl").boundingBox();
+      expect(portrait!.x).toBeGreaterThanOrEqual(details!.x + details!.width);
+    }
+    const email = intro.locator(".links a").first();
+    await email.hover();
+    await expect(email).toHaveCSS("text-decoration-thickness", "2px");
+    await email.focus();
+    await expect(email).toHaveCSS("outline-width", "2px");
     const top = await page
       .locator("#contact")
       .evaluate(
@@ -122,9 +152,9 @@ for (const width of [1440, 390]) {
       "data-book-enhanced",
     );
     await expect(page.locator(".closing-art")).toHaveCount(0);
-    await expect(page.locator("#intro-title")).toHaveCSS(
+    await expect(page.locator(".intro-biography .body-copy").first()).toHaveCSS(
       "font-family",
-      "Editorial, Georgia, serif",
+      "Body, Arial, sans-serif",
     );
   });
 }

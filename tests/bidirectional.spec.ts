@@ -156,7 +156,9 @@ test("Open the book and the introduction bookmark open the hinged cover", async 
     await expect
       .poll(() => page.evaluate(() => scrollY))
       .toBeGreaterThanOrEqual(height - 1);
-    await expect(page.locator("#intro-title")).toBeInViewport();
+    await expect(
+      page.locator(".intro-biography .body-copy").first(),
+    ).toBeInViewport();
     await page.evaluate(() => scrollTo({ top: 0, behavior: "instant" }));
     await page.locator(".book-index summary").click();
     await page.locator('.book-index a[href="#introduction"]').click();

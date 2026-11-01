@@ -1,4 +1,5 @@
 const { chromium } = require("playwright");
+const sharp = require("sharp");
 (async () => {
   const browser = await chromium.launch();
   try {
@@ -17,6 +18,9 @@ const { chromium } = require("playwright");
     await readme.waitFor();
     await page.waitForTimeout(1500);
     await page.screenshot({ path: "public/images/internships-2027.png" });
+    await sharp("public/images/internships-2027.png")
+      .webp({ quality: 90, effort: 6 })
+      .toFile("public/images/internships-2027.webp");
     console.log("Captured the public repository README.");
   } finally {
     await browser.close();

@@ -80,7 +80,7 @@ export const projects = [
     github: "https://github.com/negarprh/Canadian-Tech-Internships-2027",
     live: null,
     image: {
-      src: "/images/internships-2027.png",
+      src: "/images/internships-2027.webp",
       width: 1440,
       height: 1000,
       alt: "Canadian Tech Internships GitHub repository with the 2027 README and link to 2026 listings",
@@ -100,7 +100,7 @@ export const projects = [
     github: "https://github.com/negarprh/Evenly",
     live: "https://evenly-client.onrender.com/",
     image: {
-      src: "/images/evenly-dashboard.png",
+      src: "/images/evenly-dashboard.webp",
       width: 1440,
       height: 1040,
       alt: "Evenly dashboard showing group expenses, balances, and recent activity with sample data",
@@ -120,7 +120,7 @@ export const projects = [
     github: "https://github.com/negarprh/AirSense",
     live: "https://airsenseapp.org/",
     image: {
-      src: "/images/airsense.png",
+      src: "/images/airsense.webp",
       width: 1914,
       height: 897,
       alt: "AirSense city search screen with suggested cities",
