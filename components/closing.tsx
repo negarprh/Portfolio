@@ -1,4 +1,5 @@
 import { ContactLinks, TurnSheet } from "./editorial";
+import { ChapterIllustration } from "./chapter-illustration";
 export function Closing() {
   return (
     <footer
@@ -19,6 +20,7 @@ export function Closing() {
         <ContactLinks />
       </div>
       <p className="colophon-device mono">Montréal · 2026</p>
+      <ChapterIllustration chapter="contact" />
       <TurnSheet label="End" />
     </footer>
   );

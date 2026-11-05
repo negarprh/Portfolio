@@ -44,6 +44,8 @@ const sharp = require("sharp");
       ["education", ".education-spread"],
       ["contact", ".back-cover"],
       ["divider", "#work .divider"],
+      ["experience-opening", "#experience .divider"],
+      ["skills-opening", "#skills .divider"],
       ["experience-lienzo", ".experience-row.role-1"],
       ["experience-ozex", ".experience-row.role-2"],
       ["skills-tools", ".skills-spread:has(#skill-category-1)"],

@@ -1,6 +1,6 @@
 # Illustrated engineering book
 
-The subsequent [portrait Introduction refinement](PORTRAIT_INTRODUCTION.md) replaces the generated introductory artwork with Negar's supplied pencil sketch and removes the greeting. The budget and verification below record the preceding engineering/material work.
+Historical record: the portrait phase referenced below was superseded by complete portrait removal on 2026-11-04. All six chapters now use original static SVG drawings; see [the current book contract](context/BOOK.md). The budget and verification below record the preceding engineering/material work.
 
 Implemented on `makeover`. This extends the Modern Editorial identity described in `docs/context/BOOK.md`; it preserves the book, navigation, turn engine, complete copy, and 31-item skills inventory. Pre-existing `.gitignore` and `skills-lock.json` changes were preserved.
 

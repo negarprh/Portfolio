@@ -1,5 +1,17 @@
 # The Book: decisions and implementation record
 
+## 2026-11-04: quieter Ozex phone spread
+
+Negar approved the personalized illustrations and requested removal of the Ozex comparison visualization from mobile only. Hide the normalized Before/After graphic at 700px and below and collapse its grid wrapper; keep the 35% metric, explanation, complete role copy and desktop/tablet graphic. This supersedes the earlier every-viewport comparison direction.
+
+## 2026-11-04: software work and personal character instead of botanicals
+
+Negar found the first six-plate collection too floral and requested something more related to her. Remove all flowers/leaves and replace the architectural/mechanical metaphors with studies of her verified software work: a laptop and small resting cat, backend collection/parallel processing, API and test notes, repository branches/reviews, programming books/logic notes, and correspondence. The cat uses the already approved cat-person detail; do not invent a pet's identity or depict an actual personal workspace. Keep all drawings conceptual and decorative, without claiming literal employer architecture or unpublished product details. Retain green/brass pen work, placement discipline, all six chapters, complete portrait removal and the existing book engine. The Contact drawing becomes a small horizontal lower-corner composition, freeing the full outer margin.
+
+## 2026-11-04: six illustrated chapters, without a portrait
+
+Negar requested a cohesive contemporary hardcover illustration collection across all six chapters and complete portrait removal. Use original lightweight static SVG drawings with forest-green ink, sparse brass, varied line weights and fine structural/organic detail. Keep existing content, typography, chapter colors and physical book interactions. Place full architecture/drafting/mechanical studies on chapter openings, with small reading-page versions only where space allows; retain compact botanical/books/flowering-branch treatments on phones. Keep the front cover minimal and add only the requested outer-margin branch to the cloth Contact cover. Remove the supplied portrait source, public export, extraction script and layout styles. This supersedes the portrait and selective-only illustration directions below.
+
 ## 2026-10-31: cohesive author details and the Ozex comparison
 
 Negar requested consistent small uppercase monospace labels, Manrope values/links, a slightly emphasized Role, and refined link underlines/focus. Remove the Introduction's redundant Contact anchor while preserving Email/LinkedIn/GitHub and the contact chapter. On phones, put the unchanged portrait to the lower right of the metadata rather than stacking it above. Keep the desktop/tablet book composition. Give Ozex a compact relative response-time comparison: before = 100, after = 65, derived from the verified 35% reduction. Label its scale explicitly; do not invent milliseconds or additional performance claims. Use static HTML/CSS without generation credits, dependencies, or turn-engine changes.

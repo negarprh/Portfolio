@@ -3,6 +3,7 @@ import "./globals.css";
 import "./book-material.css";
 import "./chapters.css";
 import "./makeover.css";
+import "./illustrations.css";
 const deploymentHost =
   process.env.VERCEL_PROJECT_PRODUCTION_URL ?? process.env.VERCEL_URL;
 

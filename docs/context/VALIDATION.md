@@ -2,6 +2,16 @@
 
 Read this file only for performance claims, motion regressions, or interpreting earlier browser runs. It records evidence, not a permanent performance guarantee.
 
+## 2026-11-04 personalized illustration revision
+
+After Negar rejected the botanical emphasis, all six drawings were replaced with software/personal studies and Contact changed to a small horizontal composition. Typecheck and production build passed. All 30 targeted production checks passed (the nine illustration checks, complete viewport-fitting matrix, Introduction/Contact refinement checks and direct/interrupted index turns). The prior full-suite result below belongs to the first collection; the full suite was not rerun for this SVG/Contact-placement revision. Fresh four-size review captures and edge-case screenshots are under ignored `.context-local/chapter-illustrations/personal/`. No motion code or content was changed.
+
+## 2026-11-04 first illustrated collection
+
+Typecheck and production build passed. The full production Playwright run passed 98 of 99 checks. The 412px simulated held-swipe check failed its fixed 700ms catch-up / 120ms stationary assertion once (scroll position changed from 223 to 343); the unchanged check then passed three consecutive isolated repetitions. No motion implementation or timing assertion was changed. This is a timing-sensitive remaining test uncertainty, not evidence of a guaranteed frame rate.
+
+All nine new illustration checks passed: text clearance, page bounds and six-chapter coverage at 320×568, 390×844, 768×1024, 844×390 and 1440×900, plus no-JS/reduced-motion clearance at 320px and 1440px. Production screenshots of every reading spread and the illustrated openings were reviewed at four portrait/desktop sizes, followed by landscape and native-fallback captures. The landscape corner/Projects placements and native-divider flow were refined from rendered evidence. Captures and fitting measurements remain under ignored `.context-local/chapter-illustrations/final/`. These are Chromium simulations, not physical-device or new performance measurements.
+
 ## Historical browser evidence (before the stationary stage)
 
 The finalized 32ms scroll response was traced in Chromium with simulated wheel and trackpad-style input:

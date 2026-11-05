@@ -1,0 +1,181 @@
+/* A six-plate collection, printed directly on the existing chapter stocks. */
+.chapter-illustration {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-width: 100%;
+  pointer-events: none;
+  user-select: none;
+  flex: none;
+}
+.introduction > .illustration-introduction {
+  position: absolute;
+  top: 6%;
+  right: 4.5%;
+  width: 220px;
+  margin: 0;
+}
+.intro-facts .illustration-introduction {
+  display: none;
+}
+.job-detail .illustration-experience {
+  width: 190px;
+  margin: 26px 0 0 auto;
+}
+.skills-page .illustration-skills {
+  width: 200px;
+  margin: 34px 8px 0 auto;
+}
+.project-tech .illustration-work {
+  width: 155px;
+  margin: 18px 0 0;
+}
+.education-field .illustration-education {
+  width: 260px;
+  margin: 28px 0 0 12px;
+}
+.illustration-opening {
+  position: absolute;
+  width: clamp(200px, 24vw, 330px);
+}
+.divider > .illustration-experience {
+  top: 9%;
+  left: 7%;
+}
+.divider > .illustration-skills {
+  bottom: 10%;
+  left: 10%;
+}
+.divider > .illustration-work {
+  bottom: 10%;
+  right: 8%;
+  width: clamp(200px, 22vw, 300px);
+}
+.back-cover > .illustration-contact {
+  position: absolute;
+  width: clamp(160px, 20vw, 260px);
+  right: 4%;
+  bottom: 14%;
+  opacity: 0.9;
+}
+@media (min-width: 701px) and (max-height: 720px) {
+  .introduction > .illustration-introduction {
+    width: 130px;
+    top: 24px;
+  }
+  .illustration-opening {
+    width: 210px;
+  }
+  .divider > .illustration-experience {
+    top: 5%;
+  }
+  .divider > .illustration-skills,
+  .divider > .illustration-work {
+    bottom: 6%;
+  }
+}
+@media (max-width: 1000px) and (min-width: 701px) {
+  .introduction > .illustration-introduction {
+    width: 175px;
+  }
+  .job-detail .illustration-experience {
+    width: 145px;
+  }
+  .skills-page .illustration-skills {
+    width: 150px;
+  }
+  .education-field .illustration-education {
+    width: 210px;
+  }
+}
+@media (max-width: 700px) {
+  .introduction > .illustration-introduction {
+    display: none;
+  }
+  .intro-facts .illustration-introduction {
+    display: block;
+    grid-column: 2;
+    grid-row: 1;
+    width: 96px;
+    align-self: end;
+    margin: 0 0 52px;
+  }
+  /* Dense inventories and project evidence retain their reading scale.
+     The complete plates remain on their chapter-opening leaves. */
+  .job-detail .illustration-experience,
+  .skills-page .illustration-skills,
+  .project-tech .illustration-work {
+    display: none;
+  }
+  .education-field .illustration-education {
+    width: 150px;
+    margin: 18px auto 0;
+  }
+  .divider > .illustration-opening {
+    width: min(48vw, 205px);
+    top: auto;
+    bottom: 9%;
+  }
+  .divider > .illustration-experience {
+    left: 7%;
+  }
+  .divider > .illustration-skills {
+    left: auto;
+    right: 9%;
+  }
+  .divider > .illustration-work {
+    right: 7%;
+  }
+  .back-cover > .illustration-contact {
+    width: 130px;
+    right: 7%;
+    opacity: 0.85;
+  }
+}
+@media (max-width: 360px) {
+  .introduction .intro-facts {
+    grid-template-columns: minmax(0, 1fr) 72px;
+    gap: 10px;
+  }
+  .intro-facts .illustration-introduction {
+    width: 72px;
+  }
+  .education-field .illustration-education {
+    width: 120px;
+  }
+  .back-cover > .illustration-contact {
+    width: 100px;
+  }
+}
+@media (min-width: 701px) and (max-height: 500px) {
+  .introduction > .illustration-introduction {
+    width: 75px;
+    top: 10px;
+  }
+  .divider > .illustration-opening {
+    width: 135px;
+  }
+  .divider > .illustration-work {
+    left: 8%;
+    right: auto;
+    bottom: 30px;
+  }
+}
+/* Native reading has shorter dividers and no large chapter numerals. */
+html:not([data-book-enhanced]) .divider > .illustration-opening {
+  left: 8%;
+  right: auto;
+  top: 50%;
+  bottom: auto;
+  width: min(28vw, 280px);
+  transform: translateY(-50%);
+}
+@media (max-width: 700px) {
+  html:not([data-book-enhanced]) .divider > .illustration-opening {
+    position: static;
+    align-self: flex-end;
+    width: 145px;
+    transform: none;
+    margin: 0 0 24px;
+  }
+}

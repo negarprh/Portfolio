@@ -1,6 +1,6 @@
 # Author details and Ozex impact — 2026-10-31
 
-Implemented on `makeover`, preserving the existing working-tree changes, palette, portrait asset, biography, career facts, chapter structure, and page-turn implementation. No dependencies, generated assets, or generation credits were needed.
+Historical record of the 2026-10-31 refinement. The portrait portions below were superseded by complete portrait removal on 2026-11-04; see [the current book contract](context/BOOK.md). The detail typography and correspondence treatments remain in use.
 
 ## Introduction
 

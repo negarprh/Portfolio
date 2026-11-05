@@ -1,6 +1,7 @@
 import { Divider, Folio, RunningHead, TurnSheet } from "./editorial";
 import { projects } from "@/lib/content";
 import { RepositoryFigure } from "./engineering-figures";
+import { ChapterIllustration } from "./chapter-illustration";
 
 export function SelectedWork({ stars }: { stars: number | null }) {
   return (
@@ -64,7 +65,10 @@ export function SelectedWork({ stars }: { stars: number | null }) {
               </div>
               <dl className="project-tech mono">
                 <dt className="sr-only">Technologies</dt>
-                <dd>{project.stack}</dd>
+                <dd>
+                  {project.stack}
+                  {i === 0 && <ChapterIllustration chapter="work" />}
+                </dd>
               </dl>
               <div
                 className="project-links"

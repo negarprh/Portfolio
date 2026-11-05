@@ -1,4 +1,5 @@
 import { Divider, Folio, RunningHead, TurnSheet } from "./editorial";
+import { ChapterIllustration } from "./chapter-illustration";
 export function Education() {
   return (
     <section id="education" aria-label="Education">
@@ -14,6 +15,7 @@ export function Education() {
           <div className="education-field">
             <h3 className="education-program">Computer Science: Programming</h3>
             <p className="education-degree">DEC / Diploma of College Studies</p>
+            <ChapterIllustration chapter="education" />
           </div>
           <div className="education-credential">
             <p className="education-college">LaSalle College</p>

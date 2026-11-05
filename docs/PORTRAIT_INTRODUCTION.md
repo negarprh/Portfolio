@@ -1,5 +1,7 @@
 # Introduction: author portrait
 
+Historical record: superseded on 2026-11-04. Negar requested complete portrait removal. The source, public export, extraction script and portrait layout are removed; see [the current book contract](context/BOOK.md) for the six SVG chapter illustrations.
+
 The subsequent [professional-details refinement](DETAILS_REFINEMENT.md) places the portrait beside the phone metadata and standardizes its typography. The extraction/fidelity details below remain current; screenshots and checks here record the preceding portrait integration.
 
 Implemented on `makeover` on 2026-10-31. This change is confined to the Introduction composition, its image preparation, affected tests, and current documentation. Existing material/engineering refinements and unrelated working-tree changes remain intact. No page-turn or navigation implementation was changed.

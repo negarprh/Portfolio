@@ -1,5 +1,6 @@
 import { Divider, Folio, RunningHead, TurnSheet } from "./editorial";
 import { skills } from "@/lib/content";
+import { ChapterIllustration } from "./chapter-illustration";
 function SkillItem({ label, icon }: { label: string; icon: string }) {
   return (
     <li>
@@ -64,6 +65,7 @@ export function Skills() {
           </div>
           <div className="skills-page">
             <SkillGroup index={2} />
+            <ChapterIllustration chapter="skills" />
           </div>
         </div>
         <TurnSheet label="Skills" />

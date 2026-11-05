@@ -8,6 +8,7 @@ import { getGitHubStars } from "@/lib/github";
 import { BookMotion } from "@/components/book-motion";
 import { Experience } from "@/components/experience";
 import { BookIndex } from "@/components/book-index";
+import { ChapterIllustration } from "@/components/chapter-illustration";
 import {
   ContactLinks,
   Folio,
@@ -111,14 +112,7 @@ export default async function Home() {
                 </p>
               </div>
               <aside className="intro-facts">
-                <img
-                  className="author-portrait"
-                  src="/images/author-portrait.webp"
-                  alt="Pencil-sketch portrait of Negar Pirasteh"
-                  width="768"
-                  height="576"
-                  loading="eager"
-                />
+                <ChapterIllustration chapter="introduction" />
                 <div className="intro-profile">
                   <dl>
                     <div className="intro-detail intro-detail-role">
@@ -138,6 +132,7 @@ export default async function Home() {
                 </div>
               </aside>
             </div>
+            <ChapterIllustration chapter="introduction" placement="opening" />
             <Folio label="Negar Pirasteh" page="01" />
           </section>
           <div className="opening-runway" aria-hidden="true" />

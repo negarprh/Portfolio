@@ -57,9 +57,7 @@ for (const width of [1440, 390]) {
       "font-family",
       "Body, Arial, sans-serif",
     );
-    await expect(
-      page.locator("#introduction .author-portrait"),
-    ).toHaveAttribute("alt", "Pencil-sketch portrait of Negar Pirasteh");
+    await expect(page.locator("#introduction img")).toHaveCount(0);
     await expect(page.locator("#introduction h2")).toHaveCount(0);
     await page
       .locator("#introduction")
@@ -72,7 +70,7 @@ for (const width of [1440, 390]) {
       path: `test-results/intro-merged-${width}.png`,
     });
     await expect(
-      page.locator("#introduction .author-portrait"),
+      page.locator('#introduction [data-illustration="introduction"]:visible'),
     ).toBeInViewport();
     const intro = page.locator("#introduction");
     await expect(intro.locator(".links a")).toHaveText([
@@ -88,11 +86,6 @@ for (const width of [1440, 390]) {
       "font-weight",
       "600",
     );
-    if (width <= 700) {
-      const portrait = await intro.locator(".author-portrait").boundingBox();
-      const details = await intro.locator("dl").boundingBox();
-      expect(portrait!.x).toBeGreaterThanOrEqual(details!.x + details!.width);
-    }
     const email = intro.locator(".links a").first();
     await email.hover();
     await expect(email).toHaveCSS("text-decoration-thickness", "2px");

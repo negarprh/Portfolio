@@ -1,5 +1,6 @@
 import { Divider, Folio, RunningHead, TurnSheet } from "./editorial";
 import { experience } from "@/lib/content";
+import { ChapterIllustration } from "./chapter-illustration";
 import {
   CoverageFigure,
   ResponseFigure,
@@ -121,6 +122,7 @@ export function Experience() {
                 {job.lines.map((line) => (
                   <p key={line}>{line}</p>
                 ))}
+                {i === 0 && <ChapterIllustration chapter="experience" />}
               </div>
             </div>
             <TurnSheet label="Experience" />

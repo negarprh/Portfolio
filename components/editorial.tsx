@@ -1,4 +1,5 @@
 import { profile } from "@/lib/content";
+import { ChapterIllustration } from "./chapter-illustration";
 export function ContactLinks({ compact = false }: { compact?: boolean }) {
   return (
     <div className={compact ? "links" : "links closing-links"}>
@@ -90,6 +91,9 @@ export function Divider({
           <h2>{title}</h2>
           <span className="chapter-rule" aria-hidden="true" />
         </div>
+        {(id === "experience" || id === "skills" || id === "work") && (
+          <ChapterIllustration chapter={id} placement="opening" />
+        )}
         <p className="divider-note mono">{note}</p>
         <TurnSheet label={number} />
       </header>
