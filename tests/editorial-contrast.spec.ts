@@ -19,7 +19,7 @@ test("editorial text contrasts with rendered cloth and chapter stock", async ({
 }, testInfo) => {
   await page.setViewportSize({ width: 1440, height: 900 });
   await page.goto("/");
-  await expect(page.locator(".book-fixed-page")).toHaveCount(16);
+  await expect(page.locator(".book-fixed-page")).toHaveCount(17);
   await page.evaluate(() => document.fonts.ready);
   await expect(page.locator(".cover-name").first()).toHaveAttribute(
     "data-signature",
@@ -41,6 +41,7 @@ test("editorial text contrasts with rendered cloth and chapter stock", async ({
       ".role-anchor figcaption, .runtime-values small, .response-anchor > p, .response-comparison-row > span:first-child, .response-comparison-row > span:last-child, .response-scale",
     ],
     [".skills-spread", ".skill-group h3, .skill-group li"],
+    [".current-company", "h3, .current-company-name, .current-company-dates"],
     [
       ".flagship",
       "h3, .project-copy > p, .project-links a, .project-tech dd, .project-proof, figcaption",

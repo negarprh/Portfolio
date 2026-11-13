@@ -84,7 +84,7 @@ for (const width of [1440, 390]) {
     }
     await expect(intro.locator(".intro-detail-role dd")).toHaveCSS(
       "font-weight",
-      "600",
+      "400",
     );
     const email = intro.locator(".links a").first();
     await email.hover();

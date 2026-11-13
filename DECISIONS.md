@@ -1,5 +1,29 @@
 # The Book: decisions and implementation record
 
+## 2026-11-12: restore the Skills layout; prune content only
+
+Negar explicitly rejected the table redesign. Her list was an instruction to remove unlisted technologies, not to change the design. Restore the original two reading spreads, category numbers and placement, logo grids, monochrome SVG marks, typography and spacing. Keep the 22 technologies in the five supplied categories; omit AI Development and the nine unlisted technologies. Preserve the earlier removal of redundant reading-page illustrations. Do not interpret future pasted lists or tables as permission to redesign the Skills layout. This supersedes the agent’s table interpretation below and restores 17 book surfaces and 11 reading folios.
+
+## 2026-11-12: a concise skills table
+
+Negar supplied an exact five-category, 22-technology skills list with Category / Technologies columns. Replace the numbered logo inventory with one semantic table, preserving her order and comma-separated names. Remove AI Development from the overview, move JavaScript to Backend and Supabase to Databases & Data, and omit the other unlisted skills without retracting their verified historical use. Fit the complete inventory on one reading spread rather than retaining an unnecessary second Skills spread. Keep the chapter-opening illustration and existing paper/turn engine; subsequent folios shift down one, yielding ten reading spreads and sixteen total surfaces.
+
+## 2026-11-12: typography instead of an oversized Stay22 drawing
+
+Negar found the generic software-system illustration oversized, unclear and visually unimpressive. Remove it and its SVG source. Use a deliberate two-page typographic composition: a restrained role title and brass rule opposite a compact ink-green imprint containing Stay22 and the approved dates. Keep the company panel modest (280×208px maximum on desktop, 248×168px on phones), with paper-colored type and a fine inset keyline. Retain the book stock, technical chapter-opening drawings elsewhere, approved facts and first-in-Experience position. This supersedes the Stay22 illustration direction; no logo or additional role details are introduced.
+
+## 2026-11-12: balanced Stay22 type and simpler date typography
+
+Negar approved reducing Software Developer to a 58px maximum and increasing Stay22 to 36px, both in forest green, with responsive phone sizes. Keep the quiet dates, remove the redundant Current role label/status point, and retain the technical drawing without adding a logo. Use plain hyphens for every displayed dash, including “Nov 2026 - Present.” Negar also changed Lienzo’s public title to Software Developer; its verified backend scope remains unchanged.
+
+## 2026-11-09: current role first, with quieter reading pages
+
+Negar moved Stay22 before Tail’ed and supplied the title Software Developer and November 2026 start month. Make the role title the largest type, with Stay22 smaller and “Nov 2026 — Present.” Replace the rejected travel drawing with an original generic software-development study. Remove the repeated Experience, Skills and Projects drawings from the Tail’ed, Skills inventory and Canadian Tech Internships spreads; keep the chapter-opening plates and factual evidence figures. This supersedes the initial end-of-Experience placement, company-led hierarchy and travel illustration below. Stay22 takes reading folio 02, and the historical roles shift to 03–05.
+
+## 2026-11-09: a dedicated present-company spread
+
+Negar confirmed Stay22 as her current company and requested two pages after Experience with only the company and current status. Append a dedicated spread within Chapter II after the three detailed roles and before Skills, rather than adding a seventh chapter or assuming a title, start date or responsibilities. Use prominent editorial type and a static travel/accommodation pen study on the existing Experience stock. Keep chapter numbering and navigation; shift reading folios after the new spread. Set the introduction’s Backend / Full-Stack Developer value to regular weight.
+
 ## 2026-11-04: quieter Ozex phone spread
 
 Negar approved the personalized illustrations and requested removal of the Ozex comparison visualization from mobile only. Hide the normalized Before/After graphic at 700px and below and collapse its grid wrapper; keep the 35% metric, explanation, complete role copy and desktop/tablet graphic. This supersedes the earlier every-viewport comparison direction.

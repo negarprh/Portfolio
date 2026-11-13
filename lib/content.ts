@@ -11,15 +11,20 @@ export const profile = {
   linkedin: "https://www.linkedin.com/in/negar-pirasteh/",
   email: "negarpr@hotmail.com",
 };
+export const currentEmployment = {
+  company: "Stay22",
+  title: "Software Developer",
+  dates: "Nov 2026 - Present",
+};
 export const experience = [
   {
     company: "Tail’ed",
     title: "Software Developer Intern",
     dates: "Summer 2026",
     lines: [
-      "I built a Python job aggregation pipeline that processes listings from 3,680 company sources across nine different applicant tracking systems.",
-      "The biggest challenge was making it fast enough to handle that scale. I introduced multithreaded concurrency, cutting the median runtime by 62%, from 4.7 hours to 1.8 hours.",
-      "The pipeline helped grow job coverage by 4.4×, reaching over 11,700 active listings. I also integrated the data into Tail’ed’s website, connecting the backend work to the actual user experience.",
+      "I built a Python job aggregation pipeline that processes listings from 3,680 company sources across nine applicant tracking systems.",
+      "Processing that many sources was taking too long, so I introduced concurrent workers to run company searches in parallel. This reduced the median GitHub Actions runtime by 62%, from 4.7 hours to 1.8 hours.",
+      "The pipeline helped increase job coverage by 4.4×, reaching over 11,700 active listings. I also connected the processed data to Tail’ed’s website, making the aggregated listings available to users.",
     ],
     technologies: [
       ["Python", "python"],
@@ -31,12 +36,12 @@ export const experience = [
   },
   {
     company: "Lienzo",
-    title: "Backend Developer",
+    title: "Software Developer",
     dates: "Dec 2025 - Mar 2026",
     lines: [
-      "I worked on the backend of a healthcare coordination platform, building features across database models, business logic, and APIs using NestJS and PostgreSQL.",
-      "One of the more complex features I implemented was recurring task management, supporting different schedules and allowing users to update a single occurrence or an entire series.",
-      "I also focused on backend reliability, expanding automated test coverage from 24% to 72% across CQRS commands and queries, while maintaining and improving 20+ existing commands, queries, and APIs.",
+      "I worked on the backend of a healthcare coordination platform using NestJS, PostgreSQL, and CQRS, developing features across database models, business logic, and APIs.",
+      "One of the more complex features I built was recurring task management. It supported different schedules and let users update a single occurrence, an entire series, or future occurrences without affecting unrelated tasks.",
+      "I also expanded automated test coverage from 24% to 72% across CQRS commands and queries, while maintaining and extending more than 20 existing commands, queries, and APIs.",
     ],
     technologies: [
       ["TypeScript", "typescript"],
@@ -54,8 +59,8 @@ export const experience = [
     dates: "Feb - May 2025",
     lines: [
       "I developed backend features for a mental health platform using TypeScript, Express, PostgreSQL, and Prisma.",
-      "A key part of my work was improving API performance. I optimized database queries and high-traffic endpoints, reducing response times by 35%.",
-      "I also implemented authentication and authorization using Supabase and JWT, and worked on validation, error handling, and API documentation to make the backend more secure and reliable.",
+      "Much of my work focused on API performance. I optimized database queries and endpoints through indexing and pagination, reducing response times by 35%.",
+      "I also implemented authentication and authorization using Supabase and JWT, along with request validation, error handling, and API documentation.",
     ],
     technologies: [
       ["TypeScript", "typescript"],
@@ -134,21 +139,20 @@ export const skills = [
     label: "Backend",
     items: [
       ["TypeScript", "typescript"],
+      ["JavaScript", "javascript"],
       ["Node.js", "nodejs"],
       ["NestJS", "nestjs"],
       ["Express", "express"],
       ["Python", "python"],
-      ["FastAPI", "fastapi"],
-      ["Java", "java"],
-      ["Spring Boot", "spring"],
     ],
   },
   {
     label: "Databases & Data",
     items: [
-      ["PostgreSQL", "postgresql"],
       ["MongoDB", "mongodb"],
+      ["PostgreSQL", "postgresql"],
       ["Prisma", "prisma"],
+      ["Supabase", "supabase"],
     ],
   },
   {
@@ -156,8 +160,6 @@ export const skills = [
     items: [
       ["React", "react"],
       ["Next.js", "nextjs"],
-      ["JavaScript", "javascript"],
-      ["Angular", "angular"],
       ["Tailwind CSS", "tailwindcss"],
     ],
   },
@@ -167,9 +169,6 @@ export const skills = [
       ["Docker", "docker"],
       ["AWS", "amazonwebservices"],
       ["GitHub Actions", "githubactions"],
-      ["Azure DevOps", "azuredevops"],
-      ["Supabase", "supabase"],
-      ["Firebase", "firebase"],
     ],
   },
   {
@@ -178,17 +177,9 @@ export const skills = [
       ["Git", "git"],
       ["GitHub", "github"],
       ["Vitest", "vitest"],
-      ["Pytest", "pytest"],
       ["Postman", "postman"],
       ["Swagger", "swagger"],
       ["Zod", "zod"],
-    ],
-  },
-  {
-    label: "AI Development",
-    items: [
-      ["OpenAI Codex", "openai"],
-      ["Claude Code", "claude"],
     ],
   },
 ];

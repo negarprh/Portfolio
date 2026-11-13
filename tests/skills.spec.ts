@@ -2,39 +2,30 @@ import { test, expect } from "@playwright/test";
 import { settleBook } from "./motion-helpers";
 
 const inventory = [
-  [
-    "TypeScript",
-    "Node.js",
-    "NestJS",
-    "Express",
-    "Python",
-    "FastAPI",
-    "Java",
-    "Spring Boot",
-  ],
-  ["PostgreSQL", "MongoDB", "Prisma"],
-  ["React", "Next.js", "JavaScript", "Angular", "Tailwind CSS"],
-  ["Docker", "AWS", "GitHub Actions", "Azure DevOps", "Supabase", "Firebase"],
-  ["Git", "GitHub", "Vitest", "Pytest", "Postman", "Swagger", "Zod"],
-  ["OpenAI Codex", "Claude Code"],
+  ["TypeScript", "JavaScript", "Node.js", "NestJS", "Express", "Python"],
+  ["MongoDB", "PostgreSQL", "Prisma", "Supabase"],
+  ["React", "Next.js", "Tailwind CSS"],
+  ["Docker", "AWS", "GitHub Actions"],
+  ["Git", "GitHub", "Vitest", "Postman", "Swagger", "Zod"],
 ];
 
-for (const width of [1440, 1100, 820, 390]) {
+for (const width of [1440, 1100, 820, 390, 320]) {
   test(`Skills inventory fits two readable spreads at ${width}px`, async ({
     page,
   }) => {
-    await page.setViewportSize({ width, height: 1000 });
+    await page.setViewportSize({ width, height: width === 320 ? 568 : 1000 });
     await page.goto("/");
     await page.evaluate(() => document.fonts.ready);
     const skills = page.locator("#skills");
-    await expect(skills.locator(".skills-intro")).toHaveCount(0);
+    await expect(skills.locator(".skills-intro, table")).toHaveCount(0);
+    await expect(skills.locator(".skill-mark img")).toHaveCount(22);
     await expect(skills.locator(".skills-spread")).toHaveCount(2);
     const pages = skills.locator(".skills-page");
     for (const [index, headings] of [
       ["01Backend"],
       ["03Frontend"],
       ["02Databases & Data", "05Tools & Testing"],
-      ["04Infrastructure & Cloud", "06AI Development"],
+      ["04Infrastructure & Cloud"],
     ].entries()) {
       await expect(pages.nth(index).locator("h3")).toHaveText(headings);
     }
@@ -43,14 +34,13 @@ for (const width of [1440, 1100, 820, 390]) {
     ).toHaveCount(2);
     await expect(
       skills.locator(".skills-spread").nth(1).locator(".skill-group"),
-    ).toHaveCount(4);
+    ).toHaveCount(3);
     await expect(skills.locator(".skill-group h3")).toHaveText([
       "01Backend",
       "03Frontend",
       "02Databases & Data",
       "05Tools & Testing",
       "04Infrastructure & Cloud",
-      "06AI Development",
     ]);
     for (let i = 0; i < inventory.length; i++) {
       await expect(
@@ -132,7 +122,6 @@ test("Skills inventory remains complete without JavaScript", async ({
       inventory[1],
       inventory[4],
       inventory[3],
-      inventory[5],
     ].flat(),
   );
   await expect(page.locator("#skills .skills-spread")).toHaveCount(2);

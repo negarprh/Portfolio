@@ -8,7 +8,7 @@ for (const width of [1440, 390]) {
     test.setTimeout(120000);
     await page.setViewportSize({ width, height: 1000 });
     await page.goto("/");
-    await expect(page.locator(".book-fixed-page")).toHaveCount(16);
+    await expect(page.locator(".book-fixed-page")).toHaveCount(17);
     const pages = page.locator(".book-fixed-page");
     for (let i = 1; i < (await pages.count()); i++) {
       const surface = pages.nth(i);

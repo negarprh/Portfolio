@@ -1525,8 +1525,110 @@ html[data-book-enhanced] .introduction > .chapter-running {
 }
 .intro-facts .intro-detail-role dd {
   font-size: 17px;
-  font-weight: 600;
+  font-weight: 400;
   line-height: 1.5;
+}
+
+/* A quiet, full spread gives the present company its own place in the book. */
+.current-company {
+  display: flex;
+  flex-direction: column;
+  min-height: 82svh;
+  border-bottom: 1px solid #c8c3b5;
+}
+.current-company-content {
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  min-height: 360px;
+}
+.current-company-heading h3 {
+  margin: 24px 0 0;
+  max-width: 10ch;
+  font-size: clamp(42px, 4.1vw, 58px);
+  line-height: 1.06;
+  letter-spacing: -0.035em;
+  color: var(--functional);
+}
+.current-company-identity {
+  min-width: 0;
+}
+.current-company-imprint {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: min(100%, 280px);
+  min-height: 208px;
+  padding: 36px 24px;
+  margin-inline: auto;
+  text-align: center;
+  background: var(--functional);
+  color: var(--paper);
+}
+.current-company-imprint::before {
+  content: "";
+  position: absolute;
+  inset: 10px;
+  border: 1px solid #b59a6473;
+  pointer-events: none;
+}
+.current-company-name {
+  font:
+    400 36px/1.2 Editorial,
+    Georgia,
+    serif;
+  color: inherit;
+}
+.current-company-dates {
+  margin: 0;
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  color: #e7eadd;
+}
+.current-company-rule {
+  width: 36px;
+  height: 2px;
+  background: var(--accent);
+}
+.current-company-imprint-rule {
+  width: 24px;
+  height: 1px;
+  margin: 20px 0;
+  background: var(--accent);
+}
+@media (max-width: 700px) {
+  .current-company-content {
+    grid-template-columns: minmax(0, 1fr);
+    min-height: 0;
+    gap: 32px;
+  }
+  .current-company-heading h3 {
+    font-size: clamp(38px, 10.5vw, 50px);
+    margin: 20px 0 0;
+  }
+  .current-company-name {
+    font-size: 30px;
+  }
+  .current-company-dates {
+    margin: 0;
+    font-size: 11px;
+  }
+  .current-company-imprint {
+    width: min(100%, 248px);
+    min-height: 168px;
+    padding: 30px 20px;
+  }
+  .current-company-imprint-rule {
+    margin: 16px 0;
+  }
+}
+@media (min-width: 701px) and (max-height: 500px) {
+  .current-company-content {
+    min-height: 0;
+  }
+  .current-company-heading h3 {
+    font-size: 44px;
+  }
 }
 .intro-facts .links {
   margin-top: 20px;

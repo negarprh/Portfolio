@@ -28,7 +28,7 @@ export function Education() {
           </div>
         </div>
         <TurnSheet label="Education" />
-        <Folio label="Education" page="10" />
+        <Folio label="Education" page="11" />
       </div>
     </section>
   );

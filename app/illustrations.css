@@ -1,4 +1,4 @@
-/* A six-plate collection, printed directly on the existing chapter stocks. */
+/* Editorial pen studies, printed directly on the existing chapter stocks. */
 .chapter-illustration {
   display: block;
   width: 100%;
@@ -17,18 +17,6 @@
 }
 .intro-facts .illustration-introduction {
   display: none;
-}
-.job-detail .illustration-experience {
-  width: 190px;
-  margin: 26px 0 0 auto;
-}
-.skills-page .illustration-skills {
-  width: 200px;
-  margin: 34px 8px 0 auto;
-}
-.project-tech .illustration-work {
-  width: 155px;
-  margin: 18px 0 0;
 }
 .education-field .illustration-education {
   width: 260px;
@@ -78,12 +66,6 @@
   .introduction > .illustration-introduction {
     width: 175px;
   }
-  .job-detail .illustration-experience {
-    width: 145px;
-  }
-  .skills-page .illustration-skills {
-    width: 150px;
-  }
   .education-field .illustration-education {
     width: 210px;
   }
@@ -99,13 +81,6 @@
     width: 96px;
     align-self: end;
     margin: 0 0 52px;
-  }
-  /* Dense inventories and project evidence retain their reading scale.
-     The complete plates remain on their chapter-opening leaves. */
-  .job-detail .illustration-experience,
-  .skills-page .illustration-skills,
-  .project-tech .illustration-work {
-    display: none;
   }
   .education-field .illustration-education {
     width: 150px;

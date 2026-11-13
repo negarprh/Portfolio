@@ -1,6 +1,6 @@
 import { Divider, Folio, RunningHead, TurnSheet } from "./editorial";
 import { experience } from "@/lib/content";
-import { ChapterIllustration } from "./chapter-illustration";
+import { CurrentCompany } from "./current-company";
 import {
   CoverageFigure,
   ResponseFigure,
@@ -87,6 +87,7 @@ export function Experience() {
         title="Experience"
         note="02 / Work history"
       />
+      <CurrentCompany />
       <div className="experience-spreads">
         {experience.map((job, i) => (
           <article
@@ -122,11 +123,10 @@ export function Experience() {
                 {job.lines.map((line) => (
                   <p key={line}>{line}</p>
                 ))}
-                {i === 0 && <ChapterIllustration chapter="experience" />}
               </div>
             </div>
             <TurnSheet label="Experience" />
-            <Folio label="Experience" page={`0${i + 2}`} />
+            <Folio label="Experience" page={`0${i + 3}`} />
           </article>
         ))}
       </div>

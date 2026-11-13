@@ -1,6 +1,6 @@
 # Career source of truth
 
-Last reconciled: 2026-10-12. This file stores public, durable career facts for portfolio copy. `lib/content.ts` and the page components are the rendered implementation; update this file and the implementation together.
+Last reconciled: 2026-11-12. This file stores public, durable career facts for portfolio copy. `lib/content.ts` and the page components are the rendered implementation; update this file and the implementation together.
 
 ## Evidence and writing rules
 
@@ -24,7 +24,7 @@ Do not infer dates, seniority, degree equivalence, business impact, ownership, t
 - Core backend stacks: TypeScript with NestJS; Python with FastAPI.
 - Additional verified experience: Node.js, Express, Java/Spring Boot, Prisma/PostgreSQL, SQLAlchemy, Redis, Docker, cloud/tooling, and React/frontend contributions as needed.
 - Do not describe Negar as Python-only or imply TypeScript was only frontend work.
-- Negar reported finding a role on 2026-10-16. Remove all public “open to roles” and job-search availability messages, including the introduction and back cover. No employer, title, or start date was supplied; do not invent or publish those details.
+- Negar reported finding a role on 2026-10-16. Remove all public “open to roles” and job-search availability messages, including the introduction and back cover. On 2026-11-09, she confirmed Stay22 as her current company, then supplied her title (Software Developer) and start month (November 2026). Responsibilities, technologies and outcomes remain unspecified; do not infer them.
 
 ## Introduction facts
 
@@ -38,7 +38,15 @@ Do not infer dates, seniority, degree equivalence, business impact, ownership, t
 
 ## Experience
 
-Use Negar’s latest supplied three-paragraph descriptions for each role (2026-10-12), opening with “At [company]”. Preserve detailed verified facts below even when omitted from the shorter public copy.
+Use Negar’s exact three-paragraph descriptions supplied on 2026-11-12 for Tail’ed, Lienzo, and Ozex, opening in first person (“I built”, “I worked”, and “I developed”). The approved paragraphs are stored in `experience[].lines` in `lib/content.ts`. Preserve detailed verified facts below even when omitted from the public copy.
+
+### Stay22 — Software Developer (current)
+
+- Verified directly by Negar on 2026-11-09: Stay22 is her current company.
+- Negar subsequently supplied and approved the title Software Developer and the start month November 2026 in the same session. Public date display: “Nov 2026 - Present.” No exact day was supplied. On 2026-11-12 she confirmed keeping dates and removing the redundant “Current role” label; “Present” communicates current status.
+- Public copy is limited to the role title, Stay22, current status and dates. Her latest instruction places the dedicated two-page spread first in Experience, immediately after its chapter divider and before Tail’ed; this supersedes the initially requested placement after the older roles.
+- Stack, responsibilities and results remain unspecified and unpublished.
+- Negar rejected both the travel/accommodation drawing and the subsequent generic software-system drawing. The Stay22 spread now has no illustration or logo; it presents only the approved role title, company and dates in a typographic composition.
 
 ### Tail’ed — Software Developer Intern
 
@@ -48,21 +56,22 @@ Use Negar’s latest supplied three-paragraph descriptions for each role (2026-1
 - Work included discovery, classification, normalization, deduplication, and archival.
 - Supported 11,700+ active listings across 1,300+ companies.
 - Expanded active coverage to 4.4× the prior level.
-- Added multithreaded concurrency that reduced median GitHub Actions runtime by 62%, from 4.7 hours to 1.8 hours.
+- Added multithreaded concurrency that reduced median GitHub Actions runtime by 62%, from 4.7 hours to 1.8 hours. Latest supplied copy (2026-11-12) describes concurrent workers running company searches in parallel.
 - Connected aggregated data to website search and filtering.
 - Public technology emphasis: Python, Express, GitHub Actions, React, Firebase. Negar explicitly confirmed Express for the system backend on 2026-09-24.
 - The median 4.7h → 1.8h figure supersedes the older Workday-only 6h → 1h45m figure.
 
-### Lienzo — Backend Developer
+### Lienzo — Software Developer
 
+- Negar explicitly changed the displayed title from Backend Developer to Software Developer on 2026-11-12. The verified backend responsibilities and emphasis remain unchanged.
 - Dates: Dec 8, 2025 — Mar 31, 2026.
-- Public display: Dec 2025 — Mar 2026; Negar requested month/year dates without days on 2026-10-11. Keep the verified exact dates above as source facts.
+- Public display: Dec 2025 - Mar 2026; Negar requested month/year dates without days on 2026-10-11. Keep the verified exact dates above as source facts.
 - Built backend features for healthcare coordination with TypeScript, Node.js, NestJS, PostgreSQL, and Prisma.
 - Worked across data models, APIs, business logic, automated tests, and Angular integration.
 - Implemented recurring to-dos with daily, weekly, biweekly, and monthly schedules.
-- Supported updating one occurrence or an entire recurring series.
+- Supported updating one occurrence, an entire recurring series, or future occurrences without affecting unrelated tasks (expanded directly by Negar on 2026-11-12).
 - CQRS command/query testing increased backend coverage from 24% to 72%.
-- Latest approved public scope (2026-10-12): maintained and improved 20+ existing commands, queries, and APIs. This supersedes the earlier “20+ services and APIs” wording. Verified work also included authentication, RBAC, soft deletes, and core backend behavior.
+- Latest approved public scope (2026-11-12): maintained and extended more than 20 existing commands, queries, and APIs. This supersedes the earlier “20+ services and APIs” wording. Verified work also included authentication, RBAC, soft deletes, and core backend behavior.
 - Worked with trunk-based development, CI/CD, pull requests, reviews, and daily stand-ups.
 - Keep the portfolio emphasis on backend work.
 - Displayed role stack: TypeScript, Node.js, NestJS, Prisma, PostgreSQL, Angular, Vitest. Negar explicitly confirmed Angular and Vitest for Lienzo on 2026-09-24; this supersedes the earlier uncertainty about the testing framework.
@@ -72,7 +81,7 @@ Use Negar’s latest supplied three-paragraph descriptions for each role (2026-1
 - Dates: Feb — May 2025.
 - Built backend functionality for a mental-health platform with TypeScript, Express, PostgreSQL, and Prisma.
 - Developed REST APIs and application logic.
-- Query and endpoint optimization reduced API response times by 35%.
+- Query and endpoint optimization through indexing and pagination reduced API response times by 35% (methods supplied directly by Negar on 2026-11-12).
 - Implemented Supabase/JWT authentication and authorization.
 - Worked on validation, error handling, database operations, API integration, and Swagger documentation.
 - Public technology emphasis: TypeScript, Express, PostgreSQL, Prisma, Supabase, Swagger.
@@ -137,13 +146,12 @@ Use Negar’s latest supplied three-paragraph descriptions for each role (2026-1
 
 ## Public skills taxonomy
 
-- Backend: TypeScript, Node.js, NestJS, Express, Python, FastAPI, Java, Spring Boot.
-- Frontend: React, Next.js, JavaScript, Angular, Tailwind CSS.
-- Databases & Data: PostgreSQL, MongoDB, Prisma.
-- Infrastructure & Cloud: Docker, AWS, GitHub Actions, Azure DevOps, Supabase, Firebase.
-- Tools & Testing: Git, GitHub, Vitest, Pytest, Postman, Swagger, Zod.
-- AI Development: OpenAI Codex, Claude Code.
-- Negar approved this 31-item inventory on 2026-10-12, superseding the prior 33-item inventory. Flask, SQLAlchemy, HTML, and CSS are omitted from the Skills chapter; verified use elsewhere is not retracted. AI tool use is user-supplied and does not imply AI/ML engineering expertise. The Skills introduction sentence was removed at Negar’s request on 2026-10-30; start directly with the category inventory.
+- Backend: TypeScript, JavaScript, Node.js, NestJS, Express, Python.
+- Frontend: React, Next.js, Tailwind CSS.
+- Databases & Data: MongoDB, PostgreSQL, Prisma, Supabase.
+- Infrastructure & Cloud: Docker, AWS, GitHub Actions.
+- Tools & Testing: Git, GitHub, Vitest, Postman, Swagger, Zod.
+- Negar supplied this exact 22-item inventory in five categories on 2026-11-12, superseding the 31-item, six-category inventory approved on 2026-10-12. This is a content-only change: retain the existing two-spread category layout, original category numbers, logo grids, spacing and monochrome brand marks. The agent’s table interpretation was explicitly rejected. JavaScript is displayed under Backend and Supabase under Databases & Data. FastAPI, Java, Spring Boot, Angular, Azure DevOps, Firebase, Pytest, OpenAI Codex and Claude Code are omitted from the Skills overview; verified experience elsewhere is not retracted. AI Development is removed as a category. Keep all remaining technology names in the supplied order within their categories.
 
 This is a display taxonomy, not a proficiency ranking. Adding a skill requires an explicit user-provided fact or evidence from current work; do not scrape dependency files and present every package as a career skill.
 

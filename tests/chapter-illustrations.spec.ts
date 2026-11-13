@@ -13,9 +13,14 @@ for (const [width, height] of [
   }) => {
     await page.setViewportSize({ width, height });
     await page.goto("/");
-    await expect(page.locator(".book-fixed-page")).toHaveCount(16);
+    await expect(page.locator(".book-fixed-page")).toHaveCount(17);
     await page.evaluate(() => document.fonts.ready);
     await expect(page.locator("#introduction img")).toHaveCount(0);
+    await expect(
+      page.locator(
+        ".experience-row .chapter-illustration, .skills-spread .chapter-illustration, .project-spread .chapter-illustration",
+      ),
+    ).toHaveCount(0);
     const seen = new Set<string>();
     for (const surface of await page
       .locator(".book-fixed-page:has(.chapter-illustration)")
@@ -38,9 +43,20 @@ for (const [width, height] of [
           const overlaps = text
             .filter((node) => {
               if (getComputedStyle(node).display === "none") return false;
-              const range = document.createRange();
-              range.selectNodeContents(node);
-              return Array.from(range.getClientRects()).some(
+              // A container range includes its inline SVG's own rectangle.
+              // Measure actual text so artwork cannot collide with itself.
+              const walker = document.createTreeWalker(
+                node,
+                NodeFilter.SHOW_TEXT,
+              );
+              const rects: DOMRect[] = [];
+              while (walker.nextNode()) {
+                if (!walker.currentNode.textContent?.trim()) continue;
+                const range = document.createRange();
+                range.selectNodeContents(walker.currentNode);
+                rects.push(...range.getClientRects());
+              }
+              return rects.some(
                 (r) =>
                   r.width > 0 &&
                   r.height > 0 &&
@@ -105,9 +121,18 @@ for (const mode of ["no-js", "reduced"] as const) {
             return Array.from(
               surface.querySelectorAll("h2,h3,p,dt,dd,a"),
             ).flatMap((node) => {
-              const range = document.createRange();
-              range.selectNodeContents(node);
-              return Array.from(range.getClientRects()).some(
+              const walker = document.createTreeWalker(
+                node,
+                NodeFilter.SHOW_TEXT,
+              );
+              const rects: DOMRect[] = [];
+              while (walker.nextNode()) {
+                if (!walker.currentNode.textContent?.trim()) continue;
+                const range = document.createRange();
+                range.selectNodeContents(walker.currentNode);
+                rects.push(...range.getClientRects());
+              }
+              return rects.some(
                 (r) =>
                   r.width > 0 &&
                   r.height > 0 &&

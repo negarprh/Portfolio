@@ -24,7 +24,7 @@ for (const [width, height] of [
   }) => {
     await page.setViewportSize({ width, height });
     await page.goto("/");
-    await expect(page.locator(".book-fixed-page")).toHaveCount(16);
+    await expect(page.locator(".book-fixed-page")).toHaveCount(17);
     await page.evaluate(() => document.fonts.ready);
     await expect
       .poll(() =>

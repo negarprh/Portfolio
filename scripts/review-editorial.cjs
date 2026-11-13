@@ -48,6 +48,7 @@ const sharp = require("sharp");
       ["skills-opening", "#skills .divider"],
       ["experience-lienzo", ".experience-row.role-1"],
       ["experience-ozex", ".experience-row.role-2"],
+      ["experience-stay22", ".current-company"],
       ["skills-tools", ".skills-spread:has(#skill-category-1)"],
       ["project-evenly", ".project-spread:has(#evenly-title)"],
       ["project-airsense", ".project-spread:has(#airsense-title)"],

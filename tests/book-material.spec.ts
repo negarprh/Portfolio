@@ -7,7 +7,7 @@ for (const width of [320, 390]) {
   }) => {
     await page.setViewportSize({ width, height: 844 });
     await page.goto("/");
-    await expect(page.locator(".book-fixed-page")).toHaveCount(16);
+    await expect(page.locator(".book-fixed-page")).toHaveCount(17);
     await page.evaluate(() => document.fonts.ready);
     const surface = page.locator(".skills-spread").first();
     await surface.evaluate((el) =>
