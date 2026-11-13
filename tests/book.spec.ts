@@ -62,31 +62,26 @@ test("all chapters, real assets, and accessible desktop document", async ({
     "10",
     "11",
   ]);
-  await expect(page.locator("#current-company-title")).toHaveText(
-    "Software Developer",
-  );
+  await expect(page.locator("#current-company-title")).toHaveText("Stay22");
   await expect(page.locator(".current-company-name")).toHaveText("Stay22");
   await expect(page.locator(".current-company-dates")).toHaveText(
-    "Nov 2026 - Present",
+    "Nov 2026 – Present",
   );
   await expect(
     page.locator("#experience > .current-company ~ .experience-spreads"),
   ).toHaveCount(1);
   await expect(page.locator(".current-company-status")).toHaveCount(0);
   await expect(
-    page.locator(".current-company svg, .current-company img"),
-  ).toHaveCount(0);
-  await expect(page.locator("main")).not.toContainText(/[—–]/);
-  expect(
-    await page.locator(".current-company-content").evaluate((spread) => {
-      const title = spread.querySelector("h3")!;
-      const company = spread.querySelector(".current-company-name")!;
-      return (
-        parseFloat(getComputedStyle(title).fontSize) >
-        parseFloat(getComputedStyle(company).fontSize)
-      );
-    }),
-  ).toBe(true);
+    page.locator(".current-company .rocket-illustration"),
+  ).toHaveCount(1);
+  await expect(page.locator(".current-company .job-role")).toHaveText(
+    "Software Developer",
+  );
+  await expect(page.locator(".current-company-team")).toHaveText(
+    "Integrations",
+  );
+  await expect(page.locator("main")).not.toContainText(/—/);
+  await expect(page.locator(".experience-spreads")).not.toContainText(/–/);
   await expect(page.locator(".intro-detail-role dd")).toHaveCSS(
     "font-weight",
     "400",
@@ -229,7 +224,7 @@ test("JavaScript disabled: complete content and native chapter links", async ({
     await expect(page.locator(`#${id}`)).toBeVisible();
   await expect(page.locator("#current-company-title")).toBeVisible();
   await expect(
-    page.locator(".current-company .current-company-imprint"),
+    page.locator(".current-company .rocket-illustration"),
   ).toBeVisible();
   await page.locator(".book-index summary").click();
   await page.locator('.book-index a[href="#skills"]').click();

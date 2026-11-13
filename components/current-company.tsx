@@ -1,5 +1,6 @@
 import { currentEmployment } from "@/lib/content";
 import { Folio, TurnSheet } from "./editorial";
+import { RocketIllustration } from "./rocket-illustration";
 
 export function CurrentCompany() {
   return (
@@ -9,18 +10,18 @@ export function CurrentCompany() {
       aria-labelledby="current-company-title"
     >
       <div className="spread-content current-company-content">
-        <div className="current-company-heading">
-          <div className="current-company-rule" aria-hidden="true" />
-          <h3 id="current-company-title">{currentEmployment.title}</h3>
+        <div className="job-heading current-company-heading">
+          <p className="eyebrow current-company-dates">
+            {currentEmployment.dates}
+          </p>
+          <h3 id="current-company-title" className="current-company-name">
+            {currentEmployment.company}
+          </h3>
+          <p className="job-role">{currentEmployment.title}</p>
+          <p className="current-company-team">{currentEmployment.team}</p>
         </div>
-        <div className="current-company-identity">
-          <div className="current-company-imprint">
-            <p className="current-company-name">{currentEmployment.company}</p>
-            <div className="current-company-imprint-rule" aria-hidden="true" />
-            <p className="current-company-dates mono">
-              {currentEmployment.dates}
-            </p>
-          </div>
+        <div className="current-company-art">
+          <RocketIllustration />
         </div>
       </div>
       <TurnSheet label="Experience" />

@@ -43,10 +43,10 @@ Use Negar’s exact three-paragraph descriptions supplied on 2026-11-12 for Tail
 ### Stay22 — Software Developer (current)
 
 - Verified directly by Negar on 2026-11-09: Stay22 is her current company.
-- Negar subsequently supplied and approved the title Software Developer and the start month November 2026 in the same session. Public date display: “Nov 2026 - Present.” No exact day was supplied. On 2026-11-12 she confirmed keeping dates and removing the redundant “Current role” label; “Present” communicates current status.
-- Public copy is limited to the role title, Stay22, current status and dates. Her latest instruction places the dedicated two-page spread first in Experience, immediately after its chapter divider and before Tail’ed; this supersedes the initially requested placement after the older roles.
+- Negar subsequently supplied and approved the title Software Developer and the start month November 2026 in the same session. Latest public date display (2026-11-12): “Nov 2026 – Present.” No exact day was supplied. Keep the redundant “Current role” label removed; “Present” communicates current status.
+- Negar confirmed the team as Integrations on 2026-11-12. Public copy is limited to the role title, company, team and dates. The dedicated two-page spread remains first in Experience, immediately after its chapter divider and before Tail’ed.
 - Stack, responsibilities and results remain unspecified and unpublished.
-- Negar rejected both the travel/accommodation drawing and the subsequent generic software-system drawing. The Stay22 spread now has no illustration or logo; it presents only the approved role title, company and dates in a typographic composition.
+- Negar replaced the typographic imprint with an original decorative rocket pen study on 2026-11-12. It is a conceptual launch illustration, not an employer/product claim. Company, role, team and dates share the left-page hierarchy of the older experience entries; no metrics or detailed accomplishments are published yet.
 
 ### Tail’ed — Software Developer Intern
 

@@ -1,5 +1,9 @@
 # The Book: decisions and implementation record
 
+## 2026-11-12: Stay22 role hierarchy and a rocket pen study
+
+Negar supplied the Integrations team and requested the same left-page structure as Tail’ed, Lienzo and Ozex: dates, company, role and team, without metrics or detailed accomplishments. Replace the typography-only company imprint with an original inline SVG rocket pointing upper-right, with fine exhaust trailing lower-left. Use the existing green/brass pen language, mechanical details and sparse hatching; no background, frame, labels or scenery. Keep the existing two-page geometry and stock, and stack the complete drawing below the heading on phones. This supersedes the earlier imprint and no-illustration direction. Stay22's date uses the explicitly supplied en dash; other existing date typography remains unchanged.
+
 ## 2026-11-12: restore the Skills layout; prune content only
 
 Negar explicitly rejected the table redesign. Her list was an instruction to remove unlisted technologies, not to change the design. Restore the original two reading spreads, category numbers and placement, logo grids, monochrome SVG marks, typography and spacing. Keep the 22 technologies in the five supplied categories; omit AI Development and the nine unlisted technologies. Preserve the earlier removal of redundant reading-page illustrations. Do not interpret future pasted lists or tables as permission to redesign the Skills layout. This supersedes the agent’s table interpretation below and restores 17 book surfaces and 11 reading folios.

@@ -14,7 +14,8 @@ export const profile = {
 export const currentEmployment = {
   company: "Stay22",
   title: "Software Developer",
-  dates: "Nov 2026 - Present",
+  team: "Integrations",
+  dates: "Nov 2026 – Present",
 };
 export const experience = [
   {
