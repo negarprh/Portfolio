@@ -8,6 +8,7 @@ import { getGitHubStars } from "@/lib/github";
 import { BookMotion } from "@/components/book-motion";
 import { Experience } from "@/components/experience";
 import { BookIndex } from "@/components/book-index";
+import { NavigationHint } from "@/components/navigation-hint";
 import { ChapterIllustration } from "@/components/chapter-illustration";
 import {
   ContactLinks,
@@ -50,10 +51,16 @@ export default async function Home() {
                 <div className="cover-bottom">
                   <p>Selected work & experience</p>
                   <a className="open-book" href="#introduction">
+                    <NavigationHint />
                     <span className="open-book-copy">
                       <span className="open-book-title">Open the book</span>
                       <span className="open-book-hint">
-                        Scroll down to begin
+                        <span className="opening-desktop-copy">
+                          Scroll down to begin
+                        </span>
+                        <span className="opening-mobile-copy">
+                          Swipe up to turn the page
+                        </span>
                       </span>
                     </span>
                     <svg

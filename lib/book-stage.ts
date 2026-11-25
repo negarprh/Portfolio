@@ -65,8 +65,65 @@ export function createBookStage() {
   let warmTimer = 0;
   let preparedOffsets = [0, 0];
   let mobile = false;
+  let overflowing: boolean[] = [];
   let snapshotCache = new Map<HTMLElement, HTMLElement>();
   const snapshotOffsets = new Map<HTMLElement, number>();
+  const snapshotBounds = new WeakMap<
+    Node,
+    { left: number; right: number; placeholder: boolean }
+  >();
+  // The articulated strips reuse the same frozen ink. Keep each declaration
+  // block once in CSS instead of reparsing it into all 24 cloned faces.
+  const snapshotStyles = document.createElement("style");
+  snapshotStyles.dataset.bookSnapshotStyles = "true";
+  document.head.append(snapshotStyles);
+  const frozenClasses = new Map<string, string>();
+  let resetStyles = false;
+  let authoredProperties: string[] | undefined;
+  const properties = () => {
+    if (authoredProperties) return authoredProperties;
+    const names = new Set([
+      "zoom",
+      "visibility",
+      "animation",
+      "grid-template-rows",
+      "grid-template-columns",
+      "grid-auto-rows",
+      "grid-auto-columns",
+      "-webkit-text-fill-color",
+      "-webkit-text-stroke-color",
+    ]);
+    const collect = (rules: CSSRuleList) => {
+      for (const rule of Array.from(rules)) {
+        if (rule instanceof CSSStyleRule)
+          for (const name of Array.from(rule.style))
+            if (!name.startsWith("--tw-")) names.add(name);
+        if ("cssRules" in rule) collect((rule as CSSGroupingRule).cssRules);
+      }
+    };
+    for (const sheet of Array.from(document.styleSheets)) {
+      if (sheet.ownerNode === snapshotStyles) continue;
+      try {
+        collect(sheet.cssRules);
+      } catch {
+        /* Cross-origin sheets are not used by the book. */
+      }
+    }
+    authoredProperties = [...names];
+    return authoredProperties;
+  };
+  const freeze = (declarations: string) => {
+    let name = frozenClasses.get(declarations);
+    if (!name) {
+      name = `book-frozen-${frozenClasses.size}`;
+      frozenClasses.set(declarations, name);
+      snapshotStyles.sheet!.insertRule(
+        `.${name}.${name}.${name} { ${declarations} }`,
+        snapshotStyles.sheet!.cssRules.length,
+      );
+    }
+    return name;
+  };
 
   const snapshot = (page: HTMLElement) => {
     const cached = snapshotCache.get(page);
@@ -76,16 +133,76 @@ export function createBookStage() {
     const copy = page.cloneNode(true) as HTMLElement;
     const originals = [page, ...page.querySelectorAll<HTMLElement>("*")];
     const copies = [copy, ...copy.querySelectorAll<HTMLElement>("*")];
-    // Preserve ancestor-scoped typography/layout even outside the source chapter.
-    originals.forEach((node, i) => {
+    // Finish reads before inserting CSS rules so stylesheet changes cannot
+    // force a style recalculation between every original node.
+    const captured = originals.map((node, i) => {
       const style = getComputedStyle(node);
-      const target = copies[i];
-      for (const property of Array.from(style))
-        target.style.setProperty(property, style.getPropertyValue(property));
+      const rect = node.getBoundingClientRect();
+      return {
+        hidden: style.visibility === "hidden",
+        baseline: style.alignItems.includes("baseline"),
+        bounds: {
+          left: rect.width || rect.height ? rect.left : Infinity,
+          right: rect.width || rect.height ? rect.right : -Infinity,
+          placeholder: ["block", "flex", "grid", "flow-root"].includes(
+            style.display,
+          ),
+        },
+        declarations: Array.from(
+          i === 0
+            ? style
+            : new Set([...properties(), ...Array.from(node.style)]),
+          (property) =>
+            property === "visibility"
+              ? ""
+              : `${property}:${style.getPropertyValue(property)} !important;`,
+        ).join(""),
+      };
+    });
+    const originalIndices = new Map(originals.map((node, i) => [node, i]));
+    // Absolute illustrations can extend beyond their parent's own rectangle.
+    // Include descendants before deciding a subtree is outside a paper strip.
+    for (let i = originals.length - 1; i > 0; i--) {
+      const parent = originalIndices.get(originals[i].parentElement!);
+      if (parent === undefined) continue;
+      // Empty boxes have a different baseline from text. Keep baseline-aligned
+      // siblings intact even when their own ink falls outside the strip.
+      if (captured[parent].baseline) captured[i].bounds.placeholder = false;
+      captured[parent].bounds.left = Math.min(
+        captured[parent].bounds.left,
+        captured[i].bounds.left,
+      );
+      captured[parent].bounds.right = Math.max(
+        captured[parent].bounds.right,
+        captured[i].bounds.right,
+      );
+    }
+    const materials = ["::before", "::after"].map((pseudo) => {
+      const style = getComputedStyle(page, pseudo);
+      if (
+        ["none", "normal"].includes(style.content) ||
+        style.display === "none"
+      )
+        return null;
+      return {
+        content: style.content.replace(/^"|"$/g, ""),
+        declarations: Array.from(style, (property) =>
+          property === "visibility"
+            ? ""
+            : `${property}:${style.getPropertyValue(property)} !important;`,
+        ).join(""),
+      };
+    });
+    // Preserve ancestor-scoped typography/layout even outside the source chapter.
+    copies.forEach((target, i) => {
+      snapshotBounds.set(target, captured[i].bounds);
+      target.style.cssText = "";
+      target.classList.add(freeze(captured[i].declarations));
       // Hidden authored labels keep their layout, while visible snapshot ink
       // inherits its face/stage visibility instead of escaping a hidden parent.
-      if (style.visibility === "hidden") target.style.opacity = "0";
-      target.style.animation = "none";
+      if (captured[i].hidden)
+        target.style.setProperty("opacity", "0", "important");
+      target.style.setProperty("animation", "none", "important");
       for (const attribute of [
         "id",
         "name",
@@ -98,55 +215,88 @@ export function createBookStage() {
     });
     // The root loses its identifying class/ID, so retain its existing binding,
     // folio mark or cloth border as inert material rather than inventing a new one.
-    for (const pseudo of ["::before", "::after"]) {
-      const material = getComputedStyle(page, pseudo);
-      if (
-        ["none", "normal"].includes(material.content) ||
-        material.display === "none"
-      )
-        continue;
+    for (const material of materials) {
+      if (!material) continue;
       const layer = document.createElement("span");
-      for (const property of Array.from(material))
-        layer.style.setProperty(property, material.getPropertyValue(property));
-      layer.textContent = material.content.replace(/^"|"$/g, "");
-      layer.style.pointerEvents = "none";
+      layer.classList.add(freeze(material.declarations));
+      layer.textContent = material.content;
+      layer.style.setProperty("pointer-events", "none", "important");
       copy.append(layer);
     }
     page.style.visibility = visibility;
     copy
       .querySelectorAll(".turn-sheet, .turn-shadow")
       .forEach((node) => node.remove());
+    // Guidance belongs to the stationary opening link, never to turning ink.
+    copy.querySelectorAll(".navigation-hint").forEach((node) => node.remove());
     copy.querySelectorAll<HTMLElement>(".cover-signature").forEach((node) => {
-      node.style.display = "none";
+      node.style.setProperty("display", "none", "important");
+    });
+    copy.querySelectorAll<HTMLElement>(".cover-name-line").forEach((node) => {
+      node.style.setProperty("clip-path", "none", "important");
     });
     copy
       .querySelectorAll<HTMLElement>(".cover-name > h1, .cover-seal")
       .forEach((node) => {
-        node.style.opacity = "1";
-        node.style.transform = "none";
+        node.style.setProperty("opacity", "1", "important");
+        node.style.setProperty("transform", "none", "important");
       });
-    copy.className = "physical-page-copy";
-    Object.assign(copy.style, {
+    copy.className = `physical-page-copy ${freeze(captured[0].declarations)}`;
+    for (const [property, value] of Object.entries({
       position: "absolute",
       top: `${-page.scrollTop}px`,
       left: "0",
       margin: "0",
-      visibility: "visible",
+      visibility: "inherit",
       width: `${sizes[pages.indexOf(page)].width}px`,
       height: `${height}px`,
-      minHeight: "0",
-      maxHeight: "none",
-      clipPath: "none",
+      "min-height": "0",
+      "max-height": "none",
+      "clip-path": "none",
       overflow: "visible",
       transform: "none",
-      zIndex: "auto",
-    });
+      "z-index": "auto",
+    }))
+      copy.style.setProperty(property, value, "important");
     copy.inert = true;
     snapshotCache.set(page, copy);
     snapshotOffsets.set(page, page.scrollTop);
     return copy;
   };
+  const slice = (node: Node, left: number, right: number): Node | null => {
+    const bounds = snapshotBounds.get(node);
+    if (bounds && (bounds.right < left || bounds.left > right)) {
+      // SVG graphics have explicit coordinates and need no layout placeholder.
+      if (
+        node instanceof SVGElement &&
+        node.parentElement instanceof SVGElement
+      )
+        return null;
+      if (
+        bounds.placeholder &&
+        node instanceof HTMLElement &&
+        !node.classList.contains("physical-page-copy")
+      ) {
+        const placeholder = document.createElement("span");
+        placeholder.className = Array.from(node.classList)
+          .filter((name) => name.startsWith("book-frozen-"))
+          .join(" ");
+        placeholder.style.cssText = node.style.cssText;
+        return placeholder;
+      }
+      // Inline text/line breaks participate in line layout even when their
+      // own ink is outside this strip. Preserve their intrinsic measurements.
+      return node.cloneNode(true);
+    }
+    const copy = node.cloneNode(false);
+    node.childNodes.forEach((child) => {
+      const visible = slice(child, left, right);
+      if (visible) copy.appendChild(visible);
+    });
+    return copy;
+  };
   const measure = () => {
+    const readingOffsets = pages.map((page) => page.scrollTop);
     // Measuring natural pages must not shrink the document and let the browser
     // clamp a reader's position near the end of the book.
     const root = document.documentElement;
@@ -225,13 +375,30 @@ export function createBookStage() {
       }
       const contentHeight = size(scale);
       content.style.top = `${(height - contentHeight) / 2 / scale}px`;
+      // An exceptional block that cannot fit must begin inside the reading
+      // viewport so its first lines remain reachable before scrolling down.
+      if (contentHeight > availableHeight)
+        content.style.top = `${Math.min(64, height * 0.1) / scale}px`;
+    });
+    overflowing = pages.map(
+      (page) => page.scrollHeight > page.clientHeight + 1,
+    );
+    pages.forEach((page, i) => {
+      if (overflowing[i]) page.scrollTop = readingOffsets[i];
     });
     snapshotCache = new Map();
+    resetStyles = true;
+    authoredProperties = undefined;
     active = -1;
     root.style.minHeight = previousMinHeight;
   };
   const buildSheet = (index: number, outgoing = index - 1) => {
     stage.querySelector(".paper-joint")?.remove();
+    if (resetStyles) {
+      frozenClasses.clear();
+      snapshotStyles.textContent = "";
+      resetStyles = false;
+    }
     strips = [];
     width = sizes[outgoing].width;
     stageLeft = sizes[outgoing].left;
@@ -249,10 +416,19 @@ export function createBookStage() {
         const face = document.createElement("div");
         face.className = `paper-strip ${back ? "paper-verso" : "paper-recto"}`;
         const sourceIndex = back ? index : outgoing;
-        const copy = snapshot(pages[sourceIndex]).cloneNode(
-          true,
+        const offset = back
+          ? leafWidth - (i + 1) * stripWidth
+          : (mobile ? 0 : leafWidth) + i * stripWidth;
+        const copy = slice(
+          snapshot(pages[sourceIndex]),
+          stageLeft + offset - 4,
+          stageLeft + offset + stripWidth + 4,
         ) as HTMLElement;
-        copy.style.left = `${sizes[sourceIndex].left - stageLeft + (back ? -(leafWidth - (i + 1) * stripWidth) : -(mobile ? 0 : leafWidth) - i * stripWidth)}px`;
+        copy.style.setProperty(
+          "left",
+          `${sizes[sourceIndex].left - stageLeft + (back ? -(leafWidth - (i + 1) * stripWidth) : -(mobile ? 0 : leafWidth) - i * stripWidth)}px`,
+          "important",
+        );
         face.append(copy);
         const light = document.createElement("div");
         light.className = "paper-light";
@@ -293,7 +469,9 @@ export function createBookStage() {
       page.style.visibility = visible ? "visible" : "hidden";
       page.inert = i !== current;
       page.style.zIndex = i === current ? "12" : "11";
-      page.style.overflow = "clip";
+      // Hidden allows controlled reading scroll only for genuinely oversized
+      // pages; normal fitted spreads retain the existing clipped, fixed stage.
+      page.style.overflow = overflowing[i] ? "hidden" : "clip";
       // A physical leaf has outgoing recto and incoming verso. The other two
       // halves remain flat underneath; no fading or translating spread layers.
       page.style.clipPath =
@@ -314,10 +492,6 @@ export function createBookStage() {
         document.fonts.status === "loaded"
       ) {
         const prepare = () => {
-          if (document.querySelector('[data-signature="writing"]')) {
-            warmTimer = window.setTimeout(prepare, 100);
-            return;
-          }
           warmTimer = 0;
           buildSheet(incoming);
         };
@@ -396,6 +570,7 @@ export function createBookStage() {
       restoreReading();
       clearTimeout(warmTimer);
       stage.remove();
+      snapshotStyles.remove();
       runway.remove();
       heads.forEach((head) => {
         head.classList.remove("book-fixed-head");

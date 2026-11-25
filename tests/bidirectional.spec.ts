@@ -57,6 +57,17 @@ for (const input of ["wheel", "trackpad"]) {
           0,
           deltas[step % deltas.length] * (direction ? -1 : 1),
         );
+        // A gesture now completes a leaf. Inspect the actual intermediate
+        // rotation, then its settled endpoint, rather than requiring partial
+        // wheel-distance leftovers between gestures.
+        await page.waitForFunction(() => {
+          const p = Number(
+            document.querySelector<HTMLElement>(".physical-turn")?.dataset
+              .progress,
+          );
+          return p > 0.001 && p < 0.999;
+        });
+        await inspect(direction);
         await frame();
         const state = await inspect(direction);
         if (

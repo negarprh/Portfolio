@@ -1,5 +1,23 @@
 # The Book: decisions and implementation record
 
+## 2026-11-24: keep the swipe instruction readable on the phone cover
+
+The timed phone annotation was easy to miss and its visit flag suppressed it on reload. Use the existing subtitle beneath “Open the book” for the full swipe instruction. It appears immediately and stays available while the cover is open.
+
+## 2026-11-14: a subtle phone navigation message
+
+Negar approved desktop navigation and requested a subtle message explaining phone scrolling. Replace the temporary finger demonstration with the text-only “Swipe up to turn the page” in regular muted 12px Manrope above the opening link. Retain the short appearance, fade, dismissal and reduced-motion behavior. Give phone guidance its own visit key so a desktop visit does not suppress the first phone message, including responsive preview changes. Keep the desktop indicator and turn controllers unchanged. This supersedes the illustrated phone hint from 2026-11-13.
+
+## 2026-11-13: desktop smoothness follow-up
+
+Negar rejected the desktop result as visibly jumpy despite the behavior suite passing. Inspect rendered frames and main-thread work rather than treating endpoint tests as smoothness evidence. The renderer duplicated full computed declarations through all 24 strip faces, producing a roughly 33MB prepared sheet and long freezes in the local software-rendered trace. Preserve the same articulated sheet, but share frozen CSS and clip its DOM ink to the strip; retain layout, inline/baseline behavior, visibility and material continuity. Lower desktop intent to 4 normalized pixels so gentle input responds, recognize renewed gradual ramps above an old tail, reject coalesced momentum bumps, and prevent diagonal/noncancelable native scrolling from bypassing the timeline. Keep the 520ms horizontal turn; do not solve this regression by restoring distance-based partial scrolling or adding long animation cooldowns. Add desktop frame/workload and input-bypass checks, and report simulated-renderer evidence without claiming flawless physical-device performance.
+
+## 2026-11-13: recognize gestures, complete one physical leaf
+
+Negar requested prompt one-gesture/one-spread navigation while preserving the horizontal articulated book. Replace proportional 75% wheel travel with independent gesture recognition and a complete adjacent-stop turn; suppress sustained input and momentum beyond animation completion. Use responsive-frame silence, deliberate reversal and renewed acceleration to recognize intent without an animation cooldown. Frame silence excludes main-thread stalls caused by sheet preparation. Keep the existing renderer, 3D geometry, shadows and native navigation fallbacks. Shorten the shared pace to 520ms, phone drag to 0.55 viewports and release to 180–520ms; extend controlled vertical swipes to larger coarse-pointer touchscreens. Remap reading positions on changed viewport geometry. Add temporary two-demonstration editorial guidance above the opening link, retire it on navigation/expiry for the tab visit, and show a static version for reduced motion. This supersedes the 2026-10-27 distance/gain and pacing contract, without introducing vertical slides, snapping or a replacement turn engine.
+
+Keep existing measured fitting for normal reading spreads. Exceptionally oversized content consumes the whole gesture for reading before a fresh gesture can navigate at its edge; do not let reaching that edge spill into a turn. Recontact or native interruption inside a long runway must finish/retrace the current leaf instead of choosing a later stop by raw distance. Compact the same cover elements at short landscape heights so the opening link and gesture annotation stay visible.
+
 ## 2026-11-12: Stay22 role hierarchy and a rocket pen study
 
 Negar supplied the Integrations team and requested the same left-page structure as Tail’ed, Lienzo and Ozex: dates, company, role and team, without metrics or detailed accomplishments. Replace the typography-only company imprint with an original inline SVG rocket pointing upper-right, with fine exhaust trailing lower-left. Use the existing green/brass pen language, mechanical details and sparse hatching; no background, frame, labels or scenery. Keep the existing two-page geometry and stock, and stack the complete drawing below the heading on phones. This supersedes the earlier imprint and no-illustration direction. Stay22's date uses the explicitly supplied en dash; other existing date typography remains unchanged.

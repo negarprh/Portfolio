@@ -22,6 +22,7 @@ test("phone reading input scrolls the document and reverse sheet text stays hidd
   await page.mouse.move(190, 400);
   await page.mouse.wheel(0, 300);
   await expect.poll(() => page.evaluate(() => scrollY)).toBeGreaterThan(top);
+  await settleBook(page);
   expect(
     await page.locator("#introduction").evaluate((el) => el.scrollTop),
   ).toBe(0);
@@ -30,18 +31,26 @@ test("phone reading input scrolls the document and reverse sheet text stays hidd
       .locator("#introduction")
       .evaluate((el) => el.getBoundingClientRect().top),
   ).toBe(0);
-  // After crossing the phone's left hinge, the sheet must not paint reverse
-  // text over the incoming page. Compare actual pixels with that sheet hidden.
+  // After the articulated first joint crosses the left hinge, the sheet must
+  // not paint reverse text over incoming ink. At 60% its mobile flex still
+  // leaves a narrow physical edge on the right; 72% is beyond the actual hinge.
   await page.locator("#introduction").evaluate((el) => {
     el.scrollTop = 0;
   });
-  await page.evaluate((y) => scrollTo(0, y), top - 844 * 0.85 * 0.4);
+  await page.evaluate((y) => scrollTo(0, y), top - 844 * 0.85 * 0.28);
   await settleBook(page);
+  // Isolate sheet ink from the intentionally retained contact/cast shadows,
+  // which reach the first few pixels of the paragraph even past the hinge.
+  await page.locator(".physical-turn > .turn-shadow").evaluateAll((nodes) => {
+    nodes.forEach(
+      (node) => ((node as HTMLElement).style.visibility = "hidden"),
+    );
+  });
   const paragraph = page.locator("#introduction .body-copy").first();
   const withSheet = await paragraph.screenshot();
   await page.locator(".physical-turn").evaluate((el) => {
     el.style.visibility = "hidden";
   });
-  expect(await paragraph.screenshot()).toEqual(withSheet);
+  expect((await paragraph.screenshot()).equals(withSheet)).toBe(true);
   await context.close();
 });

@@ -1,4 +1,5 @@
 import { test, expect } from "@playwright/test";
+import { settleBook } from "./motion-helpers";
 
 test("three adjacent chapters are identifiable with every animation stopped", async ({
   page,
@@ -53,7 +54,7 @@ test("three adjacent chapters are identifiable with every animation stopped", as
   expect(new Set(papers).size).toBe(3);
 });
 
-test("a fast wheel scroll is slowed while keeping the full chapter title readable", async ({
+test("one wheel gesture turns the chapter divider horizontally into its reading spread", async ({
   page,
 }) => {
   await page.setViewportSize({ width: 1440, height: 1000 });
@@ -64,23 +65,30 @@ test("a fast wheel scroll is slowed while keeping the full chapter title readabl
   );
   await page.evaluate(() => document.fonts.ready);
   await page
-    .locator("#work .chapter-opening")
+    .locator("#work .divider")
     .evaluate((el) =>
       (el as HTMLElement).dataset.bookTop
         ? scrollTo(0, Number((el as HTMLElement).dataset.bookTop))
         : el.scrollIntoView({ behavior: "instant" }),
     );
-  const before = await page.evaluate(() => scrollY);
-  await page.mouse.wheel(0, 600);
-  await expect
-    .poll(() => page.evaluate(() => scrollY))
-    .toBeGreaterThan(before + 300);
-  expect(await page.evaluate(() => scrollY)).toBeLessThan(before + 550);
-  await expect(page.locator("#work .divider h2")).toBeInViewport();
+  await settleBook(page);
+  await page.mouse.wheel(0, 100);
+  await page.waitForFunction(() => {
+    const p = Number(
+      document.querySelector<HTMLElement>(".physical-turn")?.dataset.progress,
+    );
+    return p > 0.05 && p < 0.95;
+  });
+  await expect(page.locator(".physical-turn")).toBeVisible();
+  await expect(page.locator(".paper-recto h2").first()).toHaveText("Projects");
   const divider = await page.locator("#work .divider").boundingBox();
   expect(Math.abs(divider!.y)).toBeLessThan(3);
-  await expect(page.locator(".flagship")).toBeHidden();
   await expect(page.locator("#experience .chapter-running-label")).toBeHidden();
+  await settleBook(page);
+  await expect(page.locator(".flagship")).toHaveAttribute(
+    "data-page-active",
+    "true",
+  );
 });
 
 test("reduced motion retains the flat unpinned layout", async ({ page }) => {

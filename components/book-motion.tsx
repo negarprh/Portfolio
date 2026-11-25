@@ -109,7 +109,8 @@ export function BookMotion() {
     const phoneEnabled = () =>
       !!stage &&
       !preference.matches &&
-      window.matchMedia("(max-width: 700px)").matches;
+      (window.matchMedia("(max-width: 700px)").matches ||
+        window.matchMedia("(any-pointer: coarse)").matches);
     const phoneTurns = createPhoneTurns({
       enabled: phoneEnabled,
       stops: () => stage?.stops() ?? [],
@@ -138,6 +139,7 @@ export function BookMotion() {
     const wheelTurns = createWheelTurns({
       enabled: () => !!stage && !preference.matches,
       position: () => renderedY,
+      stops: () => stage?.stops() ?? [],
       travel: () => stage?.travel() ?? innerHeight * 0.85,
       seek: (top) => {
         window.scrollTo({ top, behavior: "instant" });
@@ -175,6 +177,8 @@ export function BookMotion() {
     const clamp = (value: number) => Math.max(0, Math.min(1, value));
     const measure = () => {
       if (preference.matches) return;
+      const oldStops = stage?.stops() ?? [];
+      const oldPosition = window.scrollY;
       coverHeight = cover?.offsetHeight || window.innerHeight;
       bookLength = Math.max(
         1,
@@ -183,6 +187,30 @@ export function BookMotion() {
           window.innerHeight,
       );
       stage?.measure();
+      const newStops = stage?.stops() ?? [];
+      if (
+        !indexTurns.active() &&
+        oldStops.some((top, i) => top !== newStops[i])
+      ) {
+        phoneTurns.cancel();
+        wheelTurns.cancel();
+        // Keep the same reading position through rotation/browser-height
+        // changes instead of interpreting old pixels as a different chapter.
+        const index = Math.max(
+          0,
+          oldStops.findLastIndex((top) => top <= oldPosition + 1),
+        );
+        const span = (oldStops[index + 1] ?? oldStops[index]) - oldStops[index];
+        const progress = span
+          ? clamp((oldPosition - oldStops[index]) / span)
+          : 0;
+        const top =
+          newStops[index] +
+          progress *
+            ((newStops[index + 1] ?? newStops[index]) - newStops[index]);
+        window.scrollTo({ top, behavior: "instant" });
+        renderedY = window.scrollY;
+      }
       backTop =
         (backCover && stage?.top(backCover)) ||
         (backCover?.getBoundingClientRect().top || 0) + window.scrollY;

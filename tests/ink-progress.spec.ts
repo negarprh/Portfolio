@@ -38,8 +38,14 @@ for (const width of [1440, 390]) {
           pageTransforms: pages.map((el) => getComputedStyle(el).transform),
           ids: stage.querySelectorAll("[id]").length,
           inert: stage.inert,
-          front: stage.querySelector(".paper-recto")?.textContent,
-          back: stage.querySelector(".paper-verso")?.textContent,
+          front: Array.from(
+            stage.querySelectorAll(".paper-recto"),
+            (face) => face.textContent,
+          ).join(" "),
+          back: Array.from(
+            stage.querySelectorAll(".paper-verso"),
+            (face) => face.textContent,
+          ).join(" "),
         };
       });
       expect(state.bounds.length).toBe(p === 1 ? 1 : 2);
@@ -53,9 +59,11 @@ for (const width of [1440, 390]) {
       expect(state.inert).toBe(true);
       if (p !== 1) {
         expect(state.front).toContain(
-          "I’m a software developer based in Montréal.",
+          width > 700
+            ? "Backend / Full-Stack Developer"
+            : "I’m a software developer based in Montréal.",
         );
-        expect(state.back).toContain("Experience");
+        expect(state.back).toContain(width > 700 ? "II" : "Experience");
         expect(new Set(state.transforms).size).toBeGreaterThan(1);
         if (states.has(p)) expect(state.transforms).toEqual(states.get(p));
         states.set(p, state.transforms);

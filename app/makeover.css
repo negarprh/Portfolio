@@ -491,6 +491,7 @@
   justify-self: end;
 }
 .cover-bottom .open-book {
+  position: relative;
   gap: 18px;
   min-height: 52px;
   padding: 4px 8px;
@@ -511,11 +512,157 @@
   line-height: 1.5;
   letter-spacing: 0.04em;
 }
+.open-book-hint > span {
+  font: inherit;
+  color: inherit;
+}
+.open-book-hint > .opening-mobile-copy {
+  display: none;
+}
+@media (max-width: 700px), (pointer: coarse) {
+  .open-book-hint > .opening-desktop-copy {
+    display: none;
+  }
+  .open-book-hint > .opening-mobile-copy {
+    display: inline;
+    color: #d6d5c6;
+    font:
+      400 13px/1.5 Body,
+      Arial,
+      sans-serif;
+    letter-spacing: 0.015em;
+  }
+}
 .open-book-cue {
   width: 20px;
   height: 32px;
   color: var(--accent);
   flex: none;
+}
+/* A temporary editorial margin note, outside the link's unchanged layout. */
+.open-book .navigation-hint {
+  position: absolute;
+  bottom: calc(100% + 16px);
+  left: 50%;
+  width: max-content;
+  max-width: calc(
+    100vw - 48px - env(safe-area-inset-left) - env(safe-area-inset-right)
+  );
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--paper);
+  font:
+    italic 15px/1.4 Editorial,
+    Georgia,
+    serif;
+  letter-spacing: 0;
+  text-transform: none;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateX(-50%);
+  pointer-events: none;
+}
+.open-book .navigation-hint > span {
+  font-size: inherit;
+  color: inherit;
+}
+.navigation-hint > svg {
+  flex: none;
+  width: 25px;
+  height: 42px;
+  color: var(--accent);
+}
+.navigation-hint[data-visible] {
+  visibility: visible;
+  animation: guidance-arrival 4.6s ease both;
+}
+.navigation-hint[data-visible] .gesture-scroll {
+  animation: guidance-scroll 1.4s ease-in-out 0.35s 2 both;
+}
+@keyframes guidance-arrival {
+  0%,
+  100% {
+    opacity: 0;
+  }
+  12%,
+  82% {
+    opacity: 1;
+  }
+}
+@keyframes guidance-scroll {
+  0%,
+  100% {
+    transform: translateY(0);
+    opacity: 0.4;
+  }
+  60% {
+    transform: translateY(7px);
+    opacity: 1;
+  }
+}
+@media (max-width: 700px), (pointer: coarse) {
+  .open-book .navigation-hint {
+    display: none;
+  }
+}
+@media (max-height: 450px) {
+  .cover .cover-content {
+    padding-top: max(16px, env(safe-area-inset-top));
+    padding-bottom: max(16px, env(safe-area-inset-bottom));
+  }
+  .cover .cover-heading {
+    padding: 64px 0 52px;
+    min-height: 0;
+  }
+  .cover h1 {
+    font-size: clamp(52px, 17svh, 76px);
+  }
+  .cover .cover-heading .eyebrow {
+    margin-bottom: 12px;
+  }
+  .cover .cover-role {
+    margin-top: 14px;
+    font-size: 10px;
+  }
+  .cover .cover-top {
+    top: 66px;
+    font-size: 8px;
+  }
+  .cover .cover-seal {
+    top: 14px;
+    width: 40px;
+    height: 40px;
+    left: calc(50% - 20px);
+  }
+  .cover .cover-seal .seal-monogram {
+    font-size: 16px;
+  }
+  .cover .cover-spine {
+    font-size: 7px;
+    letter-spacing: 0.16em;
+  }
+  .cover .cover-bottom {
+    padding-top: 0;
+  }
+  .open-book .navigation-hint {
+    bottom: calc(100% + 4px);
+    font-size: 12px;
+    gap: 6px;
+  }
+  .navigation-hint > svg {
+    height: 30px;
+    width: 24px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .navigation-hint[data-visible],
+  .navigation-hint[data-visible] .gesture-scroll {
+    animation: none;
+  }
+  .navigation-hint[data-visible] {
+    opacity: 1;
+  }
 }
 .open-book:is(:hover, :focus-visible) .open-book-title {
   text-decoration: underline;
@@ -613,7 +760,8 @@ html[data-book-enhanced] .back-cover > .turn-shadow {
     color: #b5b5a7;
   }
   .cover-content {
-    padding-inline: 30px;
+    padding-left: max(30px, env(safe-area-inset-left));
+    padding-right: max(30px, env(safe-area-inset-right));
   }
   .cover .cover-seal,
   .back-cover .cover-seal {
@@ -1141,6 +1289,9 @@ html[data-book-enhanced] .back-cover .sheet-back {
 }
 
 /* Scroll runways retain document destinations; only the articulated leaf moves. */
+html[data-book-enhanced] {
+  overflow-anchor: none;
+}
 @media (min-width: 1600px) {
   html {
     --wide-book-width: min(calc(100vw - 112px), max(1240px, min(80vw, 180dvh)));
@@ -1254,6 +1405,11 @@ html[data-book-enhanced] #work .project-image img {
 }
 
 /* A phone leaf is a complete reading unit, never a nested scroll container. */
+@media (any-pointer: coarse) {
+  html[data-book-enhanced] .book-fixed-page {
+    touch-action: pan-x pinch-zoom;
+  }
+}
 @media (max-width: 700px) {
   .physical-turn {
     perspective: 1100px;
